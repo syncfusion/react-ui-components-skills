@@ -9,10 +9,9 @@ description: 'Globalization in React TreeGrid - internationalization (i18n), loc
 - [Internationalization (i18n)](#internationalization)
 - [Localization (l10n)](#localization)
 - [RTL Support](#rtl-support)
-- [Date Formatting](#date-formatting)
-- [Number Formatting](#number-formatting)
-- [Custom Locales](#custom-locales)
 - [Date and Number Formatting](#date-and-number-formatting)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Internationalization
 

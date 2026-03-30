@@ -10,10 +10,8 @@ description: 'Aggregates in React TreeGrid - standard aggregates (Sum, Avg, Min,
 - [Custom Aggregates](#custom-aggregates)
 - [Footer Aggregates](#footer-aggregates)
 - [Group Aggregates](#group-aggregates)
-- [Aggregate Events](#aggregate-events)
+- [Key APIs](#key-apis)
 - [Common Patterns](#common-patterns)
-- [Footer Aggregates](#footer-aggregates)
-- [Group Aggregates](#group-aggregates)
 
 ## Overview
 

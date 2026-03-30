@@ -14,6 +14,8 @@ description: 'Editing in React TreeGrid - five editing modes (cell, row, dialog,
 - [Batch Editing](#batch-editing)
 - [Template Editing](#template-editing)
 - [Validation](#validation)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## CRUD & Editing Rules
 

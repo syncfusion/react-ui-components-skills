@@ -7,10 +7,10 @@ description: 'Context Menu in React TreeGrid - built-in context menu items, cust
 
 ## Table of Contents
 - [Built-in Context Menu](#built-in-context-menu)
-- [Custom Menu Items](#custom-menu-items)
+- [Custom Context Menu Items](#custom-context-menu-items)
 - [Header Context Menu](#header-context-menu)
-- [Menu Events](#menu-events)
-- [Menu Customization](#menu-customization)
+- [Context Menu Events](#context-menu-events)
+- [Key APIs](#key-apis)
 - [Common Patterns](#common-patterns)
 
 ## Built-in Context Menu
@@ -42,7 +42,7 @@ export default function App() {
 }
 ```
 
-## Custom Context Menu
+## Custom Context Menu Items
 
 Add custom menu items:
 

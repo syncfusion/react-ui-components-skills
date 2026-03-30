@@ -23,7 +23,7 @@ import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar } fr
 function FileManagerInDialogExample() {
   const dialogRef = useRef(null);
   const fileManagerRef = useRef(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   const handleOpenDialog = () => {
     dialogRef.current?.show?.();
@@ -86,7 +86,7 @@ function FileSelectorDialogExample() {
   const fileManagerRef = useRef(null);
   const uploaderRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
   const animationSettings = { effect: 'None' };
 
   const handleFileOpen = (args) => {
@@ -186,7 +186,7 @@ import { TabComponent, TabItemsDirective, TabItemDirective } from '@syncfusion/e
 import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar } from '@syncfusion/ej2-react-filemanager';
 
 function FileManagerInTabExample() {
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   return (
     <div className="control-section">
@@ -230,7 +230,7 @@ import { SplitterComponent, SplitterItemsDirective, SplitterItemDirective } from
 import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar } from '@syncfusion/ej2-react-filemanager';
 
 function FileManagerInSplitterExample() {
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   return (
     <div className="control-section">
@@ -280,7 +280,7 @@ import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 
 function FileManagerInModalExample() {
   const fileManagerRef = useRef(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   const handleOpenModal = () => {
     const modal = document.getElementById('fileManagerModal');
@@ -398,7 +398,7 @@ import { TreeViewComponent } from '@syncfusion/ej2-react-navigations';
 function AdvancedNestedLayoutExample() {
   const fileManagerRef = useRef(null);
   const [selectedFile, setSelectedFile] = useState(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   const handleFileSelect = (args) => {
     const selectedItems = fileManagerRef.current?.getSelectedFiles?.();

@@ -8,6 +8,8 @@
 - [Command Events](#command-events)
 - [Conditional Commands](#conditional-commands)
 - [Styling Commands](#styling-commands)
+- [Complete Example](#complete-example)
+- [Best Practives](#best-practices)
 
 ## Overview
 

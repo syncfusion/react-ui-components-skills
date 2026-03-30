@@ -351,7 +351,7 @@ rteRef.current?.executeCommand('insertLink', {
 
 // Insert an image
 rteRef.current?.executeCommand('insertImage', {
-  url: 'https://example.com/image.jpg',
+  url: 'url',
   altText: 'Example image',
   width: { width: '300px' },
   height: { height: 'auto' },

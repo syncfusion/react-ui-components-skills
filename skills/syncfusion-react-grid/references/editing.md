@@ -396,12 +396,12 @@ import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 
 function GridWithRemoteEditing() {
   const data = new DataManager({
-    url: 'https://api.example.com/orders',
+    url: 'url',
     adaptor: new UrlAdaptor(),
-    insertUrl: 'https://api.example.com/orders',
-    updateUrl: 'https://api.example.com/orders',
-    removeUrl: 'https://api.example.com/orders',
-    batchUrl: 'https://api.example.com/orders/batch'
+    insertUrl: 'url',
+    updateUrl: 'url',
+    removeUrl: 'url',
+    batchUrl: 'url/batch'
   });
 
   return (
@@ -503,6 +503,8 @@ const dateTemplate = (props) => {
 
 ### Grid State Persistence with Editing
 
+> 🔒 **Security Warning:** `localStorage` and `sessionStorage` store data **unencrypted** in the browser. **Never store sensitive data** (passwords, tokens, PII, payment info, user secrets, authentication credentials) in persisted TreeGrid state. State persistence is safe for **UI state only** (expand/collapse state, page number, sort order, column visibility, filter selections). For sensitive configuration or user data, use secure server-side session storage instead.
+
 Save and restore grid state including edited changes:
 
 ```tsx
@@ -586,10 +588,10 @@ const editSettings = {
 };
 
 const dataManager = new DataManager({
-  url: '/api/orders',
-  updateUrl: '/api/orders',
-  insertUrl: '/api/orders',
-  removeUrl: '/api/orders'
+  url: 'url',
+  updateUrl: 'url',
+  insertUrl: 'url',
+  removeUrl: 'url'
 });
 
 <GridComponent

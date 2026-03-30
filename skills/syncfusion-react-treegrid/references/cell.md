@@ -11,6 +11,7 @@ description: 'Cell Operations in React TreeGrid - cell editing, cell templates, 
 - [Cell Styling](#cell-styling)
 - [Cell Selection](#cell-selection)
 - [Cell Formatting](#cell-formatting)
+- [Key APIs](#key-apis)
 - [Common Patterns](#common-patterns)
 
 ## Cell Editing

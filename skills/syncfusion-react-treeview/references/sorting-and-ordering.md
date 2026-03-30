@@ -293,7 +293,7 @@ const result = data.executeLocal(query);
 import { DataManager, WebApiAdaptor, Query } from '@syncfusion/ej2-data';
 
 const data = new DataManager({
-  url: 'https://api.example.com/nodes',
+  url: 'url',
   adaptor: new WebApiAdaptor()
 });
 

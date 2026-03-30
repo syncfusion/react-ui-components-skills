@@ -6,14 +6,13 @@ description: 'Styling and Appearance in React TreeGrid - five built-in themes, C
 # Styling and Appearance
 
 ## Table of Contents
+- [Themes](#themes)
 - [Built-in Themes](#built-in-themes)
 - [CSS Customization](#css-customization)
-- [CSS Variables](#css-variables)
-- [Dark Mode](#dark-mode)
-- [Row and Cell Styling](#row-and-cell-styling)
-- [Accessibility](#accessibility)
 - [Component Styling](#component-styling)
 - [Row and Cell Styling](#row-and-cell-styling)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Themes
 
@@ -50,6 +49,15 @@ export default function App() {
   );
 }
 ```
+
+## Built-in Themes
+
+- `Material` - Google Material Design
+- `Bootstrap` - Bootstrap 4
+- `Bootstrap5` - Bootstrap 5
+- `Fluent` - Microsoft Fluent Design
+- `Tailwind` - Tailwind CSS
+
 
 ## CSS Customization
 
@@ -95,36 +103,6 @@ export default function App() {
 .custom-treegrid .e-row:hover {
   background-color: #e9ecef;
 }
-```
-
-## CSS Variables
-
-Customize with CSS variables:
-
-```tsx
-const styles = `
-  :root {
-    --primary-color: #007bff;
-    --header-bg: var(--primary-color);
-    --header-text: white;
-    --row-hover: #e9ecef;
-  }
-
-  .e-treegrid {
-    --e-primary: var(--primary-color);
-  }
-
-  .e-treegrid .e-headercell {
-    background-color: var(--header-bg);
-    color: var(--header-text);
-  }
-
-  .e-treegrid .e-row:hover {
-    background-color: var(--row-hover);
-  }
-`;
-
-document.head.innerHTML += `<style>${styles}</style>`;
 ```
 
 ## Component Styling
@@ -182,33 +160,6 @@ Dynamic row and cell styling:
 </TreeGridComponent>
 ```
 
-## Accessibility Colors
-
-Ensure color contrast for accessibility:
-
-```tsx
-const accessibleStyles = `
-  .e-treegrid .e-headercell {
-    background-color: #003366;  /* Dark blue for contrast */
-    color: #ffffff;             /* White text */
-  }
-
-  .e-treegrid .e-row {
-    color: #333333;             /* Dark text */
-  }
-
-  .e-treegrid .e-row:hover {
-    background-color: #cccccc;  /* Gray for contrast */
-  }
-
-  .e-treegrid .e-selectionbackground {
-    background-color: #0066cc;  /* Blue for selection */
-  }
-`;
-
-document.head.innerHTML += `<style>${accessibleStyles}</style>`;
-```
-
 ## Key APIs
 
 | Property/Event | Type | Description |
@@ -219,14 +170,6 @@ document.head.innerHTML += `<style>${accessibleStyles}</style>`;
 | `rowDataBound` | event | Style rows based on data |
 | `queryCellInfo` | event | Style cells dynamically |
 | `headerTemplate` | JSX | Custom header styling |
-
-## Built-in Themes
-
-- `Material` - Google Material Design
-- `Bootstrap` - Bootstrap 4
-- `Bootstrap5` - Bootstrap 5
-- `Fluent` - Microsoft Fluent Design
-- `Tailwind` - Tailwind CSS
 
 ## Common Patterns
 

@@ -7,11 +7,14 @@ description: 'Data Binding in React TreeGrid - local and remote data binding, ch
 
 ## Table of Contents
 - [Data Binding Approaches](#data-binding-approaches)
-- [Self-Referential with childMapping](#self-referential-with-childmapping)
+- [Hierarchical Data with childMapping](#hierarchical-data-with-childmapping)
 - [Flat Data with parentID](#flat-data-with-parentid)
 - [Remote Data Binding](#remote-data-binding)
 - [ExpandStateMapping](#expandstatemapping)
 - [Dynamic Data Loading](#dynamic-data-loading)
+- [Complex Data Binding](#complex-data-binding)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Data Binding Approaches
 
@@ -105,7 +108,7 @@ const hierarchicalData = [
 - `childMapping="Children"`: Property name containing child records
 - `treeColumnIndex={1}`: Column index to show tree (expand/collapse arrows)
 
-## Self-Referential Data with parentID
+## Flat Data with parentID
 
 Bind flat arrays by mapping a foreign key (parentID) to identify parent-child relationships:
 
@@ -144,7 +147,7 @@ import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 
 export default function App() {
   const dataManager = new DataManager({
-    url: 'https://ej2services.syncfusion.com/production/api/treegriddata',
+    url: 'url',
     adaptor: new UrlAdaptor(),
     offline: false  // Set true to cache response locally
   });
@@ -224,39 +227,6 @@ const addRow = (parentData, newChildRecord) => {
 
 ---
 
-## Key APIs
-
-| Property/Method | Type | Description |
-|---|---|---|
-| `dataSource` | array \| DataManager | Data array or remote source |
-| `childMapping` | string | Property containing child records |
-| `idMapping` | string | Unique identifier (for parentID binding) |
-| `parentIdMapping` | string | Foreign key to parent ID |
-| `treeColumnIndex` | number | Column showing tree structure |
-| `expandByDefault` | string | Property controlling expand/collapse state |
-| `refresh` | method | Refresh grid with updated data |
-| `expanding` | event | Fired before parent expands |
-| `expanded` | event | Fired after parent expands |
-| `collapsing` | event | Fired before parent collapses |
-
-## Common Patterns
-
-1. **Nested Hierarchy**: Use childMapping for naturally nested data structures
-2. **Flat Normalization**: Use parentID mapping for flattened hierarchical data
-3. **Dynamic Updates**: Refresh data after add/edit/delete operations
-4. **Initial State**: Use expandByDefault to show expanded hierarchy on load
-];
-
-<TreeGridComponent
-  dataSource={data}
-  childMapping="Children"
-  expandStateMapping="expandState"
-  treeColumnIndex={1}
-/>
-```
-
-**Use Case**: Restore saved expand state or pre-expand specific hierarchy levels on load.
-
 ## Complex Data Binding
 
 For nested objects and complex property mapping:
@@ -296,20 +266,45 @@ const data = [
 
 **Note**: Use dot notation for nested properties (e.g., `info.TaskName`)
 
+
 ## Key APIs
 
-| Property | Type | Description |
-|----------|------|-------------|
-| `dataSource` | Object/Array/DataManager | Data to bind to TreeGrid |
-| `childMapping` | string | Property name containing child records (nested approach) |
-| `idMapping` | string | Unique identifier column (flat approach with parentID) |
-| `parentIdMapping` | string | Foreign key column linking to parent (flat approach) |
-| `expandStateMapping` | string | Property for initial expand state |
-| `treeColumnIndex` | number | Column index for expand/collapse icons (default: 0) |
+| Property/Method | Type | Description |
+|---|---|---|
+| `dataSource` | array \| DataManager | Data array or remote source |
+| `childMapping` | string | Property containing child records |
+| `idMapping` | string | Unique identifier (for parentID binding) |
+| `parentIdMapping` | string | Foreign key to parent ID |
+| `treeColumnIndex` | number | Column showing tree structure |
+| `expandByDefault` | string | Property controlling expand/collapse state |
+| `refresh` | method | Refresh grid with updated data |
+| `expanding` | event | Fired before parent expands |
+| `expanded` | event | Fired after parent expands |
+| `collapsing` | event | Fired before parent collapses |
 
 ## Common Patterns
 
-1. **Fetch and Bind**: Use async/await with fetch and update dataSource state
-2. **Live Updates**: Update data state to reflect changes in real-time
-3. **Filtered Data**: Pre-process data to filter records before binding
+1. **Nested Hierarchy**: Use childMapping for naturally nested data structures
+2. **Flat Normalization**: Use parentID mapping for flattened hierarchical data
+3. **Dynamic Updates**: Refresh data after add/edit/delete operations
+4. **Initial State**: Use expandByDefault to show expanded hierarchy on load
+```tsx
+const data = [
+  {
+    TaskID: 1,
+    info: {
+      TaskName: 'Planning',
+      Category: 'Development'
+    },
+  }
+];
 
+<TreeGridComponent
+  dataSource={data}
+  childMapping="Children"
+  expandStateMapping="expandState"
+  treeColumnIndex={1}
+/>
+```
+
+**Use Case**: Restore saved expand state or pre-expand specific hierarchy levels on load.

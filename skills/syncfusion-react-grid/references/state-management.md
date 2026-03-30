@@ -43,6 +43,8 @@ State management allows persisting grid configuration like column order, width, 
 
 Use `getPersistData()` to get the current grid state as a JSON string, and `setProperties()` to restore it.
 
+> 🔒 **Security Warning:** `localStorage` and `sessionStorage` store data **unencrypted** in the browser. **Never store sensitive data** (passwords, tokens, PII, payment info, user secrets, authentication credentials) in persisted TreeGrid state. State persistence is safe for **UI state only** (expand/collapse state, page number, sort order, column visibility, filter selections). For sensitive configuration or user data, use secure server-side session storage instead.
+
 ```tsx
 import React from 'react';
 import { GridComponent, ColumnsDirective, ColumnDirective, Inject, Page, Sort, Filter, Group, Edit, Toolbar } from '@syncfusion/ej2-react-grids';
@@ -97,6 +99,8 @@ export default App;
 
 ### Get/Set localStorage Directly
 
+> 🔒 **Security Warning:** `localStorage` and `sessionStorage` store data **unencrypted** in the browser. **Never store sensitive data** (passwords, tokens, PII, payment info, user secrets, authentication credentials) in persisted TreeGrid state. State persistence is safe for **UI state only** (expand/collapse state, page number, sort order, column visibility, filter selections). For sensitive configuration or user data, use secure server-side session storage instead.
+
 ```tsx
 // Get the persisted grid model
 const value = window.localStorage.getItem('gridOrders'); // "grid" + component id
@@ -131,6 +135,8 @@ const actionBegin = () => {
 ## Restore Initial Grid State
 
 ### By Clearing localStorage
+
+> 🔒 **Security Warning:** `localStorage` and `sessionStorage` store data **unencrypted** in the browser. **Never store sensitive data** (passwords, tokens, PII, payment info, user secrets, authentication credentials) in persisted TreeGrid state. State persistence is safe for **UI state only** (expand/collapse state, page number, sort order, column visibility, filter selections). For sensitive configuration or user data, use secure server-side session storage instead.
 
 ```tsx
 const restoreToInitial = () => {
@@ -179,6 +185,8 @@ const dataBound = () => {
 ```
 
 ## Persist Column Template and Header Text
+
+> 🔒 **Security Warning:** `localStorage` and `sessionStorage` store data **unencrypted** in the browser. **Never store sensitive data** (passwords, tokens, PII, payment info, user secrets, authentication credentials) in persisted TreeGrid state. State persistence is safe for **UI state only** (expand/collapse state, page number, sort order, column visibility, filter selections). For sensitive configuration or user data, use secure server-side session storage instead.
 
 By default, `template`, `headerTemplate`, `headerText`, `formatter`, and `valueAccessor` are not persisted. To persist them, clone columns manually alongside `getPersistData()`:
 

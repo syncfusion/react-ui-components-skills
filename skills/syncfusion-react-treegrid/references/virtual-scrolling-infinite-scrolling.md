@@ -8,7 +8,6 @@ description: 'Virtual Scrolling and Infinite Scrolling in React TreeGrid - virtu
 ## Table of Contents
 - [Virtual Scrolling](#virtual-scrolling)
 - [Infinite Scrolling](#infinite-scrolling)
-- [Scroll Height](#scroll-height)
 - [Performance Tips](#performance-tips)
 - [Common Patterns](#common-patterns)
 
@@ -123,7 +122,7 @@ import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 
 export default function App() {
   const dataManager = new DataManager({
-    url: 'https://api.example.com/treegrid',
+    url: 'url',
     adaptor: new UrlAdaptor()
   });
 
@@ -160,7 +159,7 @@ import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 
 export default function App() {
   const dataManager = new DataManager({
-    url: 'https://api.example.com/treegrid',
+    url: 'url',
     adaptor: new UrlAdaptor()
   });
 

@@ -35,11 +35,23 @@ Import icon styles in your CSS file:
 
 ### Using CDN
 
-```html
-<link href="https://cdn.syncfusion.com/ej2/32.1.19/ej2-icons/styles/material3.css" rel="stylesheet"/>
+> **⚠️ Important:** The CDN version MUST match your installed npm package version to avoid style issues.
+
+**Find your installed version:**
+
+```bash
+npm list @syncfusion/ej2-icons
 ```
 
-**⚠️ Version matching is critical:** Replace `32.1.19` with your installed package version.
+**Use the matching CDN version:**
+
+```html
+<!-- Replace {VERSION} with your installed package version -->
+<link href="https://cdn.syncfusion.com/ej2/{VERSION}/ej2-icons/styles/material3.css" rel="stylesheet"/>
+
+<!-- Example: If your version is 33.1.44 -->
+<link href="https://cdn.syncfusion.com/ej2/33.1.44/ej2-icons/styles/material3.css" rel="stylesheet"/>
+```
 
 ## Using Icons
 

@@ -7,10 +7,13 @@ description: 'Command Column in React TreeGrid - built-in command buttons (Edit,
 
 ## Table of Contents
 - [Built-in Commands](#built-in-commands)
-- [Command Column Setup](#command-column-setup)
-- [Custom Commands](#custom-commands)
-- [Command Events](#command-events)
+- [Custom Commands Columns](#custom-commands-columns)
+- [Handle Command Actions Events](#handle-command-actions-events)
 - [Icon Customization](#icon-customization)
+- [Command Column with Template](#command-column-with-template)
+- [Built-in Command Types](#built-in-command-types)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Built-in Commands
 
@@ -58,7 +61,7 @@ export default function App() {
 }
 ```
 
-## Custom Commands
+## Custom Commands Columns
 
 Add custom action buttons:
 
@@ -83,7 +86,7 @@ Add custom action buttons:
 />
 ```
 
-## Handle Command Actions
+## Handle Command Actions Events
 
 Get command click events:
 

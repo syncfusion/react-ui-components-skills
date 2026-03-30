@@ -61,7 +61,7 @@ import { DataManager, ODataV4Adaptor } from '@syncfusion/ej2-data';
 
 const fields = {
   dataSource: new DataManager({
-    url: 'https://api.example.com/items',
+    url: 'url',
     adaptor: new ODataV4Adaptor
   }),
   value: 'id',
@@ -362,7 +362,7 @@ Query configuration for remote data fetching. Used with DataManager.
 import { DataManager, ODataV4Adaptor, Query } from '@syncfusion/ej2-data';
 
 const data = new DataManager({
-  url: 'https://services.odata.org/V4/Northwind/Northwind.svc',
+  url: 'url',
   adaptor: new ODataV4Adaptor,
   crossDomain: true
 });
@@ -384,7 +384,7 @@ Table or resource name for server-side queries.
 ```tsx
 const fields = {
   dataSource: new DataManager({
-    url: 'https://api.example.com',
+    url: 'url',
     adaptor: new UrlAdaptor
   }),
   tableName: 'Employees',  // Server resource name
@@ -401,7 +401,7 @@ For hierarchical data with children, specify field mapping for child level as we
 import { DataManager, ODataV4Adaptor, Query } from '@syncfusion/ej2-data';
 
 const remoteData = new DataManager({
-  url: 'https://services.odata.org/V4/Northwind/Northwind.svc',
+  url: 'url',
   adaptor: new ODataV4Adaptor,
   crossDomain: true
 });
@@ -508,7 +508,7 @@ const fields = {
 import { DataManager, ODataV4Adaptor, Query } from '@syncfusion/ej2-data';
 
 const remoteData = new DataManager({
-  url: 'https://api.example.com/data',
+  url: 'url',
   adaptor: new ODataV4Adaptor
 });
 

@@ -129,7 +129,7 @@ import { DataManager } from '@syncfusion/ej2-data';
     id: 'Id',
     parentId: 'ParentId',
     dataSource: new DataManager({
-      url: "https://services.syncfusion.com/react/production/api/RemoteData",
+      url: "[YOUR URL HERE]",
       crossDomain: true,
     }),
     doBinding: (nodeModel: NodeModel, data: any) => {

@@ -8,12 +8,13 @@ description: 'Paging in React TreeGrid - pageSizes, currentPage, programmatic na
 ## Table of Contents
 - [Enable Paging](#enable-paging)
 - [Page Configuration](#page-configuration)
-- [Pager Types](#pager-types)
-- [Programmatic Navigation](#programmatic-navigation)
-- [Custom Pager](#custom-pager)
-- [Server-side Paging](#server-side-paging)
+- [Pager Modes](#pager-modes)
+- [Programmatic Paging](#programmatic-paging)
+- [Pager Template](#pager-template)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
-## Basic Paging
+## Enable Paging
 
 Enable paging with default settings:
 
@@ -45,7 +46,7 @@ export default function App() {
 }
 ```
 
-## Pager Configuration
+## Page Configuration
 
 Configure paging behavior:
 
@@ -110,6 +111,35 @@ const goToPage = (pageNum) => {
 </TreeGridComponent>
 ```
 
+## Pager Template
+Customize pager UI:
+
+```tsx
+const pagerTemplate = (props) => {
+  return (
+    <div>
+      <span>Page {props.currentPage} of {props.totalPages}</span>
+      <button onClick={() => props.goToPage(1)}>First</button>
+      <button onClick={() => props.goToPage(props.currentPage - 1)} disabled={props.currentPage === 1}>Prev</button>
+      <button onClick={() => props.goToPage(props.currentPage + 1)} disabled={props.currentPage === props.totalPages}>Next</button>
+      <button onClick={() => props.goToPage(props.totalPages)}>Last</button>
+    </div>
+  );
+};
+<TreeGridComponent
+  dataSource={data}
+  childMapping="Children"
+  allowPaging={true}
+  pageSettings={{ pageSize: 10, pageCount: 5 }}
+  pagerTemplate={pagerTemplate}
+>
+  <ColumnsDirective>
+    <ColumnDirective field="TaskName" headerText="Task Name" width={160} />
+  </ColumnsDirective>
+  <Inject services={[Page]} />
+</TreeGridComponent>
+```
+
 ## Key APIs
 
 | Property/Method | Type | Description |
@@ -126,4 +156,3 @@ const goToPage = (pageNum) => {
 1. **Adaptive Page Size**: Adjust page size based on available space
 2. **Server-side Paging**: Implement server paging for large datasets
 3. **Custom Pager Items**: Add custom elements to pager
-

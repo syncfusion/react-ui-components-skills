@@ -375,7 +375,7 @@ const actionFailureTemplate = () => (
 <DropDownTreeComponent
   fields={{
     dataSource: new DataManager({
-      url: 'https://api.example.com/items',
+      url: 'url',
       adaptor: new ODataV4Adaptor()
     }),
     value: 'id',
@@ -479,7 +479,7 @@ function DropdownTreeWithRetry() {
       ref={treeRef}
       fields={{
         dataSource: new DataManager({
-          url: 'https://api.example.com/items',
+          url: 'url',
           adaptor: new ODataV4Adaptor()
         }),
         value: 'id',

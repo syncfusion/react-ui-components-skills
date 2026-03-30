@@ -1,10 +1,109 @@
 # Data Binding in PivotView
 
+## ⚠️ SECURITY NOTICE
+
+**CRITICAL**: This documentation contains examples for connecting to remote data sources. **Always use trusted, authenticated data sources only.** Never bind to untrusted URLs, user-provided endpoints, or public APIs without proper validation and security controls. See the [Security Best Practices](#security-best-practices) section below.
+
 ## Table of Contents
+- [Security Best Practices](#security-best-practices)
 - [JSON Data Binding](#json-data-binding)
 - [CSV Data Binding](#csv-data-binding)
 - [Remote Data Binding](#remote-data-binding)
 - [Field Mapping](#field-mapping)
+
+---
+
+## Security Best Practices
+
+### Critical Security Guidelines
+
+When implementing data binding for pivot tables, follow these essential security practices:
+
+#### 1. **Use Trusted Data Sources Only**
+
+✅ **RECOMMENDED**: Local in-memory data
+```typescript
+// Safe: Local data array
+const dataSourceSettings = {
+    dataSource: localDataArray,
+    rows: [{ name: 'Country' }],
+    values: [{ name: 'Amount', type: 'Sum' }]
+};
+```
+
+❌ **AVOID**: Untrusted remote endpoints
+```typescript
+// UNSAFE: Never use arbitrary or user-provided URLs
+url: userProvidedUrl  // Security risk!
+```
+
+#### 2. **Implement Authentication for Remote Sources**
+
+If you must use remote data, always use authenticated endpoints:
+
+```typescript
+import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
+
+// Use authenticated endpoints with proper headers
+const dataSource = new DataManager({
+    url: process.env.REACT_APP_API_ENDPOINT,  // Use environment variables
+    adaptor: new WebApiAdaptor(),
+    headers: [
+        { 'Authorization': `Bearer ${getAuthToken()}` },
+        { 'X-API-Key': process.env.REACT_APP_API_KEY }
+    ]
+});
+```
+
+#### 3. **Validate and Sanitize Data**
+
+Always validate data received from external sources:
+
+```typescript
+const fetchData = async () => {
+    const response = await fetch(trustedEndpoint, {
+        headers: { 'Authorization': `Bearer ${token}` }
+    });
+    const data = await response.json();
+    
+    // Validate data structure
+    if (!isValidDataStructure(data)) {
+        console.error('Invalid data structure received');
+        return;
+    }
+    
+    // Sanitize data before binding
+    const sanitizedData = sanitizeData(data);
+    setDataSourceSettings({ dataSource: sanitizedData });
+};
+```
+
+#### 4. **Use Environment Variables**
+
+Store API endpoints in environment files, never hardcode:
+
+```bash
+# .env
+REACT_APP_API_ENDPOINT=https://your-trusted-api.com/data
+REACT_APP_API_KEY=your-api-key
+```
+
+```typescript
+// Use in component
+const apiEndpoint = process.env.REACT_APP_API_ENDPOINT;
+```
+
+### Security Risks to Avoid
+
+| Risk | Description | Mitigation |
+|------|-------------|------------|
+| **Indirect Prompt Injection** | Malicious data manipulating AI behavior | Validate and sanitize all external data |
+| **Data Exfiltration** | Unauthorized access to sensitive data | Use authentication and authorization |
+| **SSRF Attacks** | Server-side request forgery via URLs | Whitelist allowed endpoints |
+| **XSS via Data** | Malicious scripts in data fields | Sanitize and escape all data |
+| **Credential Exposure** | API keys or tokens in code | Use environment variables |
+
+---
 
 ## JSON Data Binding
 
@@ -339,9 +438,13 @@ const dataSourceSettings: DataSourceSettingsModel = {
 
 ## Remote Data Binding
 
+⚠️ **SECURITY CRITICAL**: Remote data binding should only be used with trusted, authenticated services under your control. All examples below assume you are connecting to **your own authenticated backend services**.
+
 Remote data binding allows you to connect the Pivot Table to data sources hosted on remote servers through web services, databases, and other external sources.
 
 ### OData Service Binding
+
+⚠️ **Use only with trusted OData services that you control and authenticate.**
 
 OData (Open Data Protocol) provides a standard way to create and consume data APIs. Use DataManager with ODataAdaptor for OData v3:
 
@@ -352,9 +455,14 @@ import { DataManager, ODataAdaptor } from '@syncfusion/ej2-data';
 import * as React from 'react';
 
 function App() {
+  // ⚠️ SECURITY: Only connect to your own authenticated OData services
+  // Use environment variables for endpoints
   const dataSource: DataManager = new DataManager({
-    url: 'https://services.syncfusion.com/js/production/api/Orders',
+    url: process.env.REACT_APP_ODATA_ENDPOINT,  // Use environment config
     adaptor: new ODataAdaptor(),
+    headers: [
+      { 'Authorization': `Bearer ${getAuthToken()}` }
+    ],
     crossDomain: true
   });
 
@@ -374,6 +482,10 @@ function App() {
       dataSourceSettings={dataSourceSettings}
     />
   );
+}
+
+function getAuthToken(): string {
+  return localStorage.getItem('authToken') || '';
 }
 
 export default App;

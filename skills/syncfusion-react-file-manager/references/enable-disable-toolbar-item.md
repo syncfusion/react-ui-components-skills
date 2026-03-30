@@ -52,7 +52,7 @@ import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 
 function BasicEnableDisableExample() {
   const fileManagerRef = useRef(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   const handleEnableDelete = () => {
     fileManagerRef.current?.enableToolbarItems(['delete']);
@@ -265,7 +265,7 @@ import { ButtonComponent } from '@syncfusion/ej2-react-buttons';
 
 function AdvancedEnableDisableExample() {
   const fileManagerRef = useRef(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   useEffect(() => {
     // Initialize toolbar state based on user role

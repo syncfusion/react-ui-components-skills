@@ -7,12 +7,11 @@ description: 'Excel Export in React TreeGrid - export configuration, cell format
 
 ## Table of Contents
 - [Basic Excel Export](#basic-excel-export)
-- [Export Configuration](#export-configuration)
 - [Headers and Footers](#headers-and-footers)
 - [Cell Formatting](#cell-formatting)
 - [Server-side Export](#server-side-export)
 - [Common Patterns](#common-patterns)
-- [Server-side Export](#server-side-export)
+- [Key APIs](#key-apis)
 
 ## Basic Excel Export
 
@@ -51,7 +50,7 @@ export default function App() {
 ```
 
 
-Configure Excel export behavior:
+### Configure Excel export:
 
 ```tsx
 const treeGridRef = React.useRef();

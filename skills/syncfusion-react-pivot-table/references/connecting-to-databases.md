@@ -1,16 +1,160 @@
 # Connecting to Databases
 
+## ⚠️ CRITICAL SECURITY NOTICE
+
+**All database connections MUST be handled through secure backend APIs.** Never expose database connection strings or credentials to the client-side React application.
+
+✅ **Required Security Controls:**
+- Backend API with authentication/authorization
+- Secure connection strings (server-side only)
+- SQL injection prevention (parameterized queries)
+- Input validation and sanitization
+- Rate limiting and CORS configuration
+- HTTPS/TLS encryption
+- API key or JWT authentication
+
+❌ **NEVER:**
+- Connect directly to databases from React
+- Expose connection strings in client code
+- Accept user-provided database endpoints
+- Skip authentication on API endpoints
+- Use HTTP for sensitive data
+- Trust client-side data without validation
+
 ## Table of Contents
 - [Overview](#overview)
+- [Security Best Practices](#security-best-practices)
 - [Database Support](#database-support)
 - [Architecture Pattern](#architecture-pattern)
 - [Web API Setup](#web-api-setup)
 - [React Configuration](#react-configuration)
 - [Database Connection Examples](#database-connection-examples)
 
+---
+
 ## Overview
 
-Connect PivotView to enterprise databases (SQL Server, MySQL, PostgreSQL, MongoDB, etc.) using a Web API intermediary. This pattern securely retrieves and serializes database records for pivot analysis.
+Connect PivotView to enterprise databases (SQL Server, MySQL, PostgreSQL, MongoDB, etc.) using a **secure Web API intermediary**. This pattern ensures database credentials remain server-side and provides proper authentication, validation, and authorization layers.
+
+---
+
+## Security Best Practices
+
+### 1. **Backend API Security**
+
+✅ **DO**: Implement authentication and authorization
+```csharp
+[Authorize(Roles = "DataAnalyst")]
+[ApiController]
+[Route("api/[controller]")]
+public class PivotController : ControllerBase
+{
+    [HttpGet]
+    public IActionResult GetData()
+    {
+        // Verify user permissions
+        if (!User.HasClaim("Permission", "ViewSalesData"))
+            return Forbid();
+        
+        return Ok(FetchDatabaseData());
+    }
+}
+```
+
+### 2. **Connection String Security**
+
+✅ **DO**: Store in secure configuration (server-side)
+```csharp
+// appsettings.json (never commit to source control)
+{
+  "ConnectionStrings": {
+    "SalesDB": "Server=prod-db;Database=Sales;User Id=apiuser;Password=***;"
+  }
+}
+
+// Usage in controller
+private readonly IConfiguration _config;
+string connectionString = _config.GetConnectionString("SalesDB");
+```
+
+❌ **DON'T**: Hardcode or expose connection strings
+```csharp
+// NEVER DO THIS - Security Risk!
+string conStr = "Server=prod;User=admin;Password=secret123;";
+```
+
+### 3. **SQL Injection Prevention**
+
+✅ **DO**: Use parameterized queries
+```csharp
+private DataTable FetchData(string customerId)
+{
+    string query = "SELECT * FROM Orders WHERE CustomerId = @customerId";
+    var command = new SqlCommand(query, connection);
+    command.Parameters.AddWithValue("@customerId", customerId);
+    // Execute command
+}
+```
+
+❌ **DON'T**: Use string concatenation
+```csharp
+// VULNERABLE TO SQL INJECTION
+string query = $"SELECT * FROM Orders WHERE CustomerId = '{customerId}'";
+```
+
+### 4. **React Authentication**
+
+✅ **DO**: Secure API calls with authentication
+```typescript
+const fetchData = async () => {
+    const token = localStorage.getItem('authToken');
+    const response = await fetch(process.env.REACT_APP_API_ENDPOINT, {
+        method: 'GET',
+        headers: {
+            'Authorization': `Bearer ${token}`,
+            'Content-Type': 'application/json'
+        }
+    });
+    
+    if (!response.ok) {
+        throw new Error('Unauthorized');
+    }
+    
+    return await response.json();
+};
+```
+
+### 5. **Input Validation**
+
+```csharp
+private bool ValidateInput(string input)
+{
+    // Whitelist validation
+    if (string.IsNullOrWhiteSpace(input) || input.Length > 100)
+        return false;
+    
+    // Check for SQL injection patterns
+    if (input.Contains("--") || input.Contains(";") || input.Contains("'"))
+        return false;
+    
+    return true;
+}
+```
+
+### 6. **Error Handling**
+
+```csharp
+try
+{
+    return Ok(FetchDatabaseData());
+}
+catch (Exception ex)
+{
+    _logger.LogError(ex, "Database error");
+    // Don't expose internal details to client
+    return StatusCode(500, "An error occurred");
+}
+```
 
 ## Database Support
 
@@ -54,22 +198,53 @@ namespace MyWebService.Controllers
     [Route("[controller]")]
     public class PivotController : ControllerBase
     {
-        [HttpGet(Name = "GetDatabaseResult")]
-        public object Get()
+        private readonly IConfiguration _configuration;
+        private readonly ILogger<PivotController> _logger;
+        
+        public PivotController(IConfiguration configuration, ILogger<PivotController> logger)
         {
-            return JsonConvert.SerializeObject(FetchDatabaseData());
+            _configuration = configuration;
+            _logger = logger;
         }
 
-        private static DataTable FetchDatabaseData()
+        [Authorize] // 🔒 SECURITY: Require authentication
+        [HttpGet(Name = "GetDatabaseResult")]
+        public IActionResult Get()
         {
+            try
+            {
+                // 🔒 SECURITY: Verify user has permission
+                if (!User.HasClaim("Permission", "ViewPivotData"))
+                    return Forbid();
+                
+                var data = FetchDatabaseData();
+                return Ok(JsonConvert.SerializeObject(data));
+            }
+            catch (Exception ex)
+            {
+                // 🔒 SECURITY: Log error, don't expose details
+                _logger.LogError(ex, "Error fetching database data");
+                return StatusCode(500, "An error occurred");
+            }
+        }
+
+        private DataTable FetchDatabaseData()
+        {
+            // 🔒 SECURITY: Get connection string from secure configuration
+            string connectionString = _configuration.GetConnectionString("YourDatabase");
+            
+            if (string.IsNullOrEmpty(connectionString))
+                throw new InvalidOperationException("Connection string not configured");
+
             // 1. Create database-specific connection
-            var connection = new YourDatabaseConnection(
-                "<Enter your valid connection string here>"
-            );
+            var connection = new YourDatabaseConnection(connectionString);
             connection.Open();
 
-            // 2. Execute query
-            var command = new YourDatabaseCommand("SELECT * FROM TableName", connection);
+            // 🔒 SECURITY: Use parameterized queries to prevent SQL injection
+            string query = "SELECT * FROM TableName WHERE IsActive = @isActive";
+            var command = new YourDatabaseCommand(query, connection);
+            command.Parameters.AddWithValue("@isActive", true);
+            
             var dataAdapter = new YourDatabaseDataAdapter(command);
 
             // 3. Populate DataTable
@@ -92,12 +267,28 @@ namespace MyWebService.Controllers
 
 ### Step 1: Configure Web API URL
 
+⚠️ **SECURITY**: Use environment variables for API endpoints and implement authentication.
+
 ```typescript
 import { PivotViewComponent, FieldList, Inject } from '@syncfusion/ej2-react-pivotview';
+import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 function App() {
+  // 🔒 SECURITY: Use environment variables, not hardcoded URLs
+  const apiEndpoint = process.env.REACT_APP_PIVOT_API_ENDPOINT;
+  const authToken = localStorage.getItem('authToken');
+  
+  const dataSource = new DataManager({
+    url: apiEndpoint,  // From environment variable
+    adaptor: new WebApiAdaptor(),
+    headers: [
+      { 'Authorization': `Bearer ${authToken}` },
+      { 'Content-Type': 'application/json' }
+    ]
+  });
+  
   const dataSourceSettings = {
-    url: 'https://localhost:7139/Pivot'  // Web API endpoint
+    dataSource: dataSource
   };
 
   return (

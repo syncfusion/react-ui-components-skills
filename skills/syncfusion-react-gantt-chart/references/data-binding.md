@@ -105,7 +105,7 @@ Use `DataManager` with an adaptor to connect to a REST API.
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 const dataSource = new DataManager({
-  url: 'https://services.syncfusion.com/react/production/api/GanttData',
+  url: '/api/GanttData',
   adaptor: new WebApiAdaptor,
   crossDomain: true,
 });
@@ -236,7 +236,7 @@ function App() {
   let ganttInstance: any;
 
   function clickHandler() {
-    const ajax = new Ajax('https://services.syncfusion.com/react/production/api/GanttData', 'GET');
+    const ajax = new Ajax('/api/GanttData', 'GET');
     ganttInstance.showSpinner();
     ajax.send();
     ajax.onSuccess = (data: string) => {
@@ -272,7 +272,7 @@ Use the `actionFailure` event to catch server-side errors (e.g., 404, 500) and d
 ```tsx
 import { DataManager } from '@syncfusion/ej2-data';
 
-const dataSource = new DataManager({ url: 'http://some.com/invalidUrl' });
+const dataSource = new DataManager({ url: '/api/GanttData' });
 
 function App() {
   let ganttInstance: any;
@@ -307,7 +307,7 @@ import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { VirtualScroll, Selection } from '@syncfusion/ej2-react-gantt';
 
 const dataSource = new DataManager({
-  url: 'https://services.syncfusion.com/react/production/api/GanttLoadOnDemand',
+  url: '/api/GanttLoadOnDemand',
   adaptor: new WebApiAdaptor,
   crossDomain: true,
 });

@@ -13,6 +13,8 @@ description: 'Selection in React TreeGrid - row selection, cell selection, check
 - [Multi-Selection](#multi-selection)
 - [Programmatic Selection](#programmatic-selection)
 - [Selection Events](#selection-events)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Selection Rules
 
@@ -78,6 +80,8 @@ selectionSettings: { type: 'Checkbox', mode: 'Row' }    // ✅ No service needed
 
 ### Rule 2: Selection Persistence Requires State Management
 **Severity**: 🟠 IMPORTANT - Selection state not preserved across page reload or component recreate
+
+> 🔒 **Security Warning:** `localStorage` and `sessionStorage` store data **unencrypted** in the browser. **Never store sensitive data** (passwords, tokens, PII, payment info, user secrets, authentication credentials) in persisted TreeGrid state. State persistence is safe for **UI state only** (expand/collapse state, page number, sort order, column visibility, filter selections). For sensitive configuration or user data, use secure server-side session storage instead.
 
 **Requirement in React**:
 ```jsx

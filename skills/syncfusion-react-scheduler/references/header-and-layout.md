@@ -1119,8 +1119,3 @@ When designing for mobile:
 - Ensure custom toolbar items are touch-accessible
 
 ---
-
-**Additional Resources:**
-- [React Scheduler Feature Tour](https://www.syncfusion.com/react-components/react-scheduler)
-- [React Scheduler Examples](https://ej2.syncfusion.com/react/demos/#/tailwind3/schedule/overview)
-- [API Documentation](https://ej2.syncfusion.com/react/documentation/api/schedule)

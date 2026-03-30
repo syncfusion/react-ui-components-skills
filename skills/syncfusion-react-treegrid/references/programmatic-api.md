@@ -8,14 +8,9 @@ description: 'Programmatic API methods for TreeGrid - imperative operations, ref
 ## Table of Contents
 - [Component Properties](#component-properties)
 - [Using Refs for Imperative Operations](#using-refs-for-imperative-operations)
-- [Core Methods](#core-methods-data-operations)
-- [Tree Operations](#tree-operations)
-- [Selection Methods](#selection-methods)
-- [Row & Cell Methods](#row--cell-methods)
-- [Column Methods](#column-methods)
-- [Export & Print Methods](#export--print-methods)
-- [Filtering & Sorting Methods](#filtering--sorting-methods)
-
+- [Core Methods Data Operations](#core-methods-data-operations)
+- [Complete Examples Data Operations](#complete-examples-data-operations)
+- [Best Practices](#best-practices)
 
 ## Component Properties
 
@@ -191,7 +186,7 @@ function TreeGridExample() {
 | `getHeaderContent()` | None | Get header element | `const header = treeGridRef.current.getHeaderContent()` |
 | `destroy()` | None | Destroy component | `treeGridRef.current.destroy()` |
 
-## Complete Examples
+## Complete Examples Data Operations
 
 ### Dynamic Add/Edit/Delete
 

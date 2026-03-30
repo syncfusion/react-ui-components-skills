@@ -166,7 +166,7 @@ function FlatDataFileManager() {
       dateModified: new Date('2024-01-05'),
       filterPath: 'Images\\',
       hasChild: false,
-      imageUrl: 'https://example.com/photo.jpg'
+      imageUrl: 'url'
     }
   ];
 

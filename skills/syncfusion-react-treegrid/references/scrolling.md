@@ -12,6 +12,8 @@ description: 'Scrolling in React TreeGrid - virtual scrolling, infinite scroll, 
 - [Height and Width](#height-and-width)
 - [Scroll Position](#scroll-position)
 - [Horizontal Scrolling](#horizontal-scrolling)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Scrolling & Paging Rules
 

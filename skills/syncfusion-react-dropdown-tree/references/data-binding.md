@@ -158,7 +158,7 @@ Bind Dropdown Tree to remote data services using DataManager for dynamic, large-
 import { DataManager, ODataV4Adaptor } from '@syncfusion/ej2-data';
 
 const dataManager = new DataManager({
-  url: 'https://js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/Employees',
+  url: 'url',
   adaptor: new ODataV4Adaptor(),
 });
 
@@ -181,7 +181,7 @@ function App() {
 
 ```jsx
 const dataManager = new DataManager({
-  url: 'https://js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/Employees',
+  url: 'url',
   adaptor: new ODataV4Adaptor(),
   crossDomain: true,
 });
@@ -195,7 +195,7 @@ function App() {
         text: 'FirstName',
         child: {
           dataSource: new DataManager({
-            url: 'https://js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc/Orders',
+            url: 'url',
             adaptor: new ODataV4Adaptor(),
             crossDomain: true,
           }),
@@ -222,7 +222,7 @@ For OData endpoints:
 import { DataManager, ODataAdaptor } from '@syncfusion/ej2-data';
 
 const dataManager = new DataManager({
-  url: 'https://services.odata.org/V4/Northwind/Northwind.svc/Products',
+  url: 'url',
   adaptor: new ODataAdaptor(),
 });
 ```
@@ -235,7 +235,7 @@ For OData V4 endpoints (modern OData):
 import { DataManager, ODataV4Adaptor } from '@syncfusion/ej2-data';
 
 const dataManager = new DataManager({
-  url: 'https://js.syncfusion.com/demos/ejServices/Wcf/Northwind.svc',
+  url: 'url',
   adaptor: new ODataV4Adaptor(),
 });
 ```
@@ -248,7 +248,7 @@ For RESTful Web APIs:
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 const dataManager = new DataManager({
-  url: 'https://api.example.com/api/categories',
+  url: 'url',
   adaptor: new WebApiAdaptor(),
 });
 ```
@@ -261,7 +261,7 @@ For standard HTTP endpoints:
 import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 
 const dataManager = new DataManager({
-  url: 'https://api.example.com/data.json',
+  url: 'url',
   adaptor: new UrlAdaptor(),
 });
 ```
@@ -292,7 +292,7 @@ Optimize performance with large datasets by loading child items only when parent
 
 ```jsx
 const dataManager = new DataManager({
-  url: 'https://api.example.com/categories',
+  url: 'url',
   adaptor: new WebApiAdaptor(),
 });
 
@@ -304,7 +304,7 @@ const dataManager = new DataManager({
     hasChildren: 'hasChild',
     child: {
       dataSource: new DataManager({
-        url: 'https://api.example.com/subcategories',
+        url: 'url',
         adaptor: new WebApiAdaptor(),
       }),
       value: 'id',

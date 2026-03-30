@@ -257,22 +257,3 @@ const onActionBegin = (args) => {
 </GridComponent>
 ```
 
-### Export with Server Formatting
-
-```tsx
-const exportWithServerProcessing = () => {
-  const payload = {
-    gridData: gridRef.current.getCurrentViewRecords(),
-    columns: gridRef.current.getVisibleColumns(),
-    fileName: 'orders.xlsx'
-  };
-
-  fetch('/api/grid/export', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  })
-  .then(response => response.blob())
-  .then(downloadBlob);
-};
-```

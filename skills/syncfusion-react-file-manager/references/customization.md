@@ -32,10 +32,10 @@ function ThemedFileManager() {
   return (
     <FileManagerComponent
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        getImageUrl: "url",
+        uploadUrl: "url",
+        downloadUrl: "url"
       }}
     >
       <Inject services={[DetailsView, NavigationPane, Toolbar]} />
@@ -352,10 +352,10 @@ function FullyCustomizedFileManager() {
       toolbarClick={handleToolbarClick}
       menuClick={handleMenuClick}
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        getImageUrl: "url",
+        uploadUrl: "url",
+        downloadUrl: "url"
       }}
       height="700px"
       cssClass="custom-file-manager"

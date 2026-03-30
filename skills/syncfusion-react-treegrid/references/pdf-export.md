@@ -7,12 +7,11 @@ description: 'PDF Export in React TreeGrid - export configuration, headers and f
 
 ## Table of Contents
 - [Basic PDF Export](#basic-pdf-export)
-- [Export Configuration](#export-configuration)
 - [Headers and Footers](#headers-and-footers)
-- [Page Settings](#page-settings)
 - [Server-side Export](#server-side-export)
-- [Custom Formatting](#custom-formatting)
 - [Server-side Export](#server-side-export)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Basic PDF Export
 
@@ -50,7 +49,7 @@ export default function App() {
 }
 ```
 
-## Export Options
+### Export configuration
 
 Configure PDF export behavior:
 

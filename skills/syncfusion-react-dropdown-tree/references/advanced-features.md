@@ -301,7 +301,7 @@ const actionFailureTemplate = () => (
   actionFailureTemplate={actionFailureTemplate}
   fields={{
     dataSource: new DataManager({
-      url: 'https://api.example.com/items',
+      url: 'url',
       adaptor: new ODataV4Adaptor()
     }),
     value: 'id',
@@ -1092,7 +1092,7 @@ const query = new Query()
 
 const fields = {
   dataSource: new DataManager({
-    url: 'https://api.example.com',
+    url: 'url',
     adaptor: new ODataV4Adaptor,
     pageSize: 50
   }),
@@ -1215,7 +1215,7 @@ function AdvancedDropdownTree() {
   const [selectedValues, setSelectedValues] = React.useState([]);
 
   const remoteData = new DataManager({
-    url: 'https://services.odata.org/V4/Northwind/Northwind.svc',
+    url: 'url',
     adaptor: new ODataV4Adaptor,
     crossDomain: true,
   });

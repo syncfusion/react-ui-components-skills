@@ -24,7 +24,7 @@ import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar } fr
 
 function CustomHeaderExample() {
   const fileManagerRef = useRef(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   const handleBeforeSend = (args) => {
     // Add custom headers to all AJAX requests
@@ -337,7 +337,7 @@ import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar } fr
 function AdvancedCustomHeaderExample() {
   const fileManagerRef = useRef(null);
   const [userContext, setUserContext] = useState(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   useEffect(() => {
     // Initialize user context

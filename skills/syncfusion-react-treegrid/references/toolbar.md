@@ -6,12 +6,13 @@ description: 'Toolbar in React TreeGrid - built-in items (Add, Edit, Delete, Exp
 # Toolbar
 
 ## Table of Contents
+- [Mandatory Rules](#mandatory-rules)
 - [Built-in Toolbar Items](#built-in-toolbar-items)
 - [Custom Toolbar Items](#custom-toolbar-items)
 - [Toolbar Configuration](#toolbar-configuration)
-- [Toolb Events](#toolbar-events)
-- [Custom Toolbar Layout](#custom-toolbar-layout)
-- [Toolbar API](#toolbar-api)
+- [Toolbar Events](#toolbar-events)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Mandatory Rules
  
@@ -100,9 +101,9 @@ const customToolbar = [
 </TreeGridComponent>
 ```
 
-## Toolbar Item Types
+## Toolbar Configuration
 
-Different toolbar item types:
+Different toolbar Configuration:
 
 ```tsx
 

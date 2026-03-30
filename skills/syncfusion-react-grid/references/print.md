@@ -146,21 +146,3 @@ const printWithTemplate = () => {
   `}</style>
 </GridComponent>
 ```
-
-### Print Dialog Options
-
-```tsx
-import { PrintDialog } from '@syncfusion/ej2-print';
-
-const openPrintDialog = () => {
-  const printWindow = window.open('', '', 'height=500,width=800');
-  const printContent = gridRef.current.element.innerHTML;
-  
-  printWindow.document.write('<html><head><title>Print</title>');
-  printWindow.document.write('</head><body>');
-  printWindow.document.write(printContent);
-  printWindow.document.write('</body></html>');
-  printWindow.document.close();
-  printWindow.print();
-};
-```

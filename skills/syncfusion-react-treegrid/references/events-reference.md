@@ -7,6 +7,7 @@ description: 'Complete event reference for TreeGrid - actionBegin, actionComplet
 
 ## Table of Contents
 - [Event Handling Rules](#event-handling-rules)
+- [Core Action Events](#core-action-events)
 - [Data Events](#data-events)
 - [Row Events](#row-events)
 - [Cell Events](#cell-events)
@@ -16,7 +17,10 @@ description: 'Complete event reference for TreeGrid - actionBegin, actionComplet
 - [Expand/Collapse Events](#expandcollapse-events)
 - [Drag & Drop Events](#drag--drop-events)
 - [RequestType Values](#requesttype-values)
+- [Tree-Specific Events](#tree-specific-events)
 - [Event Arguments Reference](#event-arguments-reference)
+- [Complete Event Example](#complete-event-example)
+
 
 ## Event Handling Rules
 
@@ -268,7 +272,7 @@ const handleBeginDelete = async (args) => {
   allowPaging={true}
   allowSorting={true}
   allowFiltering={true}
-  allowRowDragAndDrop={true}      // Capital 'D', 'A', capital 'D' in second word
+  allowRowDragAndDrop={true}      // Capital 'R', 'D', 'A', capital 'D' in second word
   enableVirtualization={true}
   enableInfiniteScrolling={true}
   enablePersistence={true}

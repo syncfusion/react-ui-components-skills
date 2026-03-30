@@ -241,7 +241,7 @@ import { GridComponent, Inject, Edit } from '@syncfusion/ej2-react-grids';
       field='OrderDate'
       headerText='Order Date'
       type='date'
-      editParams={{
+      edit={{
         params: {
           locale: 'de-DE'  // DatePicker uses German locale
         }
@@ -493,39 +493,6 @@ function GridWithLanguageSelector() {
 }
 
 export default GridWithLanguageSelector;
-```
-
----
-
-## Translation Object Structure
-
-```tsx
-const translations = {
-  'de': {
-    'grid': {
-      // Grid-level strings
-      'EmptyRecord': 'Keine Datensätze',
-      'Grouptext': 'Gruppieren nach ',
-      'Pagerformat': '{0} bis {1} von {2}',
-      'GroupCaption': 'Gruppieren nach',
-      'SerialNumberColumn': '#',
-      'Edit': 'Bearbeiten',
-      'Delete': 'Löschen',
-      'Cancel': 'Abbrechen',
-      'Save': 'Speichern',
-      'Add': 'Hinzufügen'
-    }
-  },
-  'fr': {
-    'grid': {
-      'EmptyRecord': 'Aucun enregistrement',
-      'Grouptext': 'Grouper par ',
-      'Pagerformat': '{0} à {1} sur {2}',
-      'Edit': 'Modifier',
-      'Delete': 'Supprimer'
-    }
-  }
-};
 ```
 
 ---

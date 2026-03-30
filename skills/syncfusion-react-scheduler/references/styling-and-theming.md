@@ -246,7 +246,7 @@ The Syncfusion Theme Studio provides a visual interface for creating custom them
 
 ### Using Theme Studio
 
-1. **Access Theme Studio**: Navigate to [https://ej2.syncfusion.com/themestudio/?theme=tailwind3](https://ej2.syncfusion.com/themestudio/?theme=tailwind3)
+1. **Access Theme Studio**: Navigate to syncfusion theme studio
 
 2. **Select Base Theme**: Choose a base theme to start with (Material, Bootstrap, Fabric, Tailwind, Fluent, or High Contrast)
 
@@ -391,15 +391,5 @@ Programmatically assign colors based on event properties:
     text-decoration: line-through;
 }
 ```
-
-## Additional Resources
-
-For more information on styling and theming the React Scheduler:
-
-- **React Scheduler Feature Tour**: [https://www.syncfusion.com/react-components/react-scheduler](https://www.syncfusion.com/react-components/react-scheduler)
-- **React Scheduler Demos**: [https://ej2.syncfusion.com/react/demos/#/material/schedule/overview](https://ej2.syncfusion.com/react/demos/#/material/schedule/overview)
-- **Theme Studio**: [https://ej2.syncfusion.com/themestudio/?theme=tailwind3](https://ej2.syncfusion.com/themestudio/?theme=tailwind3)
-
----
 
 **Note**: When overriding CSS classes, ensure specificity is maintained to properly apply custom styles. Use hierarchical selectors based on the view type to target specific elements accurately.

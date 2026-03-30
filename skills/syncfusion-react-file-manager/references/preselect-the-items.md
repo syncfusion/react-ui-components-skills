@@ -22,7 +22,7 @@ import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar } fr
 
 function BasicPreselectExample() {
   const fileManagerRef = useRef(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   // Items to preselect
   const preselectItems = [
@@ -339,7 +339,7 @@ import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 function AdvancedPreselectExample() {
   const fileManagerRef = useRef(null);
   const [selectionMode, setSelectionMode] = useState('all');
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   const selectionModes = [
     { text: 'All Files', value: 'all' },

@@ -11,9 +11,12 @@ description: 'Validation Patterns in React TreeGrid - custom validation rules, c
 - [Cross-field Validation](#cross-field-validation)
 - [Async Validation](#async-validation)
 - [Server-side Validation](#server-side-validation)
-- [Dialog Form Validation](#dialog-form-validation)
+- [Validation in Dialog Edit](#validation-in-dialog-edit)
 - [Conditional Validation](#conditional-validation)
 - [Error Message Display](#error-message-display)
+- [Best Practices](#best-practices)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 Complete guide to data validation in TreeGrid.
 
@@ -69,7 +72,7 @@ export default function App() {
 }
 ```
 
-## Validation Rule Types
+### Validation Rule Types
 
 ```tsx
 // Common validation rules:
@@ -86,7 +89,7 @@ validationRules={{
 }}
 ```
 
-## Custom Validation
+## Custom Validation Rules
 
 Implement custom validation logic:
 

@@ -211,31 +211,6 @@ const onActionBegin = (args) => {
 </GridComponent>
 ```
 
-### Custom PDF Generation
-
-```tsx
-const exportWithCustomization = async () => {
-  const payload = {
-    gridData: gridRef.current.getCurrentViewRecords(),
-    title: 'Orders Report',
-    columns: gridRef.current.getVisibleColumns()
-  };
-
-  const response = await fetch('/api/grid/generate-pdf', {
-    method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify(payload)
-  });
-
-  const blob = await response.blob();
-  const url = window.URL.createObjectURL(blob);
-  const a = document.createElement('a');
-  a.href = url;
-  a.download = 'orders.pdf';
-  a.click();
-};
-```
-
 ### Export with Summary
 
 ```tsx

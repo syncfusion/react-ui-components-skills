@@ -69,7 +69,7 @@ function App() {
   ];
 
   // String template with interpolation
-  const template = '<div><img src="https://ej2.syncfusion.com/demos/src/treeview/images/employees/${picture}.png" alt="avatar" class="empimage" />' +
+  const template = '<div><img src="url" alt="avatar" class="empimage" />' +
                    '<div class="ename">${name}</div>' +
                    '<div class="designation">${designation}</div></div>';
 

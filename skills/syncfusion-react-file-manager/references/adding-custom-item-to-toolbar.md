@@ -371,7 +371,7 @@ import { TooltipComponent } from '@syncfusion/ej2-react-popups';
 function AdvancedToolbarCustomization() {
   const fileManagerRef = useRef(null);
   const checkboxRef = useRef(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   const handleCheckboxChange = (args) => {
     if (args.checked) {

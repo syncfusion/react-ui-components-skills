@@ -7,13 +7,15 @@ description: 'State Persistence in React TreeGrid - global and local persistence
 
 ## Table of Contents
 - [Global Persistence](#global-persistence)
-- [Local Persistence](#local-persistence)
+- [Local State Persistence](#local-state-persistence)
 - [Expand State Persistence](#expand-state-persistence)
-- [Filter State Restoration](#filter-state-restoration)
-- [Sort State Restoration](#sort-state-restoration)
-- [Programmatic Restore](#programmatic-restore)
+- [Filter And Sort State Persistence](#filter-and-sort-state-Persistence)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Global Persistence
+
+> 🔒 **Security Warning:** `localStorage` and `sessionStorage` store data **unencrypted** in the browser. **Never store sensitive data** (passwords, tokens, PII, payment info, user secrets, authentication credentials) in persisted TreeGrid state. State persistence is safe for **UI state only** (expand/collapse state, page number, sort order, column visibility, filter selections). For sensitive configuration or user data, use secure server-side session storage instead.
 
 ```tsx
 import React, { useEffect, useState } from 'react';
@@ -63,6 +65,8 @@ export default function App() {
 
 ## Local State Persistence
 
+> 🔒 **Security Warning:** `localStorage` and `sessionStorage` store data **unencrypted** in the browser. **Never store sensitive data** (passwords, tokens, PII, payment info, user secrets, authentication credentials) in persisted TreeGrid state. State persistence is safe for **UI state only** (expand/collapse state, page number, sort order, column visibility, filter selections). For sensitive configuration or user data, use secure server-side session storage instead.
+
 Persist state locally within session:
 
 ```tsx
@@ -90,7 +94,7 @@ const handleRowExpand = (args) => {
 </TreeGridComponent>
 ```
 
-## ExpandState Tracking
+## Expand State Persistence
 
 Track and restore expand state:
 
@@ -117,7 +121,9 @@ const data = [
 </TreeGridComponent>
 ```
 
-## Sort & Filter Persistence
+## Filter And Sort State Persistence
+
+> 🔒 **Security Warning:** `localStorage` and `sessionStorage` store data **unencrypted** in the browser. **Never store sensitive data** (passwords, tokens, PII, payment info, user secrets, authentication credentials) in persisted TreeGrid state. State persistence is safe for **UI state only** (expand/collapse state, page number, sort order, column visibility, filter selections). For sensitive configuration or user data, use secure server-side session storage instead.
 
 Persist sorting and filtering:
 

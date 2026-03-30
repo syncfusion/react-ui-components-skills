@@ -293,7 +293,7 @@ import '@syncfusion/ej2-grids/styles/material.css';
 import '@syncfusion/ej2-react-filemanager/styles/material.css';
 
 function App() {
-  const hostUrl = "https://ej2-aspcore-service.azurewebsites.net/";
+  const hostUrl = "url";
 
   return (
     <div>
@@ -457,10 +457,10 @@ export default function BasicFileManager() {
     <FileManagerComponent
       id="file"
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        getImageUrl: "url",
+        uploadUrl: "url",
+        downloadUrl: "url"
       }}
       view="Details"
       height="500px"
@@ -484,10 +484,10 @@ export default function BasicFileManager() {
 
 ```tsx
 ajaxSettings={{
-  url: "https://api.example.com/api/FileManager/FileOperations",
-  getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-  uploadUrl: "https://api.example.com/api/FileManager/Upload",
-  downloadUrl: "https://api.example.com/api/FileManager/Download"
+  url: "url",
+  getImageUrl: "url",
+  uploadUrl: "url",
+  downloadUrl: "url"
 }}
 ```
 
@@ -783,10 +783,10 @@ export default function FileManagerWithState() {
 ### AJAX Settings Configuration
 ```tsx
 ajaxSettings={{
-  url: "https://api.example.com/api/FileManager/FileOperations",     // Main CRUD endpoint (required)
-  getImageUrl: "https://api.example.com/api/FileManager/GetImage",   // Thumbnail retrieval
-  uploadUrl: "https://api.example.com/api/FileManager/Upload",       // File upload endpoint
-  downloadUrl: "https://api.example.com/api/FileManager/Download",   // File download endpoint
+  url: "url",     // Main CRUD endpoint (required)
+  getImageUrl: "url",   // Thumbnail retrieval
+  uploadUrl: "url",       // File upload endpoint
+  downloadUrl: "url",   // File download endpoint
   // Optional: Add custom headers
   // headers: { 'Authorization': 'Bearer token' }
 }}
@@ -848,5 +848,3 @@ Support multiple languages and RTL:
 5. **Accessibility:** Ensure compliance with [references/accessibility-localization.md](references/accessibility-localization.md)
 
 ---
-
-*For more information, visit the [Syncfusion React File Manager Documentation](https://www.syncfusion.com/react-components/react-file-manager)*

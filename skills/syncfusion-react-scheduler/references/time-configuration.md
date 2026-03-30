@@ -47,7 +47,7 @@ These features work together to create a flexible scheduling experience that can
 
 ## Timescale Configuration
 
-Time slots are the cells displayed in the Day, Week, and Work Week views of the Scheduler. The [`timeScale`](https://ej2.syncfusion.com/react/documentation/api/schedule#timescale) property controls the duration and appearance of these slots.
+Time slots are the cells displayed in the Day, Week, and Work Week views of the Scheduler. The `timeScale` property controls the duration and appearance of these slots.
 
 ### Key Properties
 
@@ -180,7 +180,7 @@ const timeScale: TimeScaleModel = { enable: false };
 
 ### Current Time Indicator
 
-The Scheduler highlights the current time by default. Control this with [`showTimeIndicator`](https://ej2.syncfusion.com/react/documentation/api/schedule#showtimeindicator):
+The Scheduler highlights the current time by default. Control this with `showTimeIndicator`:
 
 ```tsx
 <ScheduleComponent 
@@ -214,7 +214,7 @@ JavaScript's `new Date()` constructor returns the current date with complete tim
 
 ### Scheduler Without Specific Timezone
 
-When the [`timezone`](https://ej2.syncfusion.com/react/documentation/api/schedule#timezone) property is not set, appointments display based on the client's system timezone. The same appointment may appear at different times for users in different timezones.
+When the `timezone` property is not set, appointments display based on the client's system timezone. The same appointment may appear at different times for users in different timezones.
 
 ```tsx
 import * as React from 'react';
@@ -249,7 +249,7 @@ export default App;
 
 ### Setting Specific Timezone
 
-Set a specific timezone using the [`timezone`](https://ej2.syncfusion.com/react/documentation/api/schedule#timezone) property. Appointments display according to the Scheduler's timezone regardless of the user's system timezone:
+Set a specific timezone using the `timezone` property. Appointments display according to the Scheduler's timezone regardless of the user's system timezone:
 
 ```tsx
 import * as React from 'react';
@@ -325,7 +325,7 @@ export default App;
 
 ### Assign Specific Timezones to Events
 
-Individual appointments can have their own timezones using [`startTimezone`](https://ej2.syncfusion.com/react/documentation/api/schedule/field#starttimezone) and [`endTimezone`](https://ej2.syncfusion.com/react/documentation/api/schedule/field#endtimezone) properties:
+Individual appointments can have their own timezones using `startTimezone` and `endTimezone` properties:
 
 ```tsx
 import * as React from 'react';
@@ -499,7 +499,7 @@ Configure working days, hours, and display options to match your business requir
 
 ### Set Working Days
 
-By default, Monday through Friday are working days `[1, 2, 3, 4, 5]` (0=Sunday, 1=Monday, etc.). Use the [`workDays`](https://ej2.syncfusion.com/react/documentation/api/schedule#workdays) property to customize:
+By default, Monday through Friday are working days `[1, 2, 3, 4, 5]` (0=Sunday, 1=Monday, etc.). Use the `workDays` property to customize:
 
 ```tsx
 import * as React from 'react';
@@ -538,7 +538,7 @@ export default App;
 
 ### Hiding Weekend Days
 
-Hide non-working days using [`showWeekend`](https://ej2.syncfusion.com/react/documentation/api/schedule/viewsModel#showweekend) (default: `true`):
+Hide non-working days using `showWeekend`:
 
 ```tsx
 import * as React from 'react';
@@ -575,7 +575,7 @@ export default App;
 
 ### Show Week Numbers
 
-Display week numbers using [`showWeekNumber`](https://ej2.syncfusion.com/react/documentation/api/schedule/views#showweeknumber):
+Display week numbers using `showWeekNumber`:
 
 ```tsx
 import * as React from 'react';
@@ -606,7 +606,7 @@ export default App;
 
 #### Week Number Rules
 
-Customize week calculation with [`weekRule`](https://ej2.syncfusion.com/react/documentation/api/schedule#weekrule):
+Customize week calculation with `weekRule`:
 
 - **`FirstDay`**: First week starts on the first day of the year
 - **`FirstFourDayWeek`**: First week has four or more days
@@ -630,7 +630,7 @@ Customize week calculation with [`weekRule`](https://ej2.syncfusion.com/react/do
 
 ### Set Working Hours
 
-Define working hours using the [`workHours`](https://ej2.syncfusion.com/react/documentation/api/schedule#workhours) property:
+Define working hours using the `workHours` property:
 
 ```tsx
 import * as React from 'react';
@@ -676,7 +676,7 @@ export default App;
 
 ### Custom Display Hours
 
-Display specific time ranges using [`startHour`](https://ej2.syncfusion.com/react/documentation/api/schedule#starthour) and [`endHour`](https://ej2.syncfusion.com/react/documentation/api/schedule#endhour):
+Display specific time ranges using `startHour` and `endHour`:
 
 ```tsx
 import * as React from 'react';
@@ -713,7 +713,7 @@ export default App;
 
 ### Setting First Day of Week
 
-Customize the week's start day using [`firstDayOfWeek`](https://ej2.syncfusion.com/react/documentation/api/schedule#firstdayofweek) (0=Sunday, 1=Monday, etc.):
+Customize the week's start day using `firstDayOfWeek`:
 
 ```tsx
 import * as React from 'react';
@@ -748,7 +748,7 @@ export default App;
 
 ### Scroll to Specific Time
 
-Use the [`scrollTo`](https://ej2.syncfusion.com/react/documentation/api/schedule#scrollto) method to programmatically scroll to a specific time:
+Use the `scrollTo` method to programmatically scroll to a specific time:
 
 ```tsx
 import { useRef } from 'react';
@@ -1045,10 +1045,3 @@ The Syncfusion React Scheduler provides comprehensive time configuration capabil
 These features enable you to create a scheduling solution tailored to your specific business requirements and user needs.
 
 ---
-
-## Additional Resources
-
-- [React Scheduler API Documentation](https://ej2.syncfusion.com/react/documentation/api/schedule)
-- [React Scheduler Feature Tour](https://www.syncfusion.com/react-components/react-scheduler)
-- [React Scheduler Examples](https://ej2.syncfusion.com/react/demos/#/material/schedule/overview)
-- [Internationalization Guide](https://ej2.syncfusion.com/documentation/common/internationalization)

@@ -65,8 +65,8 @@ const insertImageSettings: ImageSettingsModel = { saveFormat: 'Base64' };
 // Blob with server upload
 const insertImageSettings: ImageSettingsModel = {
   saveFormat: 'Blob',
-  saveUrl: 'https://yourapi.com/upload',
-  path: 'https://yourapi.com/images/'
+  saveUrl: 'url',
+  path: 'url'
 };
 ```
 
@@ -76,10 +76,10 @@ Configure `saveUrl` for automatic upload when images are inserted via the dialog
 
 ```tsx
 const insertImageSettings: ImageSettingsModel = {
-  saveUrl: 'https://yourapi.com/api/RichTextEditor/SaveFile',
-  path: 'https://yourapi.com/uploads/',
+  saveUrl: 'url',
+  path: 'url',
   // Optionally remove saved images
-  removeUrl: 'https://yourapi.com/api/RichTextEditor/DeleteFile',
+  removeUrl: 'url',
 };
 
 <RichTextEditorComponent insertImageSettings={insertImageSettings}>
@@ -113,8 +113,8 @@ import { Video } from '@syncfusion/ej2-react-richtexteditor';
 
 const toolbarSettings: ToolbarSettingsModel = { items: ['Video', 'Bold'] };
 const insertVideoSettings: VideoSettingsModel = {
-  saveUrl: 'https://yourapi.com/api/upload-video',
-  path: 'https://yourapi.com/videos/',
+  saveUrl: 'url',
+  path: 'url',
   minWidth: '100px',
   minHeight: '70px',
   width: '300px',
@@ -142,8 +142,8 @@ import { Audio } from '@syncfusion/ej2-react-richtexteditor';
 
 const toolbarSettings: ToolbarSettingsModel = { items: ['Audio', 'Bold'] };
 const insertAudioSettings: AudioSettingsModel = {
-  saveUrl: 'https://yourapi.com/api/upload-audio',
-  path: 'https://yourapi.com/audio/',
+  saveUrl: 'url',
+  path: 'url',
   allowedTypes: ['.mp3', '.wav', '.ogg'],
 };
 
@@ -170,10 +170,10 @@ const fileManagerSettings: FileManagerSettingsModel = {
   enable: true,
   path: '/Pictures/Food',
   ajaxSettings: {
-    url: 'https://yourapi.com/api/FileManager/FileOperations',
-    getImageUrl: 'https://yourapi.com/api/FileManager/GetImage',
-    uploadUrl: 'https://yourapi.com/api/FileManager/Upload',
-    downloadUrl: 'https://yourapi.com/api/FileManager/Download'
+    url: 'url',
+    getImageUrl: 'url',
+    uploadUrl: 'url',
+    downloadUrl: 'url'
   }
 };
 

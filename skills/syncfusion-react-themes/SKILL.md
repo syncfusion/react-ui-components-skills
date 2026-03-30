@@ -24,8 +24,6 @@ Syncfusion React components provide comprehensive theming support with modern, c
 - Available 10+ themes
 - Applying themes via npm packages, CDN, or individual component styles
 - Optimized (lite) CSS files for reduced bundle size
-- Theme comparison and selection guide
-- Legacy theme support
 
 ### Dark Mode Implementation
 📄 **Read:** [references/dark-mode.md](references/dark-mode.md)
@@ -39,7 +37,6 @@ Syncfusion React components provide comprehensive theming support with modern, c
 - Customizing primary, success, warning, danger, info colors
 - Runtime color modification with JavaScript
 - Theme-specific variable formats (RGB vs hex values)
-- Material 3 color system (primary, secondary, tertiary, surface)
 
 ### Icon Library
 📄 **Read:** [references/icons.md](references/icons.md)
@@ -73,18 +70,36 @@ npm install @syncfusion/ej2-react-buttons --save
 
 **Step 2: Import Theme CSS**
 
+**Option 1: Import from npm (Recommended)**
+
 ```css
 /* src/App.css */
 @import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
 @import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
 ```
 
-Or use CDN (ensure version matches your npm packages):
+**Option 2: Use CDN**
+
+> **⚠️ Important:** The CDN version MUST match your installed npm package version to avoid style and rendering issues.
+
+To find your installed version:
+
+```bash
+npm list @syncfusion/ej2-react-buttons
+```
+
+Then use the matching CDN version:
 
 ```html
 <!-- index.html -->
-<link href="https://cdn.syncfusion.com/ej2/32.1.19/tailwind3.css" rel="stylesheet"/>
+<!-- Replace {VERSION} with your installed package version (e.g., 28.1.33, 33.1.44) -->
+<link href="https://cdn.syncfusion.com/ej2/{VERSION}/tailwind3.css" rel="stylesheet"/>
+
+<!-- Example: If your package version is 33.1.44 -->
+<link href="https://cdn.syncfusion.com/ej2/33.1.44/tailwind3.css" rel="stylesheet"/>
 ```
+
+> **Note:** Using npm imports (Option 1) is recommended as it automatically keeps CSS and JavaScript versions in sync.
 
 ## Common Patterns
 

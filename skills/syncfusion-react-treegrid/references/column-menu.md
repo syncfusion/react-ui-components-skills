@@ -8,9 +8,11 @@ description: 'Column Menu in React TreeGrid - enable column menu, sort/filter op
 ## Table of Contents
 - [Enable Column Menu](#enable-column-menu)
 - [Menu Items](#menu-items)
+- [Disable Column Menu for Specific Columns](#disable-column-menu-for-specific-columns)
 - [Custom Menu Items](#custom-menu-items)
 - [Menu Events](#menu-events)
-- [Hide/Show Columns](#hideshow-columns)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Enable Column Menu
 

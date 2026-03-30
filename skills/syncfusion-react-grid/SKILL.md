@@ -11,14 +11,17 @@ metadata:
 
 The Syncfusion React Grid is a comprehensive, feature-rich component for displaying and manipulating tabular data. It provides extensive functionality for data binding, paging, sorting, filtering, grouping, editing, exporting, scrolling modes, row/column customization, and advanced state management to handle datasets of any size and complexity efficiently.
 
+## ⚠️ Security & Trust Boundary
+ 
+- The Grid skill does not perform any remote data access.
+- All external API interaction is handled by a separate DataManager skill outside this skill’s trust boundary.
+
 ## Table of Contents
 - [When to Use This Skill](#when-to-use-this-skill)
 - [Component Overview](#component-overview)
 - [Mandatory Rules for Inbuilt API](#mandatory-rules-for-inbuilt-api)
-- [Documentation Navigation Guide](#documentation-navigation-guide)
+- [Feature/Skill Navigation Guide](#feature-navigation-guide)
 - [Quick Start Example](#quick-start-example)
-- [Common Patterns](#common-patterns)
-- [Key Props and Configuration](#key-props-and-configuration)
 
 ## When to Use This Skill
 
@@ -78,12 +81,14 @@ Methods only work if their module is injected. No error thrown if module missing
 
 ---
 
-📄 **Full API Reference:** [references/grid-properties-methods-events.md](references/grid-properties-methods-events.md)  
+📄 **Full Properties API Reference:** [references/properties-configuration.md](references/properties-configuration.md) 
+📄 **Full Methods API Reference:** [references/programmatic-api.md](references/programmatic-api.md)
+📄 **Full Events API Reference:** [references/events-catalog.md](references/events-catalog.md)
 📄 **Backend Integration:** [references/adaptors.md](references/adaptors.md)
 
 ---
 
-## Documentation Navigation Guide
+## Feature Navigation Guide
 
 ### Getting Started & Setup
 📄 **Read:** [references/getting-started.md](references/getting-started.md)
@@ -132,13 +137,15 @@ Methods only work if their module is injected. No error thrown if module missing
 - Custom comparers
 - Prevent sorting for specific columns
 
-### Filtering & Searching
-📄 **Read:** [references/filtering.md](references/filtering.md)
-- Filter bar, filter menu, Excel-like filter modes
-- Filter conditions and operators
-- Composite filtering
-- Filter templates
-- Remote filtering
+### Filtering
+
+**Start here:** 📄 Read [references/filter-setup.md](references/filter-setup.md) — Enable filtering, choose filter type (FilterBar, Menu, Excel, CheckBox)
+
+**Choose your type:**
+- 📄 Read [references/filter-types.md](references/filter-types.md) — All 3 filter types: FilterBar (inline text), Menu (operators), Excel (checkboxes)
+- 📄 Read [references/filter-operators.md](references/filter-operators.md) — All 21+ operators, syntax, wildcards, AND/OR logic
+
+### Searching
 
 📄 **Read:** [references/searching.md](references/searching.md)
 - Grid search functionality
@@ -382,32 +389,50 @@ Methods only work if their module is injected. No error thrown if module missing
 - Mobile optimization strategies
 - Device-specific styling patterns
 
-### Programmatic Control
+### API Reference & Properties
 
+📄 **Read:** [references/properties-configuration.md](references/properties-configuration.md)
+- All 95+ configurable properties organized by category
+- Quick reference table for quick lookup
+- When to use each property
+- Module requirements per property
+
+### Programmatic Control (Methods)
+ 
 📄 **Read:** [references/programmatic-api.md](references/programmatic-api.md)
-- The full programmatic method catalog
-- Event prop reference
-- Dynamic column control
-- `setProperties()` examples, export hooks, and cross-feature
+- All 137+ Grid methods by category (data, row, column, sort, filter, group, page, edit, export)
+- Method signatures and parameters
+- Return values and usage patterns
+- Module requirements per method
 
-### Event Communication
+### Event Communication (Events)
  
 📄 **Read:** [references/events-catalog.md](references/events-catalog.md)
+- All 65+ Grid events with timing and use cases
 - Wire `actionBegin` to **cancel** or **mutate before** an action (`args.cancel = true`, `args.data.field = value`)
 - Wire `actionComplete` to **react after** (API call, toast, refresh, toolbar restore)
 - Must wire `actionFailure` for error handling
-- Use `args.requestType` to identify the action, see the requestType table in the events catalog
+- Use `args.requestType` to identify the action
 
 
-### Advanced Tutorials & Real-World Patterns
-📄 **Read:** [references/advanced-tutorials.md](references/advanced-tutorials.md)
-- Real-time data updates (WebSocket, SignalR)
-- Master-detail with filtering
-- Complex calculations and running totals
-- Advanced filtering with complex predicates
-- Custom themes and theme switching
-- Performance monitoring techniques
-- Unit and integration testing strategies
+### Advanced Patterns & Real-World Scenarios
+
+📄 **Real-Time Updates:** [references/real-time-updates.md](references/real-time-updates.md)
+- Auto-refresh, WebSocket, and SignalR integration patterns
+- Push vs. pull data strategies
+- Connection management and reconnection logic
+
+📄 **Performance Monitoring:** [references/performance-monitoring.md](references/performance-monitoring.md)
+- Measure grid operation times
+- Identify rendering bottlenecks
+- Optimization checklist
+- Memory usage tracking
+
+📄 **Testing Grids:** [references/testing-grids.md](references/testing-grids.md)
+- Unit testing with Jest and React Testing Library
+- Integration testing scenarios
+- Snapshot testing
+- Best practices for grid testing
 
 ## Quick Start Example
 
@@ -416,6 +441,7 @@ import { ColumnDirective, ColumnsDirective, GridComponent, Inject, Page, Sort, F
 import React from 'react';
 import '../styles/App.css';
 
+const gridRef = useRef<GridComponent | null>(null);
 // Sample data
 const data = [
   {
@@ -435,6 +461,7 @@ const data = [
 function App() {
   return (
     <GridComponent
+      ref={gridRef}
       dataSource={data}
       allowPaging={true}
       allowSorting={true}
@@ -453,50 +480,4 @@ function App() {
 
 export default App;
 ```
-
-## Common Patterns
-
-### Display & Navigate Large Datasets
-1. Set `allowPaging={true}` to enable pagination
-2. Configure `pageSettings.pageSize` for records per page
-3. Inject the `Page` module
-4. For very large datasets (10,000+), use Virtual Scrolling instead
-
-### Edit Data In-Place
-1. Set `editSettings={{ mode: 'Inline', allowEditing: true, allowAdding: true, allowDeleting: true }}`
-2. Set `isPrimaryKey={true}` on the primary key column
-3. Inject the `Edit` module
-4. Users double-click rows or use toolbar buttons to edit
-
-### Export to Excel/PDF
-1. Import `ExcelExport` or `PdfExport` modules
-2. Inject modules into grid
-3. Add toolbar with export buttons
-4. Grid handles export automatically
-
-### Group & Summarize Data
-1. Set `allowGrouping={true}`
-2. Inject `Group` and `Aggregate` modules
-3. Configure `aggregates` property with column, type, and templates
-4. Users drag column headers to group area
-
-### High Performance (10,000+ Rows)
-1. Use Virtual Scrolling: `enableVirtualization={true}` with `height` set
-2. Use Lazy Grouping: `groupSettings={ lazyLoadGrouping: true }`
-3. Use Remote Data with DataManager for server-side operations
-4. Avoid heavy templates; use lightweight rendering
-
-## Key Props and Configuration
-
-| Property | Type | Purpose | Example |
-|----------|------|---------|---------|
-| `dataSource` | Array \| DataManager | Data to display | `dataSource={data}` |
-| `allowPaging` | boolean | Enable pagination | `allowPaging={true}` |
-| `allowSorting` | boolean | Enable sorting by clicking headers | `allowSorting={true}` |
-| `allowFiltering` | boolean | Enable filter bar | `allowFiltering={true}` |
-| `allowGrouping` | boolean | Enable grouping | `allowGrouping={true}` |
-| `editSettings` | EditSettingsModel | Editing configuration | `editSettings={{ mode: 'Dialog', allowEditing: true }}` |
-| `toolbar` | string[] | Toolbar items | `toolbar={['Add', 'Edit', 'Delete', 'Update', 'Cancel']}` |
----
-
 

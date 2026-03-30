@@ -8,10 +8,11 @@ description: 'Column Resize in React TreeGrid - enable column drag resize, auto-
 ## Table of Contents
 - [Enable Column Resize](#enable-column-resize)
 - [Resize Configuration](#resize-configuration)
+- [Disable Resize for Specific Columns](#disable-resize-for-specific-columns)
 - [Auto-fit Columns](#auto-fit-columns)
 - [Column Width Constraints](#column-width-constraints)
 - [Resize Events](#resize-events)
-- [Programmatic Resize](#programmatic-resize)
+- [Programmatic Column Width Change](#programmatic-column-width-change)
 
 ## Enable Column Resize
 
@@ -158,7 +159,7 @@ Listen to column resize events:
 </TreeGridComponent>
 ```
 
-## Programmatic Column Width
+## Programmatic Column Width Change
 
 Set column width via code:
 
@@ -173,33 +174,6 @@ const setColumnWidth = (fieldName, width) => {
 
 // Usage:
 setColumnWidth('TaskName', 250);
-```
-
-## Save and Restore Column Widths
-
-Persist column widths:
-
-```tsx
-const saveColumnWidths = () => {
-  const widths = {};
-  treeGridRef.current.columns.forEach(col => {
-    widths[col.field] = col.width;
-  });
-  localStorage.setItem('columnWidths', JSON.stringify(widths));
-};
-
-const restoreColumnWidths = () => {
-  const saved = localStorage.getItem('columnWidths');
-  if (saved) {
-    const widths = JSON.parse(saved);
-    treeGridRef.current.columns.forEach(col => {
-      if (widths[col.field]) {
-        col.width = widths[col.field];
-      }
-    });
-    treeGridRef.current.refreshColumns();
-  }
-};
 ```
 
 ## Key APIs

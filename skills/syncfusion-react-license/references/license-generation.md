@@ -37,8 +37,6 @@ Starting with Essential Studio v31.1.17 (2025 Volume 3), Syncfusion moved to edi
 
 **Step 2:** Click **"Get License Key"** button
 
-![Get License Key](https://ej2.syncfusion.com/react/documentation/licensing/images/get-License-Key.png)
-
 **Step 3:** Select version **31.x.x or higher** from dropdown
 
 **Step 4:** Select required edition(s) from dropdown menu

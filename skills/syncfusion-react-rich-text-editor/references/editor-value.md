@@ -167,16 +167,16 @@ const toolbarSettings: ToolbarSettingsModel = {
 };
 
 const importWord: ImportWordModel = {
-  serviceUrl: 'https://yourapi.com/api/RichTextEditor/ImportFromWord'
+  serviceUrl: 'url'
 };
 
 const exportWord: ExportWordModel = {
-  serviceUrl: 'https://yourapi.com/api/RichTextEditor/ExportToDocx',
+  serviceUrl: 'url',
   fileName: 'MyDocument.docx'
 };
 
 const exportPdf: ExportPdfModel = {
-  serviceUrl: 'https://yourapi.com/api/RichTextEditor/ExportToPdf',
+  serviceUrl: 'url',
   fileName: 'MyDocument.pdf'
 };
 

@@ -10,10 +10,11 @@ description: 'Performance Optimization in React TreeGrid - virtual scrolling, bu
 - [Virtual Scrolling](#virtual-scrolling)
 - [Infinite Scrolling](#infinite-scrolling)
 - [Bundle Size Optimization](#bundle-size-optimization)
-- [Rendering Optimization](#rendering-optimization)
+- [Disable Unnecessary Features](#disable-unnecessary-features)
+- [Query Optimization](#query-optimization)
 - [Template Optimization](#template-optimization)
 - [Event Handler Optimization](#event-handler-optimization)
-- [Benchmarking and Monitoring](#benchmarking-and-monitoring)
+- [Avoid Performance Pitfalls](#avoid-performance-pitfalls)
 - [Performance Checklist](#performance-checklist)
 
 Best practices for optimizing TreeGrid performance.
@@ -160,7 +161,7 @@ import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 
 export default function GridWithServerOps() {
   const dataManager = new DataManager({
-    url: 'https://api.example.com/tasks',
+    url: 'url',
     adaptor: new UrlAdaptor(),
     offline: false  // Use server-side operations
   });
@@ -348,60 +349,8 @@ Only enable features you use:
 >
 ```
 
-## Optimize Data Binding
 
-Use server-side operations:
 
-```tsx
-// ✅ Server-side filtering and sorting
-<TreeGridComponent
-  dataSource={dataManager}
-  allowFiltering={true}
-  allowSorting={true}
-  allowPaging={true}
-  // DataManager handles filtering/sorting on server
->
-
-// ❌ Client-side operations on large datasets
-const [filteredData, setFilteredData] = useState([]);
-
-// Don't filter 100k rows on client!
-const handleFilter = (value) => {
-  const filtered = largeDataset.filter(d => d.name.includes(value));
-  setFilteredData(filtered);
-};
-```
-
-## Memoization for Performance
-
-Prevent unnecessary re-renders:
-
-```tsx
-import React, { useMemo } from 'react';
-
-const TreeGridWrapper = React.memo(({ data, ...props }) => {
-  // Memoize column definitions
-  const columns = useMemo(() => [
-    { field: 'TaskID', headerText: 'Task ID', width: 80 },
-    { field: 'TaskName', headerText: 'Task Name', width: 200 }
-  ], []);
-
-  // Memoize templates
-  const nameTemplate = useMemo(() => 
-    (props) => <span>{props.TaskName.toUpperCase()}</span>,
-    []
-  );
-
-  return (
-    <TreeGridComponent dataSource={data} {...props}>
-      <ColumnsDirective>
-        <ColumnDirective field="TaskID" />
-        <ColumnDirective field="TaskName" template={nameTemplate} />
-      </ColumnsDirective>
-    </TreeGridComponent>
-  );
-});
-```
 
 ## Query Optimization
 
@@ -467,143 +416,6 @@ data.forEach((row) => {
 });
 ```
 
-## Rendering Performance Tips
-
-```tsx
-// 1. Use fixed rowHeight for virtual scrolling
-enableVirtualization={true}
-rowHeight={30}  // Fixed height, not 'auto'
-
-// 2. Avoid complex row templates
-rowTemplate={simpleHTMLTemplate}  // Not complex components
-
-// 3. Minimize DOM elements
-<ColumnDirective field="Status" width={80} />  // Simple
-// vs
-<ColumnDirective field="Status" template={complexStatusComponent} />
-
-// 4. Defer non-critical features
-allowStatePeristence={false}  // Only if needed
-
-// 5. Use readonly mode when not editing
-editSettings={false}  // Saves memory
-
-// 6. Limit visible columns
-<ColumnDirective visible={false} />  // Hide unused columns
-```
-
-## Benchmarking and Monitoring
-
-Measure performance:
-
-```tsx
-// Performance measurement
-const measurePerformance = () => {
-  const start = performance.now();
-  
-  // Operation to measure
-  treeGridRef.current.refresh();
-  
-  const end = performance.now();
-  console.log(`Refresh took ${end - start}ms`);
-};
-
-// Monitor memory
-const checkMemory = () => {
-  if (performance.memory) {
-    console.log(`Used: ${performance.memory.usedJSHeapSize / 1048576}MB`);
-    console.log(`Limit: ${performance.memory.jsHeapSizeLimit / 1048576}MB`);
-  }
-};
-
-// Monitor rendering frames
-const monitorFPS = () => {
-  let frameCount = 0;
-  let lastTime = performance.now();
-  
-  const countFrame = () => {
-    frameCount++;
-    const currentTime = performance.now();
-    if (currentTime - lastTime >= 1000) {
-      console.log(`FPS: ${frameCount}`);
-      frameCount = 0;
-      lastTime = currentTime;
-    }
-    requestAnimationFrame(countFrame);
-  };
-  
-  requestAnimationFrame(countFrame);
-};
-```
-
-## Memory Management
-
-### Cleanup on Unmount
-
-```tsx
-import { useEffect, useRef } from 'react';
-
-function TreeGridWrapper() {
-  const treeGridRef = useRef(null);
-
-  useEffect(() => {
-    // Cleanup when component unmounts
-    return () => {
-      if (treeGridRef.current) {
-        treeGridRef.current.destroy();
-      }
-    };
-  }, []);
-
-  return <TreeGridComponent ref={treeGridRef} />;
-}
-```
-
-### Clear Large Datasets
-
-```tsx
-useEffect(() => {
-  // Load large dataset
-  fetchLargeDataset().then(data => setTreeData(data));
-
-  return () => {
-    // Clear large dataset on unmount
-    setTreeData([]);
-  };
-}, []);
-```
-
-## Lazy Loading Children
-
-Load child nodes only when parent expands:
-
-```tsx
-const handleExpanding = (args) => {
-  const node = args.data;
-  
-  // Check if children already loaded
-  if (!node.Children || node.Children.length === 0) {
-    // Cancel default expand
-    args.cancel = true;
-    
-    // Fetch children asynchronously
-    fetchChildren(node.TaskID)
-      .then(children => {
-        node.Children = children;
-        node.hasChildren = children.length > 0;
-        
-        // Refresh grid to show new children
-        treeGridRef.current.refresh();
-      })
-      .catch(err => console.error('Failed to load children:', err));
-  }
-};
-
-<TreeGridComponent
-  expanding={handleExpanding}
-  hasChildMapping="hasChildren"
-/>
-```
 
 ## Avoid Performance Pitfalls
 
@@ -689,80 +501,6 @@ const LightTemplate = (props) => {
 };
 ```
 
-## Server-Side Operations
-
-For very large datasets (100K+ rows), use server-side operations:
-
-```tsx
-import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
-
-const dataManager = new DataManager({
-  url: 'https://api.example.com/tasks',
-  adaptor: new UrlAdaptor(),
-  crossDomain: true
-});
-
-<TreeGridComponent
-  dataSource={dataManager}
-  idMapping="TaskID"
-  parentIdMapping="parentID"
-  hasChildMapping="hasChildren"
-  allowSorting={true}
-  allowFiltering={true}
-  allowPaging={true}
-  pageSettings={{ pageSize: 50 }}
->
-  <Inject services={[Page, Sort, Filter]} />
-</TreeGridComponent>
-```
-
-Server should handle:
-- Sorting
-- Filtering
-- Paging
-- Hierarchical data loading
-
-## Performance Monitoring
-
-### Measure Render Time
-
-```tsx
-import { Profiler } from 'react';
-
-function TreeGridWithProfiling() {
-  const onRenderCallback = (
-    id,
-    phase,
-    actualDuration,
-    baseDuration,
-    startTime,
-    commitTime
-  ) => {
-    console.log(`TreeGrid ${phase} render took ${actualDuration}ms`);
-  };
-
-  return (
-    <Profiler id="TreeGrid" onRender={onRenderCallback}>
-      <TreeGridComponent dataSource={data} />
-    </Profiler>
-  );
-}
-```
-
-### Track Data Loading Time
-
-```tsx
-useEffect(() => {
-  const startTime = performance.now();
-  
-  fetchTreeData().then(data => {
-    const endTime = performance.now();
-    console.log(`Data loaded in ${endTime - startTime}ms`);
-    setTreeData(data);
-  });
-}, []);
-```
-
 ## Performance Checklist
 
 - ✅ Use virtual scrolling for 1,000+ rows
@@ -771,7 +509,6 @@ useEffect(() => {
 - ✅ Memoize event handlers with `useCallback`
 - ✅ Memoize templates with `React.memo`
 - ✅ Debounce search/filter operations
-- ✅ Implement lazy loading for hierarchical data
 - ✅ Pre-fetch and merge data (don't call APIs in render events)
 - ✅ Cleanup on unmount (`destroy()`)
 - ✅ Use server-side operations for 100K+ rows
@@ -779,17 +516,3 @@ useEffect(() => {
 - ❌ Never call APIs in `rowDataBound` or `queryCellInfo`
 - ❌ Don't combine `allowPaging` with virtual scrolling
 - ❌ Avoid heavy computations in column templates
-
-## Performance Targets
-
-| Metric | Target | Notes |
-|--------|--------|-------|
-| Initial render | < 500ms | For 1,000 rows |
-| Virtual scroll (10K rows) | < 100ms | Scroll lag |
-| Virtual scroll (100K rows) | < 200ms | With lazy loading |
-| Search (1K rows) | < 100ms | With debounce |
-| Filter (1K rows) | < 200ms | Client-side |
-| Sort (1K rows) | < 200ms | Client-side |
-| Edit save | < 50ms | Local state update |
-
-

@@ -12,6 +12,8 @@ description: 'Searching in React TreeGrid - global search across columns, search
 - [Search Highlight](#search-highlight)
 - [Programmatic Search](#programmatic-search)
 - [Search Events](#search-events)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Enable Searching
 

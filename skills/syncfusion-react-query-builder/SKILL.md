@@ -151,11 +151,18 @@ export default App;
 let qryBldrObj: QueryBuilderComponent;
 
 function generateSQL() {
-  const sqlQuery = qryBldrObj.getSqlFromRules();
-  console.log('Generated SQL:', sqlQuery);
-  // Send to backend for execution
+  // Use getParameterizedSql() instead of getSqlFromRules() when sending
+  // queries to a backend. Parameterized queries prevent SQL injection by
+  // keeping values separate from the SQL string.
+  const { sql, params } = qryBldrObj.getParameterizedSql();
+  console.log('Parameterized SQL:', sql);   // e.g. "EmployeeID = ?"
+  console.log('Parameters:', params);        // e.g. [1001]
+  // Pass sql + params to your backend ORM / prepared-statement API.
+  // Never concatenate raw getSqlFromRules() output directly into a query string.
 }
 ```
+
+> **Security — SQL Injection:** Always prefer `getParameterizedSql()` (or `getNamedParameterizedSql()`) over `getSqlFromRules()` when the output is executed against a database. Raw SQL strings built from user-supplied values are susceptible to SQL injection if not properly escaped by the backend. Use your backend's prepared-statement or ORM parameterization layer to bind values safely.
 
 ### Pattern 2: Programmatically Adding Rules
 

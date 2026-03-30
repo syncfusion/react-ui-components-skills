@@ -46,7 +46,7 @@ Syncfusion license key validation was introduced in the 2022 Volume 1 release (v
 - **v30.x.x and earlier (Platform-based):** React, Angular, Vue, JavaScript, Blazor, etc.
 
 **Build Server Scenarios:**
-- **Using npm packages:** License key required - register using `registerLicense()` or NPX command
+- **Using npm packages:** License key required - register NPX command
 - **Using trial installer:** License key required - trial warnings appear after 30 days
 - **Using licensed installer:** License key NOT required - embedded license validation included
 
@@ -68,9 +68,6 @@ Syncfusion license key validation was introduced in the 2022 Volume 1 release (v
 
 ### Registering License Keys
 📄 **Read:** [references/license-registration.md](references/license-registration.md)
-- Direct registration in index.js with `registerLicense()`
-- NPX command registration: `npx syncfusion-license activate`
-- License file method: `syncfusion-license.txt`
 - Environment variable method: `SYNCFUSION_LICENSE`
 - CI/CD integration: GitHub Actions, Azure Pipelines
 - Active license, active trial, expired license scenarios
@@ -103,95 +100,33 @@ Visit [License & Downloads](https://www.syncfusion.com/account/downloads) page:
 
 ### 2. Register License Key in Application
 
-```javascript
-// src/index.js
-import React from 'react';
-import ReactDOM from 'react-dom';
-import { registerLicense } from '@syncfusion/ej2-base';
+**Recommended Method:** Use environment variables to register your license key. This prevents accidentally committing license keys to source control.
 
-// Register Syncfusion license key
-registerLicense('YOUR_LICENSE_KEY_HERE');
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-```
-
-> **Note:** The `@syncfusion/ej2-base` package is a dependency for all Syncfusion components and will be automatically installed when you install any Syncfusion React package. You don't need to explicitly add it to your `package.json` file.
-
-## Common Registration Methods
-
-### Direct Registration (Recommended for Simple Apps)
-
-```javascript
-// src/index.js
-import { registerLicense } from '@syncfusion/ej2-base';
-
-registerLicense('Replace your generated license key here');
-
-ReactDOM.render(<App />, document.getElementById('root'));
-```
-
-### Environment Variable Registration
-
-```javascript
-// src/index.js
-import { registerLicense } from '@syncfusion/ej2-base';
-
-// Use environment variable for license key
-const licenseKey = process.env.REACT_APP_SYNCFUSION_LICENSE;
-if (licenseKey) {
-  registerLicense(licenseKey);
-}
-
-ReactDOM.render(<App />, document.getElementById('root'));
-```
-
-```env
-# .env
-REACT_APP_SYNCFUSION_LICENSE=your_license_key_here
-```
-
-### NPX Command Registration (Build Servers)
+**Step 1:** Set the environment variable:
 
 ```bash
-# Create syncfusion-license.txt in project root
-echo "YOUR_LICENSE_KEY" > syncfusion-license.txt
+# Windows
+setx SYNCFUSION_LICENSE "Your_License_Key_Here"
 
-# Activate license
+# Mac/Linux
+export SYNCFUSION_LICENSE='Your_License_Key_Here'
+```
+
+**Step 2:** Activate the license using NPX command:
+
+```bash
 npx syncfusion-license activate
+```
 
-# Clear cache after activation
+**Step 3:** Clear the cache:
+
+```bash
+# Windows PowerShell
+Remove-Item -Recurse -Force node_modules\.cache
+
+# macOS/Linux
 rm -rf node_modules/.cache
 ```
 
-### GitHub Actions CI/CD
+> **Note:** For alternative license registration methods, kindly refer to the [Syncfusion license key registration documentation](https://ej2.syncfusion.com/react/documentation/licensing/license-key-registration).
 
-```yaml
-# .github/workflows/build.yml
-steps:
-  - name: Install dependencies
-    run: npm install
-
-  - name: Activate Syncfusion License
-    run: npx syncfusion-license activate
-    env:
-      SYNCFUSION_LICENSE: ${{ secrets.SYNCFUSION_LICENSE }}
-```
-
-### Azure Pipelines CI/CD
-
-```yaml
-# azure-pipelines.yml
-steps:
-  - script: npm install
-    displayName: 'Install dependencies'
-
-  - script: npx syncfusion-license activate
-    displayName: 'Activate Syncfusion License'
-    env:
-      SYNCFUSION_LICENSE: $(SYNCFUSION_LICENSE)
-```

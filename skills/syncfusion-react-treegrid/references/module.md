@@ -2,11 +2,15 @@
 
 ## Table of Contents
 - [Module Injection Rules](#module-injection-rules)
-- [Core Modules](#core-modules)
-- [Feature Modules](#feature-modules)
-- [Built-in Features (No Module Needed)](#built-in-features-no-module-needed)
-- [Multiple Module Injection](#multiple-module-injection)
-- [Module Troubleshooting](#module-troubleshooting)
+- [Critical Rule](#critical-rule)
+- [Module Types](#module-types)
+- [Module Registration Example](#module-registration-example)
+- [Module Dependencies](#module-dependencies)
+- [Performance Considerations](#performance-considerations)
+- [Optional vs Required](#optional-vs-required)
+- [DataManager Module](#datamanager-module)
+- [Checking TreeGrid API with VS IntelliSense](#checking-treegrid-api-with-vs-intellisense)
+
 
 The Syncfusion React TreeGrid uses a modular architecture where each feature must be registered using the `Inject` component. Only the modules you explicitly inject are bundled, keeping your application bundle size minimal.
 
@@ -302,58 +306,6 @@ import { Inject, Print } from '@syncfusion/ej2-react-treegrid';
 
 ## Module Registration Example
 
-### Basic Setup with Common Modules
-```tsx
-import React from 'react';
-import {
-  TreeGridComponent,
-  ColumnsDirective,
-  ColumnDirective,
-  Inject,
-  Page,
-  Sort,
-  Filter,
-  Edit,
-  Toolbar,
-  Selection,
-  ExcelExport,
-  PdfExport
-} from '@syncfusion/ej2-react-treegrid';
-
-export default function App() {
-  return (
-    <TreeGridComponent
-      dataSource={data}
-      childMapping="Children"
-      treeColumnIndex={1}
-      allowPaging
-      allowSorting
-      allowFiltering
-      editSettings={{ allowEditing: true, mode: 'Cell' }}
-      toolbarClick={handleToolbarClick}
-    >
-      <ColumnsDirective>
-        <ColumnDirective field="TaskID" headerText="Task ID" width={80} />
-        <ColumnDirective field="TaskName" headerText="Task Name" width={160} />
-        {/* ... more columns ... */}
-      </ColumnsDirective>
-      <Inject
-        services={[
-          Page,
-          Sort,
-          Filter,
-          Edit,
-          Toolbar,
-          Selection,
-          ExcelExport,
-          PdfExport
-        ]}
-      />
-    </TreeGridComponent>
-  );
-}
-```
-
 ### Full Feature Setup
 ```tsx
 import {
@@ -514,7 +466,7 @@ If using remote data binding with DataManager:
 import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 
 const remoteData = new DataManager({
-  url: 'https://api.example.com/data',
+  url: 'url',
   adaptor: new UrlAdaptor()
 });
 

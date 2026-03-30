@@ -199,29 +199,6 @@ const onDataBound = () => {
 </GridComponent>
 ```
 
-### Hide Expand Icon When No Child Records
-
-```tsx
-import { DataManager, Query } from '@syncfusion/ej2-data';
-
-const rowDataBound = (args) => {
-  const empId = args.data.EmployeeID;
-  const childRecords = new DataManager(childData)
-    .executeLocal(new Query().where('EmployeeID', 'equal', empId, true));
-
-  if (childRecords.length === 0) {
-    const cell = args.row.querySelector('td');
-    cell.innerHTML = ' ';
-    cell.className = 'e-customizedexpandcell';
-  }
-};
-
-<GridComponent dataSource={employeeData} childGrid={childGrid} rowDataBound={rowDataBound}>
-  {/* columns */}
-  <Inject services={[DetailRow]} />
-</GridComponent>
-```
-
 ### Prevent Expand/Collapse via Events
 
 ```tsx

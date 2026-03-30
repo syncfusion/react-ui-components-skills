@@ -28,10 +28,10 @@ function DragDropExample() {
     <FileManagerComponent
       allowDragAndDrop={true}
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        getImageUrl: "url",
+        uploadUrl: "url",
+        downloadUrl: "url"
       }}
     >
       <Inject services={[DetailsView, NavigationPane, Toolbar]} />
@@ -208,10 +208,10 @@ Allow dragging files from file explorer into File Manager:
 <FileManagerComponent
   allowDragAndDrop={true}
   ajaxSettings={{
-    url: "https://api.example.com/api/FileManager/FileOperations",
-    uploadUrl: "https://api.example.com/api/FileManager/Upload",
-    getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-    downloadUrl: "https://api.example.com/api/FileManager/Download"
+    url: "url",
+    uploadUrl: "url",
+    getImageUrl: "url",
+    downloadUrl: "url"
   }}
 >
   <Inject services={[DetailsView, NavigationPane, Toolbar]} />
@@ -258,10 +258,10 @@ function AdvancedDragDrop() {
       fileDragStop={handleFileDragStop}
       fileDropped={handleFileDropped}
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        getImageUrl: "url",
+        uploadUrl: "url",
+        downloadUrl: "url"
       }}
       height="600px"
     >

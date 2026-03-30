@@ -29,10 +29,10 @@ function NavigationPaneVisibilityExample() {
         width: '200px'  // Set width
       }}
       ajaxSettings={{
-        url: "https://your-server.com/api/FileManager/FileOperations",
-        downloadUrl: "https://your-server.com/api/FileManager/Download",
-        uploadUrl: "https://your-server.com/api/FileManager/Upload",
-        getImageUrl: "https://your-server.com/api/FileManager/GetImage"
+        url: "url",
+        downloadUrl: "url",
+        uploadUrl: "url",
+        getImageUrl: "url"
       }}
     >
       <Inject services={[NavigationPane, Toolbar]} />
@@ -335,7 +335,7 @@ import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar } fr
 
 function AdvancedNavigationCustomization() {
   const fileManagerRef = useRef(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   const getFolderMetadata = (folderName) => {
     const metadata = {

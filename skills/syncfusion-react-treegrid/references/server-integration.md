@@ -14,7 +14,6 @@ description: 'Server Integration in React TreeGrid - CRUD operations, remote dat
 - [Custom Request/Response Handling](#custom-requestresponse-handling)
 - [Error Handling](#error-handling)
 - [Batch Operations](#batch-operations)
-- [API Endpoint Patterns](#api-endpoint-patterns)
 
 Complete guide for integrating TreeGrid with server APIs.
 
@@ -29,7 +28,7 @@ import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 
 export default function App() {
   const dataManager = new DataManager({
-    url: 'https://api.example.com/api/treegrid',
+    url: 'url',
     adaptor: new UrlAdaptor(),
     offline: false
   });
@@ -172,12 +171,12 @@ const customAdapter = new UrlAdaptor();
 customAdapter.beforeSend = (request) => {
   // Add custom headers
   request.headers = request.headers || {};
-  request.headers['Authorization'] = 'Bearer ' + getToken();
+  request.headers['Authorization'] = `send_token`;
   request.headers['API-Key'] = 'your-api-key';
 };
 
 const dataManager = new DataManager({
-  url: 'https://api.example.com/api/treegrid',
+  url: 'url',
   adaptor: customAdapter,
   offline: false
 });

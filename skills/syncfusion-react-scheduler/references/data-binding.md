@@ -37,7 +37,7 @@ The Syncfusion React Scheduler supports comprehensive data binding capabilities 
 - **Performance Optimization**: Server-side filtering and lazy loading capabilities
 
 **DataSource Property:**
-The [`dataSource`](https://ej2.syncfusion.com/react/documentation/api/schedule/eventSettings#datasource) property within [`eventSettings`](https://ej2.syncfusion.com/react/documentation/api/schedule/eventSettings) accepts:
+The `dataSource` property within `eventSettings` accepts:
 - JavaScript object array collections
 - DataManager instances configured with adaptors
 - Remote service URLs for RESTful data binding
@@ -47,7 +47,7 @@ The [`dataSource`](https://ej2.syncfusion.com/react/documentation/api/schedule/e
 Local data binding allows you to bind JavaScript object arrays directly to the Scheduler without requiring external server calls.
 
 **Implementation:**
-Assign a JavaScript object array to the [`dataSource`](https://ej2.syncfusion.com/react/documentation/api/schedule/eventSettings#datasource) property within [`eventSettings`](https://ej2.syncfusion.com/react/documentation/api/schedule/eventSettings).
+Assign a JavaScript object array to the `dataSource` property within `eventSettings`.
 
 ```tsx
 import * as React from 'react';
@@ -123,7 +123,7 @@ Create a `DataManager` instance with the remote service URL and appropriate adap
 
 ### Using ODataV4Adaptor
 
-[ODataV4](https://www.odata.org/documentation/) is a standardized protocol for creating and consuming data. Use `ODataV4Adaptor` to connect with ODataV4 service endpoints.
+`ODataV4` is a standardized protocol for creating and consuming data. Use `ODataV4Adaptor` to connect with ODataV4 service endpoints.
 
 ```tsx
 import { useState, useEffect } from 'react';
@@ -146,7 +146,7 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       const manager = new DataManager({
-        url: 'https://services.odata.org/V4/Northwind/Northwind.svc/Orders/',
+        url: 'url',
         adaptor: new ODataV4Adaptor()
       });
       await manager.ready;
@@ -188,7 +188,7 @@ root.render(<App />);
 
 ### Filter Events Using In-Built Query
 
-Enable server-side filtering by setting [`includeFiltersInQuery`](https://ej2.syncfusion.com/react/documentation/api/schedule/eventSettingsModel#includefiltersinquery) to `true`. This includes start date, end date, and recurrence rule in the query, retrieving only relevant data.
+Enable server-side filtering by setting `includeFiltersInQuery` to `true`. This includes start date, end date, and recurrence rule in the query, retrieving only relevant data.
 
 ```tsx
 import * as React from 'react';
@@ -207,7 +207,7 @@ import { DataManager, ODataV4Adaptor, Query } from '@syncfusion/ej2-data';
 
 const App = () => {
   let dataManager: DataManager = new DataManager({
-    url: 'https://services.odata.org/V4/Northwind/Northwind.svc/Orders/',
+    url: 'url',
     adaptor: new ODataV4Adaptor()
   });
   
@@ -296,7 +296,7 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       const manager = new DataManager({
-        url: 'https://services.odata.org/V4/Northwind/Northwind.svc/Orders/',
+        url: 'url',
         adaptor: new CustomAdaptor(),
         crossDomain: true
       });
@@ -407,7 +407,7 @@ const dataManager = new DataManager({
 
 ```tsx
 const dataManager = new DataManager({
-  url: 'https://services.odata.org/V4/Service/Orders/',
+  url: 'url',
   adaptor: new ODataV4Adaptor()
 });
 ```
@@ -425,7 +425,7 @@ const dataManager = new DataManager({
 
 ```tsx
 const dataManager = new DataManager({
-  url: 'https://api.example.com/api/events',
+  url: 'url',
   adaptor: new WebApiAdaptor(),
   crossDomain: true
 });
@@ -653,7 +653,7 @@ root.render(<App />);
 
 ### Passing Additional Parameters
 
-Send custom parameters to the server using the `addParams` method of `Query` and assign it to the [`query`](https://ej2.syncfusion.com/react/documentation/api/schedule/eventSettings#query) property.
+Send custom parameters to the server using the `addParams` method of `Query` and assign it to the `query` property.
 
 ```tsx
 import { useState, useEffect } from 'react';
@@ -677,7 +677,7 @@ const App = () => {
   useEffect(() => {
     const fetchData = async () => {
       const manager = new DataManager({
-        url: 'https://services.odata.org/V4/Northwind/Northwind.svc/Orders/',
+        url: 'url',
         adaptor: new ODataV4Adaptor()
       });
       await manager.ready;
@@ -722,13 +722,13 @@ const root = ReactDOM.createRoot(document.getElementById('schedule'));
 root.render(<App />);
 ```
 
-**Note:** Parameters added using the [`query`](https://ej2.syncfusion.com/react/documentation/api/schedule/eventSettings#query) property are sent with every Scheduler data request.
+**Note:** Parameters added using the `query` property are sent with every Scheduler data request.
 
 ## Advanced Scenarios
 
 ### Handling Failure Actions
 
-Handle server-side exceptions using the [`actionFailure`](https://ej2.syncfusion.com/react/documentation/api/schedule#actionfailure) event.
+Handle server-side exceptions using the `actionFailure` event.
 
 ```tsx
 import { useRef } from 'react';
@@ -786,11 +786,11 @@ const root = ReactDOM.createRoot(document.getElementById('schedule'));
 root.render(<App />);
 ```
 
-**Note:** The [`actionFailure`](https://ej2.syncfusion.com/react/documentation/api/schedule#actionfailure) event is triggered for both server errors and client-side CRUD operation exceptions.
+**Note:** The `actionFailure` event is triggered for both server errors and client-side CRUD operation exceptions.
 
 ### Configuring with Google API Service
 
-Integrate Google Calendar by mapping Google Calendar data format to Scheduler event format using the [`dataBinding`](https://ej2.syncfusion.com/react/documentation/api/schedule#databinding) event.
+Integrate Google Calendar by mapping Google Calendar data format to Scheduler event format using the `dataBinding` event.
 
 ```tsx
 import * as React from 'react';
@@ -812,7 +812,7 @@ const App = () => {
   let publicKey: string = 'AIzaSyBgbX_tgmVanBP4yafDPPXxWr70sjbKAXM';
   
   const dataManger: DataManager = new DataManager({
-    url: 'https://www.googleapis.com/calendar/v3/calendars/' + calendarId + 
+    url: 'url' + calendarId + 
          '/events?key=' + publicKey,
     adaptor: new WebApiAdaptor(),
     crossDomain: true

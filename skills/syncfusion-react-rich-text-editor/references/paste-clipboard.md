@@ -49,9 +49,8 @@ const pasteCleanupSettings = {
 
 ```tsx
 const afterPasteCleanup = (args: PasteCleanupArgs) => {
-  // args.value — the cleaned HTML after paste
   console.log('Cleaned paste content:', args.value);
-};
+}
 
 <RichTextEditorComponent
   pasteCleanupSettings={pasteCleanupSettings}

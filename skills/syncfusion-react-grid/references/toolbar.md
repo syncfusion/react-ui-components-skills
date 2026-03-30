@@ -2,6 +2,7 @@
 
 ## Table of Contents
 - [Overview](#overview)
+- [Mandatory Rules](#mandatory-rules)
 - [Built-in Toolbar Items](#built-in-toolbar-items)
 - [Custom Toolbar](#custom-toolbar)
 - [Event Handling](#event-handling)

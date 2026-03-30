@@ -117,7 +117,7 @@ import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 
 function GridWithServerPaging() {
   const data = new DataManager({
-    url: 'https://api.example.com/orders',
+    url: 'url',
     adaptor: new UrlAdaptor()
   });
 

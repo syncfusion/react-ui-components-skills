@@ -11,6 +11,14 @@ metadata:
 
 A comprehensive skill for implementing and customizing Syncfusion's React TreeGrid component. TreeGrid visualizes self-referential hierarchical data in a tabular layout with expand/collapse functionality, enterprise features like virtual scrolling, and comprehensive export options.
 
+## Table of Contents
+- [When to Use This Skill](#when-to-use-this-skill)
+- [TreeGrid Overview](#treegrid-overview)
+- [Data Structure Rules](#data-structure-rules)
+- [Documentation Navigation Guide](#documentation-navigation-guide)
+- [Quick Start Example](#quick-start-example)
+
+
 ## When to Use This Skill
 
 Use this skill when you need to:
@@ -131,7 +139,7 @@ const data = [
 
 ---
 
-## Documentation & Navigation Guide
+## Documentation Navigation Guide
 
 ### Data Binding
 
@@ -339,7 +347,6 @@ const data = [
 - Prevent specific columns from reordering
 - Reorder events and callbacks
 - Programmatic column reordering
-- Save/restore column order
 
 **📄 Column Resize**
 📖 [references/column-resize.md](references/column-resize.md)
@@ -383,7 +390,6 @@ const data = [
 - Custom request/response handling
 - Error handling strategies
 - Batch operations
-- API endpoint patterns
 
 ### Validation Patterns
 📖 [references/validation-patterns.md](references/validation-patterns.md)

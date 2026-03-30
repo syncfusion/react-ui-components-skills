@@ -1,5 +1,15 @@
 # Performance Optimization
 
+## ⚠️ SECURITY NOTICE
+
+**Server-side data sources MUST use authenticated, configuration-based endpoints.** Never hardcode server URLs.
+
+✅ **Required Security Controls:**
+- Environment-based configuration (`.env` files)
+- Authentication and authorization
+- HTTPS/SSL for all remote connections
+- Input validation and sanitization
+
 ## Table of Contents
 - [Virtual Scrolling](#virtual-scrolling)
 - [Paging Configuration](#paging-configuration)
@@ -455,12 +465,14 @@ function onBeginDrillThrough(args: any): void {
 
 ### 1. Server-Side Aggregation
 
+> **⚠️ SECURITY:** Use environment variables for server URLs. See security notice at top of document.
+
 Use server-side aggregation for relational data:
 
 ```typescript
 const dataSourceSettings = {
   dataSource: {
-    url: 'https://your-server.com/api/pivot-data',
+    url: process.env.REACT_APP_PIVOT_SERVICE_URL,  // Environment-based URL
     mode: 'Server'  // Server-side aggregation
   },
   rows: [{ name: 'Country' }],

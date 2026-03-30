@@ -8,9 +8,11 @@ description: 'Column Reorder in React TreeGrid - enable column drag-and-drop reo
 ## Table of Contents
 - [Enable Column Reorder](#enable-column-reorder)
 - [Reorder Configuration](#reorder-configuration)
+- [Prevent Specific Columns from Reordering](#prevent-specific-columns-from-reordering)
 - [Reorder Events](#reorder-events)
-- [Programmatic Reorder](#programmatic-reorder)
-- [Reorder Restrictions](#reorder-restrictions)
+- [Programmatic Column Reordering](#programmatic-column-reordering)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Enable Column Reorder
 
@@ -137,36 +139,6 @@ const reorderColumns = () => {
 </TreeGridComponent>
 ```
 
-## Get Current Column Order
-
-Retrieve current column order:
-
-```tsx
-const getCurrentColumnOrder = () => {
-  const columnOrder = treeGridRef.current.columns.map(col => col.field);
-  console.log('Current column order:', columnOrder);
-  return columnOrder;
-};
-```
-
-## Save and Restore Column Order
-
-Persist column order to localStorage:
-
-```tsx
-const saveColumnOrder = () => {
-  const order = treeGridRef.current.columns.map(col => col.field);
-  localStorage.setItem('columnOrder', JSON.stringify(order));
-};
-
-const restoreColumnOrder = () => {
-  const saved = localStorage.getItem('columnOrder');
-  if (saved) {
-    const order = JSON.parse(saved);
-    treeGridRef.current.reorderColumns(order);
-  }
-};
-```
 
 ## Key APIs
 

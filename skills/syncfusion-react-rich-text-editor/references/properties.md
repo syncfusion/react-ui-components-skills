@@ -138,7 +138,7 @@ Enables iFrame mode for full CSS isolation.
 const iframeSettings: IFrameSettingsModel = {
   enable: true,
   resources: {
-    styles: ['https://cdn.example.com/editor.css']
+    styles: ['url']
   }
 };
 ```
@@ -228,8 +228,8 @@ Persists the editor value across page reloads using localStorage. Default: `fals
 import { SaveFormat } from '@syncfusion/ej2-react-richtexteditor';
 
 const insertImageSettings: ImageSettingsModel = {
-  saveUrl: 'https://api.example.com/upload',
-  path: 'https://api.example.com/images/',
+  saveUrl: 'url',
+  path: 'url',
   allowedTypes: ['.jpeg', '.jpg', '.png', '.gif', '.webp'],
   saveFormat: SaveFormat.Blob,  // Use enum
   resize: true,
@@ -676,14 +676,14 @@ const slashMenuSettings: SlashMenuSettingsModel = {
 ### `importWord: ImportWordModel`
 ```tsx
 const importWord: ImportWordModel = {
-  serviceUrl: 'https://api.example.com/api/RichTextEditor/ImportFromWord'
+  serviceUrl: 'url'
 };
 ```
 
 ### `exportWord: ExportWordModel`
 ```tsx
 const exportWord: ExportWordModel = {
-  serviceUrl: 'https://api.example.com/api/RichTextEditor/ExportToDocx',
+  serviceUrl: 'url',
   fileName: 'Document.docx',
   stylesheet: null
 };
@@ -692,7 +692,7 @@ const exportWord: ExportWordModel = {
 ### `exportPdf: ExportPdfModel`
 ```tsx
 const exportPdf: ExportPdfModel = {
-  serviceUrl: 'https://api.example.com/api/RichTextEditor/ExportToPdf',
+  serviceUrl: 'url',
   fileName: 'Document.pdf',
   stylesheet: null
 };

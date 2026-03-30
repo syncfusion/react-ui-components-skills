@@ -28,10 +28,10 @@ function HideThumbnailExample() {
       height="500px"
       showThumbnail={false}  // Disable thumbnail display
       ajaxSettings={{
-        url: "https://your-server.com/api/FileManager/FileOperations",
-        downloadUrl: "https://your-server.com/api/FileManager/Download",
-        uploadUrl: "https://your-server.com/api/FileManager/Upload",
-        getImageUrl: "https://your-server.com/api/FileManager/GetImage"
+        url: "url",
+        downloadUrl: "url",
+        uploadUrl: "url",
+        getImageUrl: "url"
       }}
     >
       <Inject services={[NavigationPane, Toolbar]} />
@@ -113,10 +113,10 @@ function CustomLargeIconTemplate() {
       view="LargeIcons"
       largeIconsTemplate={largeIconsTemplate}
       ajaxSettings={{
-        url: "https://your-server.com/api/FileManager/FileOperations",
-        downloadUrl: "https://your-server.com/api/FileManager/Download",
-        uploadUrl: "https://your-server.com/api/FileManager/Upload",
-        getImageUrl: "https://your-server.com/api/FileManager/GetImage"
+        url: "url",
+        downloadUrl: "url",
+        uploadUrl: "url",
+        getImageUrl: "url"
       }}
     >
       <Inject services={[NavigationPane, Toolbar]} />
@@ -248,7 +248,7 @@ import React from 'react';
 import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar } from '@syncfusion/ej2-react-filemanager';
 
 function AdvancedThumbnailCustomization() {
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   const getFileIcon = (name) => {
     const ext = name.split('.').pop().toLowerCase();

@@ -11,11 +11,9 @@ description: 'Row Operations in React TreeGrid - row templates, row height confi
 - [Row Spanning](#row-spanning)
 - [Detail Templates](#detail-templates)
 - [Row Drag and Drop](#row-drag-and-drop)
-- [Row Styling](#row-styling)
-- [Row Spanning](#row-spanning)
-- [Detail Templates](#detail-templates)
-- [Row Drag and Drop](#row-drag-and-drop)
 - [Indent and Outdent](#indent-and-outdent)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Overview
 

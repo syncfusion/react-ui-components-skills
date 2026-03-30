@@ -7,11 +7,11 @@ description: 'Loading Animation in React TreeGrid - built-in spinner, custom ani
 
 ## Table of Contents
 - [Built-in Spinner](#built-in-spinner)
-- [Enable Loading Indicator](#enable-loading-indicator)
-- [Custom Animation](#custom-animation)
-- [Loading State Control](#loading-state-control)
-- [CSS Customization](#css-customization)
+- [Custom Loading Spinner](#custom-loading-spinner)
+- [Loading State Management](#loading-state-management)
+- [Loading Animation Customization CSS](#loading-animation-customization-css)
 - [Common Patterns](#common-patterns)
+- [Key APIs](#key-apis)
 
 ## Built-in Spinner:
 
@@ -129,7 +129,7 @@ Control loading based on data operations:
 </TreeGridComponent>
 ```
 
-## Loading Animation CSS
+## Loading Animation Customization CSS
 
 Add loading animation with CSS:
 

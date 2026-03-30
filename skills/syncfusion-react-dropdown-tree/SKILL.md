@@ -264,7 +264,7 @@ const handleSelect = (args) => {
 
 ```jsx
 const remoteData = new DataManager({
-  url: 'https://your-api.com/data',
+  url: 'url',
   adaptor: new UrlAdaptor(),
 });
 

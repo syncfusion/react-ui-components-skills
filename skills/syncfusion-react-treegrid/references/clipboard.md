@@ -8,6 +8,8 @@ description: 'Clipboard in React TreeGrid - copy operations, copy cells, copy ro
 ## Table of Contents
 - [Copy Operations](#copy-operations)
 - [Copy with Hierarchy](#copy-with-hierarchy)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Copy Operations
 
@@ -40,7 +42,7 @@ export default function App() {
 ```
 
 
-## Copy Hierarchy
+## Copy with Hierarchy
 
 Copy with hierarchical structure preserved:
 

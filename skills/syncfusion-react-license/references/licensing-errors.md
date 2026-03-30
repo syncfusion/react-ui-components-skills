@@ -21,26 +21,26 @@ Please include a valid license key in the application.
 ```
 
 ### Cause
-No license key registered using `registerLicense()`.
+Syncfusion license key not registered in the application.
 
 ### Solution
 
-Generate license key from [Syncfusion Portal](https://www.syncfusion.com/account/downloads), then register in `src/index.js`:
+Generate license key from [Syncfusion Portal](https://www.syncfusion.com/account/downloads).
 
-```javascript
-import { registerLicense } from '@syncfusion/ej2-base';
-import App from './App';
+**Step 1:** Set the environment variable:
 
-registerLicense('YOUR_LICENSE_KEY_HERE');
+```bash
+# Windows
+setx SYNCFUSION_LICENSE "Your_License_Key_Here"
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(<App />);
+# Mac/Linux
+export SYNCFUSION_LICENSE='Your_License_Key_Here'
 ```
 
-Clear cache and restart:
+**Step 2:** Activate the license using NPX command:
+
 ```bash
-rm -rf node_modules/.cache
-npm start
+npx syncfusion-license activate
 ```
 
 ## Invalid License Key Error

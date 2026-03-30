@@ -157,7 +157,7 @@ import React from 'react';
 import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar } from '@syncfusion/ej2-react-filemanager';
 
 function AccessControlExample() {
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   return (
     <div className="control-section">
@@ -292,7 +292,7 @@ import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar, Con
 function AccessControlledFileManager() {
   const fileManagerRef = useRef(null);
   const userRole = localStorage.getItem('userRole') || 'Guest';
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   useEffect(() => {
     // You could validate access on component load

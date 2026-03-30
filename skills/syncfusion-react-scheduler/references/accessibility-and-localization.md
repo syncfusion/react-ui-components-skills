@@ -5,7 +5,6 @@
 - [Accessibility and Localization](#accessibility-and-localization)
   - [Table of Contents](#table-of-contents)
   - [Overview](#overview)
-  - [WCAG Compliance](#wcag-compliance)
   - [Keyboard Navigation](#keyboard-navigation)
   - [ARIA Attributes](#aria-attributes)
   - [Screen Reader Support](#screen-reader-support)
@@ -42,33 +41,6 @@ The Syncfusion React Scheduler is designed with comprehensive accessibility and 
 - Unicode CLDR-based globalization
 
 The Scheduler requires an ARIA-compliant browser and a running screen reader for optimal accessibility support.
-
-## WCAG Compliance
-
-The Scheduler component meets comprehensive accessibility standards, ensuring compliance with international guidelines and regulations.
-
-| Accessibility Criteria | Compatibility |
-|------------------------|---------------|
-| [WCAG 2.2](https://www.w3.org/TR/WCAG22/) Support | ✓ Full Support |
-| [Section 508](https://www.section508.gov/) Support | ✓ Full Support |
-| Screen Reader Support | ✓ Full Support |
-| Right-To-Left Support | ✓ Full Support |
-| Color Contrast | ✓ Full Support |
-| Mobile Device Support | ✓ Full Support |
-| Keyboard Navigation Support | ✓ Full Support |
-| [Accessibility Checker](https://www.npmjs.com/package/accessibility-checker) Validation | ✓ Full Support |
-| [Axe-core](https://www.npmjs.com/package/axe-core) Accessibility Validation | ✓ Full Support |
-
-**Compliance Indicators:**
-- ✓ **Full Support**: All features meet the requirement
-- ⚠ **Partial Support**: Some features meet the requirement
-- ✗ **No Support**: The component does not meet the requirement
-
-The Scheduler's accessibility compliance is continuously validated through automated testing using industry-standard tools like accessibility-checker and axe-core.
-
-**Testing Resources:**
-- [Accessibility Sample](https://ej2.syncfusion.com/accessibility/schedule.html) - Evaluate Scheduler accessibility with testing tools
-- [Syncfusion React Accessibility Guide](../common/accessibility) - General accessibility information
 
 ## Keyboard Navigation
 
@@ -942,13 +914,6 @@ L10n.load(JSON.parse(localeTexts));
   }
 }
 ```
-
-**Additional Resources:**
-- [Syncfusion Locale Repository](https://github.com/syncfusion/ej2-locale) - Pre-translated locale files for multiple languages
-- [Internationalization Guide](https://ej2.syncfusion.com/react/documentation/common/globalization/internationalization) - Detailed globalization documentation
-- [React Scheduler Demos](https://ej2.syncfusion.com/react/demos/#/tailwind3/schedule/overview) - Live examples and demonstrations
-
----
 
 **Summary:**
 This reference provides comprehensive guidance for implementing accessibility and localization features in the Syncfusion React Scheduler. By following these guidelines, you can create inclusive, globally-ready scheduling applications that meet WCAG 2.2 standards and support diverse user needs across different regions and abilities.

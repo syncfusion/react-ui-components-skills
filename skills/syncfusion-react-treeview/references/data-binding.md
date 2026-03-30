@@ -203,7 +203,7 @@ import { DataManager, Query, ODataV4Adaptor } from '@syncfusion/ej2-data';
 
 function App() {
   const data = new DataManager({
-    url: 'https://ej2services.syncfusion.com/production/web-services/api/orders',
+    url: 'url',
     adaptor: new ODataV4Adaptor()
   });
 
@@ -238,7 +238,7 @@ import { DataManager, Query, ODataV4Adaptor } from '@syncfusion/ej2-data';
 
 function App() {
   const data = new DataManager({
-    url: 'https://api.odata.org/v4/TripPinServiceRW/People',
+    url: 'url',
     adaptor: new ODataV4Adaptor()
   });
 
@@ -274,7 +274,7 @@ import { DataManager, Query, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 function App() {
   const data = new DataManager({
-    url: 'https://api.example.com/hierarchy',
+    url: 'url',
     adaptor: new WebApiAdaptor()
   });
 
@@ -327,7 +327,7 @@ import { DataManager, Query, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 function App() {
   const data = new DataManager({
-    url: 'https://api.example.com/nodes',
+    url: 'url',
     adaptor: new WebApiAdaptor()
   });
 
@@ -374,7 +374,7 @@ export default App;
 function App() {
   const [cache, setCache] = React.useState({});
   const data = new DataManager({
-    url: 'https://api.example.com/nodes',
+    url: 'url',
     adaptor: new WebApiAdaptor()
   });
 

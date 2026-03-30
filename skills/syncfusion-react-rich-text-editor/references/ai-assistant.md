@@ -125,17 +125,26 @@ const aiAssistantSettings: AIAssistantSettingsModel = {
 
 ## Handling Responses
 
+**Security Warning**
+ 
+The Rich Text Editor does not handle or send requests to AI provider endpoints. All AI interactions must be processed at the application layer (preferably in the backend).
+ 
+Ensure that:
+ 
+* AI inputs are validated and moderated on the backend.
+* API keys and secrets are never exposed in request bodies or client-side code.
+* All requests to AI services are securely routed and managed through backend systems.
+
 Executing a prompt triggers the `aiAssistantPromptRequest` event. You can handle streaming or non-streaming responses using the `addAIPromptResponse` method.
 
 ### Handling Streaming Responses
 
 ```tsx
 const onPromptRequest = async (args: AIAssistantPromptRequestArgs) => {
-    const response = await fetch('YOUR_AI_SERVICE_URL/api/stream', {
+    const response = await fetch('/api/ai/stream', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'HANDLE_AUTH_HERE'
         },
         body: JSON.stringify({ message: args.prompt + args.text }),
     });
@@ -160,12 +169,11 @@ const onPromptRequest = async (args: AIAssistantPromptRequestArgs) => {
 ### Handling Non-Streaming Responses
 
 ```tsx
-const onPromptRequest = async (args: AIAssistantPromptRequestArgs) => {
-    const response = await fetch('YOUR_AI_SERVICE_URL/api/query', {
+const onPromptRequest = async (args: AIAssistantPromptRequestArgs) => {    
+    const response = await fetch('/api/ai/query', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json',
-            'Authorization': 'HANDLE_AUTH_HERE'
         },
         body: JSON.stringify({ message: args.prompt + args.text }),
     });

@@ -48,10 +48,10 @@ function CustomProviderFileManager() {
     <FileManagerComponent
       beforeSend={handleBeforeSend}
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        getImageUrl: "url",
+        uploadUrl: "url",
+        downloadUrl: "url"
       }}
     >
       <Inject services={[DetailsView, NavigationPane, Toolbar]} />
@@ -110,10 +110,10 @@ function RealTimeAPIIntegration() {
         beforeSend={handleBeforeSend}
         created={handleCreated}
         ajaxSettings={{
-          url: "https://api.example.com/api/FileManager/FileOperations",
-          getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-          uploadUrl: "https://api.example.com/api/FileManager/Upload",
-          downloadUrl: "https://api.example.com/api/FileManager/Download"
+          url: "url",
+          getImageUrl: "url",
+          uploadUrl: "url",
+          downloadUrl: "url"
         }}
         height="600px"
       >
@@ -141,7 +141,7 @@ const handleBeforeSend = (args) => {
   const tenantId = localStorage.getItem('tenantId');
   
   // Include tenant in all requests
-  args.ajaxSettings.url = `https://api.example.com/api/v1/tenants/${tenantId}/filemanager`;
+  args.ajaxSettings.url = 'url';
   args.ajaxSettings.headers = {
     'X-Tenant-ID': tenantId,
     'Authorization': 'Bearer ' + getAccessToken()
@@ -227,7 +227,7 @@ function BatchOperationFileManager() {
   const performBatchDelete = async (fileIds) => {
     setBatchInProgress(true);
     try {
-      const response = await fetch('https://api.example.com/api/FileManager/BatchDelete', {
+      const response = await fetch('url', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fileIds })
@@ -292,10 +292,10 @@ function ErrorHandlingFileManager() {
         created={handleCreated}
         destroyed={handleDestroyed}
         ajaxSettings={{
-          url: "https://api.example.com/api/FileManager/FileOperations",
-          getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-          uploadUrl: "https://api.example.com/api/FileManager/Upload",
-          downloadUrl: "https://api.example.com/api/FileManager/Download"
+          url: "url",
+          getImageUrl: "url",
+          uploadUrl: "url",
+          downloadUrl: "url"
         }}
         height="600px"
       >
@@ -405,10 +405,10 @@ function AdvancedFileManagerExample() {
         fileOpen={handleFileOpen}
         delete={handleDelete}
         ajaxSettings={{
-          url: "https://api.example.com/api/FileManager/FileOperations",
-          getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-          uploadUrl: "https://api.example.com/api/FileManager/Upload",
-          downloadUrl: "https://api.example.com/api/FileManager/Download"
+          url: "url",
+          getImageUrl: "url",
+          uploadUrl: "url",
+          downloadUrl: "url"
         }}
         height="700px"
       >
@@ -495,7 +495,7 @@ const handleBeforeSend = (args) => {
   const token = localStorage.getItem('access_token');
 
   // Route to tenant-scoped API
-  args.ajaxSettings.url = `https://api.example.com/v1/tenants/${tenantId}/filemanager`;
+  args.ajaxSettings.url = 'url';
 
   // Attach headers
   args.ajaxSettings.headers = {
@@ -515,10 +515,10 @@ const handleBeforeSend = (args) => {
 <FileManagerComponent
   beforeSend={handleBeforeSend}
   ajaxSettings={{
-    url: 'https://api.example.com/api/FileManager/FileOperations',
-    getImageUrl: 'https://api.example.com/api/FileManager/GetImage',
-    uploadUrl: 'https://api.example.com/api/FileManager/Upload',
-    downloadUrl: 'https://api.example.com/api/FileManager/Download'
+    url: 'url',
+    getImageUrl: 'url',
+    uploadUrl: 'url',
+    downloadUrl: 'url'
   }}
 >
   <Inject services={[DetailsView, NavigationPane, Toolbar]} />

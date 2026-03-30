@@ -12,6 +12,8 @@ description: 'Sorting in React TreeGrid - enable sorting, multi-level sort, sort
 - [Sort Events](#sort-events)
 - [Programmatic Sorting](#programmatic-sorting)
 - [Custom Sorting](#custom-sorting)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Enable Sorting
 
@@ -202,12 +204,6 @@ Retrieve current sort configuration:
 const sortColumns = treeGridRef.current.sortSettings.columns;
 console.log('Current sort columns:', sortColumns);
 ```
-
-## Custom Sorting
-
-### Custom Sort Comparer
-
-Implement custom sort logic for specific data types:
 
 ## Custom Sorting
 

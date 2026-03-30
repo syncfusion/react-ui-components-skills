@@ -1089,8 +1089,3 @@ const onMoreEventsClick = (args) => {
 ```
 
 ---
-
-**Additional Resources:**
-- [React Scheduler Component](https://www.syncfusion.com/react-components/react-scheduler)
-- [React Scheduler Examples](https://ej2.syncfusion.com/react/demos/#/tailwind3/schedule/overview)
-- [API Documentation](https://ej2.syncfusion.com/react/documentation/api/schedule)

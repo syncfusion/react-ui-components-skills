@@ -4,6 +4,7 @@
 - [Accessibility Compliance](#accessibility-compliance)
 - [WAI-ARIA Attributes](#wai-aria-attributes)
 - [Keyboard Navigation](#keyboard-navigation)
+- [cssClass Prop](#cssclass-prop)
 - [CSS Customization](#css-customization)
   - [Wrapper Element](#wrapper-element)
   - [Dropdown Icon](#dropdown-icon)
@@ -69,6 +70,121 @@ These attributes are managed automatically — no manual configuration needed.
 | `Escape` | Closes the popup, retaining the current selection |
 | `Home` | Selects the first item |
 | `End` | Selects the last item |
+
+---
+
+## cssClass Prop
+
+| Detail | Value |
+|---|---|
+| **Prop** | `cssClass` |
+| **Type** | `string` |
+| **Default** | `null` |
+
+The `cssClass` prop adds one or more custom CSS class names to the **root element** of the DropDownList component (the `.e-ddl` wrapper). Use it to scope all style overrides to a specific instance without affecting other DropDownList components on the page.
+
+### Basic Usage
+
+```tsx
+<DropDownListComponent
+  dataSource={sportsData}
+  cssClass="my-custom-ddl"
+  placeholder="Select a game"
+/>
+```
+
+This renders as:
+```html
+<span class="e-control-wrapper e-ddl e-lib e-keyboard my-custom-ddl ...">
+```
+
+### Scoped Style Overrides with cssClass
+
+Because `cssClass` is applied to the root wrapper, you can scope all your CSS rules to that class and avoid conflicts with other components:
+
+```tsx
+// Component
+<DropDownListComponent
+  dataSource={countryData}
+  fields={fields}
+  cssClass="country-picker"
+  placeholder="Select a country"
+/>
+```
+
+```css
+/* Scoped to only this instance */
+.country-picker .e-input {
+  font-size: 14px;
+  color: #1a1a2e;
+  background-color: #f0f4ff;
+}
+
+.country-picker .e-ddl-icon::before {
+  color: #4361ee;
+}
+
+/* Popup inherits the cssClass too — target it like this */
+.country-picker.e-popup .e-list-item.e-hover {
+  background-color: #e8edff;
+  color: #4361ee;
+}
+
+.country-picker.e-popup .e-list-item.e-active {
+  background-color: #4361ee;
+  color: #ffffff;
+}
+```
+
+> **Important:** The popup element also receives the `cssClass` value. You can target it using `.your-class.e-popup` or `.your-class .e-list-item`.
+
+### Multiple CSS Classes
+
+Pass a space-separated string to apply multiple classes simultaneously:
+
+```tsx
+<DropDownListComponent
+  dataSource={data}
+  cssClass="compact-ddl dark-theme"
+  placeholder="Select"
+/>
+```
+
+```css
+.compact-ddl .e-input { padding: 4px 8px; height: 28px; }
+.dark-theme .e-input   { background: #1e1e2e; color: #cdd6f4; }
+```
+
+### Applying cssClass Conditionally (React State)
+
+```tsx
+import { useState } from 'react';
+import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
+
+export default function App() {
+  const [hasError, setHasError] = useState(false);
+
+  return (
+    <DropDownListComponent
+      dataSource={['Option A', 'Option B', 'Option C']}
+      cssClass={hasError ? 'e-error' : ''}
+      placeholder="Select an option"
+      change={(e) => setHasError(e.value === null)}
+    />
+  );
+}
+```
+
+Syncfusion ships a built-in `e-error` CSS class that renders the component with a red border to indicate validation errors.
+
+### Built-in Utility Classes
+
+| Class | Effect |
+|---|---|
+| `e-error` | Red border — validation error state |
+| `e-success` | Green border — validation success state |
+| `e-outline` | Outlined input style (Material-like) |
+| `e-filled` | Filled input style |
 
 ---
 
@@ -216,6 +332,8 @@ RTL flips the popup and icon direction for right-to-left languages (Arabic, Hebr
 
 ## Gotchas
 
+- **`cssClass` scopes to the root wrapper AND the popup** — use `.your-class.e-popup` to target popup-level styles; the popup is teleported outside the component's DOM tree but still receives the class.
+- **`cssClass` replaces, not merges, on re-render** — when passing a dynamic value, always include all needed classes in the string (e.g., `cssClass={[base, error].filter(Boolean).join(' ')}`).
 - **CSS specificity** — Syncfusion styles use specific selectors. If overrides don't work, increase specificity or use `!important` sparingly.
 - **Theme consistency** — all three CSS imports (`ej2-base`, `ej2-inputs`, `ej2-react-dropdowns`) must use the same theme name. Mixing themes causes visual glitches.
 - **`L10n.load()` timing** — must run before the component first renders; placing it inside a component's render function causes a race condition.

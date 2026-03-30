@@ -355,41 +355,7 @@ localStorage.removeItem('grid-state-key');
 
 ## Security Best Practices
 
-### HTML Sanitization
+When working with Syncfusion React components, follow secure coding practices to protect your application and user data.
 
-Prevent XSS attacks by sanitizing HTML content:
+> **Note:** For comprehensive security guidelines and best practices, please refer to the [Syncfusion Security Documentation](https://ej2.syncfusion.com/react/documentation/common/security).
 
-```typescript
-import { DialogComponent } from '@syncfusion/ej2-react-popups';
-import { SanitizeHtmlHelper } from '@syncfusion/ej2-base';
-
-function App() {
-  const sanitizedHeader = SanitizeHtmlHelper.sanitize(
-    '<div>Safe Content</div>'
-  );
-
-  return (
-    <DialogComponent
-      header={sanitizedHeader}
-      enableHtmlSanitizer={true}  // Sanitize dialog content
-    >
-      Dialog body content
-    </DialogComponent>
-  );
-}
-
-export default App;
-```
-
-### Content Security Policy (CSP)
-
-Configure CSP directives in your HTML meta tag:
-
-```html
-<meta http-equiv="Content-Security-Policy" content="
-  style-src 'self' https://cdn.syncfusion.com/ https://fonts.googleapis.com/ 'unsafe-inline';
-  font-src 'self' https://fonts.googleapis.com/ https://fonts.gstatic.com/ data: cdn.syncfusion.com;
-  img-src 'self' data:;
-  worker-src 'self' 'unsafe-inline' blob:;
-">
-```

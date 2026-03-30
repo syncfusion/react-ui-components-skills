@@ -48,8 +48,10 @@ Syncfusion React components include comprehensive common utilities and features 
 ### Install Syncfusion React Package
 
 ```bash
-npm install @syncfusion/ej2-react-grids --save
+npm install @syncfusion/ej2-react-grids@latest --save
 ```
+
+> **Note:** The `@syncfusion/ej2-base` package is a dependency for all Syncfusion components and will be automatically installed when you install any Syncfusion React package. You don't need to explicitly add it to your `package.json` file.
 
 ### Import Styles
 
@@ -66,12 +68,23 @@ npm install @syncfusion/ej2-react-grids --save
 
 ### Register License Key
 
-```typescript
-import { registerLicense } from '@syncfusion/ej2-base';
+**Step 1:** Set the environment variable:
 
-// Call this before initializing any Syncfusion components
-registerLicense('Your license key here');
+```bash
+# Windows
+setx SYNCFUSION_LICENSE "Your_License_Key_Here"
+
+# Mac/Linux
+export SYNCFUSION_LICENSE='Your_License_Key_Here'
 ```
+
+**Step 2:** Activate the license using NPX command:
+
+```bash
+npx syncfusion-license activate
+```
+
+> **Note:** For alternative license registration methods, kindly refer to the [Syncfusion license key registration documentation](https://ej2.syncfusion.com/react/documentation/licensing/license-key-registration).
 
 ### Basic Component Setup
 

@@ -13,10 +13,9 @@ description: 'Filtering in React TreeGrid - enable filter bar, filter menu, exce
 - [Filter Events](#filter-events)
 - [Programmatic Filtering](#programmatic-filtering)
 - [Custom Filters](#custom-filters)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
-## Enable Filtering
-
-Enable filtering on TreeGrid to allow users to filter data:
 
 ## Enable Filtering
 

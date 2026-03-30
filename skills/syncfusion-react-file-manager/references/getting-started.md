@@ -84,7 +84,7 @@ import { FileManagerComponent, Inject, DetailsView, NavigationPane, Toolbar } fr
 import './App.css';
 
 function App() {
-  const hostUrl = "https://ej2-aspcore-service.azurewebsites.net/";
+  const hostUrl = "url";
 
   return (
     <FileManagerComponent
@@ -116,10 +116,10 @@ The `ajaxSettings` object configures communication with your backend:
 
 ```tsx
 ajaxSettings={{
-  url: "https://api.example.com/api/FileManager/FileOperations",           // Main operations
-  getImageUrl: "https://api.example.com/api/FileManager/GetImage",        // Fetch thumbnails
-  uploadUrl: "https://api.example.com/api/FileManager/Upload",            // Upload files
-  downloadUrl: "https://api.example.com/api/FileManager/Download"         // Download files
+  url: "url",           // Main operations
+  getImageUrl: "url",        // Fetch thumbnails
+  uploadUrl: "url",            // Upload files
+  downloadUrl: "url"         // Download files
 }}
 ```
 
@@ -229,7 +229,7 @@ import { FileManagerComponent, Inject, DetailsView, NavigationPane, Toolbar } fr
 
 function FileManager() {
   const fileManagerRef = useRef(null);
-  const apiBaseUrl = process.env.REACT_APP_API_URL || "https://api.example.com";
+  const apiBaseUrl = process.env.REACT_APP_API_URL || "url";
 
   return (
     <FileManagerComponent
@@ -355,10 +355,10 @@ export default FileManager;
   
   // AJAX Configuration
   ajaxSettings={{
-    url: 'https://api.example.com/api/FileManager/FileOperations',
-    getImageUrl: 'https://api.example.com/api/FileManager/GetImage',
-    uploadUrl: 'https://api.example.com/api/FileManager/Upload',
-    downloadUrl: 'https://api.example.com/api/FileManager/Download',
+    url: 'url',
+    getImageUrl: 'url',
+    uploadUrl: 'url',
+    downloadUrl: 'url',
     // headers: { 'Authorization': 'Bearer token' }  // Optional custom headers
   }}
   
@@ -379,16 +379,16 @@ The `ajaxSettings` prop is critical for backend integration:
 ```tsx
 ajaxSettings={{
   // Main file operations endpoint
-  url: "https://api.example.com/api/FileManager/FileOperations",
+  url: "url",
   
   // Image/thumbnail retrieval
-  getImageUrl: "https://api.example.com/api/FileManager/GetImage",
+  getImageUrl: "url",
   
   // File upload endpoint
-  uploadUrl: "https://api.example.com/api/FileManager/Upload",
+  uploadUrl: "url",
   
   // File download endpoint
-  downloadUrl: "https://api.example.com/api/FileManager/Download"
+  downloadUrl: "url"
 }}
 ```
 

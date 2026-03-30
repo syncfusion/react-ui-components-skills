@@ -2,16 +2,12 @@
 
 ## Table of Contents
 - [Overview](#overview)
-- [Method 1: Register License in Project](#method-1-register-license-in-project)
-- [Method 2: Register License Using NPX Command](#method-2-register-license-using-npx-command)
+- [Register License with Environment Variables](#register-license-with-environment-variables)
 - [CI/CD Integration](#cicd-integration)
 
 ## Overview
 
-The generated Syncfusion license key must be registered in your React application after any Syncfusion React reference. You can register the license key using one of two methods:
-
-1. **Register in Project** - Add `registerLicense()` call directly in your code
-2. **NPX Command** - Use command-line tool with license file or environment variable
+The generated Syncfusion license key must be registered in your React application. **The recommended approach is to use environment variables** to avoid accidentally committing license keys to source control.
 
 **Important Notes:**
 - License validation is performed **offline** during application execution
@@ -19,102 +15,13 @@ The generated Syncfusion license key must be registered in your React applicatio
 - Apps can be deployed on any system without internet access
 - License key registration required from v20.1.0.47+ (2022 Volume 1) onwards
 
-## Method 1: Register License in Project
+## Register License with Environment Variables
 
-Register the license key directly in your `index.js` file by calling the `registerLicense()` method.
+The recommended way to register your Syncfusion license key is using environment variables. This approach keeps your license key secure and prevents accidental commits to source control.
 
-### Step 1: Open index.js
+### Step 1: Set Environment Variable
 
-Navigate to your project's `src/index.js` file.
-
-### Step 2: Import registerLicense
-
-```javascript
-import { registerLicense } from '@syncfusion/ej2-base';
-```
-
-### Step 3: Call registerLicense with Your Key
-
-Add the license registration **after** importing `registerLicense` and **before** rendering your app:
-
-```javascript
-import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
-import { registerLicense } from '@syncfusion/ej2-base';
-
-// Registering Syncfusion license key
-registerLicense('Replace your generated license key here');
-
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
-```
-
-**That's it!** Your license is now registered and the application will validate offline during execution.
-
-## Method 2: Register License Using NPX Command
-
-Register the Syncfusion license key using the `npx syncfusion-license activate` command. This method doesn't require code changes.
-
-You can use the NPX command in two ways:
-1. **With License File** - Create a text file containing your license key
-2. **With Environment Variable** - Set a system environment variable
-
-> **Note:** If both methods are used, the license file takes priority. Remove the license file to use the environment variable.
-
-### Option A: Register with License File
-
-**Step 1:** Create license file in project root
-
-Create a file named `syncfusion-license.txt` in your application's root directory and paste your license key:
-
-```text
-Your_License_Key_Here
-```
-
-**Step 2:** Add file to .gitignore
-
-```gitignore
-syncfusion-license.txt
-```
-
-**Step 3:** Activate the license
-
-Open command prompt in the application root directory and run:
-
-```bash
-npx syncfusion-license activate
-```
-
-**Success message:**
-```
-(INFO) Syncfusion License imported successfully.
-```
-
-**Step 4:** Clear cache
-
-Remove the `.cache` folder from `node_modules`:
-
-```bash
-# Windows PowerShell
-Remove-Item -Recurse -Force node_modules\.cache
-
-# macOS/Linux
-rm -rf node_modules/.cache
-```
-
-
-### Option B: Register with Environment Variable
-
-You can set the `SYNCFUSION_LICENSE` environment variable on your system instead of using a license file.
-
-**Step 1:** Set the environment variable
+Set the `SYNCFUSION_LICENSE` environment variable on your system with your license key.
 
 #### Windows
 
@@ -150,11 +57,11 @@ Open terminal and set the environment variable:
 export SYNCFUSION_LICENSE='Your_License_Key_Here'
 ```
 
-**Step 2:** Restart your IDE or terminal
+### Step 2: Restart your IDE or terminal
 
 After setting the environment variable, restart your IDE or application terminal.
 
-**Step 3:** Activate the license
+### Step 3: Activate the License
 
 Open command prompt in the application root directory and run:
 
@@ -167,7 +74,7 @@ npx syncfusion-license activate
 (INFO) Syncfusion License imported successfully.
 ```
 
-**Step 4:** Clear cache
+### Step 4: Clear Cache
 
 Remove the `.cache` folder from `node_modules`:
 
@@ -179,7 +86,12 @@ Remove-Item -Recurse -Force node_modules\.cache
 rm -rf node_modules/.cache
 ```
 
+> **Note:** For alternative license registration methods, kindly refer to the [Syncfusion license key registration documentation](https://ej2.syncfusion.com/react/documentation/licensing/license-key-registration).
+
+
 ## CI/CD Integration
+
+**Important:** Always use secret management systems in CI/CD pipelines. Never hardcode license keys in workflow files or commit them to source control.
 
 ### GitHub Actions
 
@@ -198,6 +110,7 @@ Or create an [Organization Secret](https://docs.github.com/en/actions/security-g
 **Step 2:** Add activation step to your workflow
 
 ```yaml
+# WARNING: Always use secrets, never hardcode license keys in workflow files
 steps:
   - name: Install node modules
     run: npm install
@@ -211,6 +124,7 @@ steps:
 **Complete Example:**
 
 ```yaml
+# WARNING: Always use secrets, never hardcode license keys in workflow files
 name: Build React App
 
 on:
@@ -261,6 +175,7 @@ Use environment variables in Azure Pipelines to register your license.
 **For Windows build agents:**
 
 ```yaml
+# WARNING: Always use secret variables, never hardcode license keys in pipeline files
 pool:
   vmImage: 'windows-latest'
 
@@ -277,6 +192,7 @@ steps:
 **For Linux build agents:**
 
 ```yaml
+# WARNING: Always use secret variables, never hardcode license keys in pipeline files
 pool:
   vmImage: 'ubuntu-latest'
 
@@ -294,12 +210,13 @@ steps:
 
 For Classic Editor users:
 
-**Step 1:** Create a User-defined Variable named `SYNCFUSION_LICENSE` with your license key as the value.
+**Step 1:** Create a User-defined Variable named `SYNCFUSION_LICENSE` with your license key as the value. Make sure to mark it as secret.
 
 **Step 2:** Add a Bash task after npm install with the following script:
 
 ```bash
-# Activate the license
+# WARNING: Ensure SYNCFUSION_LICENSE is stored as a secret variable
+# Never hardcode license keys in scripts
 npx syncfusion-license activate
 ```
 

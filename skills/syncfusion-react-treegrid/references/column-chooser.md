@@ -10,7 +10,9 @@ description: 'Column Chooser in React TreeGrid - enable column visibility toggle
 - [Column Chooser Dialog](#column-chooser-dialog)
 - [Show/Hide Columns](#showhide-columns)
 - [Visibility Events](#visibility-events)
-- [Programmatic Control](#programmatic-control)
+- [Show/Hide Columns Programmatically](#showhide-columns-programmatically)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Enable Column Chooser
 
@@ -70,7 +72,7 @@ Configure column chooser settings:
 </TreeGridComponent>
 ```
 
-## Hide Specific Columns
+## Show/Hide Columns
 
 Hide columns from column chooser:
 
@@ -152,33 +154,6 @@ Listen to column visibility changes:
   </ColumnsDirective>
   <Inject services={[ColumnChooser]} />
 </TreeGridComponent>
-```
-
-## Save and Restore Column Visibility
-
-Persist column visibility preferences:
-
-```tsx
-const saveColumnVisibility = () => {
-  const visibility = {};
-  treeGridRef.current.columns.forEach(col => {
-    visibility[col.field] = col.visible;
-  });
-  localStorage.setItem('columnVisibility', JSON.stringify(visibility));
-};
-
-const restoreColumnVisibility = () => {
-  const saved = localStorage.getItem('columnVisibility');
-  if (saved) {
-    const visibility = JSON.parse(saved);
-    treeGridRef.current.columns.forEach(col => {
-      if (visibility.hasOwnProperty(col.field)) {
-        col.visible = visibility[col.field];
-      }
-    });
-    treeGridRef.current.refreshColumns();
-  }
-};
 ```
 
 ## Key APIs

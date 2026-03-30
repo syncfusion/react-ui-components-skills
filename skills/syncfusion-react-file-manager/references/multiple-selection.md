@@ -45,7 +45,7 @@ import {
 } from '@syncfusion/ej2-react-filemanager';
 
 function MultiSelectFileManager() {
-  const hostUrl = "https://ej2-aspcore-service.azurewebsites.net/";
+  const hostUrl = "url";
 
   const handleFileSelect = (args: any) => {
     console.log(
@@ -93,7 +93,7 @@ import {
 } from '@syncfusion/ej2-react-filemanager';
 
 function RangeSelectionFileManager() {
-  const hostUrl = "https://ej2-aspcore-service.azurewebsites.net/";
+  const hostUrl = "url";
 
   return (
     <FileManagerComponent
@@ -139,7 +139,7 @@ import {
 } from '@syncfusion/ej2-react-filemanager';
 
 function SingleSelectFileManager() {
-  const hostUrl = "https://ej2-aspcore-service.azurewebsites.net/";
+  const hostUrl = "url";
 
   return (
     <FileManagerComponent
@@ -198,7 +198,7 @@ function PreselectedFileManager() {
       // Pre-select items by name
       selectedItems={['Documents', 'Pictures']}
       ajaxSettings={{
-        url: "https://ej2-aspcore-service.azurewebsites.net/api/FileManager/FileOperations"
+        url: "url"
       }}
     />
   );
@@ -250,7 +250,7 @@ function ProgrammaticSelectionFileManager() {
         height="375px"
         allowMultiSelection={true}
         ajaxSettings={{
-          url: "https://ej2-aspcore-service.azurewebsites.net/api/FileManager/FileOperations"
+          url: "url"
         }}
       />
     </div>
@@ -291,7 +291,7 @@ function SelectionEventsFileManager() {
       height="375px"
       allowMultiSelection={true}
       ajaxSettings={{
-        url: "https://ej2-aspcore-service.azurewebsites.net/api/FileManager/FileOperations"
+        url: "url"
       }}
       fileSelect={handleFileSelect}
     />
@@ -364,7 +364,7 @@ function FilteredSelectionFileManager() {
         height="375px"
         allowMultiSelection={true}
         ajaxSettings={{
-          url: "https://ej2-aspcore-service.azurewebsites.net/api/FileManager/FileOperations"
+          url: "url"
         }}
         fileSelect={handleFileSelect}
       />
@@ -410,7 +410,7 @@ function SelectByTypeFileManager() {
         height="375px"
         allowMultiSelection={true}
         ajaxSettings={{
-          url: "https://ej2-aspcore-service.azurewebsites.net/api/FileManager/FileOperations"
+          url: "url"
         }}
       />
     </div>

@@ -22,7 +22,7 @@
 
 The Recurrence editor is integrated into Scheduler's editor window by default to process the recurrence rule generation for events. It can also be used as an individual component referring from the Scheduler repository to work with recurrence-related processes.
 
-All valid recurrence rule strings defined in the [iCalendar specification](https://tools.ietf.org/html/rfc5545#section-3.3.10) apply to the recurrence editor.
+All valid recurrence rule strings defined in the iCalendar specification apply to the recurrence editor.
 
 ## Recurrence Rules (RRULE format)
 
@@ -272,11 +272,6 @@ let dates = recObject.current.getRecurrenceDates(
 
 **Server-Side Date Generation:**
 
-You can also generate recurrence date instances from server-side by manually referring to the `RecurrenceHelper` class. Refer to [this article](https://www.syncfusion.com/kb/10009/how-to-parse-the-recurrencerule-at-server-side) for step-by-step procedures.
+You can also generate recurrence date instances from server-side by manually referring to the `RecurrenceHelper` class.
 
 ---
-
-**Related Resources:**
-- [React Scheduler Overview](https://www.syncfusion.com/react-components/react-scheduler)
-- [React Scheduler Demos](https://ej2.syncfusion.com/react/demos/#/tailwind3/schedule/overview)
-- [iCalendar Specification](https://tools.ietf.org/html/rfc5545#section-3.3.10)

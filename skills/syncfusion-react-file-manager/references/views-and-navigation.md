@@ -28,10 +28,10 @@ function DetailsViewExample() {
     <FileManagerComponent
       view="Details"
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        getImageUrl: "url",
+        uploadUrl: "url",
+        downloadUrl: "url"
       }}
       detailsViewSettings={{
         columns: [
@@ -123,10 +123,10 @@ function LargeIconsViewExample() {
     <FileManagerComponent
       view="LargeIcons"
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        getImageUrl: "url",
+        uploadUrl: "url",
+        downloadUrl: "url"
       }}
     >
       <Inject services={[DetailsView, NavigationPane, Toolbar]} />
@@ -150,10 +150,10 @@ export default LargeIconsViewExample;
   view="LargeIcons"
   showThumbnail={true}
   ajaxSettings={{
-    url: "https://api.example.com/api/FileManager/FileOperations",
-    getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-    uploadUrl: "https://api.example.com/api/FileManager/Upload",
-    downloadUrl: "https://api.example.com/api/FileManager/Download"
+    url: "url",
+    getImageUrl: "url",
+    uploadUrl: "url",
+    downloadUrl: "url"
   }}
 >
   <Inject services={[DetailsView, NavigationPane, Toolbar]} />
@@ -258,10 +258,10 @@ Shows folder tree for quick navigation:
     maxWidth: '400px'
   }}
   ajaxSettings={{
-    url: "https://api.example.com/api/FileManager/FileOperations",
-    getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-    uploadUrl: "https://api.example.com/api/FileManager/Upload",
-    downloadUrl: "https://api.example.com/api/FileManager/Download"
+    url: "url",
+    getImageUrl: "url",
+    uploadUrl: "url",
+    downloadUrl: "url"
   }}
 >
   <Inject services={[NavigationPane, DetailsView, Toolbar]} />
@@ -378,10 +378,10 @@ function FullFeaturedFileManager() {
       toolbarClick={handleToolbarClick}
       menuClick={handleMenuClick}
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        getImageUrl: "url",
+        uploadUrl: "url",
+        downloadUrl: "url"
       }}
     >
       <Inject services={[DetailsView, NavigationPane, Toolbar]} />

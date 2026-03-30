@@ -874,7 +874,7 @@ import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 const App = () => {
   const dataManager: DataManager = new DataManager({
-    url: 'https://services.syncfusion.com/react/production/api/VirtualEventData',
+    url: 'url',
     adaptor: new WebApiAdaptor,
     crossDomain: true
   });
@@ -1050,9 +1050,3 @@ By following these performance tips, you can ensure that your Syncfusion React S
 
 ---
 
-## Additional Resources
-
-- [React Scheduler Component Documentation](https://ej2.syncfusion.com/react/documentation/schedule/getting-started)
-- [React Scheduler API Reference](https://ej2.syncfusion.com/react/documentation/api/schedule)
-- [React Scheduler Feature Tour](https://www.syncfusion.com/react-components/react-scheduler)
-- [React Scheduler Demos](https://ej2.syncfusion.com/react/demos/#/material/schedule/overview)

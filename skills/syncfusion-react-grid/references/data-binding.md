@@ -118,7 +118,7 @@ import React from 'react';
 
 function App() {
   const data = new DataManager({
-    url: 'https://services.syncfusion.com/react/production/api/Orders',
+    url: 'url',
     adaptor: new UrlAdaptor()
   });
 
@@ -145,7 +145,7 @@ The Grid supports multiple adaptor types for different backend architectures:
 
 ```tsx
 const data = new DataManager({
-  url: 'https://api.example.com/orders',
+  url: 'url',
   adaptor: new UrlAdaptor()
 });
 ```
@@ -156,7 +156,7 @@ const data = new DataManager({
 import { ODataV4Adaptor } from '@syncfusion/ej2-data';
 
 const data = new DataManager({
-  url: 'https://services.odata.org/V4/Northwind/Northwind.svc/Orders',
+  url: 'url',
   adaptor: new ODataV4Adaptor()
 });
 ```
@@ -167,7 +167,7 @@ const data = new DataManager({
 import { WebApiAdaptor } from '@syncfusion/ej2-data';
 
 const data = new DataManager({
-  url: 'http://localhost:5000/api/orders',
+  url: 'url',
   adaptor: new WebApiAdaptor(),
   crossDomain: true
 });
@@ -179,7 +179,7 @@ const data = new DataManager({
 import { GraphQLAdaptor } from '@syncfusion/ej2-data';
 
 const data = new DataManager({
-  url: 'https://api.example.com/graphql',
+  url: 'url',
   adaptor: new GraphQLAdaptor(),
   query: `{
     orders {
@@ -207,7 +207,7 @@ function App() {
   const [error, setError] = useState(null);
 
   const data = new DataManager({
-    url: 'https://api.example.com/orders',
+    url: 'url',
     adaptor: new UrlAdaptor()
   });
 
@@ -318,17 +318,36 @@ Create a custom adaptor for specialized data handling:
 ```tsx
 import { DataManager, Adaptor } from '@syncfusion/ej2-data';
 
-class CustomAdaptor extends Adaptor {
-  read(dm: DataManager): Promise<any> {
-    return fetch('https://api.example.com/data')
-      .then(response => response.json());
+class CustomAdaptorExample extends Adaptor {
+  constructor() {
+    super();
+    this.baseUrl = 'url';
   }
+
+  // Override processResponse to transform data
+  processResponse(response: any, dm?: DataManager, query?: Query, xhr?: XMLHttpRequest, request?: Request, params?: any): any {
+    const result = super.processResponse(response, dm, query, xhr, request, params);
+    
+    // Transform result
+    if (result && result.result) {
+      result.result = result.result.map((item: any) => ({
+        ...item,
+        processed: true
+      }));
+    }
+    
+    return result;
+  }
+
 }
 
+// Use in DataManager
 const dataManager = new DataManager({
-  adaptor: new CustomAdaptor()
+  adaptor: new CustomAdaptorExample(),
+  crossDomain: true
 });
 ```
+
 
 ## DataManager Configuration
 
@@ -348,18 +367,6 @@ const dataManager = new DataManager({
 > 3. **Wrong field names** — `field` values on `<ColumnDirective>` don't match JSON property names returned by the API
 > 4. **Missing `count`** — `UrlAdaptor` requires the response to include `"count"` for paging to work
 
-### Basic Configuration
-
-```tsx
-const dataManager = new DataManager({
-  url: 'https://api.example.com/orders',
-  adaptor: new UrlAdaptor(),
-  offline: false,
-  headers: {
-    'Authorization': 'Bearer token'
-  }
-});
-```
 
 ### Offline Mode
 
@@ -367,7 +374,7 @@ Load data once and work offline:
 
 ```tsx
 const dataManager = new DataManager({
-  url: 'https://api.example.com/orders',
+  url: 'url',
   adaptor: new UrlAdaptor(),
   offline: true
 });
@@ -379,11 +386,11 @@ DataManager supports automatic CRUD operations:
 
 ```tsx
 const dataManager = new DataManager({
-  url: 'https://api.example.com/orders',
+  url: 'url',
   adaptor: new UrlAdaptor(),
-  insertUrl: 'https://api.example.com/orders',
-  updateUrl: 'https://api.example.com/orders',
-  removeUrl: 'https://api.example.com/orders'
+  insertUrl: 'url',
+  updateUrl: 'url',
+  removeUrl: 'url'
 });
 ```
 
@@ -459,7 +466,7 @@ function App() {
 
   const changeData = () => {
     const newData = new DataManager({
-      url: 'https://api.example.com/new-orders',
+      url: 'url',
       adaptor: new UrlAdaptor()
     });
     gridRef.current.setProperties({ dataSource: newData });
@@ -492,7 +499,7 @@ const refreshData = () => {
 
 ```tsx
 const dataManager = new DataManager({
-  url: 'https://api.example.com/orders',
+  url: 'url',
   adaptor: new UrlAdaptor()
 });
 

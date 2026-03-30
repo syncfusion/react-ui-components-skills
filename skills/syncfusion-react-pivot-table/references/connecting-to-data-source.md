@@ -1,5 +1,16 @@
 # Connecting to Data Sources
 
+## ⚠️ SECURITY NOTICE
+
+**All remote connections MUST use authenticated, configuration-based endpoints.** Never hardcode server URLs or use untrusted data sources.
+
+✅ **Required Security Controls:**
+- Environment-based configuration (`.env` files)
+- Authentication and authorization
+- HTTPS/SSL for all remote connections
+- Input validation and sanitization
+- Enterprise-managed servers only
+
 ## Table of Contents
 - [Server-Side Pivot Engine](#server-side-pivot-engine)
 - [OLAP Connections](#olap-connections)
@@ -27,14 +38,21 @@ The server-side pivot engine processes large datasets (100K+ records) on the ser
 
 ### Configuring Server-Side Mode
 
-Set `mode: 'Server'` in dataSourceSettings:
+> **⚠️ SECURITY:** Use environment variables for server URLs. See security notice at top of document.
+
+**Step 1 — Create `.env` file:**
+```bash
+REACT_APP_PIVOT_SERVICE_URL=https://your-server.com/api/pivot/post
+```
+
+**Step 2 — Configure with environment variable:**
 
 ```typescript
 import { PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
 
 function ServerSidePivot() {
   const dataSourceSettings = {
-    url: 'https://localhost:44350/api/pivot/post',  // ← Server endpoint
+    url: process.env.REACT_APP_PIVOT_SERVICE_URL,  // ← Environment-based URL
     mode: 'Server',  // ← Enable server-side mode
     rows: [{ name: 'ProductID', caption: 'Product ID' }],
     columns: [{ name: 'Year', caption: 'Production Year' }],
@@ -114,7 +132,14 @@ OLAP (Online Analytical Processing) enables analysis of multidimensional data us
 
 ### Configuring OLAP Data Source
 
-Set up OLAP with the **Adventure Works** cube as an example:
+> **⚠️ SECURITY:** Use enterprise OLAP servers with authentication. See security notice at top of document.
+
+**Step 1 — Create `.env` file:**
+```bash
+REACT_APP_OLAP_URL=https://your-olap-server.com/olap/msmdpump.dll
+```
+
+**Step 2 — Configure OLAP with environment variable:**
 
 ```typescript
 import { PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
@@ -126,7 +151,7 @@ function OlapPivot() {
     providerType: 'SSAS',                    // ← Provider type
     enableSorting: true,
     localeIdentifier: 1033,                  // ← Locale (1033 = English)
-    url: 'https://bi.syncfusion.com/olap/msmdpump.dll',  // ← OLAP Server URL
+    url: process.env.REACT_APP_OLAP_URL,     // ← Environment-based URL
     rows: [
       { name: '[Customer].[Customer Geography]', caption: 'Customer Geography' }
     ],
@@ -254,7 +279,7 @@ public class PivotController : ControllerBase
 
 ```typescript
 const dataSourceSettings = {
-  url: 'https://localhost:44350/api/pivot/post',
+  url: process.env.REACT_APP_PIVOT_SERVICE_URL,  // ← Environment-based URL
   mode: 'Server'
 };
 
@@ -280,6 +305,8 @@ OLAP (Online Analytical Processing) enables analysis using pre-aggregated dimens
 
 ### Connecting to SSAS OLAP Server
 
+> **⚠️ SECURITY:** Use enterprise OLAP servers with authentication. See security notice at top of document.
+
 Use Syncfusion's SSAS data provider to connect to SQL Server Analysis Services:
 
 ```typescript
@@ -288,7 +315,7 @@ import { PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
 function OlapPivot() {
   const dataSourceSettings = {
     providerType: 'SSAS',  // ← SSAS provider type
-    url: 'http://bi.syncfusion.com/olap/msmdpump.dll',  // ← SSAS pivot endpoint
+    url: process.env.REACT_APP_OLAP_URL,  // ← Environment-based URL
     catalog: 'Adventure Works DW 2012',  // ← Database/Catalog
     cube: 'Adventure Works',  // ← Cube name
     localeIdentifier: 1033,  // ← Locale identifier
@@ -338,13 +365,13 @@ Support for multiple OLAP servers (SSAS, Mondrian, Essbase):
 // SQL Server Analysis Services (SSAS)
 const dataSourceSettings = {
   providerType: 'SSAS',
-  url: 'http://server-address/olap/msmdpump.dll'
+  url: process.env.REACT_APP_OLAP_URL  // Environment-based URL
 };
 
 // Mondrian:
 const dataSourceSettings = {
   providerType: 'Mondrian',
-  url: 'http://server-address:8080/mondrian/xmla'
+  url: process.env.REACT_APP_MONDRIAN_URL  // Environment-based URL
 };
 ```
 
@@ -354,7 +381,7 @@ const dataSourceSettings = {
 function CompleteSalesOlap() {
   const dataSourceSettings = {
     providerType: 'SSAS',
-    url: 'http://bi.syncfusion.com/olap/msmdpump.dll',
+    url: process.env.REACT_APP_OLAP_URL,  // Environment-based URL
     catalog: 'Adventure Works DW 2012',
     cube: 'Adventure Works',
     localeIdentifier: 1033,

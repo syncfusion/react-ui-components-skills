@@ -10,8 +10,8 @@ description: 'Frozen Rows and Columns in React TreeGrid - freeze top rows, lock 
 - [Freeze Columns](#freeze-columns)
 - [Freeze Direction](#freeze-direction)
 - [Lock Specific Columns](#lock-specific-columns)
-- [Programmatic Control](#programmatic-control)
 - [Common Patterns](#common-patterns)
+- [Key APIs](#key-apis)
 
 ## Freeze Rows
 
@@ -62,7 +62,7 @@ Freeze columns from the left:
 </TreeGridComponent>
 ```
 
-## Lock Specific Column
+## Lock Specific Columns
 
 Lock individual columns:
 
@@ -83,6 +83,25 @@ Lock individual columns:
   </ColumnsDirective>
 </TreeGridComponent>
 ```
+
+## Freeze Direction
+Configure freeze direction for columns:
+
+```tsx
+<TreeGridComponent 
+  dataSource={data} 
+  childMapping="Children" 
+  height='310'
+>
+        <ColumnsDirective>
+            <ColumnDirective field='taskID' headerText='Task ID' width='110' textAlign='Right'></ColumnDirective>
+            <ColumnDirective field='taskName' headerText='Task Name' width='230' freeze='Left'></ColumnDirective>
+            <ColumnDirective field='priority' headerText='Priority' width='110' freeze='Right'></ColumnDirective>
+            </ColumnsDirective>
+    </TreeGridComponent>;
+
+```
+
 
 ## Key APIs
 

@@ -1,10 +1,10 @@
 ---
 name: syncfusion-react-dropdownlist
-description: Implement Syncfusion React DropDownList component for single-value selection from predefined lists. Use this when working with dropdowns, select boxes, or single-select lists. This skill covers installation, data binding (local arrays, JSON objects, remote/OData), filtering, grouping, templates, value binding, virtual scrolling, cascading dropdowns, accessibility, styling, and localization.
+description: Implement the Syncfusion React DropDownList component for single-value selection from a predefined list. Use this when adding a dropdown, select box, or searchable list using Syncfusion React. This skill covers data binding (local, remote/OData), filtering, grouping, templates, and cascading dropdowns.
 metadata:
   author: "Syncfusion Inc"
+  category: "Dropdowns"
   version: "33.1.44"
-  category: "DropDowns"
 ---
 
 # Syncfusion React DropDownList
@@ -29,13 +29,17 @@ The DropDownList component provides a list of predefined values from which users
 - Value binding: preselecting values, binding primitive vs. complex objects
 - Disabling individual items with `fields.disabled`
 
+> ⚠️ **Network notice:** Using `DataManager` with remote adaptors (`ODataAdaptor`, `ODataV4Adaptor`, `WebApiAdaptor`) causes the component to initiate **outbound HTTP requests** at runtime. Ensure all remote endpoints are trusted, authenticated, and do not expose sensitive data before wiring up remote data binding in production.
+
 ### Filtering
 📄 **Read:** [references/filtering.md](references/filtering.md)
 - Enabling `allowFiltering` for search-as-you-type
 - Handling the `filtering` event with `updateData`
-- Filter types: `startswith`, `contains`, case-sensitive options
-- Remote/server-side filtering
-- Minimum search length (`minLength`)
+- **Preventing default filtering** — always set `args.preventDefaultAction = true` in custom handlers
+- Filter types: `startswith`, `contains`, `endsWith`, case-sensitive options
+- **Filtering by multiple fields** — use `Predicate` with `.or()` to match typed text against both `text` and `value` fields (or any combination)
+- Remote/server-side filtering with minimum character guard
+- Diacritics filtering (`ignoreAccent`), debounce delay
 - Highlight filtered text, custom search logic
 
 ### Grouping & Templates
@@ -60,8 +64,19 @@ The DropDownList component provides a list of predefined values from which users
 - WCAG 2.2 / Section 508 compliance
 - Keyboard navigation shortcuts
 - ARIA roles and attributes
-- CSS class customization
+- **`cssClass` prop** — scoped per-instance CSS class, multiple classes, conditional classes, built-in utility classes (`e-error`, `e-success`)
+- CSS class customization (wrapper, icon, popup, list items, placeholder)
+- Theming (tailwind3, material3, bootstrap5, fluent2)
 - Localization (`L10n`, `noRecordsTemplate`, `actionFailureTemplate`)
+- RTL layout (`enableRtl`)
+
+### API Reference
+📄 **Read:** [references/api.md](references/api.md)
+- Complete properties reference with types, defaults, and usage examples
+- All methods with signatures, parameters, and return types
+- All events with argument interfaces and usage examples
+- Interface details: `FieldSettingsModel`, `ChangeEventArgs`, `SelectEventArgs`, `PopupEventArgs`, `FilteringEventArgs`
+- Quick-reference summary tables for properties, methods, and events
 
 ### How-To Patterns
 📄 **Read:** [references/how-to.md](references/how-to.md)
@@ -76,15 +91,25 @@ The DropDownList component provides a list of predefined values from which users
 
 ## Quick Start Example
 
+**Step 1 — Install the package** using your package manager (verify the package against the [official Syncfusion npm registry](https://www.npmjs.com/package/@syncfusion/ej2-react-dropdowns) before installing):
+
+```
+npm install @syncfusion/ej2-react-dropdowns --save
+```
+
+> ⚠️ **Supply-chain notice:** `@syncfusion/ej2-react-dropdowns` is a third-party package published by Syncfusion Inc. Always pin to a specific verified version in your `package.json` (e.g., `"@syncfusion/ej2-react-dropdowns": "27.x.x"`) and validate integrity via your lockfile (`package-lock.json` or `yarn.lock`) before deploying to production.
+
+**Step 2 — Add CSS imports** in `src/App.css`:
+
+```css
+@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/tailwind3.css";
+```
+
+**Step 3 — Use the component:**
+
 ```tsx
-// 1. Install
-// npm install @syncfusion/ej2-react-dropdowns --save
-
-// 2. CSS in src/App.css
-// @import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-// @import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css";
-// @import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/tailwind3.css";
-
 import { DropDownListComponent } from '@syncfusion/ej2-react-dropdowns';
 import './App.css';
 
@@ -140,6 +165,7 @@ export default function App() {
   const fields = { text: 'Country', value: 'Index' };
 
   function onFiltering(args: FilteringEventArgs) {
+    args.preventDefaultAction = true; // prevent built-in filter from running alongside custom logic
     let query = new Query();
     query = args.text !== '' ? query.where('Country', 'startswith', args.text, true) : query;
     args.updateData(searchData, query);
@@ -202,7 +228,7 @@ const fields = { groupBy: 'Category', text: 'Vegetable', value: 'Id' };
 
 **Simple static list** → Pass `string[]` to `dataSource`, done.
 
-**Data from API** → Use `DataManager` with `WebApiAdaptor`; read `references/data-binding.md`.
+**Data from API** → Use `DataManager` with `WebApiAdaptor`; read `references/data-binding.md`. ⚠️ Remote adaptors open outbound HTTP connections — ensure endpoints are trusted.
 
 **Search/filter as user types** → Set `allowFiltering={true}`, handle `filtering` event; read `references/filtering.md`.
 

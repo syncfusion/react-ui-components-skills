@@ -86,7 +86,7 @@ const beforeImageUpload = (args: ImageUploadingEventArgs) => {
 };
 
 <RichTextEditorComponent
-  insertImageSettings={{ saveUrl: 'https://yourapi.com/upload' }}
+  insertImageSettings={{ saveUrl: 'url' }}
   beforeImageUpload={beforeImageUpload}
 >
   <Inject services={[Toolbar, HtmlEditor, Image, QuickToolbar]} />
@@ -141,7 +141,7 @@ const insertFileLink = (fileName: string, fileUrl: string) => {
 };
 
 // Call after uploading file to your server:
-insertFileLink('report.pdf', 'https://yourapi.com/files/report.pdf');
+insertFileLink('report.pdf', 'url');
 ```
 
 ---
@@ -199,7 +199,7 @@ Use `imageUploadSuccess` to update the image `src` after the server renames the 
 const onImageUploadSuccess = (args: ImageSuccessEventArgs) => {
   if (args.e.currentTarget.getResponseHeader('name')) {
     const newName = args.e.currentTarget.getResponseHeader('name');
-    const imgUrl = `https://yourapi.com/uploads/${newName}`;
+    const imgUrl = `url/${newName}`;
     (args.file as any).statusCode = '2'; // success
     args.file.name = newName;
     // Update the image src in the editor

@@ -296,7 +296,7 @@ const recurringEvent = {
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 const dataManager = new DataManager({
-  url: 'https://api.example.com/appointments',
+  url: 'url',
   adaptor: new WebApiAdaptor(),
   crossDomain: true
 });

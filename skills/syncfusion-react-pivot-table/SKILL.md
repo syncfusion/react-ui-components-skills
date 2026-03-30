@@ -13,6 +13,38 @@ The Syncfusion React PivotView component enables powerful data analysis and repo
 
 > ⚠️ **Important:** Always verify API class names, properties, and method signatures by consulting the **reference files in this skill** (`references/*.md`). These are maintained with verified, working examples. Do not assume API details from other sources.
 
+## ⚠️ Security Warning: Data Source Validation
+
+**CRITICAL SECURITY NOTICE:** When implementing pivot tables, always use trusted data sources. **Never** fetch or bind data from untrusted or user-provided URLs without proper validation and sanitization.
+
+### Security Best Practices:
+
+1. **Use Local Data**: Prefer local, in-memory data sources for maximum security
+2. **Validate Remote Sources**: Only connect to authenticated and authorized API endpoints under your control
+3. **Sanitize User Input**: Never allow users to specify arbitrary URLs or data sources
+4. **Implement Authentication**: Always use authentication headers and secure API endpoints
+5. **Content Validation**: Validate and sanitize all data received from external sources before binding
+6. **Use HTTPS**: Always use HTTPS for remote data connections
+7. **Rate Limiting**: Implement rate limiting on API endpoints to prevent abuse
+
+### Security Risks:
+
+- **Indirect Prompt Injection**: Untrusted third-party data can contain malicious content that manipulates AI agent behavior
+- **Data Exfiltration**: Malicious data sources could attempt to extract sensitive information
+- **Code Injection**: Untrusted data may contain scripts or harmful content
+
+### Recommended Approach:
+
+✅ **DO**: Use controlled, authenticated backend APIs
+✅ **DO**: Implement server-side data validation
+✅ **DO**: Use environment variables for API endpoints
+✅ **DO**: Whitelist allowed data sources
+
+❌ **DON'T**: Accept user-provided URLs
+❌ **DON'T**: Bind to public, untrusted endpoints
+❌ **DON'T**: Skip data validation and sanitization
+❌ **DON'T**: Use HTTP for sensitive data
+
 ## When to Use This Skill
 
 Use this skill when you need to:

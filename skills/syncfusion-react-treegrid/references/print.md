@@ -7,11 +7,11 @@ description: 'Print in React TreeGrid - print configuration, custom templates, p
 
 ## Table of Contents
 - [Basic Print](#basic-print)
-- [Print Configuration](#print-configuration)
-- [Print Range](#print-range)
+- [Custom Print Configuration](#custom-print-configuration)
+- [Print Specific Ranges](#print-specific-ranges)
 - [Hierarchy Printing](#hierarchy-printing)
-- [Custom Print Template](#custom-print-template)
-- [Print Events](#print-events)
+- [Key APIs](#key-apis)
+- [Common Patterns](#common-patterns)
 
 ## Basic Print
 
@@ -41,7 +41,7 @@ export default function App() {
 }
 ```
 
-## Custom Print
+## Custom Print Configuration
 
 Programmatic printing with options:
 
@@ -80,7 +80,7 @@ const printSelectedRows = () => {
 </TreeGridComponent>
 ```
 
-## Print Hierarchy
+## Hierarchy Printing
 
 Control printing of hierarchical levels:
 

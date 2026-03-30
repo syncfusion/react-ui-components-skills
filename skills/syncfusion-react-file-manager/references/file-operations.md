@@ -137,10 +137,10 @@ function FileUpload() {
       uploadListCreate={handleUploadListCreate}
       beforeSend={handleBeforeSend}
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        uploadUrl: "url",
+        getImageUrl: "url",
+        downloadUrl: "url"
       }}
       allowDragAndDrop={true}
     >
@@ -257,10 +257,10 @@ function FileDownload() {
       ref={fileManagerRef}
       beforeDownload={handleBeforeDownload}
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        downloadUrl: "https://api.example.com/api/FileManager/Download",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload"
+        url: "url",
+        downloadUrl: "url",
+        getImageUrl: "url",
+        uploadUrl: "url"
       }}
     >
       <Inject services={[DetailsView, NavigationPane, Toolbar]} />
@@ -319,10 +319,10 @@ function FileDelete() {
       beforeDelete={handleBeforeDelete}
       delete={handleDelete}
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        getImageUrl: "url",
+        uploadUrl: "url",
+        downloadUrl: "url"
       }}
       allowMultiSelection={true}
     >
@@ -391,10 +391,10 @@ function FileRename() {
       beforeRename={handleBeforeRename}
       rename={handleRename}
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations",
-        getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-        uploadUrl: "https://api.example.com/api/FileManager/Upload",
-        downloadUrl: "https://api.example.com/api/FileManager/Download"
+        url: "url",
+        getImageUrl: "url",
+        uploadUrl: "url",
+        downloadUrl: "url"
       }}
     >
       <Inject services={[DetailsView, NavigationPane, Toolbar]} />
@@ -439,10 +439,10 @@ Create folders using toolbar or context menu:
 ```tsx
 <FileManagerComponent
   ajaxSettings={{
-    url: "https://api.example.com/api/FileManager/FileOperations",
-    getImageUrl: "https://api.example.com/api/FileManager/GetImage",
-    uploadUrl: "https://api.example.com/api/FileManager/Upload",
-    downloadUrl: "https://api.example.com/api/FileManager/Download"
+    url: "url",
+    getImageUrl: "url",
+    uploadUrl: "url",
+    downloadUrl: "url"
   }}
 >
   <Inject services={[DetailsView, NavigationPane, Toolbar]} />

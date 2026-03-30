@@ -69,7 +69,7 @@ Localization translates static UI text in components into different languages.
 ### Install Locale Package
 
 ```bash
-npm install @syncfusion/ej2-locale
+npm install @syncfusion/ej2-locale@latest
 ```
 
 ### Load Translations
@@ -157,7 +157,7 @@ Internationalization enables formatting of dates, numbers, and currencies accord
 ### Install CLDR Data
 
 ```bash
-npm install @syncfusion/ej2-cldr-data
+npm install @syncfusion/ej2-cldr-data@latest
 ```
 
 ### Load CLDR Data

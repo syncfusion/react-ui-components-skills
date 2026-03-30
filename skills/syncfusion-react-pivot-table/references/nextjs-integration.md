@@ -1,5 +1,15 @@
 # Next.js Integration - Syncfusion React Pivot Table
 
+## ⚠️ SECURITY NOTICE
+
+**All remote data connections MUST use authenticated, environment-based configuration.** Never hardcode API endpoints or OLAP server URLs.
+
+✅ **Required Security Controls:**
+- Environment variables (`NEXT_PUBLIC_*` for client-side)
+- API routes for server-side data fetching
+- Authentication and authorization
+- HTTPS/SSL for all remote connections
+
 ## Overview
 
 Integrating the Syncfusion React Pivot Table into Next.js applications requires careful handling of SSR (Server-Side Rendering), dynamic imports, and browser APIs. This guide covers best practices for seamless integration with Next.js 13+ (App Router) and Next.js 12 (Pages Router).

@@ -52,7 +52,7 @@ import {
 } from '@syncfusion/ej2-react-filemanager';
 
 function VirtualizedFileManager() {
-  const hostUrl = "https://ej2-aspcore-service.azurewebsites.net/";
+  const hostUrl = "url";
 
   return (
     <FileManagerComponent
@@ -147,7 +147,7 @@ function DetailsViewVirtualized() {
         ]
       }}
       ajaxSettings={{
-        url: "https://api.example.com/api/FileManager/FileOperations"
+        url: "url"
       }}
     >
       <Inject services={[DetailsView, Virtualization]} />
@@ -168,8 +168,8 @@ export default DetailsViewVirtualized;
   height="600px"
   showThumbnail={true}
   ajaxSettings={{
-    url: "https://api.example.com/api/FileManager/FileOperations",
-    getImageUrl: "https://api.example.com/api/FileManager/GetImage"
+    url: "url",
+    getImageUrl: "url"
   }}
 >
   <Inject services={[Virtualization]} />
@@ -190,7 +190,7 @@ import {
 } from '@syncfusion/ej2-react-filemanager';
 
 function LargeDatasetFileManager() {
-  const hostUrl = "https://ej2-aspcore-service.azurewebsites.net/";
+  const hostUrl = "url";
   const [isLoading, setIsLoading] = useState(true);
 
   const handleBeforeSend = (args: any) => {
@@ -373,7 +373,7 @@ const persistSelection = async (selectedIds: string[]) => {
 
 ```tsx
 ajaxSettings={{
-  url: "https://api.example.com/api/FileManager/FileOperations",
+  url: "url",
   // Backend should sort consistently
 }}
 ```

@@ -10,6 +10,7 @@
 - [RemoteSave Adaptor](#remotesave-adaptor)
 - [Adaptor Comparison](#adaptor-comparison)
 - [Error Handling](#error-handling)
+- [Best Practices](#best-practices)
 
 ## Overview
 
@@ -28,24 +29,13 @@ import { DataManager, UrlAdaptor } from '@syncfusion/ej2-data';
 import { GridComponent } from '@syncfusion/ej2-react-grids';
 
 const data = new DataManager({
-  url: 'https://api.example.com/orders',
+  url: 'url,
   adaptor: new UrlAdaptor()
 });
 
 <GridComponent dataSource={data}>
   {/* columns */}
 </GridComponent>
-```
-
-### Server Expectations
-
-The server expects:
-- GET request for reading data
-- Query parameters: `$skip`, `$top`, `$orderby`, `$filter`
-
-Example URL:
-```
-GET https://api.example.com/orders?$skip=0&$top=12&$orderby=OrderID%20desc&$filter=Freight%20gt%2050
 ```
 
 ### Server Response Format
@@ -76,7 +66,7 @@ import { GridComponent, ColumnsDirective, ColumnDirective, Inject, Page, Sort, F
 
 function App() {
   const data = new DataManager({
-    url: 'https://services.syncfusion.com/react/production/api/Orders',
+    url: 'url',
     adaptor: new UrlAdaptor()
   });
 
@@ -107,7 +97,7 @@ Specialized for OData v4 protocol. Provides advanced filtering, sorting, and ser
 import { DataManager, ODataV4Adaptor } from '@syncfusion/ej2-data';
 
 const data = new DataManager({
-  url: 'https://services.odata.org/v4/northwind/northwind.svc/Orders',
+  url: 'url',
   adaptor: new ODataV4Adaptor()
 });
 
@@ -175,7 +165,7 @@ gridInstance.refresh();
 
 ```tsx
 const data = new DataManager({
-  url: 'https://services.odata.org/v4/northwind/northwind.svc/Orders',
+  url: 'url',
   adaptor: new ODataV4Adaptor()
 });
 
@@ -202,7 +192,7 @@ For ASP.NET Web API services using RESTful conventions.
 import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 const data = new DataManager({
-  url: 'https://api.example.com/api/orders',
+  url: 'url',
   adaptor: new WebApiAdaptor(),
   crossDomain: true
 });
@@ -281,12 +271,12 @@ import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
 import { GridComponent, Inject, Edit, Toolbar } from '@syncfusion/ej2-react-grids';
 
 const data = new DataManager({
-  url: 'https://api.example.com/api/orders',
+  url: 'url',
   adaptor: new WebApiAdaptor(),
-  insertUrl: 'https://api.example.com/api/orders',
-  updateUrl: 'https://api.example.com/api/orders',
-  removeUrl: 'https://api.example.com/api/orders',
-  batchUrl: 'https://api.example.com/api/orders/batch'
+  insertUrl: 'url',
+  updateUrl: 'url',
+  removeUrl: 'url',
+  batchUrl: 'url/batch'
 });
 
 <GridComponent
@@ -311,7 +301,7 @@ For GraphQL endpoints returning complex nested queries.
 import { DataManager, GraphQLAdaptor } from '@syncfusion/ej2-data';
 
 const data = new DataManager({
-  url: 'https://api.example.com/graphql',
+  url: 'url',
   adaptor: new GraphQLAdaptor(),
   query: `query {
     orders(skip: 0, take: 12) {
@@ -334,7 +324,7 @@ const data = new DataManager({
 
 ```tsx
 const data = new DataManager({
-  url: 'https://api.example.com/graphql',
+  url: 'url',
   adaptor: new GraphQLAdaptor(),
   query: `query getOrders($skip: Int!, $take: Int!, $filter: String) {
     orders(skip: $skip, take: $take, filter: $filter) {
@@ -460,7 +450,7 @@ class CustomAdaptor extends Adaptor {
 
 // Usage
 const data = new DataManager({
-  url: 'https://api.example.com/orders',
+  url: 'url,
   adaptor: new CustomAdaptor()
 });
 ```
@@ -472,7 +462,7 @@ class AuthenticatedAdaptor extends Adaptor {
   processRequest(dm, request, state) {
     request.headers = {
       ...request.headers,
-      'Authorization': `Bearer ${getAuthToken()}`,
+      'Authorization': `send_token`,
       'X-Custom-Header': 'CustomValue'
     };
     return request;
@@ -501,9 +491,9 @@ import { DataManager, RemoteSaveAdaptor } from '@syncfusion/ej2-data';
 import { GridComponent, Inject, Edit, Toolbar } from '@syncfusion/ej2-react-grids';
 
 const data = new DataManager({
-  url: 'https://api.example.com/api/orders',
+  url: 'url',
   adaptor: new RemoteSaveAdaptor(),
-  batchUrl: 'https://api.example.com/api/orders/batch'
+  batchUrl: 'url/batch'
 });
 
 <GridComponent
@@ -584,7 +574,7 @@ public class BatchRequest
 
 ```tsx
 const data = new DataManager({
-  url: 'https://api.example.com/orders',
+  url: 'url,
   adaptor: new UrlAdaptor()
 });
 

@@ -33,7 +33,7 @@ import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar } fr
 
 function CustomContextMenuExample() {
   const fileManagerRef = useRef(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   const handleMenuClick = (args) => {
     if (args.item.text === 'Custom') {
@@ -325,7 +325,7 @@ import { FileManagerComponent, Inject, NavigationPane, DetailsView, Toolbar } fr
 
 function AdvancedContextMenuExample() {
   const fileManagerRef = useRef(null);
-  const hostUrl = "https://your-server.com/";
+  const hostUrl = "url";
 
   const handleMenuClick = (args) => {
     const itemName = args.fileDetails?.name;

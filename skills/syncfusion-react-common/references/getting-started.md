@@ -20,7 +20,7 @@ Syncfusion React components are available as npm packages and work seamlessly wi
 All Syncfusion React components are distributed via npm at [npmjs.com](https://www.npmjs.com/search?q=ej2-react). Install the required component package:
 
 ```bash
-npm install @syncfusion/ej2-react-grids --save
+npm install @syncfusion/ej2-react-grids@latest --save
 ```
 
 ### CSS Theme Import
@@ -46,7 +46,7 @@ Choose one theme and import it in your main CSS file or entry point:
 ### Step 1: Install Package
 
 ```bash
-npm install @syncfusion/ej2-react-grids --save
+npm install @syncfusion/ej2-react-grids@latest --save
 ```
 
 ### Step 2: Import Styles in app/globals.css
@@ -122,7 +122,7 @@ export default function Home() {
 ### Step 1: Install Package
 
 ```bash
-npm install @syncfusion/ej2-react-grids --save
+npm install @syncfusion/ej2-react-grids@latest --save
 ```
 
 ### Step 2: Configure vite.config.ts
@@ -178,7 +178,7 @@ export default function Index() {
 ### Step 1: Install Package
 
 ```bash
-npm install @syncfusion/ej2-react-grids --save
+npm install @syncfusion/ej2-react-grids@latest --save
 ```
 
 ### Step 2: Import Styles in src/App.css
@@ -227,7 +227,7 @@ export default App;
 ### Step 1: Install Package
 
 ```bash
-npm install @syncfusion/ej2-react-grids --save
+npm install @syncfusion/ej2-react-grids@latest --save
 ```
 
 ### Step 2: Import Styles in src/style.css
@@ -278,7 +278,7 @@ render(<App />, document.getElementById('app'));
 ### Step 1: Install Package
 
 ```bash
-npm install @syncfusion/ej2-react-grids --save
+npm install @syncfusion/ej2-react-grids@latest --save
 ```
 
 ### Step 2: Import Styles in App.tsx
