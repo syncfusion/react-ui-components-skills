@@ -8,6 +8,7 @@
 - [Label Templates](#label-templates)
 - [Combining Bubbles and Labels](#combining-bubbles-and-labels)
 - [Visual Hierarchy Best Practices](#visual-hierarchy-best-practices)
+- [Heatmap Layer](#heatmap-layer)
 - [Common Use Cases](#common-use-cases)
 - [Troubleshooting](#troubleshooting)
 
@@ -517,6 +518,25 @@ dataLabelSettings={{
   
   {/* Labels render on top of bubbles */}
 </LayerDirective>
+```
+
+## Heatmap Layer
+
+Heatmaps visualize density/intensity directly on the map using color gradients.
+React Maps supports heat map configurations via colorMapping.
+
+```tsx
+<LayerDirective
+   shapeData={world_map}
+   dataSource={heatData}
+   shapeSettings={{
+      colorValuePath: "intensity",
+      colorMapping: [
+        { from: 0, to: 10, color: "#ffeeee" },
+        { from: 10, to: 50, color: "#ff0000" }
+      ]
+   }}
+/>
 ```
 
 ## Common Use Cases

@@ -22,6 +22,11 @@ Use this skill whenever a user needs to:
 - Transform request/response data
 - Handle complex data scenarios in React applications
 
+## ⚠️ Security & Trust Boundary
+
+- This skill generates code only, the agent does not execute data operations or fetch remote endpoints — all DataManager interactions occur solely within the user's application at runtime.
+- Generated code must treat all third-party API responses as untrusted input, never bind to unvalidated or user-provided URLs, and ensure authentication is enforced on all remote endpoints.
+
 ## When to Use DataManager
 
 **DataManager** is best for:

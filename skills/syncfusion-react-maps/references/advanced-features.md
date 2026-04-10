@@ -253,6 +253,14 @@ function PDFExportMap() {
 }
 ```
 
+### Export Options (PDF Orientation & More)
+
+Maps can export to PNG, JPEG, SVG, or PDF with optional orientation.
+
+```tsx
+mapsRef.current.export("PDF", "world-map", "Landscape");
+```
+
 ## Event Handling
 
 ### Load Event
@@ -518,6 +526,14 @@ function SelectableMap() {
 }
 ```
 
+### Programmatic Shape Selection
+
+Shapes can be selected directly via API, without user interaction.
+
+```tsx
+mapsRef.current.shapeSelection(0, "name", "United States", true);
+```
+
 ### Coordinate Conversion
 
 ```tsx
@@ -553,6 +569,23 @@ function CoordinateConversionMap() {
 }
 ```
 
+#### Tile Geo‑location Conversion
+
+Converts pixel positions from tile-based map providers (OSM/Bing/Azure) into latitude/longitude.
+Useful for drawing overlays or capturing pointer coordinates.
+
+```tsx
+const loc = mapsRef.current.getTileGeoLocation(pageX, pageY);
+```
+
+#### Projection Coordinate Conversion
+
+Convert latitude/longitude to pixel points
+
+```tsx
+const pt = mapsRef.current.latLongToPoint(40.7128, -74.006)
+```
+
 ### Bing Maps Integration
 
 ```tsx
@@ -562,7 +595,7 @@ function BingMapsSetup() {
   React.useEffect(() => {
     const setupBingMaps = async () => {
       const bingUrl = await mapsRef.current.getBingUrlTemplate(
-        'https://dev.virtualearth.net/REST/V1/Imagery/Metadata/Aerial?output=json&uriScheme=https&key=YOUR_BING_API_KEY'
+        'Add your URL link'
       );
       console.log('Bing Maps URL Template:', bingUrl);
     };
@@ -574,7 +607,7 @@ function BingMapsSetup() {
     <MapsComponent ref={mapsRef}>
       <LayersDirective>
         <LayerDirective
-          urlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png"
+          urlTemplate="Add your URL link"
         />
       </LayersDirective>
     </MapsComponent>

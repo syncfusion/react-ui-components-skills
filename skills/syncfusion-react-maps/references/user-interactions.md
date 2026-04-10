@@ -119,6 +119,17 @@ function ZoomToRegion() {
 }
 ```
 
+### Shape Border Merging on Zoom
+
+Borders automatically simplify at lower zoom levels and refine when zooming deeper.
+
+```tsx
+shapeSettings={{
+    border: { width: 0.5, color: "#888" }
+}}
+```
+
+
 ## Panning
 
 ### Enable Panning
@@ -263,6 +274,22 @@ tooltipSettings={{
     }}
   />
 </BubblesDirective>
+```
+
+### Advanced Tooltip Templates
+
+Tooltips support fully customizable HTML/React templates for multi-line or styled content.
+
+```tsx
+tooltipSettings={{
+   visible: true,
+   template: (props) => (
+      <div>
+         <strong>{props.name}</strong><br/>
+         Value: {props.value}
+      </div>
+   )
+}}
 ```
 
 ## Selection

@@ -491,7 +491,7 @@ Gets the Bing maps URL template.
 ```tsx
 const setupBingMaps = async () => {
   const url = await mapsRef.current.getBingUrlTemplate(
-    'https://dev.virtualearth.net/REST/V1/Imagery/Metadata/Aerial?output=json&uriScheme=https&key=YOUR_BING_KEY'
+    'Add your URL link'
   );
   console.log('Bing URL:', url);
 };

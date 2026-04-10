@@ -8,6 +8,7 @@
 - [Layer Types](#layer-types)
 - [Layer Configuration](#layer-configuration)
 - [Stacking and Ordering](#stacking-and-ordering)
+- [Drill‑Down Navigation](#drilldown-navigation)
 - [Use Cases](#use-cases)
 - [Common Patterns](#common-patterns)
 - [Troubleshooting](#troubleshooting)
@@ -281,6 +282,26 @@ Each layer can have:
 </LayersDirective>
 ```
 
+### Per‑Layer Zoom Constraints
+
+You can restrict zooming for individual layers using minimum and maximum zoom levels.
+Useful for lockstep navigation or multi-layered visualizations.
+
+```tsx
+<LayerDirective
+    shapeData={usa_map}
+    layerSettings={{ minZoom: 2, maxZoom: 10 }}
+/>
+```
+
+### Conditional Layer Visibility
+
+Layers can appear or hide dynamically based on current zoom, supporting multi-resolution transitions.
+
+```tsx
+<LayerDirective visible={currentZoom > 4} />
+```
+
 ## Stacking and Ordering
 
 Layers render in the order they're defined:
@@ -298,6 +319,30 @@ Layers render in the order they're defined:
 Layer 3 (top)
 Layer 2 (middle)
 Layer 1 (bottom)
+```
+
+## Drill‑Down Navigation
+
+Drill-down enables transitioning from larger geographical regions to more detailed shapes, such as switching from a world map to a country-level map when a shape is clicked.
+
+```tsx
+const [showDetail, setShowDetail] = React.useState(false);
+
+<MapsComponent>
+  <LayersDirective>
+    <LayerDirective shapeData={world_map} />
+    
+    {showDetail && (
+      <LayerDirective
+        shapeData={country_detail}
+        type="SubLayer"
+        shapeSettings={{
+          fill: 'rgba(76, 175, 80, 0.6)'
+        }}
+      />
+    )}
+  </LayersDirective>
+</MapsComponent>
 ```
 
 ### Controlling Visual Hierarchy with Opacity

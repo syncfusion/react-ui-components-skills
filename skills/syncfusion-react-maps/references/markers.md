@@ -73,6 +73,18 @@ function App() {
 4. Set `visible={true}`
 5. Provide `dataSource` with latitude/longitude
 
+### Marker Drag & Drop
+
+React Maps supports marker dragging, making it ideal for editable locations or route design workflows.
+
+```tsx
+<MapsComponent
+  markerDragStart={(args) => {
+    console.log('Started dragging marker:', args.data);
+  }}
+>
+```
+
 ## Marker Data Source
 
 ### Data Structure
@@ -240,7 +252,7 @@ Use custom images:
 
 ### Animation
 
-Add entrance animation:
+Markers support smooth animated loading via duration and delay values.
 
 ```tsx
 <MarkerDirective
@@ -475,6 +487,18 @@ For dense marker groups, enable clustering:
 - Shows count of markers in cluster
 - Expands on zoom in
 - Improves performance with large datasets
+
+### Cluster Interaction Events
+
+Clusters can emit events when clicked, allowing expansion or contextual actions.
+
+```tsx
+<MapsComponent
+  markerClusterClick={(args) => {
+    console.log('Cluster clicked, count:', args.data.length);
+  }}
+>
+```
 
 ## Interactive Markers
 

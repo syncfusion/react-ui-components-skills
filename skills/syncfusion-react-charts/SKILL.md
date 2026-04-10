@@ -187,7 +187,7 @@ Use `DataManager` with an adaptor to bind data from a REST API or OData service:
 import { DataManager, Query, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 const dataManager = new DataManager({
-  url: 'https://services.syncfusion.com/react/production/api/orders',
+  url: 'your data source URL link',
   adaptor: new WebApiAdaptor()
 });
 

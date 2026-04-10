@@ -65,6 +65,16 @@ function BingMap() {
 }
 ```
 
+### Bing Maps URL Template Retrieval
+
+React Maps can auto-fetch the correct URL template for Bing Maps using getBingUrlTemplate().
+This removes the need to manually build metadata URLs.
+
+```tsx
+const template = await mapsRef.current.getBingUrlTemplate(
+  "https://dev.virtualearth.net/REST/V1/Imagery/Metadata/Aerial?output=json&key=YOUR_KEY")
+```
+
 ### Get Bing Maps API Key
 
 1. Visit [Bing Maps Dev Center](https://www.bingmapsportal.com/)
@@ -138,7 +148,7 @@ function OSMMap() {
     <MapsComponent>
       <LayersDirective>
         <LayerDirective
-          urlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png"
+          urlTemplate="Add your URL link"
         />
       </LayersDirective>
     </MapsComponent>
@@ -150,13 +160,13 @@ function OSMMap() {
 
 ```tsx
 // Standard OpenStreetMap
-urlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png"
+urlTemplate="Add your URL link"
 
 // OpenStreetMap Humanitarian
-urlTemplate="https://tile-{s}.openstreetmap.fr/hot/{z}/{x}/{y}.png"
+urlTemplate="Add your URL link"
 
 // OpenTopoMap (topographical)
-urlTemplate="https://{s}.tile.opentopomap.org/{z}/{x}/{y}.png"
+urlTemplate="Add your URL link"
 ```
 
 ### Basic OSM Example
@@ -177,7 +187,7 @@ function OpenStreetMapExample() {
       <Inject services={[Zoom]} />
       <LayersDirective>
         <LayerDirective
-          urlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png"
+          urlTemplate="Add your URL link"
         />
       </LayersDirective>
     </MapsComponent>
@@ -203,7 +213,7 @@ function OSMStoreLocator() {
       <Inject services={[Marker, Zoom, MapsTooltip]} />
       <LayersDirective>
         <LayerDirective
-          urlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png"
+          urlTemplate="Add your URL link"
         >
           <MarkersDirective>
             <MarkerDirective
@@ -290,7 +300,7 @@ function HybridMap() {
       <LayersDirective>
         {/* Base layer: OpenStreetMap */}
         <LayerDirective
-          urlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png"
+          urlTemplate="Add your URL link"
         />
         
         {/* Overlay: State boundaries with data */}
@@ -368,7 +378,7 @@ function StoreLocatorMap() {
       <Inject services={[Marker, Zoom, MapsTooltip]} />
       <LayersDirective>
         <LayerDirective
-          urlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png"
+          urlTemplate="Add your URL link"
         >
           <MarkersDirective>
             <MarkerDirective
@@ -407,7 +417,7 @@ function DeliveryTrackingMap() {
       <Inject services={[Marker, Zoom]} />
       <LayersDirective>
         <LayerDirective
-          urlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png"
+          urlTemplate="Add your URL link"
         >
           <MarkersDirective>
             <MarkerDirective
@@ -440,7 +450,7 @@ function EventVenueMap() {
       <Inject services={[Marker, Zoom]} />
       <LayersDirective>
         <LayerDirective
-          urlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png"
+          urlTemplate="Add your URL link"
         >
           <MarkersDirective>
             <MarkerDirective
@@ -468,10 +478,8 @@ function EventVenueMap() {
 1. **Invalid URL template**
 ```tsx
 // ✅ Correct OSM template
-urlTemplate="https://tile.openstreetmap.org/level/tileX/tileY.png"
+urlTemplate="your URL links .png"
 
-// ❌ Wrong - missing placeholders
-urlTemplate="https://tile.openstreetmap.org/tile.png"
 ```
 
 2. **Missing or invalid API key (Bing/Azure)**

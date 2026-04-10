@@ -283,7 +283,7 @@ import { ChartComponent, SeriesCollectionDirective, SeriesDirective, Inject, Col
 
 export default function RemoteChart() {
   const dataManager = new DataManager({
-    url: 'https://services.syncfusion.com/react/production/api/orders'
+    url: 'Add your data source URL link'
   });
   const query = new Query().take(5).where('Estimate', 'lessThan', 3, false);
 
@@ -349,7 +349,7 @@ Use `WebApiAdaptor` for custom REST APIs that return a JSON object with `Items` 
 import { DataManager, Query, WebApiAdaptor } from '@syncfusion/ej2-data';
 
 const dataManager = new DataManager({
-  url: 'https://services.syncfusion.com/react/production/api/orders',
+  url: 'your data source URL link',
   adaptor: new WebApiAdaptor()
 });
 const query = new Query();
@@ -384,7 +384,7 @@ class SerialNoAdaptor extends ODataAdaptor {
 }
 
 const dataManager = new DataManager({
-  url: 'https://services.syncfusion.com/react/production/api/orders',
+  url: 'your data source URL link',
   adaptor: new SerialNoAdaptor()
 });
 
@@ -399,7 +399,7 @@ Enable offline mode to load the full dataset once and handle all filtering/sorti
 import { DataManager, ODataAdaptor } from '@syncfusion/ej2-data';
 
 const dataManager = new DataManager({
-  url: 'https://services.syncfusion.com/react/production/api/orders',
+  url: 'your data source URL link',
   adaptor: new ODataAdaptor(),
   offline: true  // loads all data upfront; interactions run client-side
 });

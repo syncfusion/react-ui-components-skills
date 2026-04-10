@@ -661,13 +661,11 @@ Override default rendering for complete control.
 ```jsx
 <SeriesDirective
   type='Column'
-  dataLabelTemplate={(args) => {
-    return `
-      <svg width="50" height="50">
-        <circle cx="25" cy="25" r="20" fill="${args.fill}" />
-        <text x="25" y="25" text-anchor="middle">${args.value}</text>
-      </svg>
-    `;
+   marker={{
+    dataLabel: {
+      visible: true,
+      template: `<div style="background:#fff;border:1px solid #333;padding:2px 6px;">${point.x}: ${point.y}</div>`
+    }
   }}
 />
 ```

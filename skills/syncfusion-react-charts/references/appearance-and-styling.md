@@ -185,7 +185,7 @@ Use an HTML template string for fully custom label content:
   marker={{
     dataLabel: {
       visible: true,
-      template: '<div style="background:#fff;border:1px solid #333;padding:2px 6px;">${point.x}: ${point.y}</div>'
+      template: `<div style="background:#fff;border:1px solid #333;padding:2px 6px;">${point.x}: ${point.y}</div>`
     }
   }}
 />
@@ -541,41 +541,6 @@ Switch via the `theme` prop:
 </ChartComponent>
 ```
 
-### CSS Variables (Theme Variables)
-
-Syncfusion charts use CSS variables for theming:
-
-```css
-/* In your CSS file */
-:root {
-  --ejPrimary: #3B82F6;
-  --ejSurface: #ffffff;
-  --ejBorder: #e5e7eb;
-}
-```
-
-### Material Theme Customization
-
-```jsx
-// Instead of importing material.css
-import '@syncfusion/ej2-base/styles/material.css';
-
-// Create custom theme file
-import './custom-theme.css';
-```
-
-**custom-theme.css:**
-```css
-.e-chart {
-  --chart-primary-color: #3B82F6;
-  --chart-border-color: #e5e7eb;
-}
-
-.e-series {
-  fill: var(--chart-primary-color);
-}
-```
-
 ### Dark Theme
 
 ```jsx
@@ -634,7 +599,7 @@ import './custom-theme.css';
   tooltip={{
     enable: true,
     shared: true,
-    template: '<div>${point.x}: ${point.y}</div>'
+    template: `<div>${point.x}: ${point.y}</div>`
   }}
   primaryXAxis={{
     valueType: 'Category',

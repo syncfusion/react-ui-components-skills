@@ -10,6 +10,7 @@
 - [Data Binding](#data-binding)
 - [Module Injection](#module-injection)
 - [CSS Theme Import](#css-theme-import)
+- [Map Projections](#map-projections)
 - [Complete Working Example](#complete-working-example)
 - [Common Setup Issues](#common-setup-issues)
 
@@ -77,7 +78,6 @@ src/
 
 ```tsx
 import { MapsComponent, LayersDirective, LayerDirective } from '@syncfusion/ej2-react-maps';
-import '@syncfusion/ej2-react-maps/styles/material.css';
 ```
 
 ## Understanding GeoJSON Data
@@ -118,7 +118,8 @@ Maps render shapes from GeoJSON format. GeoJSON structure:
 **Option 1: Download from Syncfusion**
 ```bash
 # World map GeoJSON
-https://www.syncfusion.com/downloads/support/directtrac/general/ze/world_map1557035892
+# https://www.syncfusion.com/downloads/support/directtrac/general/ze/world_map1557035892
+
 ```
 
 **Option 2: Use Custom GeoJSON**
@@ -144,7 +145,6 @@ export let world_map = {
 import * as React from 'react';
 import { MapsComponent, LayersDirective, LayerDirective } from '@syncfusion/ej2-react-maps';
 import { world_map } from './world-map';
-import '@syncfusion/ej2-react-maps/styles/material.css';
 
 function App() {
   return (
@@ -179,6 +179,27 @@ export let countryData = [
   { Country: 'India', Population: 1380004385, Code: 'IN' },
   { Country: 'Russia', Population: 145934462, Code: 'RU' }
 ];
+```
+
+### Remote Data Binding (DataManager)
+
+React Maps can bind directly to remote data sources using Syncfusion’s DataManager, supporting `OData`, `ODataV4`, `WebAPI`, and custom adapters.
+This enables scalable server-driven mapping scenarios.
+
+```tsx
+import { DataManager, ODataAdaptor } from '@syncfusion/ej2-data';
+
+const remote = new DataManager({
+   url: "https://services.odata.org/V4/Northwind/Northwind.svc/Customers",
+   adaptor: new ODataAdaptor()
+});
+
+<LayerDirective
+    shapeData={world_map}
+    dataSource={remote}
+    shapeDataPath="Country"
+    shapePropertyPath="name"
+/>
 ```
 
 ### Binding Data to Shapes
@@ -277,27 +298,34 @@ Import CSS for the theme you want to use.
 
 ### Available Themes
 
+**(18+ including dark & high contrast):**
+- Material, MaterialDark, Material3, Material3Dark
+- Fabric, FabricDark
+- Bootstrap, BootstrapDark, Bootstrap4, Bootstrap5, Bootstrap5Dark, Bootstrap5.3, Bootstrap5.3Dark
+- Tailwind, TailwindDark
+- Fluent, FluentDark, Fluent2, Fluent2Dark, Fluent2HighContrast
+- HighContrast, HighContrastLight
+
+Switch via the `theme` prop:
+
 ```tsx
-// Material theme
-import '@syncfusion/ej2-react-maps/styles/material.css';
-
-// Bootstrap theme
-import '@syncfusion/ej2-react-maps/styles/bootstrap.css';
-
-// Fabric theme
-import '@syncfusion/ej2-react-maps/styles/fabric.css';
-
-// Tailwind theme
-import '@syncfusion/ej2-react-maps/styles/tailwind.css';
-
-// Fluent theme
-import '@syncfusion/ej2-react-maps/styles/fluent.css';
-
-// Bootstrap 5 theme
-import '@syncfusion/ej2-react-maps/styles/bootstrap5.css';
+<MapsComponent theme='Material3Dark'>
+  {/* Maps content */}
+</MapsComponent>
 ```
 
 **Import at the top of your component or in `main.jsx`/`App.jsx`.**
+
+## Map Projections
+
+React Maps supports multiple geographical projection systems such as `Mercator`, `Miller`, `Winkel3`, and `Eckert` series. Choosing the right projection helps control shape distortion and improves geographical accuracy at different zoom levels.
+
+```tsx
+<LayerDirective 
+    shapeData={world_map}
+    projectionType="Mercator"
+/>
+```
 
 ## Complete Working Example
 
@@ -315,7 +343,6 @@ import {
   MapsTooltip
 } from '@syncfusion/ej2-react-maps';
 import { world_map } from './world-map';
-import '@syncfusion/ej2-react-maps/styles/material.css';
 
 function App() {
   const populationData = [
@@ -395,9 +422,6 @@ import { world_map } from './world-map';
 
 // ❌ Wrong - missing export
 const world_map = { ... };
-
-// ✅ Correct CSS import
-import '@syncfusion/ej2-react-maps/styles/material.css';
 ```
 
 ### Issue: "Inject is not defined"

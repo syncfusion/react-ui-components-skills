@@ -120,7 +120,7 @@ import React from 'react';
 
 function App() {
   const data = new DataManager({
-    url: 'https://services.odata.org/v4/Northwind/Northwind.svc/Employees/',
+    url: 'url',
     adaptor: new ODataV4Adaptor()
   });
 
@@ -153,7 +153,7 @@ If your API returns standard JSON without OData protocol:
 import { DataManager, JsonAdaptor } from '@syncfusion/ej2-data';
 
 const data = new DataManager({
-  url: 'https://api.example.com/employees',
+  url: 'url',
   adaptor: new JsonAdaptor()
 });
 
@@ -168,7 +168,7 @@ For APIs that follow REST conventions:
 import { DataManager } from '@syncfusion/ej2-data';
 
 const data = new DataManager({
-  url: 'https://api.example.com/employees',
+  url: 'url',
   adaptor: new JsonAdaptor(),
   crossDomain: true
 });
@@ -192,7 +192,7 @@ const data = new DataManager({
 import { DataManager } from '@syncfusion/ej2-data';
 
 const data = new DataManager({
-  url: 'https://services.odata.org/v4/Northwind/Northwind.svc/Employees/',
+  url: 'url',
   adaptor: new ODataV4Adaptor(),
   pageSize: 50,
   offline: false,
@@ -331,7 +331,7 @@ function App() {
 
   function switchToRemote(): void {
     const remoteData = new DataManager({
-      url: 'https://services.odata.org/v4/Northwind/Northwind.svc/Employees/',
+      url: 'url',
       adaptor: new ODataV4Adaptor()
     });
     setDataSource(remoteData);

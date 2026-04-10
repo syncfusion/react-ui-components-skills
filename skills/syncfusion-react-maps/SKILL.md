@@ -204,7 +204,6 @@ The Syncfusion React Maps component is a powerful data visualization tool that r
 import * as React from 'react';
 import { MapsComponent, LayersDirective, LayerDirective, Inject, Legend } from '@syncfusion/ej2-react-maps';
 import { world_map } from './world-map'; // GeoJSON data
-import '@syncfusion/ej2-react-maps/styles/material.css';
 
 function MapExample() {
   const data = [
