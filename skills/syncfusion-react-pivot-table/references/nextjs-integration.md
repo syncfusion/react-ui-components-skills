@@ -1,577 +1,136 @@
-# Next.js Integration - Syncfusion React Pivot Table
-
-## ⚠️ SECURITY NOTICE
-
-**All remote data connections MUST use authenticated, environment-based configuration.** Never hardcode API endpoints or OLAP server URLs.
-
-✅ **Required Security Controls:**
-- Environment variables (`NEXT_PUBLIC_*` for client-side)
-- API routes for server-side data fetching
-- Authentication and authorization
-- HTTPS/SSL for all remote connections
+# Next.js Integration Reference - Syncfusion React Pivot Table
 
 ## Overview
 
-Integrating the Syncfusion React Pivot Table into Next.js applications requires careful handling of SSR (Server-Side Rendering), dynamic imports, and browser APIs. This guide covers best practices for seamless integration with Next.js 13+ (App Router) and Next.js 12 (Pages Router).
+Next.js is a React framework for building fast, SEO-friendly web applications with server-side rendering. Syncfusion Pivot Table works seamlessly in Next.js with the App Router.
 
-### Key Considerations
-- **SSR Compatibility**: Pivot Table is browser-dependent; requires dynamic imports
-- **Data Hydration**: Prevent mismatch between server and client renders
-- **Performance**: Optimize bundle size and initial loads
-- **API Routes**: Handle data fetching server-side for OLAP/database connections
-- **Styling**: Manage Syncfusion CSS imports in Next.js
+## Key Requirements
 
-## Basic Next.js Setup (App Router)
+| Requirement | Details |
+|-------------|---------|
+| Node.js | 18.17.0 or later (LTS recommended) |
+| Package Manager | NPM or Yarn |
+| Framework | Next.js with App Router |
 
-### Step 1: Install Dependencies
+## Setup Steps
+
+### 1. Create Next.js Application
 
 ```bash
-npm install @syncfusion/ej2-react-pivotview @syncfusion/ej2-base @syncfusion/ej2-buttons @syncfusion/ej2-dropdowns
+npx create-next-app@latest
+# or
+yarn create next-app
 ```
 
-### Step 2: Create Pivot Component with Dynamic Import
+When prompted, select **Yes, use recommended defaults** (TypeScript, ESLint, Tailwind CSS, App Router).
+
+### 2. Install Syncfusion Package
+
+```bash
+npm install @syncfusion/ej2-react-pivotview --save
+# or
+yarn add @syncfusion/ej2-react-pivotview
+```
+
+### 3. Import CSS Styles
+
+In **app/globals.css**, add Tailwind 3 theme imports:
+
+```css
+@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-grids/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-calendars/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-react-pivotview/styles/tailwind3.css';
+```
+
+> Other themes available: Material, Bootstrap, Fabric, High Contrast. See [themes documentation](https://ej2.syncfusion.com/react/documentation/appearance/theme).
+
+### 4. Create Data Source
+
+Create **app/datasource.tsx**:
 
 ```typescript
-// components/PivotTable.tsx
-'use client';  // This is a Client Component
+export let pivotData: object[] = [
+    { 'In_Stock': 42, 'Sold': 80, 'Amount': 2460, 'Country': 'Germany', 'Product_Categories': 'Accessories', 'Products': 'Hydration Packs', 'Order_Source': 'Retail Outlets', 'Year': 'FY 2015', 'Quarter': 'Q1' },
+    { 'In_Stock': 19, 'Sold': 16, 'Amount': 184, 'Country': 'Germany', 'Product_Categories': 'Accessories', 'Products': 'Fenders', 'Order_Source': 'Retail Outlets', 'Year': 'FY 2015', 'Quarter': 'Q1' }
+];
+```
 
-import dynamic from 'next/dynamic';
-import React from 'react';
+### 5. Create Page Component
 
-// Dynamically import PivotView with ssr disabled
-const PivotViewComponent = dynamic(
-  () => import('@syncfusion/ej2-react-pivotview').then(mod => mod.PivotViewComponent),
-  { ssr: false, loading: () => <div>Loading Pivot Table...</div> }
-);
+Create **app/page.tsx** with `'use client'` directive:
 
-export function PivotTable() {
-  const [isMounted, setIsMounted] = React.useState(false);
+```typescript
+'use client'
+import { CalculatedField, FieldList, IDataSet, Inject, PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
+import { pivotData } from './datasource';
 
-  React.useEffect(() => {
-    setIsMounted(true);
-  }, []);
-
-  if (!isMounted) return <div>Loading...</div>;
-
-  const dataSourceSettings = {
-    dataSource: [
-      { Country: 'USA', Product: 'Laptops', Sales: 5000, Year: 2020 },
-      { Country: 'USA', Product: 'Mobiles', Sales: 3000, Year: 2020 },
-      { Country: 'Canada', Product: 'Laptops', Sales: 2500, Year: 2020 }
-    ],
-    rows: [{ name: 'Country' }],
-    columns: [{ name: 'Product' }],
-    values: [{ name: 'Sales' }]
+export default function Home() {
+  const dataSourceSettings: DataSourceSettingsModel = {
+    columns: [{ name: 'Year', caption: 'Production Year' }, { name: 'Quarter' }],
+    dataSource: pivotData as IDataSet[],
+    expandAll: false,
+    filters: [],
+    drilledMembers: [{ name: 'Country', items: ['Germany'] }],
+    formatSettings: [{ name: 'Amount', format: 'C0' }],
+    rows: [{ name: 'Country' }, { name: 'Products' }],
+    values: [{ name: 'Sold', caption: 'Units Sold' }, { name: 'Amount', caption: 'Sold Amount' }]
   };
 
   return (
-    <div style={{ width: '100%', height: '600px' }}>
+    <>
+      <h2>Syncfusion React Pivot Table Component</h2>
       <PivotViewComponent
-        id="pivotview"
+        id="PivotView"
+        height={350}
         dataSourceSettings={dataSourceSettings}
-        height="100%"
-      />
-    </div>
+        allowCalculatedField={true}
+        showFieldList={true}
+      >
+        <Inject services={[CalculatedField, FieldList]} />
+      </PivotViewComponent>
+    </>
   );
 }
 ```
 
-### Step 3: Use in Page
+### 6. Run the Application
 
-```typescript
-// app/dashboard/page.tsx
-'use client';
-
-import { PivotTable } from '@/components/PivotTable';
-
-export default function DashboardPage() {
-  return (
-    <main>
-      <h1>Sales Dashboard</h1>
-      <PivotTable />
-    </main>
-  );
-}
+```bash
+npm run dev
+# or
+yarn run dev
 ```
 
-### Step 4: Configure CSS
+## Key Points
 
-In `app/layout.tsx` or your global CSS file:
+- **`'use client'` is required** for interactive Syncfusion components in App Router
+- **Module injection** is needed for features like `CalculatedField` and `FieldList`
+- **CSS imports** must be in globals.css for themes to work
 
-```typescript
-// app/layout.tsx
-import '@syncfusion/ej2-base/styles/material.css';
-import '@syncfusion/ej2-buttons/styles/material.css';
-import '@syncfusion/ej2-dropdowns/styles/material.css';
-import '@syncfusion/ej2-grids/styles/material.css';
-import '@syncfusion/ej2-pivotview/styles/material.css';
-import '@syncfusion/ej2-popups/styles/material.css';
-```
+## Run Commands
 
-## Pages Router Integration (Next.js 12)
+| Package Manager | Command |
+|-----------------|---------|
+| NPM | `npm run dev` |
+| Yarn | `yarn run dev` |
 
-### Setup for Pages Router
+## Related Features
 
-```typescript
-// pages/pivot-dashboard.tsx
-import dynamic from 'next/dynamic';
-import React from 'react';
+- **Getting Started**: Basic setup without Next.js
+- **Field List**: Interactive field configuration UI
+- **Calculated Field**: Create custom calculated fields
+- **Module Injection**: Required service injections
 
-const PivotViewComponent = dynamic(
-  () => import('@syncfusion/ej2-react-pivotview').then(m => m.PivotViewComponent),
-  { ssr: false }
-);
+## See Also
 
-export default function PivotDashboard() {
-  return (
-    <div style={{ width: '100%', height: '600px' }}>
-      <PivotViewComponent
-        dataSourceSettings={{
-          dataSource: [],
-          rows: [{ name: 'Country' }],
-          columns: [{ name: 'Year' }],
-          values: [{ name: 'Sales' }]
-        }}
-        height="100%"
-      />
-    </div>
-  );
-}
-```
-
-## Server-Side Data Fetching
-
-### Fetch Data in API Route
-
-```typescript
-// app/api/pivot-data/route.ts
-import { NextResponse } from 'next/server';
-
-export async function GET() {
-  try {
-    // Fetch from database or external API
-    const data = await fetchPivotData();
-    
-    return NextResponse.json(data);
-  } catch (error) {
-    return NextResponse.json(
-      { error: 'Failed to fetch data' },
-      { status: 500 }
-    );
-  }
-}
-
-async function fetchPivotData() {
-  // Example: fetch from your database
-  // In production, use proper database client
-  return [
-    { Country: 'USA', Product: 'Laptops', Sales: 5000, Year: 2020 },
-    { Country: 'USA', Product: 'Mobiles', Sales: 3000, Year: 2020 },
-    { Country: 'Canada', Product: 'Laptops', Sales: 2500, Year: 2020 }
-  ];
-}
-```
-
-### Fetch Data in Component
-
-```typescript
-// components/ServerDataPivot.tsx
-'use client';
-
-import dynamic from 'next/dynamic';
-import React from 'react';
-
-const PivotViewComponent = dynamic(
-  () => import('@syncfusion/ej2-react-pivotview').then(mod => mod.PivotViewComponent),
-  { ssr: false }
-);
-
-export function ServerDataPivot() {
-  const [data, setData] = React.useState([]);
-  const [loading, setLoading] = React.useState(true);
-
-  React.useEffect(() => {
-    // Fetch from API route
-    fetch('/api/pivot-data')
-      .then(res => res.json())
-      .then(data => {
-        setData(data);
-        setLoading(false);
-      })
-      .catch(err => {
-        console.error('Failed to fetch pivot data:', err);
-        setLoading(false);
-      });
-  }, []);
-
-  if (loading) return <div>Loading data...</div>;
-
-  const dataSourceSettings = {
-    dataSource: data,
-    rows: [{ name: 'Country' }],
-    columns: [{ name: 'Product' }],
-    values: [{ name: 'Sales' }]
-  };
-
-  return (
-    <div style={{ width: '100%', height: '600px' }}>
-      <PivotViewComponent
-        id="pivotview"
-        dataSourceSettings={dataSourceSettings}
-        height="100%"
-      />
-    </div>
-  );
-}
-```
-
-## Advanced: OLAP Server Connection
-
-For server-side aggregation with OLAP:
-
-```typescript
-// components/OLAPPivot.tsx
-'use client';
-
-import dynamic from 'next/dynamic';
-import React from 'react';
-
-const PivotViewComponent = dynamic(
-  () => import('@syncfusion/ej2-react-pivotview').then(mod => mod.PivotViewComponent),
-  { ssr: false }
-);
-
-export function OLAPPivot() {
-  const dataSourceSettings = {
-    dataSource: {
-      url: process.env.NEXT_PUBLIC_OLAP_SERVER_URL,
-      mode: 'Server',
-      type: 'XML'
-    },
-    rows: [{ name: '[Geography].[Country]' }],
-    columns: [{ name: '[Date].[Year]' }],
-    values: [{ name: '[Measures].[Amount]' }],
-    filters: []
-  };
-
-  return (
-    <div style={{ width: '100%', height: '600px' }}>
-      <PivotViewComponent
-        id="olap-pivot"
-        dataSourceSettings={dataSourceSettings}
-        height="100%"
-      />
-    </div>
-  );
-}
-```
-
-## Handling Dynamic Routes
-
-### Dynamic Pivot Configuration
-
-```typescript
-// app/dashboard/[id]/page.tsx
-'use client';
-
-import dynamic from 'next/dynamic';
-import { useParams } from 'next/navigation';
-import React from 'react';
-
-const PivotViewComponent = dynamic(
-  () => import('@syncfusion/ej2-react-pivotview').then(mod => mod.PivotViewComponent),
-  { ssr: false }
-);
-
-export default function DashboardDetail() {
-  const params = useParams();
-  const [config, setConfig] = React.useState(null);
-
-  React.useEffect(() => {
-    // Fetch configuration based on dashboard ID
-    fetch(`/api/dashboard/${params.id}/config`)
-      .then(res => res.json())
-      .then(data => setConfig(data));
-  }, [params.id]);
-
-  if (!config) return <div>Loading configuration...</div>;
-
-  return (
-    <div>
-      <h1>Dashboard: {config.name}</h1>
-      <PivotViewComponent
-        dataSourceSettings={config.pivotSettings}
-        height={600}
-      />
-    </div>
-  );
-}
-```
-
-## Performance Optimization
-
-### Image Optimization with next/image
-
-For headers/branding in pivot tables:
-
-```typescript
-import Image from 'next/image';
-
-export function PivotWithBranding() {
-  return (
-    <div>
-      <div style={{ marginBottom: '20px' }}>
-        <Image
-          src="/company-logo.png"
-          alt="Company Logo"
-          width={200}
-          height={50}
-        />
-      </div>
-      {/* PivotViewComponent here */}
-    </div>
-  );
-}
-```
-
-### Code Splitting with Dynamic Routes
-
-Lazy load pivot features only when needed:
-
-```typescript
-const PivotViewComponent = dynamic(
-  () => import('@syncfusion/ej2-react-pivotview').then(mod => mod.PivotViewComponent),
-  { ssr: false }
-);
-
-const GroupingBar = dynamic(
-  () => import('@syncfusion/ej2-react-pivotview').then(mod => mod.GroupingBar),
-  { ssr: false }
-);
-
-const FieldList = dynamic(
-  () => import('@syncfusion/ej2-react-pivotview').then(mod => mod.FieldList),
-  { ssr: false }
-);
-
-// Only import when needed
-```
-
-### Environment Variables
-
-```env
-# .env.local
-NEXT_PUBLIC_OLAP_SERVER_URL=https://your-olap-server.com
-NEXT_PUBLIC_DATA_API=https://your-api.com
-DATABASE_URL=your-database-connection-string
-```
-
-## State Management Integration
-
-### Using Zustand
-
-```typescript
-// store/pivotStore.ts
-import { create } from 'zustand';
-
-interface PivotStore {
-  config: any;
-  setConfig: (config: any) => void;
-  resetConfig: () => void;
-}
-
-export const usePivotStore = create<PivotStore>((set) => ({
-  config: null,
-  setConfig: (config) => set({ config }),
-  resetConfig: () => set({ config: null })
-}));
-```
-
-```typescript
-// Use in component
-'use client';
-
-import { usePivotStore } from '@/store/pivotStore';
-
-export function StoredPivot() {
-  const { config, setConfig } = usePivotStore();
-
-  return (
-    <PivotViewComponent
-      dataSourceSettings={config}
-      actionComplete={(args: any) => {
-        setConfig(args.dataSourceSettings);
-      }}
-    />
-  );
-}
-```
-
-### Using React Query
-
-```typescript
-import { useQuery } from '@tanstack/react-query';
-
-export function QueryPivot() {
-  const { data, isLoading } = useQuery({
-    queryKey: ['pivot-data'],
-    queryFn: () => fetch('/api/pivot-data').then(res => res.json())
-  });
-
-  if (isLoading) return <div>Loading...</div>;
-
-  return (
-    <PivotViewComponent
-      dataSourceSettings={{
-        dataSource: data,
-        rows: [{ name: 'Country' }],
-        columns: [{ name: 'Year' }],
-        values: [{ name: 'Sales' }]
-      }}
-    />
-  );
-}
-```
-
-## Deployment Considerations
-
-### Vercel Deployment
-
-```json
-// vercel.json
-{
-  "buildCommand": "next build",
-  "devCommand": "next dev",
-  "installCommand": "npm install",
-  "env": {
-    "NEXT_PUBLIC_OLAP_SERVER_URL": "@olap_server_url",
-    "DATABASE_URL": "@database_url"
-  }
-}
-```
-
-### Build Optimization
-
-In `next.config.js`:
-
-```javascript
-/** @type {import('next').NextConfig} */
-const nextConfig = {
-  // Optimize bundle size
-  webpack: (config, { isServer }) => {
-    if (!isServer) {
-      // Exclude server-only packages from client bundle
-      config.optimization.splitChunks.cacheGroups = {
-        ...config.optimization.splitChunks.cacheGroups,
-        syncfusion: {
-          test: /[\\/]node_modules[\\/]@syncfusion[\\/]/,
-          name: 'syncfusion-vendors',
-          priority: 10,
-          reuseExistingChunk: true
-        }
-      };
-    }
-    return config;
-  },
-  // Enable compression
-  compress: true
-};
-
-module.exports = nextConfig;
-```
-
-## Common Issues and Solutions
-
-### Issue: "ReferenceError: localStorage is not defined"
-
-**Solution:** Check if code runs on client:
-
-```typescript
-'use client';  // Mark as client component
-
-React.useEffect(() => {
-  // localStorage only available after mount
-  const saved = localStorage.getItem('pivotConfig');
-}, []);
-```
-
-### Issue: Hydration Mismatch
-
-**Solution:** Use dynamic import with ssr: false:
-
-```typescript
-const PivotViewComponent = dynamic(
-  () => import('@syncfusion/ej2-react-pivotview').then(mod => mod.PivotViewComponent),
-  { ssr: false }  // Critical for Next.js
-);
-```
-
-### Issue: CSS Not Loading
-
-**Solution:** Import CSS in root layout:
-
-```typescript
-// app/layout.tsx
-import '@syncfusion/ej2-pivotview/styles/material.css';
-```
-
-### Issue: Performance Slow on First Load
-
-**Solution:** Implement lazy loading:
-
-```typescript
-const PivotViewComponent = dynamic(
-  () => import('@syncfusion/ej2-react-pivotview').then(mod => mod.PivotViewComponent),
-  { ssr: false, loading: () => <Skeleton /> }
-);
-```
-
-## Testing in Next.js
-
-### Unit Test Example
-
-```typescript
-// __tests__/PivotTable.test.tsx
-import { render } from '@testing-library/react';
-import { PivotTable } from '@/components/PivotTable';
-
-jest.mock('next/dynamic', () => ({
-  __esModule: true,
-  default: (...args: any[]) => {
-    const dynamicModule = jest.requireActual('next/dynamic');
-    const dynamicActualComp = dynamicModule.default;
-    const RequiredComponent = dynamicActualComp(args[0]);
-    return RequiredComponent.render ? RequiredComponent : RequiredComponent;
-  }
-}));
-
-describe('PivotTable', () => {
-  it('renders correctly', () => {
-    const { container } = render(<PivotTable />);
-    expect(container).toBeInTheDocument();
-  });
-});
-```
-
-## Best Practices
-
-✅ **Do:**
-- Use `'use client'` directive for client components
-- Use `dynamic()` with `ssr: false` for Syncfusion components
-- Fetch data from API routes, not directly in components  
-- Handle loading and error states
-- Optimize CSS imports with PurgeCSS
-
-❌ **Don't:**
-- Try to render Syncfusion components server-side
-- Use `localStorage` without checking `typeof window`
-- Import entire Syncfusion library at root level
-- Mix server and client rendering
-- Forget to set component heights
-
-## Related Guides
-
-- [Getting Started](./getting-started.md)
-- [Data Binding](./data-binding.md)
-- [State Persistence](./state-persistence.md)
-- [Performance Optimization](./performance.md)
+- [Next.js Pivot Table Sample](https://github.com/SyncfusionExamples/ej2-nextjs-pivotview)
+- [Module Injection Documentation](https://ej2.syncfusion.com/react/documentation/pivotview/getting-started#module-injection)

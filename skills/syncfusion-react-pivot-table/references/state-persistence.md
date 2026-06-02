@@ -24,7 +24,7 @@ import { pivotData } from './datasource';
 
 function App() {
   let dataSourceSettings: DataSourceSettingsModel = {
-    dataSource: pivotData,
+    dataSource: pivotData as IDataSet[],
     expandAll: false,
     enableSorting: true,
     drilledMembers: [{ name: 'Country', items: ['France', 'Germany'] }],
@@ -89,7 +89,7 @@ import { pivotData } from './datasource';
 
 function App() {
   let dataSourceSettings: DataSourceSettingsModel = {
-    dataSource: pivotData,
+    dataSource: pivotData as IDataSet[],
     expandAll: false,
     enableSorting: true,
     drilledMembers: [{ name: 'Country', items: ['France', 'Germany'] }],

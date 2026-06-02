@@ -471,9 +471,10 @@ Display the field list icon in the toolbar instead of the Pivot Table corner.
 
 ```ts
 import { FieldList, Toolbar, IDataSet, Inject, PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
+import { ToolbarItems } from '@syncfusion/ej2-pivotview/src/common/base/enum';
 
 function App() {
-  let toolbarOptions: any = ['FieldList'];
+  let toolbarOptions: ToolbarItems[] = ['FieldList'];
 
   return (
     <PivotViewComponent 
@@ -731,7 +732,7 @@ function btnClick() {
 
 ```ts
 let dataSourceSettings = {
-  dataSource: pivotData,
+  dataSource: pivotData as IDataSet[],
   fieldMapping: [
     { name: 'Quarter', groupName: 'Time Period' },
     { name: 'Year', groupName: 'Time Period' },

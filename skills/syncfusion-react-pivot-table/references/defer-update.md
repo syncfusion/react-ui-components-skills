@@ -37,7 +37,7 @@ function App() {
     columns: [{ name: 'Year' }, { name: 'Quarter' }],
     rows: [{ name: 'Country' }, { name: 'Products' }],
     values: [{ name: 'Sales' }, { name: 'Amount' }],
-    dataSource: pivotData
+    dataSource: pivotData as IDataSet[]
   };
 
   let pivotObj: PivotViewComponent;
@@ -74,7 +74,7 @@ function App() {
     columns: [{ name: 'Year' }, { name: 'Quarter' }],
     rows: [{ name: 'Country' }, { name: 'Products' }],
     values: [{ name: 'Sales' }, { name: 'Amount' }],
-    dataSource: pivotData
+    dataSource: pivotData as IDataSet[]
   };
 
   let pivotObj: PivotViewComponent;

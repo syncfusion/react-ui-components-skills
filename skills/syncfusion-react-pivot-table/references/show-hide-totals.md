@@ -160,6 +160,7 @@ import {
     PivotViewComponent, Toolbar, Inject
 } from '@syncfusion/ej2-react-pivotview';
 import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
+import { ToolbarItems } from '@syncfusion/ej2-pivotview/src/common/base/enum';
 import { pivotData } from './datasource';
 
 function App() {
@@ -174,7 +175,7 @@ function App() {
     values: [{ name: 'Sold', caption: 'Units Sold' }, { name: 'Amount', caption: 'Sold Amount' }]
   };
   let pivotObj: PivotViewComponent;
-  let toolbarOptions: any = ['SubTotal', 'GrandTotal'];
+  let toolbarOptions: ToolbarItems[] = ['SubTotal', 'GrandTotal'];
   
   return (<PivotViewComponent id='PivotView' ref={ (d: PivotViewComponent) => pivotObj = d } dataSourceSettings={dataSourceSettings} width={'100%'} height={350} gridSettings={{ columnWidth: 140 }} showToolbar={true} displayOption={{ view: 'Both' }} toolbar={toolbarOptions}><Inject services={[Toolbar]} /></PivotViewComponent>);
 }

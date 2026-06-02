@@ -77,7 +77,7 @@ function VirtualPivot() {
     <PivotViewComponent
       id="virtual-pivot"
       dataSourceSettings={{
-        dataSource: largeDataset,
+        dataSource: largeDataset as IDataSet[],
         rows: [{ name: 'Country' }, { name: 'Region' }],
         columns: [{ name: 'Year' }, { name: 'Quarter' }],
         values: [{ name: 'Sales' }]
@@ -151,73 +151,6 @@ function PagingPivot() {
 }
 ```
 
-## Performance Best Practices
-
-### 1. Optimize Data Source
-
-```typescript
-// ❌ Bad: Large nested objects
-const badData = [
-  { country: 'USA', metadata: { nestedData: { ...large object } } }
-];
-
-// ✅ Good: Flat structure
-const goodData = [
-  { country: 'USA', region: 'North', sales: 5000 }
-];
-```
-
-### 2. Use Aggregation Wisely
-
-```typescript
-// ❌ Bad: Unnecessary aggregations
-values: [
-  { name: 'Sales', type: 'Sum' },
-  { name: 'Sales', type: 'Avg' },
-  { name: 'Sales', type: 'Min' },
-  { name: 'Sales', type: 'Max' }
-]
-
-// ✅ Good: Only needed aggregations
-values: [
-  { name: 'Sales', type: 'Sum' },
-  { name: 'Sales', type: 'Avg' }
-]
-```
-
-### 3. Limit Hierarchies
-
-```typescript
-// ❌ Bad: Deep hierarchies
-rows: [
-  { name: 'Country' },
-  { name: 'State' },
-  { name: 'City' },
-  { name: 'District' },
-  { name: 'Street' }  // Too deep
-]
-
-// ✅ Good: Reasonable depth
-rows: [
-  { name: 'Country' },
-  { name: 'Region' },
-  { name: 'City' }
-]
-```
-
-### 4. Lazy Load Data
-
-```typescript
-async function loadPivotData(pageNum: number) {
-  const response = await fetch(`/api/data?page=${pageNum}`);
-  return response.json();
-}
-
-React.useEffect(() => {
-  loadPivotData(1).then(data => setDataSource(data));
-}, []);
-```
-
 ## Data Compression
 
 Data compression optimizes performance when working with large volumes of raw relational data by compressing the input data based on uniqueness before aggregation. This significantly reduces processing time and memory usage during initial rendering and report operations.
@@ -252,8 +185,8 @@ import { PivotViewComponent, VirtualScroll, Inject } from '@syncfusion/ej2-react
 function CompressedPivot() {
   const largeDataset = generateLargeDataset(1000000); // 1 million records
 
-  const dataSourceSettings = {
-    dataSource: largeDataset,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: largeDataset as IDataSet[],
     rows: [{ name: 'ProductID' }],
     columns: [{ name: 'Year' }],
     values: [
@@ -305,94 +238,6 @@ When data compression is enabled, the following aggregation types are **not full
 - Real-time changes with streaming data
 - Calculated fields require non-Sum aggregations
 
-### Combining Optimizations
-
-```typescript
-function OptimizedLargePivot() {
-  const largeDataset = generateLargeDataset(500000);
-
-  return (
-    <PivotViewComponent
-      dataSourceSettings={{
-        dataSource: largeDataset,
-        rows: [{ name: 'Country' }, { name: 'Region' }],
-        columns: [{ name: 'Year' }],
-        values: [{ name: 'Sales', type: 'Sum' }]
-      }}
-      height={600}
-      // Multiple performance optimizations
-      allowDataCompression={true}      // Compress raw data
-      enableVirtualization={true}      // Virtual scrolling
-      enablePaging={true}              // Pagination
-      pageSettings={{
-        rowPageSize: 20,
-        columnPageSize: 8
-      }}
-    />
-  );
-}
-```
-
-## Memory Optimization
-
-### 1. Limit Field Count
-
-Keep only necessary fields in your data source:
-
-```typescript
-// ❌ Bad: Including unnecessary fields
-const badData = largeArrayWith100Fields.map(item => ({
-  field1, field2, field3,
-  unusedField1, unusedField2,
-  ...extraFields
-}));
-
-// ✅ Good: Filter to only required fields
-const goodData = largeArray.map(({ country, region, sales, year }) => ({
-  country, region, sales, year
-}));
-```
-
-### 2. Use Data Filtering
-
-Filter data before binding to reduce memory footprint:
-
-```typescript
-function FilteredPivot() {
-  const rawData = largeDataset;
-  
-  // Filter data to relevant period/regions
-  const filteredData = rawData.filter(item => 
-    item.year >= 2023 && 
-    ['USA', 'Canada', 'Mexico'].includes(item.country)
-  );
-
-  return (
-    <PivotViewComponent
-      dataSourceSettings={{
-        dataSource: filteredData,  // Smaller dataset
-        rows: [{ name: 'Country' }],
-        columns: [{ name: 'Year' }],
-        values: [{ name: 'Sales' }]
-      }}
-    />
-  );
-}
-```
-
-### 3. Manage Field Lists
-
-Limit field list items to reduce DOM overhead:
-
-```typescript
-<PivotViewComponent
-  showFieldList={true}
-  fieldListSettings={{
-    maxNodeLimitInMemberEditor: 1000  // Limit shown fields
-  }}
-/>
-```
-
 ## Rendering Optimization
 
 ### 1. Defer Updates with Batch Operations
@@ -442,25 +287,6 @@ const cellTemplate = React.memo((props: any) => (
 ));
 ```
 
-### 3. Lazy Load Drill Operations
-
-Load drill data on-demand:
-
-```typescript
-function onBeginDrillThrough(args: any): void {
-  // Configure drill-through grid with pagination
-  args.gridSettings = {
-    allowPaging: true,
-    pageSettings: { pageSize: 50 }  // Show 50 rows per page
-  };
-}
-
-<PivotViewComponent
-  onBeginDrillThrough={onBeginDrillThrough}
-  allowDrillThrough={true}
-/>
-```
-
 ## Network Optimization
 
 ### 1. Server-Side Aggregation
@@ -470,80 +296,15 @@ function onBeginDrillThrough(args: any): void {
 Use server-side aggregation for relational data:
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: {
-    url: process.env.REACT_APP_PIVOT_SERVICE_URL,  // Environment-based URL
-    mode: 'Server'  // Server-side aggregation
-  },
+const dataSourceSettings: DataSourceSettingsModel = {
+  url: process.env.REACT_APP_PIVOT_SERVICE_URL,  // Environment-based URL
+  mode: 'Server'  // Server-side aggregation
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Year' }],
   values: [{ name: 'Sales' }]
 };
 
 <PivotViewComponent dataSourceSettings={dataSourceSettings} />
-```
-
-### 2. Request Data Caching
-
-Cache pivot configuration and data locally:
-
-```typescript
-function CachedPivot() {
-  const [cachedData, setCachedData] = React.useState(null);
-
-  React.useEffect(() => {
-    const cache = sessionStorage.getItem('pivotCache');
-    if (cache) {
-      setCachedData(JSON.parse(cache));
-    } else {
-      fetchData().then(data => {
-        sessionStorage.setItem('pivotCache', JSON.stringify(data));
-        setCachedData(data);
-      });
-    }
-  }, []);
-
-  return cachedData ? (
-    <PivotViewComponent dataSourceSettings={{ dataSource: cachedData }} />
-  ) : (
-    <div>Loading...</div>
-  );
-}
-```
-
-### 3. Lazy Load Remote Data
-
-Load data in chunks:
-
-```typescript
-async function loadPivotDataPaginated(pageNum: number, pageSize: number = 5000) {
-  const response = await fetch(
-    `/api/pivot-data?page=${pageNum}&pageSize=${pageSize}`
-  );
-  return response.json();
-}
-
-function PaginatedRemotePivot() {
-  const [data, setData] = React.useState([]);
-  const [currentPage, setCurrentPage] = React.useState(1);
-
-  React.useEffect(() => {
-    loadPivotDataPaginated(currentPage).then(pageData => {
-      setData(prev => [...prev, ...pageData]);
-    });
-  }, [currentPage]);
-
-  return (
-    <PivotViewComponent
-      dataSourceSettings={{ dataSource: data }}
-      actionComplete={(args: any) => {
-        if (args.actionName === 'Page Change') {
-          setCurrentPage(currentPage + 1);
-        }
-      }}
-    />
-  );
-}
 ```
 
 ## Troubleshooting

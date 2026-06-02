@@ -24,8 +24,8 @@ When implementing data binding for pivot tables, follow these essential security
 ✅ **RECOMMENDED**: Local in-memory data
 ```typescript
 // Safe: Local data array
-const dataSourceSettings = {
-    dataSource: localDataArray,
+const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: localDataArray as IDataSet[],
     rows: [{ name: 'Country' }],
     values: [{ name: 'Amount', type: 'Sum' }]
 };
@@ -193,7 +193,7 @@ import * as React from 'react';
 
 function App() {
   const [dataSourceSettings, setDataSourceSettings] = React.useState({
-    dataSource: [],
+    dataSource: [] as IDataSet[],
     columns: [{ name: 'Year' }],
     rows: [{ name: 'Country' }],
     values: [{ name: 'Amount' }]
@@ -208,7 +208,7 @@ function App() {
           const result = JSON.parse(e.target?.result as string);
           setDataSourceSettings(prev => ({
             ...prev,
-            dataSource: result
+            dataSource: result as IDataSet[]
           }));
         } catch (error) {
           console.error('Invalid JSON file');
@@ -630,9 +630,6 @@ Available options for field mapping:
 
 * **name**: The actual field name in the data source
 * **caption**: Display name in the Pivot Table UI
-* **type**: Data type (string, date, number, etc.)
-* **format**: Number/date format applied to values
-* **dataType**: Specific data type for proper sorting and aggregation
 
 ```typescript
 import { IDataSet, PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
@@ -653,15 +650,13 @@ function App() {
     columns: [
       { 
         name: 'Year',
-        caption: 'Fiscal Year',
-        dataType: 'number'  // ← Ensures numeric sorting
+        caption: 'Fiscal Year'
       }
     ],
     values: [
       { 
         name: 'Amount',
-        caption: 'Total Sales Amount',
-        format: 'C2'  // ← Currency format with 2 decimals
+        caption: 'Total Sales Amount'
       }
     ]
   };
@@ -701,7 +696,7 @@ import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/dat
 import * as React from 'react';
 
 function PivotWithRemoteData() {
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     url: 'https://cdn.syncfusion.com/data/sales-analysis.json',
     expandAll: false,
     rows: [
@@ -743,7 +738,7 @@ function PivotWithDataManagerURL() {
     adaptor: new UrlAdaptor()
   });
 
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     dataSource: dataManager,
     rows: [{ name: 'Category' }],
     columns: [{ name: 'Year' }],
@@ -790,7 +785,7 @@ function PivotWithRemoteData() {
     crossDomain: true
   });
 
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     dataSource: dataManager,
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
@@ -887,7 +882,7 @@ function PivotWithCSVData() {
     // Parse CSV file into this format
   ];
 
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     dataSource: csvData,  // ← Direct JSON array binding (no type property needed)
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
@@ -964,85 +959,6 @@ function handleDataRefresh() {
 <button onClick={handleDataRefresh}>Refresh Data</button>
 ```
 
-### Polling for Updates
-
-```typescript
-function PivotWithPolling() {
-  const pivotRef = React.useRef<PivotViewComponent>(null);
-
-  React.useEffect(() => {
-    // Poll for fresh data every 30 seconds
-    const interval = setInterval(async () => {
-      const freshData = await fetch('/api/sales-data')
-        .then(res => res.json())
-        .then(data => data.result);
-      
-      // Update component with new data
-      pivotRef.current?.refresh();
-    }, 30000);
-
-    return () => clearInterval(interval);
-  }, []);
-
-  return <PivotViewComponent ref={pivotRef} {...settings} />;
-}
-```
-
-## Data Type Configuration
-
-Specify data types for proper sorting and formatting:
-
-```typescript
-const dataSourceSettings = {
-  dataSource: data,
-  rows: [
-    {
-      name: 'Country',
-      caption: 'Country Name',
-      dataType: 'string'       // ← String type for text
-    }
-  ],
-  columns: [
-    {
-      name: 'Year',
-      dataType: 'integer'      // ← Integer for numbers
-    }
-  ],
-  values: [
-    {
-      name: 'Sales',
-      dataType: 'number',      // ← Number for aggregation
-      type: 'Sum'
-    }
-  ]
-};
-```
-  ],
-  columns: [
-    {
-      name: 'Product',
-      caption: 'Product Category'
-    }
-  ],
-  values: [
-    {
-      name: 'Sales',
-      caption: 'Total Sales',
-      type: 'Sum',               // Aggregation function
-      dataType: 'number'
-    }
-  ]
-};
-```
-
-## Data Type Support
-
-- **String**: Text fields
-- **Number**: Numeric values
-- **Date**: Date/DateTime fields
-- **Boolean**: True/False values
-- **Object**: Complex nested data
-
 ## Common Scenarios
 
 ### Binding Large Datasets
@@ -1055,14 +971,4 @@ For large datasets (>10K records), use virtual scrolling:
   enableVirtualization={true}
   height={500}
 />
-```
-
-### Dynamic Field Selection
-
-```typescript
-const [rows, setRows] = React.useState([{ name: 'Country' }]);
-
-const addField = (fieldName: string) => {
-  setRows([...rows, { name: fieldName }]);
-};
 ```

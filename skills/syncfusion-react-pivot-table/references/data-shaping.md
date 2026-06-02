@@ -22,8 +22,10 @@ Data shaping enables organizing and summarizing data through aggregation, calcul
 ### Setting Aggregation Type
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: data,
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
+
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: data as IDataSet[],
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Product' }],
   values: [
@@ -72,9 +74,10 @@ Use the `calculatedFieldSettings` property to define calculated fields. To displ
 
 ```typescript
 import { PivotViewComponent, Inject, CalculatedField, FieldList } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 
-const dataSourceSettings = {
-  dataSource: data,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: data as IDataSet[],
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Year' }],
   values: [
@@ -141,8 +144,8 @@ calculatedFieldSettings: [
 
 ```typescript
 function AdvancedCalculations() {
-  const dataSourceSettings = {
-    dataSource: salesData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: salesData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Year' }],
     values: [
@@ -239,7 +242,7 @@ Users can modify calculated fields in the Field List or Grouping Bar:
 ### Row Grouping
 
 ```typescript
-const dataSourceSettings = {
+const dataSourceSettings: DataSourceSettingsModel = {
   rows: [
     { name: 'Country', caption: 'Country' },
     { name: 'Region', caption: 'Region' },
@@ -252,7 +255,7 @@ const dataSourceSettings = {
 ### Column Grouping
 
 ```typescript
-const dataSourceSettings = {
+const dataSourceSettings: DataSourceSettingsModel = {
   columns: [
     { name: 'Year', caption: 'Year' },
     { name: 'Quarter', caption: 'Quarter' },
@@ -542,8 +545,8 @@ This approach significantly reduces multiple renders and improves performance du
 
 ```typescript
 function DataShapingPivot() {
-  const dataSourceSettings = {
-    dataSource: sampleData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: sampleData as IDataSet[],
     rows: [
       { name: 'Country', caption: 'Country' },
       { name: 'Region', caption: 'Region' }

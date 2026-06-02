@@ -249,7 +249,7 @@ import { pivotData } from './datasource';
 
 function App() {
   let dataSourceSettings: DataSourceSettingsModel = {
-    dataSource: pivotData as IDataSet,
+    dataSource: pivotData as IDataSet[],
     drilledMembers: [{ name: 'Country', items: ['France'] }],
     columns: [{ name: 'Year', caption: 'Production Year' }, { name: 'Quarter' }],
     values: [
@@ -380,14 +380,14 @@ export default App;
 The `aggregateCellInfo` event triggers each time a value cell is rendered, allowing you to override cell values or skip formatting:
 
 ```typescript
-import { PivotViewComponent, GroupingBar, Inject } from '@syncfusion/ej2-react-pivotview';
+import { PivotViewComponent, GroupingBar, Inject, IDataSet } from '@syncfusion/ej2-react-pivotview';
 import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 import * as React from 'react';
 import { pivotData } from './datasource';
 
 function App() {
   let dataSourceSettings: DataSourceSettingsModel = {
-    dataSource: pivotData,
+    dataSource: pivotData as IDataSet[],
     expandAll: false,
     drilledMembers: [{ name: 'Country', items: ['France'] }],
     formatSettings: [{ name: 'Amount', format: 'C2' }],

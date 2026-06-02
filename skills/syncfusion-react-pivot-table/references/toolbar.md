@@ -49,6 +49,7 @@ import {
     FetchReportArgs, LoadReportArgs, RemoveReportArgs, RenameReportArgs, NumberFormatting
 } from '@syncfusion/ej2-react-pivotview';
 import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
+import { ToolbarItems } from '@syncfusion/ej2-pivotview/src/common/base/enum';
 import { pivotData } from './datasource';
 
 function App() {
@@ -63,7 +64,7 @@ function App() {
     values: [{ name: 'Sold', caption: 'Units Sold' }, { name: 'Amount', caption: 'Sold Amount' }]
   };
   let pivotObj: PivotViewComponent;
-  let toolbarOptions: any = ['New', 'Save', 'SaveAs', 'Rename', 'Remove', 'Load',
+  let toolbarOptions: ToolbarItems[] = ['New', 'Save', 'SaveAs', 'Rename', 'Remove', 'Load',
         'Grid', 'Chart', 'Export', 'SubTotal', 'GrandTotal', 'ConditionalFormatting', 'NumberFormatting', 'FieldList'];
 
   function saveReport(args: any): void {
@@ -170,7 +171,7 @@ function App() {
     values: [{ name: 'Sold', caption: 'Units Sold' }, { name: 'Amount', caption: 'Sold Amount' }]
   };
   let pivotObj: PivitViewComponent;
-  let toolbarOptions: any = ['Grid','Chart'];
+  let toolbarOptions: ToolbarItems[] = ['Grid','Chart'];
   let chartTypes: any = ['Column', 'Bar', 'Line', 'Area'];
 
   return (<PivotViewComponent id='PivotView' ref={ (d: PivitViewComponent) => pivotObj = d } dataSourceSettings={dataSourceSettings} width={'100%'} height={350} showToolbar={true} toolbar={toolbarOptions} displayOption={{ view: 'Both' }} chartTypes={chartTypes} ><Inject services={[ Toolbar]} /></PivotViewComponent>);

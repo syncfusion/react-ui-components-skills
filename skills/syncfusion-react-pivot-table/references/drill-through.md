@@ -29,7 +29,7 @@ function App() {
     columns: [{ name: 'Year' }, { name: 'Quarter' }],
     rows: [{ name: 'Country' }, { name: 'Products' }],
     values: [{ name: 'Sales' }, { name: 'Amount' }],
-    dataSource: pivotData
+    dataSource: pivotData as IDataSet[]
   };
 
   let pivotObj: PivotViewComponent;
@@ -311,13 +311,14 @@ const onDrillThrough = (args: PivotDrillThroughEventArgs): void => {
 
 ```typescript
 import { PivotViewComponent, DrillThrough, Inject } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 
 function BasicDrillThrough() {
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     columns: [{ name: 'Year' },  { name: 'Quarter' }],
     rows: [{ name: 'Country' }, { name: 'Products' }],
     values: [{ name: 'Sales', caption: 'Total Sales' }],
-    dataSource: pivotData,
+    dataSource: pivotData as IDataSet[],
     formatSettings: [{ name: 'Sales', format: 'C2' }]
   };
 

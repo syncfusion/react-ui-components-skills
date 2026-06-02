@@ -23,10 +23,11 @@ Enable grouping by setting the `allowGrouping` property to `true` and injecting 
 
 ```typescript
 import { PivotViewComponent, GroupingBar, Grouping, Inject } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 
 function App() {
-  const dataSourceSettings = {
-    dataSource: data,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: data as IDataSet[],
     rows: [{ name: 'Date', caption: 'Date' }],
     columns: [{ name: 'Product_ID', caption: 'Product ID' }],
     values: [{ name: 'Sold', caption: 'Unit Sold' }]
@@ -54,8 +55,8 @@ Group numeric data by ranges and intervals.
 ### Basic Number Grouping
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: data,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: data as IDataSet[],
   rows: [{ name: 'Product_ID', caption: 'Product ID' }],
   columns: [{ name: 'Products' }],
   values: [{ name: 'Sold', caption: 'Unit Sold' }],
@@ -98,8 +99,8 @@ Organize date/time data hierarchically.
 ### Basic Date Grouping
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: data,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: data as IDataSet[],
   rows: [{ name: 'Date' }],
   columns: [{ name: 'Product_Categories', caption: 'Product Categories' }],
   values: [{ name: 'Sold', caption: 'Unit Sold' }],
@@ -141,8 +142,8 @@ groupSettings: [
 Configure grouping through code using the `groupSettings` property:
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: groupData,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: groupData as IDataSet[],
   rows: [{ name: 'Date' }],
   columns: [{ name: 'Product_Categories' }],
   values: [

@@ -12,8 +12,6 @@ Member filtering enables users to selectively include or exclude specific member
 - **Hierarchical Support**: Filter members within grouped/hierarchical data
 - **Performance**: Efficient handling of large member lists
 
-## Enabling Member Filtering
-
 ### Basic Setup
 
 To enable member filtering, set `allowMemberFilter` to **true** and inject the required modules:
@@ -26,18 +24,18 @@ import { pivotData } from './datasource';
 
 function App() {
   const dataSourceSettings: DataSourceSettingsModel = {
-    dataSource: pivotData,
+    dataSource: pivotData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [{ name: 'Sales' }],
-    filters: [{ name: 'Year' }]
+    filters: [{ name: 'Year' }],
+    allowMemberFilter: true
   };
 
   return (
     <PivotViewComponent
       id="PivotView"
       dataSourceSettings={dataSourceSettings}
-      allowMemberFilter={true}
       showFieldList={true}
       height={350}
     >
@@ -47,6 +45,32 @@ function App() {
 }
 
 export default App;
+```
+
+### Enabling Member Filtering Programmatically using filterSettings.
+
+Include or exclude specific field members from the pivot table.
+
+```typescript
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'app-filter',
+  template: `<ejs-pivotview [dataSourceSettings]="dataSourceSettings"></ejs-pivotview>`
+})
+export class AppComponent {
+  dataSourceSettings: IDataOptions = {
+    dataSource: data,
+    rows: [{ name: 'Country' }],
+    columns: [{ name: 'Year' }],
+    values: [{ name: 'Sales', type: 'Sum' }],
+    filterSettings: [{
+      name: 'Country',
+      type: 'Include',
+      items: ['USA', 'Canada']
+    }]
+  };
+}
 ```
 
 ## Member Filter Dialog
@@ -67,324 +91,15 @@ Member filter options appear in the Field List UI. Click the filter icon next to
 ### Filter Dialog Configuration
 
 ```typescript
-const fieldListSettings = {
-  allowDragAndDrop: true,
-  allowCalculatedField: true,
-  showFilterIcon: true,       // Shows filter icon for each field
-  allowSearching: true,       // Enable search in filter dialog
-  maxNodeLimitInMemberEditor: 5000  // Max members shown in filter dialog
-};
 
 <PivotViewComponent
-  fieldListSettings={fieldListSettings}
-  allowMemberFilter={true}
+  maxNodeLimitInMemberEditor={500}
   showFieldList={true}
+  dataSourceSettings={{
+    ...dataSourceSettings,
+    allowMemberFilter: true
+  }}
 />
-```
-
-## Programmatic Member Filtering
-
-### Using `drilledMembers`
-
-Control member filtering programmatically using the `drilledMembers` property:
-
-```typescript
-import { PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
-
-function App() {
-  const dataSourceSettings = {
-    dataSource: data,
-    rows: [{ name: 'Country' }],
-    columns: [{ name: 'Product' }],
-    values: [{ name: 'Sales' }],
-    // Use drilledMembers to select specific members
-    drilledMembers: [
-      { 
-        name: 'Country',
-        items: ['USA', 'Canada', 'UK']  // Show only these countries
-      },
-      {
-        name: 'Product',
-        items: ['Laptops', 'Mobiles']    // Show only these products
-      }
-    ]
-  };
-
-  return (
-    <PivotViewComponent
-      dataSourceSettings={dataSourceSettings}
-      allowMemberFilter={true}
-    />
-  );
-}
-```
-
-## Advanced Member Filtering
-
-### Filter with Hierarchies
-
-For hierarchical data (multiple levels), specify filtered members at each level:
-
-```typescript
-const dataSourceSettings = {
-  dataSource: hierarchicalData,
-  rows: [
-    { name: 'Country' },
-    { name: 'State' },
-    { name: 'City' }
-  ],
-  columns: [{ name: 'Year' }],
-  values: [{ name: 'Sales' }],
-  drilledMembers: [
-    {
-      name: 'Country',
-      items: ['USA']  // Filter country first
-    },
-    {
-      name: 'State',
-      items: ['California', 'Texas']  // Then filter states within USA
-    },
-    {
-      name: 'City',
-      items: ['San Francisco', 'Los Angeles', 'Houston']  // Finally filter cities
-    }
-  ]
-};
-
-<PivotViewComponent
-  dataSourceSettings={dataSourceSettings}
-  allowMemberFilter={true}
-/>
-```
-
-### Delimiter Support for Complex Members
-
-When member names contain special characters or hierarchies, use delimiters:
-
-```typescript
-const dataSourceSettings = {
-  dataSource: data,
-  rows: [{ name: 'Country' }],
-  columns: [{ name: 'Year' }],
-  values: [{ name: 'Sales' }],
-  drilledMembers: [
-    {
-      name: 'Country',
-      items: ['USA > California', 'USA > Texas', 'Canada > Ontario'],
-      delimiter: ' > '  // Specify delimiter for hierarchical paths
-    }
-  ]
-};
-```
-
-## Dynamic Member Management
-
-### Update Members Programmatically
-
-```typescript
-function UpdateMembers() {
-  let pivotObj: PivotViewComponent;
-
-  const applyFilter = (): void => {
-    if (pivotObj && pivotObj.dataSourceSettings) {
-      pivotObj.dataSourceSettings.drilledMembers = [
-        {
-          name: 'Country',
-          items: ['USA', 'Canada']  // Update filter members
-        }
-      ];
-      // Trigger update - pivot will re-render with new filter
-    }
-  };
-
-  const clearFilters = (): void => {
-    if (pivotObj && pivotObj.dataSourceSettings) {
-      pivotObj.dataSourceSettings.drilledMembers = [];  // Clear all filters
-    }
-  };
-
-  return (
-    <div>
-      <button onClick={applyFilter}>Apply Filter</button>
-      <button onClick={clearFilters}>Clear Filters</button>
-      <PivotViewComponent
-        ref={(d: PivotViewComponent) => pivotObj = d}
-        dataSourceSettings={dataSourceSettings}
-        allowMemberFilter={true}
-      />
-    </div>
-  );
-}
-```
-
-### Event Handling for Member Changes
-
-```typescript
-const onMemberFiltering = (args: any): void => {
-  console.log('Member filtering changed');
-  console.log('Field:', args.fieldName);
-  console.log('Members:', args.memberObjDetail);
-};
-
-const onFilterSuccess = (args: any): void => {
-  console.log('Filter applied successfully');
-  console.log('Current filtered members:', args.drilledMembers);
-};
-
-<PivotViewComponent
-  dataSourceSettings={dataSourceSettings}
-  actionBegin={onMemberFiltering}
-  actionComplete={onFilterSuccess}
-  allowMemberFilter={true}
-/>
-```
-
-## Practical Examples
-
-### Example 1: Simple Member Filter
-
-```typescript
-function SimpleMemberFilter() {
-  const dataSourceSettings = {
-    dataSource: [
-      { Country: 'USA', Product: 'Laptops', Sales: 5000 },
-      { Country: 'USA', Product: 'Mobiles', Sales: 3000 },
-      { Country: 'Canada', Product: 'Laptops', Sales: 2500 },
-      { Country: 'Canada', Product: 'Mobiles', Sales: 1500 },
-      { Country: 'Mexico', Product: 'Laptops', Sales: 1200 },
-      { Country: 'Mexico', Product: 'Mobiles', Sales: 800 }
-    ],
-    rows: [{ name: 'Country' }],
-    columns: [{ name: 'Product' }],
-    values: [{ name: 'Sales' }],
-    // Filter to show only USA and Canada
-    drilledMembers: [
-      {
-        name: 'Country',
-        items: ['USA', 'Canada']
-      }
-    ]
-  };
-
-  return (
-    <PivotViewComponent
-      id="pivot-member-filter"
-      dataSourceSettings={dataSourceSettings}
-      allowMemberFilter={true}
-      showFieldList={true}
-      height={400}
-    >
-      <Inject services={[FieldList, MemberFilter]} />
-    </PivotViewComponent>
-  );
-}
-
-export default SimpleMemberFilter;
-```
-
-### Example 2: Interactive Member Selection
-
-```typescript
-function InteractiveMemberFilter() {
-  const [selectedCountries, setSelectedCountries] = React.useState(['USA', 'Canada']);
-  const [selectedProducts, setSelectedProducts] = React.useState(['Laptops', 'Mobiles']);
-
-  const applyFilters = (): void => {
-    // Update pivot with selected members
-    const config = {
-      dataSource: pivotData,
-      rows: [{ name: 'Country' }],
-      columns: [{ name: 'Product' }],
-      values: [{ name: 'Sales' }],
-      drilledMembers: [
-        {
-          name: 'Country',
-          items: selectedCountries
-        },
-        {
-          name: 'Product',
-          items: selectedProducts
-        }
-      ]
-    };
-    // Update pivot with new config
-  };
-
-  return (
-    <div>
-      <div style={{ marginBottom: '20px' }}>
-        <label>Countries:</label>
-        <select multiple>
-          <option>USA</option>
-          <option>Canada</option>
-          <option>Mexico</option>
-          <option>Brazil</option>
-        </select>
-      </div>
-      <div style={{ marginBottom: '20px' }}>
-        <label>Products:</label>
-        <select multiple>
-          <option>Laptops</option>
-          <option>Mobiles</option>
-          <option>Tablets</option>
-        </select>
-      </div>
-      <button onClick={applyFilters}>Apply Filters</button>
-    </div>
-  );
-}
-```
-
-### Example 3: Multi-Level Hierarchical Filter
-
-```typescript
-function HierarchicalMemberFilter() {
-  const dataSourceSettings = {
-    dataSource: [
-      { Country: 'USA', State: 'California', City: 'San Francisco', Sales: 5000 },
-      { Country: 'USA', State: 'California', City: 'Los Angeles', Sales: 4500 },
-      { Country: 'USA', State: 'Texas', City: 'Houston', Sales: 3000 },
-      { Country: 'USA', State: 'Texas', City: 'Dallas', Sales: 2500 },
-      { Country: 'Canada', State: 'Ontario', City: 'Toronto', Sales: 2000 },
-      { Country: 'Canada', State: 'British Columbia', City: 'Vancouver', Sales: 1500 }
-    ],
-    rows: [
-      { name: 'Country' },
-      { name: 'State' },
-      { name: 'City' }
-    ],
-    columns: [{ name: 'Year' }],
-    values: [{ name: 'Sales' }],
-    // Filter on multiple hierarchy levels
-    drilledMembers: [
-      {
-        name: 'Country',
-        items: ['USA', 'Canada']
-      },
-      {
-        name: 'State',
-        items: ['California', 'Texas', 'Ontario']
-      },
-      {
-        name: 'City',
-        items: ['San Francisco', 'Los Angeles', 'Houston', 'Toronto']
-      }
-    ]
-  };
-
-  return (
-    <PivotViewComponent
-      id="hierarchical-pivot"
-      dataSourceSettings={dataSourceSettings}
-      allowMemberFilter={true}
-      showFieldList={true}
-      expandAll={true}  // Show all levels expanded
-      height={500}
-    >
-      <Inject services={[FieldList, MemberFilter]} />
-    </PivotViewComponent>
-  );
-}
 ```
 
 ## Performance Considerations
@@ -403,7 +118,10 @@ const fieldListSettings = {
 
 <PivotViewComponent
   fieldListSettings={fieldListSettings}
-  allowMemberFilter={true}
+  dataSourceSettings={{
+    ...dataSourceSettings,
+    allowMemberFilter: true
+  }}
 />
 ```
 

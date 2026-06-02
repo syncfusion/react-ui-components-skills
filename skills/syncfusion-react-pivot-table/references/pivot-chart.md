@@ -259,7 +259,7 @@ export default PivotChartExample;
 ## Complete Chart Example
 
 ```typescript
-import { PivotViewComponent, Inject, PivotChart } from '@syncfusion/ej2-react-pivotview';
+import { PivotViewComponent, Inject, PivotChart, IDataSet } from '@syncfusion/ej2-react-pivotview';
 
 function ChartPivot() {
   const chartSettings = {
@@ -281,7 +281,7 @@ function ChartPivot() {
     <PivotViewComponent
       id="chart-pivot"
       dataSourceSettings={{
-        dataSource: sampleData,
+        dataSource: sampleData as IDataSet[],
         rows: [{ name: 'Country' }],
         columns: [{ name: 'Product' }],
         values: [{ name: 'Sales' }]

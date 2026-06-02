@@ -301,8 +301,8 @@ function PivotWithExport() {
     }
   };
 
-  const dataSourceSettings = {
-    dataSource: sampleData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: sampleData as IDataSet[],
     rows: [{ name: 'Country' }, { name: 'Region' }],
     columns: [{ name: 'Year' }, { name: 'Quarter' }],
     values: [{ name: 'Sales', caption: 'Total Sales' }],

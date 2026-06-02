@@ -26,17 +26,17 @@ import { pivotData } from './datasource';
 
 function App() {
   const dataSourceSettings: DataSourceSettingsModel = {
-    dataSource: pivotData,
+    dataSource: pivotData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
-    values: [{ name: 'Sales' }]
+    values: [{ name: 'Sales' }],
+    allowLabelFilter: true
   };
 
   return (
     <PivotViewComponent
       id="PivotView"
       dataSourceSettings={dataSourceSettings}
-      allowLabelFilter={true}
       showFieldList={true}
       height={350}
     >
@@ -75,13 +75,15 @@ export default App;
 
 ```typescript
 import { IDataSet, PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 
 function App() {
-  const dataSourceSettings = {
-    dataSource: pivotData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: pivotData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [{ name: 'Sales' }],
+    allowLabelFilter: true,
     // Filter rows where Country starts with 'U'
     filterSettings: [
       {
@@ -96,7 +98,6 @@ function App() {
   return (
     <PivotViewComponent
       dataSourceSettings={dataSourceSettings}
-      allowLabelFilter={true}
       showFieldList={true}
     />
   );
@@ -108,11 +109,12 @@ export default App;
 ### Multiple Text Filters
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: pivotData,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: pivotData as IDataSet[],
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Product' }],
   values: [{ name: 'Sales' }],
+  allowLabelFilter: true,
   filterSettings: [
     {
       name: 'Country',
@@ -133,11 +135,12 @@ const dataSourceSettings = {
 ### Range Filtering
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: pivotData,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: pivotData as IDataSet[],
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Product' }],
   values: [{ name: 'Sales' }],
+  allowLabelFilter: true,
   filterSettings: [
     {
       name: 'Country',
@@ -156,11 +159,12 @@ const dataSourceSettings = {
 
 ```typescript
 function DateFilterExample() {
-  const dataSourceSettings = {
-    dataSource: data,  // Data with date fields
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: data as IDataSet[],  // Data with date fields
     rows: [{ name: 'Country' }],
     columns: [{ name: 'OrderDate' }],
     values: [{ name: 'Sales' }],
+    allowLabelFilter: true,
     formatSettings: [
       {
         name: 'OrderDate',
@@ -182,7 +186,6 @@ function DateFilterExample() {
   return (
     <PivotViewComponent
       dataSourceSettings={dataSourceSettings}
-      allowLabelFilter={true}
     />
   );
 }
@@ -207,11 +210,12 @@ function DateFilterExample() {
 
 ```typescript
 function NumericFilterExample() {
-  const dataSourceSettings = {
-    dataSource: data,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: data as IDataSet[],
     rows: [{ name: 'Year' }],
     columns: [{ name: 'Product' }],
     values: [{ name: 'Sales' }],
+    allowLabelFilter: true,
     filterSettings: [
       {
         name: 'Year',
@@ -280,7 +284,6 @@ function ProgrammaticFilter() {
       <PivotViewComponent
         ref={(d: PivotViewComponent) => pivotObj = d}
         dataSourceSettings={dataSourceSettings}
-        allowLabelFilter={true}
         showFieldList={true}
       />
     </div>
@@ -294,6 +297,14 @@ function ProgrammaticFilter() {
 
 ```typescript
 function DynamicFiltering() {
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: pivotData as IDataSet[],
+    rows: [{ name: 'Country' }],
+    columns: [{ name: 'Product' }],
+    values: [{ name: 'Sales' }],
+    allowLabelFilter: true
+  };
+
   let pivotObj: PivotViewComponent;
 
   const addFilter = (): void => {
@@ -324,7 +335,6 @@ function DynamicFiltering() {
       <PivotViewComponent
         ref={(d: PivotViewComponent) => pivotObj = d}
         dataSourceSettings={dataSourceSettings}
-        allowLabelFilter={true}
       />
     </div>
   );
@@ -336,18 +346,21 @@ function DynamicFiltering() {
 ### Example 1: Filter Products Containing "Laptop"
 
 ```typescript
+import { IDataSet } from '@syncfusion/ej2-react-pivotview';
+
 function FilterLaptops() {
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     dataSource: [
       { Country: 'USA', Product: 'Laptop Pro', Sales: 5000 },
       { Country: 'USA', Product: 'Laptop Air', Sales: 3000 },
       { Country: 'USA', Product: 'Mobile X', Sales: 2000 },
       { Country: 'Canada', Product: 'Laptop Pro', Sales: 2500 },
       { Country: 'Canada', Product: 'Tablet', Sales: 1500 }
-    ],
+    ] as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [{ name: 'Sales' }],
+    allowLabelFilter: true,
     filterSettings: [
       {
         name: 'Product',
@@ -361,7 +374,6 @@ function FilterLaptops() {
   return (
     <PivotViewComponent
       dataSourceSettings={dataSourceSettings}
-      allowLabelFilter={true}
       showFieldList={true}
     />
   );
@@ -374,11 +386,12 @@ export default FilterLaptops;
 
 ```typescript
 function FilterYearRange() {
-  const dataSourceSettings = {
-    dataSource: salesData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: salesData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Year' }],
     values: [{ name: 'Sales' }],
+    allowLabelFilter: true,
     filterSettings: [
       {
         name: 'Year',
@@ -405,11 +418,12 @@ export default FilterYearRange;
 
 ```typescript
 function ComplexFiltering() {
-  const dataSourceSettings = {
-    dataSource: data,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: data as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [{ name: 'Sales' }],
+    allowLabelFilter: true,
     filterSettings: [
       {
         name: 'Country',
@@ -430,7 +444,6 @@ function ComplexFiltering() {
     <PivotViewComponent
       id="complex-filter-pivot"
       dataSourceSettings={dataSourceSettings}
-      allowLabelFilter={true}
       showFieldList={true}
       height={400}
     >

@@ -26,7 +26,7 @@ import { pivotData } from './datasource';
 
 function App() {
   const dataSourceSettings: DataSourceSettingsModel = {
-    dataSource: pivotData,
+    dataSource: pivotData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [{ name: 'Sales', caption: 'Total Sales' }]
@@ -73,10 +73,11 @@ export default App;
 
 ```typescript
 import { PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 
 function App() {
-  const dataSourceSettings = {
-    dataSource: pivotData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: pivotData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [{ name: 'Sales' }],
@@ -105,8 +106,8 @@ export default App;
 ### Range Value Filtering
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: pivotData,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: pivotData as IDataSet[],
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Product' }],
   values: [{ name: 'Sales' }],
@@ -129,8 +130,8 @@ const dataSourceSettings = {
 
 ```typescript
 function TopCountriesByRevenue() {
-  const dataSourceSettings = {
-    dataSource: salesData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: salesData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Year' }],
     values: [{ name: 'Revenue' }],
@@ -159,8 +160,8 @@ export default TopCountriesByRevenue;
 ### Bottom N Values
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: data,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: data as IDataSet[],
   rows: [{ name: 'Product' }],
   columns: [{ name: 'Quarter' }],
   values: [{ name: 'Units' }],
@@ -185,8 +186,8 @@ const dataSourceSettings = {
 
 ```typescript
 function TopPercentFiltering() {
-  const dataSourceSettings = {
-    dataSource: data,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: data as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [{ name: 'Sales' }],
@@ -213,8 +214,8 @@ function TopPercentFiltering() {
 
 ```typescript
 function MultiFieldValueFilter() {
-  const dataSourceSettings = {
-    dataSource: data,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: data as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [
@@ -250,8 +251,8 @@ function MultiFieldValueFilter() {
 ### Column-Level Value Filtering
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: data,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: data as IDataSet[],
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Year' }, { name: 'Quarter' }],
   values: [{ name: 'Sales' }],
@@ -327,15 +328,17 @@ function InteractiveValueFilter() {
 ### Example 1: Show Only High-Performing Regions
 
 ```typescript
+import { IDataSet } from '@syncfusion/ej2-react-pivotview';
+
 function HighPerformingRegions() {
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     dataSource: [
       { Region: 'North', Sales: 150000 },
       { Region: 'South', Sales: 45000 },
       { Region: 'East', Sales: 120000 },
       { Region: 'West', Sales: 30000 },
       { Region: 'Central', Sales: 200000 }
-    ],
+    ] as IDataSet[],
     rows: [{ name: 'Region' }],
     values: [{ name: 'Sales', caption: 'Total Sales' }],
     // Show only regions with sales > $100,000
@@ -368,8 +371,8 @@ export default HighPerformingRegions;
 
 ```typescript
 function TopProductsReport() {
-  const dataSourceSettings = {
-    dataSource: productData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: productData as IDataSet[],
     rows: [{ name: 'Product' }],
     columns: [{ name: 'Category' }],
     values: [
@@ -407,8 +410,8 @@ export default TopProductsReport;
 
 ```typescript
 function AverageValueRange() {
-  const dataSourceSettings = {
-    dataSource: salesData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: salesData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [
@@ -451,7 +454,7 @@ const filteredData = rawData.filter(item => item.Sales > 50000);
 
 <PivotViewComponent
   dataSourceSettings={{
-    dataSource: filteredData,  // Pre-filtered data
+    dataSource: filteredData as IDataSet[],  // Pre-filtered data
     rows: [{ name: 'Country' }],
     values: [{ name: 'Sales' }]
   }}

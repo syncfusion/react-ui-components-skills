@@ -49,9 +49,10 @@ REACT_APP_PIVOT_SERVICE_URL=https://your-server.com/api/pivot/post
 
 ```typescript
 import { PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 
 function ServerSidePivot() {
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     url: process.env.REACT_APP_PIVOT_SERVICE_URL,  // ← Environment-based URL
     mode: 'Server',  // ← Enable server-side mode
     rows: [{ name: 'ProductID', caption: 'Product ID' }],
@@ -145,7 +146,7 @@ REACT_APP_OLAP_URL=https://your-olap-server.com/olap/msmdpump.dll
 import { PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
 
 function OlapPivot() {
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     catalog: 'Adventure Works DW 2008 SE',  // ← OLAP Catalog
     cube: 'Adventure Works',                 // ← OLAP Cube
     providerType: 'SSAS',                    // ← Provider type
@@ -196,7 +197,7 @@ When configuring rows, columns, and values, use the unique names of these elemen
 Format OLAP value fields using the same format codes as relational data:
 
 ```typescript
-const dataSourceSettings = {
+const dataSourceSettings: DataSourceSettingsModel = {
   // ... OLAP configuration ...
   formatSettings: [
     { name: '[Measures].[Internet Sales Amount]', format: 'C0' },  // ← Currency
@@ -278,7 +279,7 @@ public class PivotController : ControllerBase
 ### Enabling Virtual Scrolling with Server Mode
 
 ```typescript
-const dataSourceSettings = {
+const dataSourceSettings: DataSourceSettingsModel = {
   url: process.env.REACT_APP_PIVOT_SERVICE_URL,  // ← Environment-based URL
   mode: 'Server'
 };
@@ -313,7 +314,7 @@ Use Syncfusion's SSAS data provider to connect to SQL Server Analysis Services:
 import { PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
 
 function OlapPivot() {
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     providerType: 'SSAS',  // ← SSAS provider type
     url: process.env.REACT_APP_OLAP_URL,  // ← Environment-based URL
     catalog: 'Adventure Works DW 2012',  // ← Database/Catalog
@@ -363,13 +364,13 @@ Support for multiple OLAP servers (SSAS, Mondrian, Essbase):
 
 ```typescript
 // SQL Server Analysis Services (SSAS)
-const dataSourceSettings = {
+const dataSourceSettings: DataSourceSettingsModel = {
   providerType: 'SSAS',
   url: process.env.REACT_APP_OLAP_URL  // Environment-based URL
 };
 
 // Mondrian:
-const dataSourceSettings = {
+const dataSourceSettings: DataSourceSettingsModel = {
   providerType: 'Mondrian',
   url: process.env.REACT_APP_MONDRIAN_URL  // Environment-based URL
 };
@@ -379,7 +380,7 @@ const dataSourceSettings = {
 
 ```typescript
 function CompleteSalesOlap() {
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     providerType: 'SSAS',
     url: process.env.REACT_APP_OLAP_URL,  // Environment-based URL
     catalog: 'Adventure Works DW 2012',
@@ -475,7 +476,7 @@ function PivotWithErrorHandling() {
     <PivotViewComponent
       dataSourceSettings={dataSourceSettings}
       actionFailure={(args: any) => {
-        console.error('PivotView Error:', args);
+
         // Show user-friendly error message
         alert(`Failed to load pivot data: ${args.error}`);
       }}

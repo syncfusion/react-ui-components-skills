@@ -290,24 +290,6 @@ function App() {
 export default App;
 ```
 
-## CRUD Operations in Data Grid
-
-When a value cell is double-clicked, raw items appear in a data grid within a new window. The following CRUD operations are available through toolbar buttons and command columns:
-
-| Toolbar Button | Action |
-|----------------|---------|
-| Add | Add a new row |
-| Edit | Edit the current row or cell |
-| Delete | Delete the current row |
-| Update | Update the edited row or cell |
-| Cancel | Cancel the edited state |
-
-The data grid provides full support for:
-- **Creating** new records using the Add button
-- **Reading** and viewing underlying raw data
-- **Updating** existing records through inline or dialog editing
-- **Deleting** records using the Delete button
-
 ## Editing Using Pivot Chart
 
 Pivot chart editing provides an alternative way to update, add, or remove underlying data associated with any chart data point. Users can perform CRUD operations on raw items linked to visualized data points.

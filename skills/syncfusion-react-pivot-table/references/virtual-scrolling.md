@@ -26,7 +26,7 @@ import { largeDataset } from './datasource';
 
 function App() {
   const dataSourceSettings: DataSourceSettingsModel = {
-    dataSource: largeDataset,  // 100K+ records
+    dataSource: largeDataset as IDataSet[],  // 100K+ records
     rows: [{ name: 'Country' }, { name: 'City' }],
     columns: [{ name: 'Year' }],
     values: [{ name: 'Sales' }]
@@ -54,10 +54,7 @@ export default App;
 
 ```typescript
 const virtualScrollSettings = {
-  allowSinglePage: false,        // Render multiple pages
-  enableColumnVirtualization: true,  // Virtualize columns
-  enableRowVirtualization: true,     // Virtualize rows
-  enableCellVirtualization: true     // Virtualize cells
+  allowSinglePage: false, // Loads only single page on viewport which improves performance.
 };
 
 <PivotViewComponent
@@ -129,8 +126,8 @@ function LargePivotTable() {
 
   const largeDataset = React.useMemo(() => generateLargeDataset(100000), []);
 
-  const dataSourceSettings = {
-    dataSource: largeDataset,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: largeDataset as IDataSet[],
     rows: [{ name: 'Country' }, { name: 'Product' }],
     columns: [{ name: 'Year' }, { name: 'Quarter' }],
     values: [
@@ -157,38 +154,6 @@ export default LargePivotTable;
 
 ## Performance Optimization with Virtual Scrolling
 
-### Combined with Paging
-
-```typescript
-function OptimizedLargePivot() {
-  const largeDataset = React.useMemo(() => generateDataset(500000), []);
-
-  const dataSourceSettings = {
-    dataSource: largeDataset,
-    rows: [{ name: 'Country' }],
-    columns: [{ name: 'Year' }],
-    values: [{ name: 'Sales' }]
-  };
-
-  return (
-    <PivotViewComponent
-      dataSourceSettings={dataSourceSettings}
-      // Virtual scrolling for smooth rendering
-      enableVirtualization={true}
-      // Paging for manageable dataset sizes
-      enablePaging={true}
-      pageSettings={{
-        rowPageSize: 20,
-        columnPageSize: 10
-      }}
-      height={600}
-    >
-      <Inject services={[VirtualScroll, Paging]} />
-    </PivotViewComponent>
-  );
-}
-```
-
 ### Combined with Data Compression
 
 ```typescript
@@ -198,7 +163,7 @@ function CompressedLargePivot() {
   return (
     <PivotViewComponent
       dataSourceSettings={{
-        dataSource: largeDataset,
+        dataSource: largeDataset as IDataSet[],
         rows: [{ name: 'ProductID' }],
         columns: [{ name: 'Year' }],
         values: [{ name: 'Sales' }]
@@ -215,114 +180,6 @@ function CompressedLargePivot() {
 }
 ```
 
-## Virtual Scrolling Events
-
-### Scroll Event Handling
-
-```typescript
-const onScroll = (args: any): void => {
-  console.log('Scrolling performed');
-  console.log('Vertical position:', args.scrollTop);
-  console.log('Horizontal position:', args.scrollLeft);
-};
-
-<PivotViewComponent
-  enableVirtualization={true}
-  onScroll={onScroll}
-  height={600}
-/>
-```
-
-### Track Visible Range
-
-```typescript
-function TrackVisibleRange() {
-  let pivotObj: PivotViewComponent;
-  const [visibleRows, setVisibleRows] = React.useState({ start: 0, end: 0 });
-
-  const onScroll = (args: any): void => {
-    // Get visible row range from scroll position
-    const scrollContainer = (pivotObj?.element?.querySelector('.e-gridcontent') as HTMLElement);
-    if (scrollContainer) {
-      const visibleStart = Math.floor(args.scrollTop / 30); // Approximate row height
-      const visibleEnd = visibleStart + 20;
-      setVisibleRows({ start: visibleStart, end: visibleEnd });
-    }
-  };
-
-  return (
-    <div>
-      <div>Visible Rows: {visibleRows.start} - {visibleRows.end}</div>
-      <PivotViewComponent
-        ref={(d: PivotViewComponent) => pivotObj = d}
-        enableVirtualization={true}
-        onScroll={onScroll}
-        height={600}
-      />
-    </div>
-  );
-}
-```
-
-## Advanced Configuration
-
-### Customize Virtual Scroll Behavior
-
-```typescript
-const virtualScrollSettings = {
-  allowSinglePage: false,           // Allow scrolling across pages
-  enableColumnVirtualization: true, // Virtualize columns with many items
-  enableRowVirtualization: true,    // Virtualize rows
-  enableCellVirtualization: true    // Optimize cell rendering
-};
-
-<PivotViewComponent
-  enableVirtualization={true}
-  virtualScrollSettings={virtualScrollSettings}
-  gridSettings={{
-    rowHeight: 32,        // Consistent row height for accurate scrolling
-    columnWidth: 100      // Standard column width
-  }}
-  height={600}
-/>
-```
-
-### Dynamic Height Adjustment
-
-```typescript
-function ResponsiveVirtualPivot() {
-  const containerRef = React.useRef<HTMLDivElement>(null);
-  const [height, setHeight] = React.useState(600);
-
-  React.useEffect(() => {
-    const handleResize = (): void => {
-      if (containerRef.current) {
-        const newHeight = containerRef.current.offsetHeight - 60;
-        setHeight(newHeight);
-      }
-    };
-
-    window.addEventListener('resize', handleResize);
-    handleResize();
-    return () => window.removeEventListener('resize', handleResize);
-  }, []);
-
-  return (
-    <div ref={containerRef} style={{ height: '100vh' }}>
-      <div style={{ height: `${height}px` }}>
-        <PivotViewComponent
-          dataSourceSettings={dataSourceSettings}
-          enableVirtualization={true}
-          height={height}
-        >
-          <Inject services={[VirtualScroll]} />
-        </PivotViewComponent>
-      </div>
-    </div>
-  );
-}
-```
-
 ## Practical Examples
 
 ### Example 1: High-Performance Dashboard
@@ -334,8 +191,8 @@ function HighPerformanceDashboard() {
     []
   );
 
-  const dataSourceSettings = {
-    dataSource: largeDataset,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: largeDataset as IDataSet[],
     rows: [{ name: 'Region' }, { name: 'Country' }],
     columns: [{ name: 'Year' }, { name: 'Quarter' }],
     values: [
@@ -383,8 +240,8 @@ function RealtimeVirtualPivot() {
     return () => clearInterval(interval);
   }, []);
 
-  const dataSourceSettings = {
-    dataSource: data,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: data as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Year' }],
     values: [{ name: 'Sales' }]

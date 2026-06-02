@@ -265,30 +265,35 @@ namespace MyWebService.Controllers
 
 ## React Configuration
 
-### Step 1: Configure Web API URL
+### Approach 1: Direct URL Binding
 
-⚠️ **SECURITY**: Use environment variables for API endpoints and implement authentication.
+Directly bind the Web API endpoint to the `url` property within `dataSourceSettings`. The API returns JSON data that is automatically mapped to the pivot table fields.
 
 ```typescript
 import { PivotViewComponent, FieldList, Inject } from '@syncfusion/ej2-react-pivotview';
-import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 
 function App() {
   // 🔒 SECURITY: Use environment variables, not hardcoded URLs
   const apiEndpoint = process.env.REACT_APP_PIVOT_API_ENDPOINT;
-  const authToken = localStorage.getItem('authToken');
-  
-  const dataSource = new DataManager({
-    url: apiEndpoint,  // From environment variable
-    adaptor: new WebApiAdaptor(),
-    headers: [
-      { 'Authorization': `Bearer ${authToken}` },
-      { 'Content-Type': 'application/json' }
+
+  const dataSourceSettings: DataSourceSettingsModel = {
+    url: apiEndpoint,  // Direct URL to Web API endpoint
+    expandAll: false,
+    enableSorting: true,
+    columns: [{ name: 'Product' }],
+    rows: [
+      { name: 'Country' },
+      { name: 'State' }
+    ],
+    values: [
+      { name: 'Quantity' },
+      { name: 'Amount', caption: 'Sold Amount' }
+    ],
+    filters: [],
+    formatSettings: [
+      { name: 'Amount', format: 'C0' }
     ]
-  });
-  
-  const dataSourceSettings = {
-    dataSource: dataSource
   };
 
   return (
@@ -302,30 +307,76 @@ function App() {
     </PivotViewComponent>
   );
 }
+
+export default App;
 ```
 
-### Step 2: Define Report Structure
+### Approach 2: Using DataManager
+
+Use `DataManager` with `WebApiAdaptor` to fetch data from the Web API and configure report structure separately.
 
 ```typescript
-const dataSourceSettings = {
-  url: 'https://localhost:7139/Pivot',
-  expandAll: false,
-  enableSorting: true,
-  columns: [{ name: 'Product' }],
-  rows: [
-    { name: 'Country' },
-    { name: 'State' }
-  ],
-  values: [
-    { name: 'Quantity' },
-    { name: 'Amount', caption: 'Sold Amount' }
-  ],
-  filters: [],
-  formatSettings: [
-    { name: 'Amount', format: 'C0' }
-  ]
-};
+import { PivotViewComponent, FieldList, Inject } from '@syncfusion/ej2-react-pivotview';
+import { DataManager, WebApiAdaptor } from '@syncfusion/ej2-data';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
+
+function App() {
+  // 🔒 SECURITY: Use environment variables, not hardcoded URLs
+  const apiEndpoint = process.env.REACT_APP_PIVOT_API_ENDPOINT;
+  const authToken = localStorage.getItem('authToken');
+
+  // Create DataManager for secure data fetching
+  const dataSource = new DataManager({
+    url: apiEndpoint,
+    adaptor: new WebApiAdaptor(),
+    headers: [
+      { 'Authorization': `Bearer ${authToken}` },
+      { 'Content-Type': 'application/json' }
+    ]
+  });
+
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: dataSource,
+    expandAll: false,
+    enableSorting: true,
+    columns: [{ name: 'Product' }],
+    rows: [
+      { name: 'Country' },
+      { name: 'State' }
+    ],
+    values: [
+      { name: 'Quantity' },
+      { name: 'Amount', caption: 'Sold Amount' }
+    ],
+    filters: [],
+    formatSettings: [
+      { name: 'Amount', format: 'C0' }
+    ]
+  };
+
+  return (
+    <PivotViewComponent
+      id='PivotView'
+      height={350}
+      dataSourceSettings={dataSourceSettings}
+      showFieldList={true}
+    >
+      <Inject services={[FieldList]} />
+    </PivotViewComponent>
+  );
+}
+
+export default App;
 ```
+
+### Comparison
+
+| Feature | Approach 1 (Direct URL) | Approach 2 (DataManager) |
+|---------|------------------------|--------------------------|
+| **Setup** | Simple, minimal configuration | More control with headers and adaptor |
+| **Authentication** | Limited | Full support with custom headers |
+| **Error Handling** | Basic | Advanced with adaptor events |
+| **Best For** | Simple API endpoints | Complex scenarios with auth, error handling |
 
 ## Database Connection Examples
 

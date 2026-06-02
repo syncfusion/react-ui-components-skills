@@ -47,9 +47,9 @@ import * as React from 'react';
 import { pivotData } from './datasource';
 
 function PivotWithNumberFormatting() {
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     columns: [{ name: 'Year', caption: 'Production Year' }, { name: 'Quarter' }],
-    dataSource: pivotData,
+    dataSource: pivotData as IDataSet[],
     expandAll: false,
     rows: [{ name: 'Country' }, { name: 'Products' }],
     values: [{ name: 'Sold', caption: 'Units Sold' }, { name: 'Amount', caption: 'Sold Amount' }],
@@ -163,7 +163,7 @@ function PivotWithProgrammaticFormatting() {
     }
   ];
 
-  const dataSourceSettings = {
+  const dataSourceSettings: DataSourceSettingsModel = {
     // ... pivot configuration ...
     conditionalFormatSettings: conditionalFormatSettings
   };
@@ -311,7 +311,7 @@ function customTooltipTemplate(args: any) {
 ```typescript
 function FormattedPivot() {
   const dataSourceSettings = {
-    dataSource: sampleData,
+    dataSource: sampleData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [

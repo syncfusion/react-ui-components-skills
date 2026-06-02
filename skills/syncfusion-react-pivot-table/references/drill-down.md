@@ -28,7 +28,7 @@ function App() {
     columns: [{ name: 'Year' }, { name: 'Quarter' }],
     rows: [{ name: 'Country' }, { name: 'Products' }],
     values: [{ name: 'Sales' }, { name: 'Amount' }],
-    dataSource: pivotData,
+    dataSource: pivotData as IDataSet[],
     // Drill-down enabled by default
   };
 
@@ -58,7 +58,7 @@ const dataSourceSettings: DataSourceSettingsModel = {
   columns: [{ name: 'Year' }, { name: 'Quarter' }],
   rows: [{ name: 'Country' }, { name: 'Products' }],
   values: [{ name: 'Sales' }],
-  dataSource: pivotData,
+  dataSource: pivotData as IDataSet[],
   expandAll: true  // Expand all hierarchy levels on load
 };
 
@@ -85,7 +85,7 @@ const dataSourceSettings: DataSourceSettingsModel = {
     { name: 'Products', expandAll: false }  // Keep Products collapsed
   ],
   values: [{ name: 'Sales' }],
-  dataSource: pivotData
+  dataSource: pivotData as IDataSet[]
 };
 ```
 
@@ -100,7 +100,7 @@ const dataSourceSettings: DataSourceSettingsModel = {
   columns: [{ name: 'Year' }, { name: 'Quarter' }],
   rows: [{ name: 'Country' }, { name: 'Products' }],
   values: [{ name: 'Sales' }],
-  dataSource: pivotData,
+  dataSource: pivotData as IDataSet[],
   drilledMembers: [
     {
       name: 'Country',
@@ -276,7 +276,7 @@ const dataSourceSettings: DataSourceSettingsModel = {
     { name: 'Sales Rep' }  // Different rep per country
   ],
   values: [{ name: 'Amount' }],
-  dataSource: pivotData,
+  dataSource: pivotData as IDataSet[],
   // Drill position is separate for each Country
   // Expanding "USA" doesn't auto-expand "Canada"
 };
@@ -336,7 +336,7 @@ function DrillDownExample() {
       { name: 'City', expandAll: false }
     ],
     values: [{ name: 'Sales', caption: 'Total Sales' }],
-    dataSource: hierarchicalData,
+    dataSource: hierarchicalData as IDataSet[],
     drilledMembers: [
       {
         name: 'Country',

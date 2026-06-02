@@ -10,8 +10,32 @@ Install the required Syncfusion packages via npm:
 
 ```bash
 npm install @syncfusion/ej2-react-pivotview
-npm install @syncfusion/ej2-react-base
-npm install @syncfusion/ej2-base
+```
+
+## CSS Imports and Theming
+
+The PivotView component requires Syncfusion theme stylesheets. Add the following CSS imports to your `App.css` file. These stylesheets provide the visual styling for all Syncfusion components used within the PivotTable.
+
+```css
+@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-grids/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-calendars/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-react-pivotview/styles/tailwind3.css';
+```
+
+> **Note:** The `node_modules` path assumes Syncfusion packages are installed in your project's node_modules directory. If you're using a different path or bundler configuration, adjust the path accordingly.
+
+Import the CSS file in your main App component:
+
+```tsx
+import './App.css';
 ```
 
 ## Basic Component Setup
@@ -19,14 +43,17 @@ npm install @syncfusion/ej2-base
 ### Step 1: Import Required Modules
 
 ```typescript
-import { PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
-import '@syncfusion/ej2-react-pivotview/styles/material.css';
+/* App.tsx */
+import { IDataSet, PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
+import * as React from 'react';
 ```
 
 ### Step 2: Create Data Source
 
 ```typescript
-export const pivotData = [
+/* App.tsx */
+export const pivotData: IDataSet[] = [
   { Country: 'USA', Region: 'North', Product: 'Laptop', Sales: 5000, Year: 2020, Quarter: 'Q1' },
   { Country: 'USA', Region: 'South', Product: 'Desktop', Sales: 3000, Year: 2020, Quarter: 'Q1' },
   { Country: 'Canada', Region: 'East', Product: 'Laptop', Sales: 2500, Year: 2020, Quarter: 'Q1' },
@@ -37,8 +64,9 @@ export const pivotData = [
 ### Step 3: Configure Data Source Settings
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: pivotData,
+/* App.tsx */
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: pivotData as IDataSet[],
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Product' }],
   values: [{ name: 'Sales', caption: 'Total Sales' }]
@@ -48,6 +76,7 @@ const dataSourceSettings = {
 ### Step 4: Create the Component
 
 ```typescript
+/* App.tsx */
 function App() {
   return (
     <PivotViewComponent
@@ -61,80 +90,15 @@ function App() {
 export default App;
 ```
 
-## CSS Imports and Theming
-
-Include the appropriate theme stylesheet:
+## Minimal PivotTable Component
 
 ```typescript
-// Material theme
-import '@syncfusion/ej2-react-pivotview/styles/material.css';
-
-// Bootstrap theme
-import '@syncfusion/ej2-react-pivotview/styles/bootstrap.css';
-
-// Fabric theme
-import '@syncfusion/ej2-react-pivotview/styles/fabric.css';
-
-// High contrast theme
-import '@syncfusion/ej2-react-pivotview/styles/highcontrast.css';
-```
-
-## NextJS Integration
-
-### Installation
-
-```bash
-npm install @syncfusion/ej2-react-pivotview
-```
-
-### Dynamic Import
-
-Use dynamic imports for server-side rendering compatibility:
-
-```typescript
-import dynamic from 'next/dynamic';
-import { Suspense } from 'react';
-
-const DynamicPivotView = dynamic(() => import('./PivotViewComponent'), { 
-  ssr: false,
-  loading: () => <p>Loading Pivot Table...</p>
-});
-
-export default function Page() {
-  return <DynamicPivotView />;
-}
-```
-
-### Pages Router Example
-
-```typescript
-// pages/pivot.tsx
-import { PivotViewComponent, Inject, GroupingBar } from '@syncfusion/ej2-react-pivotview';
-import '@syncfusion/ej2-react-pivotview/styles/material.css';
-
-const pivotData = [...];
-
-export default function PivotPage() {
-  return (
-    <PivotViewComponent
-      dataSourceSettings={{ dataSource: pivotData, rows: [{ name: 'Country' }], columns: [{ name: 'Product' }], values: [{ name: 'Sales' }] }}
-      showGroupingBar={true}
-      height={400}
-    >
-      <Inject services={[GroupingBar]} />
-    </PivotViewComponent>
-  );
-}
-```
-
-## Complete First Example
-
-```typescript
-import { PivotViewComponent, Inject, GroupingBar, FieldList } from '@syncfusion/ej2-react-pivotview';
-import '@syncfusion/ej2-react-pivotview/styles/material.css';
+/* App.tsx */
+import { PivotViewComponent, Inject, IDataSet } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 import React from 'react';
 
-const sampleData = [
+const sampleData: IDataSet[] = [
   { Country: 'USA', Product: 'Laptops', Sales: 5000 },
   { Country: 'USA', Product: 'Mobiles', Sales: 3000 },
   { Country: 'Canada', Product: 'Laptops', Sales: 2500 },
@@ -142,13 +106,81 @@ const sampleData = [
 ];
 
 function PivotTableDemo() {
-  const dataSourceSettings = {
-    dataSource: sampleData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: sampleData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [{ name: 'Sales', caption: 'Total Sales' }],
     expandAll: false,
     showGrandTotals: true
+  };
+
+  return (
+    <PivotViewComponent
+      id="pivotview"
+      dataSourceSettings={dataSourceSettings}
+      height={400}
+    >
+    </PivotViewComponent>
+  );
+}
+
+export default PivotTableDemo;
+```
+
+## Module Injection
+
+React PivotView features are modular and require injection to enable them. This reduces bundle size by loading only needed features.
+
+### Inject Services
+
+```tsx
+import { Inject, GroupingBar, FieldList } from '@syncfusion/ej2-react-pivotview';
+
+<PivotViewComponent dataSourceSettings={dataSourceSettings}>
+  <Inject services={[GroupingBar, FieldList]} />
+</PivotViewComponent>
+```
+
+### Common Modules
+
+| Module | Purpose | Import |
+|--------|---------|--------|
+| `GroupingBar` | Enable grouping bar | `import { GroupingBar } from '@syncfusion/ej2-react-pivotview'` |
+| `FieldList` | Enable field list | `import { FieldList } from '@syncfusion/ej2-react-pivotview'` |
+| `ConditionalFormatting` | Enable conditional formatting | `import { ConditionalFormatting } from '@syncfusion/ej2-react-pivotview'` |
+| `NumberFormatting` | Enable number formatting | `import { NumberFormatting } from '@syncfusion/ej2-react-pivotview'` |
+| `CalculatedField` | Enable calculated field | `import { CalculatedField } from '@syncfusion/ej2-react-pivotview'` |
+| `Toolbar` | Enable toolbar | `import { Toolbar } from '@syncfusion/ej2-react-pivotview'` |
+| `ExcelExport` | Enable Excel export | `import { ExcelExport } from '@syncfusion/ej2-react-pivotview'` |
+| `PDFExport` | Enable PDF export | `import { PDFExport } from '@syncfusion/ej2-react-pivotview'` |
+| `VirtualScroll` | Enable virtual scrolling | `import { VirtualScroll } from '@syncfusion/ej2-react-pivotview'` |
+| `Pager` | Enable paging | `import { Pager } from '@syncfusion/ej2-react-pivotview'` |
+| `PivotChart` | Enable pivot chart visualization | `import { PivotChart } from '@syncfusion/ej2-react-pivotview'` |
+| `Grouping` | Enable grouping | `import { Grouping } from '@syncfusion/ej2-react-pivotview'` |
+| `DrillThrough` | Enable drill-through | `import { DrillThrough } from '@syncfusion/ej2-react-pivotview'` |
+
+### Example with GroupingBar and FieldList
+
+```tsx
+import { PivotViewComponent, Inject, GroupingBar, FieldList, IDataSet } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
+import React from 'react';
+
+const sampleData: IDataSet[] = [
+  { Country: 'USA', Region: 'North', Product: 'Laptops', Sales: 5000, Year: 2020 },
+  { Country: 'USA', Region: 'South', Product: 'Desktops', Sales: 3000, Year: 2020 },
+  { Country: 'Canada', Region: 'East', Product: 'Laptops', Sales: 2500, Year: 2020 },
+  { Country: 'Canada', Region: 'West', Product: 'Mobiles', Sales: 1500, Year: 2020 }
+];
+
+function PivotTableWithModules() {
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: sampleData as IDataSet[],
+    rows: [{ name: 'Country' }],
+    columns: [{ name: 'Product' }],
+    values: [{ name: 'Sales', caption: 'Total Sales' }],
+    expandAll: false
   };
 
   return (
@@ -164,7 +196,7 @@ function PivotTableDemo() {
   );
 }
 
-export default PivotTableDemo;
+export default PivotTableWithModules;
 ```
 
 ## Troubleshooting
@@ -173,7 +205,4 @@ export default PivotTableDemo;
 Ensure all required Syncfusion packages are installed. Run `npm list @syncfusion/ej2-react-pivotview` to verify.
 
 ### Styles not showing
-Import the CSS file before component usage: `import '@syncfusion/ej2-react-pivotview/styles/material.css';`
-
-### NextJS SSR issues
-Use dynamic imports with `ssr: false` for PivotView components to avoid server-side rendering issues.
+Import the CSS file before component usage: `import '../node_modules/@syncfusion/ej2-react-pivotview/styles/material.css';`

@@ -2,51 +2,29 @@
 
 ## Overview
 
-The PDF export feature in the Syncfusion React Pivot Table allows you to export pivot table data to Adobe PDF format. This feature is essential for creating professional, portable reports that can be easily shared, archived, and printed. PDF export preserves formatting, styling, page layouts, and all visual elements defined in your pivot table, ensuring consistent document appearance across different devices and operating systems.
+The Pivot Table supports exporting data to **PDF** format. Enable export by setting `allowPdfExport` to **true** and using the `pdfExport()` method.
 
 ### Key Features
-- **Professional Formatting**: Maintains fonts, colors, borders, and styling
-- **Page Layout Control**: Configure page orientation, size, and margins
-- **Multi-page Support**: Automatically handles large tables across pages
-- **Headers and Footers**: Customizable page headers and footers with page numbers
-- **Document Properties**: Set title, author, subject, and keywords
-- **Watermarks**: Add text or image watermarks to pages
-- **Bookmarks**: Generate PDF bookmarks for navigation
-- **Print-Ready**: Optimized for high-quality printing
+- **PDF Export**: Export data to PDF document
+- **Multiple Tables**: Export multiple pivot tables to single PDF
+- **Table and Chart**: Export both table and chart together
+- **Custom Styling**: Apply themes, fonts, headers, footers
+- **Virtual Scroll**: Efficient export for large datasets
 
-## Enabling PDF Export
-
-### Basic Setup
-
-To enable PDF export, set `allowPdfExport` to **true** and inject the `PdfExport` module:
+## Basic Setup
 
 ```typescript
-import { PivotViewComponent, PdfExport, Inject, Toolbar } from '@syncfusion/ej2-react-pivotview';
-import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
-import * as React from 'react';
+import { PivotViewComponent, PDFExport, Inject } from '@syncfusion/ej2-react-pivotview';
 import { pivotData } from './datasource';
 
 function App() {
-  const dataSourceSettings: DataSourceSettingsModel = {
-    columns: [{ name: 'Year' }, { name: 'Quarter' }],
-    rows: [{ name: 'Country' }, { name: 'Products' }],
-    values: [{ name: 'Sales' }, { name: 'Amount' }],
-    dataSource: pivotData,
-    formatSettings: [{ name: 'Amount', format: 'C2' }]
-  };
-
-  let pivotObj: PivotViewComponent;
-
   return (
     <PivotViewComponent
-      ref={(d: PivotViewComponent) => pivotObj = d}
-      id='PivotView'
-      height={350}
-      dataSourceSettings={dataSourceSettings}
+      id="PivotView"
+      dataSourceSettings={{ dataSource: pivotData }}
       allowPdfExport={true}
-      toolbar={['Pdf Export']}
     >
-      <Inject services={[PdfExport, Toolbar]} />
+      <Inject services={[PDFExport]} />
     </PivotViewComponent>
   );
 }
@@ -54,555 +32,319 @@ function App() {
 export default App;
 ```
 
-## Triggering PDF Export
+## Export Methods
 
-### Method 1: Toolbar Button
+### Basic PDF Export
 
-Add 'Pdf Export' to the toolbar for automatic export button:
+Call `pdfExport()` method to export data to PDF:
 
 ```typescript
-<PivotViewComponent
-  toolbar={['Pdf Export']}
-  allowPdfExport={true}
->
-  <Inject services={[PdfExport, Toolbar]} />
-</PivotViewComponent>
+function btnClick(): void {
+  pivotObj.pdfExport();
+}
 ```
 
-### Method 2: Programmatic Export
+### Export with Properties
 
-Export on-demand using code:
+Pass export properties to customize the output:
 
 ```typescript
-const exportToPdf = (): void => {
-  if (pivotObj) {
-    pivotObj.pdfExport();
+let pdfExportProperties: PdfExportProperties = {
+  pageOrientation: 'Landscape'
+};
+pivotObj.pdfExport(pdfExportProperties);
+```
+
+## Multiple Pivot Tables
+
+Export multiple pivot tables to a single PDF file:
+
+```typescript
+// First table - create new file
+pivotObj.pdfExport(pdfExportProperties, true);
+
+// Subsequent tables - append to same file
+pivotObj1.pdfExport(pdfExportProperties, false, pdfDoc);
+```
+
+## Export Table and Chart
+
+Set `displayOption.view` to **Both** to export table and chart together:
+
+```typescript
+let dataSourceSettings = {
+  displayOption: { view: 'Both' }
+};
+
+// Use exportBothTableAndChart: true in pdfExport
+pivotObj.pdfExport(pdfExportProperties, false, null, false, true);
+```
+
+## Header and Footer
+
+### Add Text
+
+Use `header` and `footer` properties with content:
+
+```typescript
+let pdfExportProperties: PdfExportProperties = {
+  header: { contents: [{ type: 'Text', content: 'Company Name' }] },
+  footer: { contents: [{ type: 'Text', content: 'Page: ${total}' }] }
+};
+```
+
+### Add Lines
+
+Add visual separators using line type:
+
+```typescript
+header: { contents: [{ type: 'Line' }] }
+```
+
+### Add Page Numbers
+
+Add page numbers with format:
+
+```typescript
+header: { contents: [{ type: 'PageNumber', format: 'Arabic' }] }
+```
+
+### Add Images
+
+Add images using Base64 string:
+
+```typescript
+header: { contents: [{ type: 'Image', src: base64String }] }
+```
+
+## Document Customization
+
+### File Name
+
+Set custom file name:
+
+```typescript
+let pdfExportProperties: PdfExportProperties = {
+  fileName: 'report.pdf'
+};
+```
+
+### Page Orientation
+
+Change orientation (Portrait/Landscape):
+
+```typescript
+let pdfExportProperties: PdfExportProperties = {
+  pageOrientation: 'Landscape'
+};
+```
+
+### Page Size
+
+Set page size (Letter, A4, Legal, etc.):
+
+```typescript
+let pdfExportProperties: PdfExportProperties = {
+  pageSize: 'A4'
+};
+```
+
+### Custom Dimensions
+
+Set custom width/height via `beforeExport` event:
+
+```typescript
+function beforeExport(args: BeforeExportEventArgs): void {
+  args.height = '600px';
+  args.width = '800px';
+}
+```
+
+> Note: Requires `enableVirtualization: true` and both `VirtualScroll` and `PDFExport` injected.
+
+### Table Column Count
+
+Control columns per page via `beforeExport`:
+
+```typescript
+function beforeExport(args: BeforeExportEventArgs): void {
+  args.columnSize = 4;
+}
+```
+
+## Cell Styling
+
+### Column Width
+
+Set column width using `onPdfCellRender`:
+
+```typescript
+function onPdfCellRender(args: PdfCellRenderArgs): void {
+  if (args.column.field === 'Sold') {
+    args.column.width = 60;
+  }
+}
+```
+
+### Row Height
+
+Set row height using `onPdfCellRender`:
+
+```typescript
+function onPdfCellRender(args: PdfCellRenderArgs): void {
+  if (args.cell.value === 'Mountain Bikes') {
+    args.cell.height = 30;
+  }
+}
+```
+
+## Theme and Styling
+
+### Apply Theme
+
+Use theme property for colors:
+
+```typescript
+let pdfExportProperties: PdfExportProperties = {
+  theme: {
+    header: { fontColor: '#FF0000' },
+    record: { fontColor: '#000000' }
   }
 };
-
-// In your UI
-<button onClick={exportToPdf}>Export to PDF</button>
 ```
 
-### Method 3: Custom Export with Options
+### Default Fonts
+
+Built-in fonts: Helvetica, TimesRoman, Courier, Symbol, ZapfDingbats
 
 ```typescript
-const exportWithOptions = (): void => {
-  if (pivotObj) {
-    pivotObj.pdfExport({
-      fileName: 'sales-report.pdf'  // Custom file name
-    });
+import { PdfStandardFont, PdfFontFamily, PdfFontStyle } from '@syncfusion/ej2-pdf-export';
+
+let pdfExportProperties: PdfExportProperties = {
+  theme: {
+    header: { font: new PdfStandardFont(PdfFontFamily.TimesRoman, 11, PdfFontStyle.Bold) }
   }
 };
 ```
 
-## PDF Export Configuration
+### Custom Fonts
 
-### File Name and Properties
+Use Base64 encoded custom fonts:
 
 ```typescript
-const exportToPdf = (): void => {
-  if (pivotObj) {
-    pivotObj.pdfExport({
-      fileName: 'Q1-Sales-Report.pdf',
-      dataSourceSettings: pivotObj.dataSourceSettings,
-      orientation: 'Landscape',     // Landscape or Portrait
-      pageSize: 'A4',               // A4, Letter, Legal, etc.
-      theme: 'Material'             // PDF theme
-    });
+import { PdfTrueTypeFont } from '@syncfusion/ej2-pdf-export';
+
+let pdfExportProperties: PdfExportProperties = {
+  theme: {
+    header: { font: new PdfTrueTypeFont(base64AlgeriaFont, 11) }
   }
 };
 ```
 
-### Page Configuration
+> Note: The `base64AlgeriaFont` export should be included in your datasource file.
+
+## Virtual Scroll Export
+
+### Basic Virtual Export
+
+With virtualization enabled, PivotEngine export is used automatically:
 
 ```typescript
-const pdfExportSettings = {
-  fileName: 'report.pdf',
-  orientation: 'Landscape',         // Wide layout for better table fit
-  pageSize: 'A4',                   // Standard page size
-  pageMargins: {
-    top: 0.5,      // inches
-    bottom: 0.5,
-    left: 0.5,
-    right: 0.5
-  },
-  pageBreak: true,                  // Break large tables across pages
-  fitToWidth: true                  // Scale table to fit page width
-};
-
-pivotObj?.pdfExport(pdfExportSettings);
+// Requires VirtualScroll and PDFExport injected
+<Inject services={[VirtualScroll, PDFExport]} />
 ```
 
-## Customizing PDF Export
+### Repeat Header
 
-### PDF Export Events
-
-Use events to customize export behavior:
+Enable/disable row header repetition:
 
 ```typescript
-const onActionBegin = (args: PivotActionBeginEventArgs): void => {
-  if (args.actionName === 'PDF Export') {
-    console.log('Starting PDF export...');
-    // Show loading indicator
-  }
-};
-
-const onActionComplete = (args: PivotActionCompleteEventArgs): void => {
-  if (args.actionName === 'PDF Export') {
-    console.log('PDF export completed');
-    // Hide loading indicator
-  }
-};
-
-<PivotViewComponent
-  actionBegin={onActionBegin}
-  actionComplete={onActionComplete}
-  allowPdfExport={true}
->
-  <Inject services={[PdfExport]} />
-</PivotViewComponent>
+function beforeExport(args: BeforeExportEventArgs): void {
+  args.allowRepeatHeader = false;
+}
 ```
 
-### Column Customization
+### Export All Pages
+
+Control page export behavior:
 
 ```typescript
-const onPdfExport = (args: PdfExportEventArgs): void => {
-  // Include only specific columns
-  args.columns = [
-    { field: 'Country', headerText: 'Country', width: 100 },
-    { field: 'Year', headerText: 'Year', width: 80 },
-    { field: 'Amount', headerText: 'Total', format: 'C2', width: 120 }
-  ];
-};
+// Export all data (default with virtualization)
+dataSourceSettings = { exportAllPages: true };
 
-<PivotViewComponent
-  onPdfExport={onPdfExport}
-  allowPdfExport={true}
->
-  <Inject services={[PdfExport]} />
-</PivotViewComponent>
+// Export only current viewport
+dataSourceSettings = { exportAllPages: false };
 ```
 
-## PDF Styling and Appearance
+## Events
 
-### Apply Themes
+### pdfQueryCellInfo
+
+Triggered for each row/value cell. Arguments: `value`, `column`, `data`, `style`.
 
 ```typescript
-const exportWithTheme = (): void => {
-  if (pivotObj) {
-    const theme = {
-      name: 'Material',              // Material, Office, Bootstrap, etc.
-      header: {
-        fontSize: 14,
-        bold: true,
-        color: '#FFFFFF',
-        backgroundColor: '#1F4E78'
-      },
-      record: {
-        fontSize: 12,
-        color: '#000000',
-        backgroundColor: '#FFFFFF'
-      }
-    };
-
-    pivotObj.pdfExport({
-      fileName: 'themed-report.pdf',
-      theme: theme
-    });
-  }
-};
+function pdfQueryCellInfo(args: PdfQueryCellInfoEventArgs): void {
+  args.value = 'Modified Value';
+  args.style.backColor = '#ffff00';
+}
 ```
 
-### Cell Styling
+### pdfHeaderQueryCellInfo
+
+Triggered for each header cell. Arguments: `cell`, `style`.
 
 ```typescript
-const onPdfExport = (args: PdfExportEventArgs): void => {
-  // Apply custom styling
-  args.style = {
-    headerFontSize: 14,
-    headerFontName: 'Calibri',
-    recordFontSize: 11,
-    recordFontName: 'Calibri'
-  };
+function pdfHeaderQueryCellInfo(args: PdfHeaderQueryCellInfoEventArgs): void {
+  args.style.fontColor = '#0000FF';
+}
+```
 
-  // Format specific columns
-  args.columns.forEach(col => {
-    if (col.field === 'Amount') {
-      col.format = 'C2';              // Currency
-      col.textAlign = 'Right';
-      col.width = 120;
-    } else if (col.field === 'Percentage') {
-      col.format = 'P2';              // Percentage
-      col.textAlign = 'Center';
-    }
+### exportComplete
+
+Triggered after export completes:
+
+```typescript
+function exportComplete(args: ExportCompleteEventArgs): void {
+  args.promise.then((blobData: Blob) => {
+    console.log('Export complete');
   });
-};
-```
-
-## Advanced Export Features
-
-### Headers and Footers
-
-```typescript
-const exportWithHeaderFooter = (): void => {
-  if (pivotObj) {
-    pivotObj.pdfExport({
-      fileName: 'formal-report.pdf',
-      orientation: 'Landscape',
-      pageSize: 'A4',
-      // Custom header
-      header: {
-        fromTop: 0.4,
-        height: 60,
-        contents: [
-          {
-            type: 'Text',
-            value: 'Q1 2024 Sales Analysis',
-            position: { x: 250, y: 50 },
-            style: { fontSize: 20, bold: true }
-          }
-        ]
-      },
-      // Custom footer
-      footer: {
-        fromBottom: 160,
-        height: 60,
-        contents: [
-          {
-            type: 'PageNumber',
-            value: 'Page # of $',
-            position: { x: 250, y: 20 },
-            style: { fontSize: 10 }
-          },
-          {
-            type: 'Text',
-            value: 'Confidential - For Internal Use Only',
-            position: { x: 200, y: 5 },
-            style: { fontSize: 9, italic: true }
-          }
-        ]
-      }
-    });
-  }
-};
-```
-
-### Document Properties
-
-```typescript
-const exportWithDocumentInfo = (): void => {
-  if (pivotObj) {
-    pivotObj.pdfExport({
-      fileName: 'report.pdf',
-      // Set document metadata
-      documentInfo: {
-        title: 'Sales Report Q1 2024',
-        author: 'Finance Department',
-        subject: 'Quarterly Sales Analysis',
-        keywords: 'sales, q1, 2024, analysis',
-        creator: 'Syncfusion Pivot Table'
-      }
-    });
-  }
-};
-```
-
-### Watermarks
-
-```typescript
-const exportWithWatermark = (): void => {
-  if (pivotObj) {
-    pivotObj.pdfExport({
-      fileName: 'draft-report.pdf',
-      watermark: {
-        type: 'Text',
-        value: 'DRAFT',
-        angle: -45,
-        opacity: 0.3,
-        fontSize: 100,
-        color: '#E0E0E0'
-      }
-    });
-  }
-};
-```
-
-### Multi-Page Control
-
-```typescript
-const exportLargeTable = (): void => {
-  if (pivotObj) {
-    pivotObj.pdfExport({
-      fileName: 'large-report.pdf',
-      orientation: 'Landscape',        // Wide orientation
-      pageSize: 'A3',                  // Larger page size
-      pageBreak: true,                 // Break across pages
-      fitToPage: true,                 // Scale to fit
-      repeatHeader: true               // Repeat headers on each page
-    });
-  }
-};
-```
-
-## Export Events
-
-### PDF Export Event
-
-Customize during export:
-
-```typescript
-const onPdfExport = (args: PdfExportEventArgs): void => {
-  // Modify export settings
-  args.cancel = false;               // Cancel export if needed
-  
-  // Customize columns
-  args.columns.forEach(col => {
-    if (col.field === 'Amount') {
-      col.format = 'C2';
-    }
-  });
-};
-```
-
-### Action Events
-
-```typescript
-const onActionBegin = (args: PivotActionBeginEventArgs): void => {
-  if (args.actionName === 'PDF Export') {
-    // Show progress indicator
-    console.log('PDF export started');
-  }
-};
-
-const onActionComplete = (args: PivotActionCompleteEventArgs): void => {
-  if (args.actionName === 'PDF Export') {
-    // Hide progress, show success
-    console.log('PDF export completed successfully');
-  }
-};
-
-const onActionFailure = (args: PivotActionFailureEventArgs): void => {
-  if (args.actionName === 'PDF Export') {
-    console.error('PDF export failed:', args.error);
-  }
-};
-```
-
-## Practical Examples
-
-### Example 1: Simple PDF Export
-
-```typescript
-import { PivotViewComponent, PdfExport, Toolbar, Inject } from '@syncfusion/ej2-react-pivotview';
-
-function SimplePdfExport() {
-  const dataSourceSettings = {
-    columns: [{ name: 'Year' }, { name: 'Quarter' }],
-    rows: [{ name: 'Country' }, { name: 'Products' }],
-    values: [
-      { name: 'Sales', caption: 'Total Sales' },
-      { name: 'Amount', caption: 'Amount' }
-    ],
-    dataSource: pivotData,
-    formatSettings: [
-      { name: 'Amount', format: 'C2' },
-      { name: 'Sales', format: 'N0' }
-    ]
-  };
-
-  let pivotObj: PivotViewComponent;
-
-  const exportPdf = (): void => {
-    if (pivotObj) {
-      pivotObj.pdfExport({
-        fileName: 'sales-report.pdf'
-      });
-    }
-  };
-
-  return (
-    <div>
-      <button onClick={exportPdf}>Export to PDF</button>
-      <PivotViewComponent
-        ref={(d: PivotViewComponent) => pivotObj = d}
-        dataSourceSettings={dataSourceSettings}
-        allowPdfExport={true}
-        height={350}
-      >
-        <Inject services={[PdfExport]} />
-      </PivotViewComponent>
-    </div>
-  );
 }
-
-export default SimplePdfExport;
 ```
 
-### Example 2: Professional Report with Headers and Watermark
+## Performance Tips
 
-```typescript
-function ProfessionalPdfExport() {
-  let pivotObj: PivotViewComponent;
-
-  const exportProfessionalReport = (): void => {
-    if (pivotObj) {
-      pivotObj.pdfExport({
-        fileName: 'sales-analysis-q1-2024.pdf',
-        orientation: 'Landscape',
-        pageSize: 'A4',
-        pageMargins: { top: 0.75, bottom: 0.75, left: 0.5, right: 0.5 },
-        header: {
-          fromTop: 0.3,
-          height: 50,
-          contents: [
-            {
-              type: 'Text',
-              value: 'Q1 2024 Sales Analysis Report',
-              position: { x: 200, y: 30 },
-              style: { fontSize: 18, bold: true, color: '#1F4E78' }
-            }
-          ]
-        },
-        footer: {
-          fromBottom: 150,
-          height: 40,
-          contents: [
-            {
-              type: 'PageNumber',
-              value: 'Page # of $',
-              position: { x: 250, y: 25 },
-              style: { fontSize: 10 }
-            },
-            {
-              type: 'Text',
-              value: 'Generated: ' + new Date().toLocaleDateString(),
-              position: { x: 40, y: 25 },
-              style: { fontSize: 9 }
-            }
-          ]
-        }
-      });
-    }
-  };
-
-  return (
-    <div>
-      <button onClick={exportProfessionalReport}>Export Professional Report</button>
-      <PivotViewComponent
-        ref={(d: PivotViewComponent) => pivotObj = d}
-        dataSourceSettings={dataSourceSettings}
-        allowPdfExport={true}
-        toolbar={['Pdf Export']}
-        height={350}
-      >
-        <Inject services={[PdfExport, Toolbar]} />
-      </PivotViewComponent>
-    </div>
-  );
-}
-
-export default ProfessionalPdfExport;
-```
-
-### Example 3: Customized Columns and Formatting
-
-```typescript
-function CustomPdfExport() {
-  let pivotObj: PivotViewComponent;
-
-  const onPdfExport = (args: PdfExportEventArgs): void => {
-    // Customize columns and formatting
-    args.columns = [
-      { field: 'Country', headerText: 'Country', width: 90 },
-      { field: 'Year', headerText: 'Year', width: 70, textAlign: 'Center' },
-      { field: 'Amount', headerText: 'Amount', format: 'C2', width: 110, textAlign: 'Right' },
-      { field: 'Sales', headerText: 'Units', format: 'N0', width: 90, textAlign: 'Right' }
-    ];
-  };
-
-  const onActionComplete = (args: PivotActionCompleteEventArgs): void => {
-    if (args.actionName === 'PDF Export') {
-      console.log('PDF export successful');
-    }
-  };
-
-  return (
-    <PivotViewComponent
-      ref={(d: PivotViewComponent) => pivotObj = d}
-      dataSourceSettings={dataSourceSettings}
-      allowPdfExport={true}
-      toolbar={['Pdf Export']}
-      onPdfExport={onPdfExport}
-      onActionComplete={onActionComplete}
-      height={350}
-    >
-      <Inject services={[PdfExport, Toolbar]} />
-    </PivotViewComponent>
-  );
-}
-
-export default CustomPdfExport;
-```
-
-## Page Size Options
-
-| Size | Dimensions | Usage |
-|------|-----------|-------|
-| Letter | 8.5" x 11" | North America standard |
-| A4 | 210mm x 297mm | International standard |
-| A3 | 297mm x 420mm | Large tables, landscape |
-| Legal | 8.5" x 14" | Legal documents |
-| Tabloid | 11" x 17" | Large format |
-| Ledger | 11" x 17" | Wide tables |
-
-## Orientation Guidelines
-
-**Portrait** (8.5" x 11"): Best for narrow tables, text-heavy reports
-**Landscape** (11" x 8.5"): Best for wide pivot tables with many columns
-
-## Performance Considerations
-
-1. **Large Datasets**: Very large tables may take time to render
-2. **File Size**: PDF files with images/formatting are larger than plain text
-3. **Memory Usage**: Complex layouts require more memory
-4. **Browser Performance**: Large exports may freeze UI briefly
+1. **Virtualization**: Enable for large datasets
+2. **Current Page**: Use `exportAllPages: false` to export only visible data
+3. **Blob Data**: Set `isBlob: true` when processing file programmatically
 
 ## Best Practices
 
-1. **File Naming**: Use descriptive, timestamped names
-2. **Page Sizing**: Test page sizes for your typical data dimensions
-3. **Margins**: Set appropriate margins for printing (0.5-0.75 inches)
-4. **Headers/Footers**: Include company branding and page numbers
-5. **Fonts**: Use standard fonts that display consistently
-6. **Print Testing**: Always test PDF output on actual printer
+✅ **Do:**
+- Use virtualization for large datasets
+- Use `exportAllPages: false` with virtualization for better performance
+- Set `isBlob: true` when you need to process the exported file
 
-## Troubleshooting
+❌ **Don't:**
+- Export millions of records without virtualization
+- Forget to inject `PDFExport` module
+- Use full URLs - reference API names in backticks like `pdfExport`
 
-**Export button not appearing?**
-- Verify `allowPdfExport` is `true`
-- Check that `Toolbar` and `PdfExport` modules are injected
-- Ensure toolbar array includes 'Pdf Export'
+## Common Issues
 
-**PDF is blank?**
-- Verify data source is populated
-- Check pivot table renders correctly
-- Verify no JavaScript errors in console
+**PDF export not working?**
+- Verify `PDFExport` is in the `Inject` services array
+- Check `allowPdfExport` is set to **true**
 
-**Page layout issues?**
-- Adjust pageSize and orientation for your data
-- Modify margins if content is cut off
-- Use fitToPage option to auto-scale
+**Large file size?**
+- Use `exportAllPages: false` to export only current viewport
+- Consider disabling chart export if not needed
 
-**Export takes too long?**
-- Consider reducing data size
-- Export specific columns only
-- Use asynchronous export method
-- Check for large complex formatting
+**Font not displaying correctly?**
+- Ensure custom fonts are Base64 encoded
+- Use `PdfTrueTypeFont` class for custom fonts
 
 ## Related Features
 
-- **Excel Export**: Export to Excel format
-- **Print**: Print pivot table directly
-- **Data Formatting**: Format numbers, dates, currencies
-- **Grid Customization**: Customize column widths, alignment, styling
+- **Excel Export**: Export to Excel/CSV format
+- **Toolbar**: Export options in toolbar UI
+- **Virtualization**: Handle large datasets efficiently

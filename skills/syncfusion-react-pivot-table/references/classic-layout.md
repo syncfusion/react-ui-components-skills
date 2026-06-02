@@ -11,8 +11,11 @@ The Classic layout (also called Tabular layout) in Syncfusion React PivotView pr
 To enable the classic layout, set the `layout` property in `gridSettings` to **`'Tabular'`**:
 
 ```typescript
-const dataSourceSettings = {
-  dataSource: pivotData,
+import { IDataSet, PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
+
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: pivotData as IDataSet[],
   rows: [
     { name: 'Country', caption: 'Country' },
     { name: 'Region', caption: 'Region' }
@@ -115,12 +118,13 @@ const gridSettings = {
 ## Complete Tabular Layout Example
 
 ```typescript
-import { PivotViewComponent, Inject, FieldList, GroupingBar } from '@syncfusion/ej2-react-pivotview';
+import { PivotViewComponent, Inject, FieldList, GroupingBar, IDataSet } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 import React from 'react';
 
 function TabularLayoutPivot() {
-  const dataSourceSettings = {
-    dataSource: sampleData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: sampleData as IDataSet[],
     rows: [
       { name: 'Country', caption: 'Country' },
       { name: 'Region', caption: 'Region' }
@@ -165,8 +169,8 @@ function SalesAnalysisPivot() {
     allowSelection: true
   };
 
-  const dataSourceSettings = {
-    dataSource: sampleData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: sampleData as IDataSet[],
     rows: [
       { name: 'Product_Categories', caption: 'Category' },
       { name: 'Products', caption: 'Product' },

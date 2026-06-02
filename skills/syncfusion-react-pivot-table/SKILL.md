@@ -171,11 +171,26 @@ Use this skill when you need to:
 
 ## Quick Start
 
-```typescript
-import { PivotViewComponent, Inject, GroupingBar, FieldList } from '@syncfusion/ej2-react-pivotview';
-import '@syncfusion/ej2-react-pivotview/styles/material.css';
+```css
+/* App.css */
+@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-grids/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-lists/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-calendars/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-react-pivotview/styles/tailwind3.css';
+```
 
-const pivotData = [
+```typescript
+import { PivotViewComponent, Inject, GroupingBar, FieldList, IDataSet } from '@syncfusion/ej2-react-pivotview';
+import './App.css';
+
+const pivotData: IDataSet[] = [
   { Country: 'USA', Product: 'Laptops', Sales: 5000, Year: 2020 },
   { Country: 'USA', Product: 'Mobiles', Sales: 3000, Year: 2020 },
   { Country: 'Canada', Product: 'Laptops', Sales: 2500, Year: 2020 },
@@ -191,8 +206,8 @@ function cellTemplate(props: any): JSX.Element {
 }
 
 function App() {
-  const dataSourceSettings = {
-    dataSource: pivotData,
+  const dataSourceSettings: DataSourceSettingsModel = {
+    dataSource: pivotData as IDataSet[],
     rows: [{ name: 'Country' }],
     columns: [{ name: 'Product' }],
     values: [{ name: 'Sales', caption: 'Total Sales' }],
@@ -220,8 +235,8 @@ export default App;
 
 ### Pattern 1: Basic Pivot Table with Row and Column Fields
 ```typescript
-const dataSourceSettings = {
-  dataSource: data,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: data as IDataSet[],
   rows: [{ name: 'Country' }, { name: 'Region' }],
   columns: [{ name: 'Year' }, { name: 'Quarter' }],
   values: [{ name: 'Sales', caption: 'Total Sales' }]
@@ -230,8 +245,8 @@ const dataSourceSettings = {
 
 ### Pattern 2: Adding Filters and Aggregation
 ```typescript
-const dataSourceSettings = {
-  dataSource: data,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: data as IDataSet[],
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Product' }],
   values: [
@@ -245,9 +260,10 @@ const dataSourceSettings = {
 ### Pattern 3: Calculated Fields
 ```typescript
 import { PivotViewComponent, Inject, CalculatedField, FieldList } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 
-const dataSourceSettings = {
-  dataSource: data,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: data as IDataSet[],
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Product' }],
   values: [
@@ -284,8 +300,8 @@ function cellTemplate(props: any): JSX.Element {
   );
 }
 
-const dataSourceSettings = {
-  dataSource: data,
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: data as IDataSet[],
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Product' }],
   values: [{ name: 'Sales' }]
