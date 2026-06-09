@@ -252,6 +252,30 @@ const taskFields: TaskFieldsModel = {
 };
 ```
 
+## Configure taskbar overlap
+
+When `enableMultiTaskbar` is enabled and the resource row is collapsed, the [allowTaskbarOverlap](https://ej2.syncfusion.com/react/documentation/api/gantt#allowtaskbaroverlap) property controls how multiple taskbars are rendered in the same resource row:
+
+- **Overlapping mode (true, default):** Multiple taskbars overlap within the standard row height, keeping the timeline compact. Dependency connections (including between tasks of the same resource) remain supported.
+- **Non-overlapping mode (false):** Taskbars are stacked vertically using an extended row height, preventing overlaps for clearer visibility of overallocation. Dependencies between tasks of the same resource are not supported.
+
+Example (non-overlapping mode):
+
+```tsx
+<GanttComponent
+  viewType='ResourceView'
+  enableMultiTaskbar={true}
+  allowTaskbarOverlap={false}
+  dataSource={data}
+  taskFields={taskFields}
+  resourceFields={resourceFields}
+  resources={projectResources}
+  height='450px'
+>
+  <Inject services={[Edit, Selection, Toolbar, RowDD]} />
+</GanttComponent>
+```
+
 ---
 
 ## Managing Resources via Editing

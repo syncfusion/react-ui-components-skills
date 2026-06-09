@@ -99,11 +99,22 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 📄 **Read:** [references/timeline.md](references/timeline.md)
 - `timelineViewMode` quick presets (`Hour`, `Day`, `Week`, `Month`, `Year`)
 - Top tier and bottom tier independent configuration (`unit`, `format`, `count`, `formatter`)
-- Custom timeline cell rendering via `formatter` function
-- `timelineUnitSize` — pixel width per cell
+- Combining timeline cells using `count` (merge multiple units per cell)
+- Custom timeline cell formatting using `formatter` (tier + mode aware)
+- Timeline view dates with `viewStartDate` / `viewEndDate` (lock visible range)
 - `weekStartDay` — controls which day starts a week column (0=Sun, 1=Mon…)
-- Weekend highlighting (`highlightWeekends={true}`)
-- Zoom in, zoom out, zoom to fit (toolbar + programmatic `zoomIn()`, `zoomOut()`, `fitToProject()`)
+- Automatic timescale updates using `updateTimescaleView`
+- Dynamic timeline mode change at runtime (update `timelineViewMode` + `refresh()`)
+- Timeline cell tooltip visibility using `showTooltip`
+- Timeline template customization using `timelineTemplate` ({ date, value, tier })
+- Timeline navigation using `previousTimeSpan()` / `nextTimeSpan()`
+- Zooming with toolbar (`ZoomIn`, `ZoomOut`, `ZoomToFit`)
+- Customizing zoom steps with `zoomingLevels` (`ZoomTimelineSettings`)
+- Programmatic zoom methods: `zoomIn()`, `zoomOut()`, `fitToProject()`
+- Timeline cell width using `timelineUnitSize`
+- Weekend handling:
+  - Highlight weekends with `highlightWeekends={true}`
+  - Hide weekends using `timelineSettings.showWeekend` (with noted limitations)
 
 ### Columns
 📄 **Read:** [references/columns.md](references/columns.md)
@@ -201,6 +212,8 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 📄 **Read:** [references/taskbar-labels-markers.md](references/taskbar-labels-markers.md)
 - Taskbar template (custom rendering)
 - Parent taskbar and milestone customization
+- Tooltip settings and templates (`tooltipSettings` for taskbar, connector line, baseline, timeline)
+- Disable/hide tooltips for specific UI targets using `beforeTooltipRender`
 - Left, right, and task label configuration
 - Data markers / indicators
 - Event markers (deadlines, holidays on timeline)
@@ -536,6 +549,7 @@ import { GanttComponent, Inject, Edit, Filter, Sort, Toolbar, Selection } from '
 | `enableAutoWbsUpdate` | boolean | Recalculate WBS codes after CRUD/sort/DnD |
 | `frozenColumns` | number | Number of left-pinned (frozen) columns |
 | `enableMultiTaskbar` | boolean | Show multiple taskbars per resource row |
+| `allowTaskbarOverlap` | boolean | Controls whether multiple taskbars overlap (true, default) or stack with extended row height (false) in resource rows |
 | `viewType` | string | `'ProjectView'` or `'ResourceView'` |
 | `showColumnMenu` | boolean | Show column-level menu (sort, filter, autofit) |
 | `columnMenuItems` | string[] | Restrict which column menu items are shown |

@@ -94,25 +94,72 @@ const milestoneTemplate = (props: any) => (
 
 ### Tooltip Settings
 ```tsx
+// Safe formatter: supports both Date objects and ISO/string inputs.
+const formatDate = (value: any) => {
+  if (!value) return '';
+  const d = value instanceof Date ? value : new Date(value);
+  return isNaN(d.getTime()) ? '' : d.toDateString();
+};
+
 const tooltipSettings = {
   showTooltip: true,
+
+  // Taskbar tooltip
   taskbar: (props: any) => (
     <div>
       <b>{props.TaskName}</b>
-      <p>Start: {props.StartDate.toDateString()}</p>
-      <p>End: {props.EndDate.toDateString()}</p>
+      <p>Start: {formatDate(props.StartDate)}</p>
+      <p>End: {formatDate(props.EndDate)}</p>
+      {props.Duration != null && <p>Duration: {props.Duration}</p>}
       <p>Progress: {props.Progress}%</p>
     </div>
   ),
-  baseline: (props: any) => (
+
+  // Connector line tooltip (dependency arrows)
+  connectorLine: (props: any) => (
     <div>
-      <p>Baseline Start: {props.BaselineStartDate.toDateString()}</p>
-      <p>Baseline End: {props.BaselineEndDate.toDateString()}</p>
+      <p>Offset: {props.offsetString}</p>
     </div>
   ),
+
+  // Baseline tooltip
+  baseline: (props: any) => (
+    <div>
+      <p>Baseline Start: {formatDate(props.BaselineStartDate)}</p>
+      <p>Baseline End: {formatDate(props.BaselineEndDate)}</p>
+    </div>
+  ),
+
+  // Timeline tooltip (top/bottom tier)
+  timeline: (props: any) => (
+    <div style={{ padding: 5 }}>
+      <div style={{ fontWeight: 700 }}>{props.tier === 'topTier' ? props.value : props.date}</div>
+      <div style={{ marginTop: 4 }}>Label: {props.value}</div>
+    </div>
+  )
 };
 
 <GanttComponent tooltipSettings={tooltipSettings} ... />
+```
+
+Optional: Disable taskbar tooltip for specific UI targets (taskbars and resizers) using `beforeTooltipRender`.
+
+```tsx
+import { BeforeTooltipRenderEventArgs } from '@syncfusion/ej2-react-gantt';
+
+const beforeTooltipRender = (args: BeforeTooltipRenderEventArgs): void => {
+  const classList = (args.args?.target as HTMLElement | undefined)?.classList;
+  if (
+    classList?.contains('e-gantt-child-taskbar') ||
+    classList?.contains('e-gantt-parent-taskbar') ||
+    classList?.contains('e-taskbar-left-resizer') ||
+    classList?.contains('e-taskbar-right-resizer')
+  ) {
+    args.cancel = true;
+  }
+};
+
+<GanttComponent tooltipSettings={tooltipSettings} beforeTooltipRender={beforeTooltipRender} ... />
 ```
 
 ---
