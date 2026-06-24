@@ -96,6 +96,22 @@ This document provides common troubleshooting scenarios for Syncfusion React com
 
 ---
 
+## Issue: React and Syncfusion version incompatibility
+
+**Cause:** Using unsupported Syncfusion package version for your React version
+
+**Resolution:**  
+Check the table below and update packages if needed:
+
+| React version | Minimum Syncfusion React version |
+|---------------|----------------------------------|
+| v19           | 29.1.33 and above                |
+| v18           | 20.2.36 and above                |
+| v17           | 18.3.50 and above                |
+| v16           | 16.2.45 and above                |
+
+---
+
 ## Issue: Incorrect number/date format
 
 **Cause:** CLDR data not loaded
