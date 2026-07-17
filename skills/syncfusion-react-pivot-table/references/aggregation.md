@@ -4,7 +4,7 @@
 
 Aggregation is a powerful feature in the Syncfusion React Pivot Table component that allows end users to perform calculations on groups of values, specifically for value fields placed in the value axis. This feature is **applicable only for relational data sources** (not for OLAP data sources).
 
-By default, values in the pivot table are combined by summing them. However, the component supports 23+ different aggregation types to provide comprehensive data analysis capabilities.
+By default, values in the pivot table are combined by summing them. However, the component supports 24+ different aggregation types to provide comprehensive data analysis capabilities.
 
 ## Supported Aggregation Types
 
@@ -26,6 +26,7 @@ The Syncfusion React Pivot Table supports the following aggregation types:
 | **PopulationVar** | Displays the variance of the population for the selected field. | Numeric |
 | **SampleVar** | Displays the sample variance for the selected field. | Numeric |
 | **RunningTotals** | Displays the running total for the selected field values. | Numeric |
+| **PercentageOfRunningTotals** | Displays the cumulative percentage of running totals (client-side engine only). | Numeric |
 | **DifferenceFrom** | Displays the pivot table values with difference from the value of the base item in the base field. | Numeric |
 | **PercentageOfDifferenceFrom** | Displays the pivot table values with percentage difference from the value of the base item in the base field. | Numeric |
 | **PercentageOfGrandTotal** | Displays the pivot table values with percentage of grand total of all values. | Numeric |
@@ -154,6 +155,49 @@ values: [
   }
 ]
 ```
+
+### Using PercentageOfRunningTotals Aggregation
+
+The **PercentageOfRunningTotals** aggregation type displays the cumulative percentage of running totals, showing each cell's running total as a percentage of the grand running total. This is useful for analyzing cumulative contribution of each member toward the overall total (for example, a Pareto-style analysis). This aggregation is supported only by the client-side engine.
+
+Configure it like any other value-field aggregation by setting the `type` property to `'PercentageOfRunningTotals'`:
+
+```typescript
+import { IDataSet, PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
+import * as React from 'react';
+import { pivotData } from './datasource';
+
+function App() {
+  let dataSourceSettings: DataSourceSettingsModel = {
+    columns: [{ name: 'Year', caption: 'Production Year' }, { name: 'Quarter' }],
+    dataSource: pivotData as IDataSet[],
+    expandAll: false,
+    filters: [],
+    drilledMembers: [{ name: 'Country', items: ['France'] }],
+    rows: [{ name: 'Country' }, { name: 'Products' }],
+    values: [
+      { name: 'Sold', caption: 'Units Sold', type: 'RunningTotals' },
+      { name: 'Amount', caption: 'Cumulative % of Running Total', type: 'PercentageOfRunningTotals' }
+    ]
+  };
+
+  let pivotObj: PivotViewComponent;
+
+  return (
+    <PivotViewComponent
+      ref={(d: PivotViewComponent) => pivotObj = d}
+      id='PivotView'
+      height={350}
+      dataSourceSettings={dataSourceSettings}
+    />
+  );
+}
+
+export default App;
+```
+
+> **Note:** `PercentageOfRunningTotals` is supported only by the client-side engine and is not available with the server-side pivot engine. The output of this aggregation is **always rendered in the default `P2` percentage format** (consistent with other advanced percentage aggregations such as `PercentageOfGrandTotal`, `PercentageOfColumnTotal`, `PercentageOfRowTotal`, `PercentageOfParentTotal`, `PercentageOfParentColumnTotal`, and `PercentageOfParentRowTotal`). Any `formatSettings` entry for the field is ignored — the format cannot be customized.
 
 ## Modifying Aggregation at Runtime
 
@@ -620,6 +664,7 @@ export default App;
    - Use **PercentageOfColumnTotal** for column-wise contribution
    - Use **PercentageOfRowTotal** for row-wise contribution
    - Use **PercentageOfParentTotal** for hierarchical percentage analysis
+   - Use **PercentageOfRunningTotals** for cumulative percentage of running totals (Pareto-style analysis; client-side engine only)
 
 5. **Unique Values:**
    - Use **DistinctCount** to count unique values

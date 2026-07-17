@@ -47,30 +47,42 @@ function App() {
 export default App;
 ```
 
-### Enabling Member Filtering Programmatically using filterSettings.
+### Enabling Member Filtering Programmatically (filterSettings)
 
 Include or exclude specific field members from the pivot table.
 
 ```typescript
-import { Component } from '@angular/core';
+import { IDataSet, PivotViewComponent, Inject, FieldList } from '@syncfusion/ej2-react-pivotview';
+import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
+import * as React from 'react';
+import { pivotData } from './datasource';
 
-@Component({
-  selector: 'app-filter',
-  template: `<ejs-pivotview [dataSourceSettings]="dataSourceSettings"></ejs-pivotview>`
-})
-export class AppComponent {
-  dataSourceSettings: IDataOptions = {
-    dataSource: data,
-    rows: [{ name: 'Country' }],
-    columns: [{ name: 'Year' }],
-    values: [{ name: 'Sales', type: 'Sum' }],
-    filterSettings: [{
-      name: 'Country',
-      type: 'Include',
-      items: ['USA', 'Canada']
-    }]
+function App() {
+  const dataSourceSettings: DataSourceSettingsModel = {
+    columns: [{ name: 'Year', caption: 'Production Year' }, { name: 'Quarter' }],
+    dataSource: pivotData as IDataSet[],
+    expandAll: false,
+    filterSettings: [{ name: 'Country', type: 'Include', items: ['France', 'Germany'] }],
+    filters: [],
+    drilledMembers: [{ name: 'Country', items: ['France'] }],
+    formatSettings: [{ name: 'Amount', format: 'C0' }],
+    rows: [{ name: 'Country' }, { name: 'Products' }],
+    values: [{ name: 'Sold', caption: 'Units Sold' }, { name: 'Amount', caption: 'Sold Amount' }]
   };
+
+  return (
+    <PivotViewComponent
+      id='PivotView'
+      height={350}
+      dataSourceSettings={dataSourceSettings}
+      showFieldList={true}
+    >
+      <Inject services={[FieldList]} />
+    </PivotViewComponent>
+  );
 }
+
+export default App;
 ```
 
 ## Member Filter Dialog
@@ -102,6 +114,17 @@ Member filter options appear in the Field List UI. Click the filter icon next to
 />
 ```
 
+### Append Current Selection to Existing Filters
+
+By default, when a filter is applied and a new field member is selected, the Pivot Table replaces the previous selection. Enabling the **Add current selection to filter** option ensures that each new selection is added to the existing filter instead of replacing it. This allows you to select multiple items incrementally without losing earlier selections.
+
+To append current selections to existing filters:
+
+1. Open the Filter dialog.
+2. Search for the required field member and select it.
+3. Then, select the **Add current selection to filter** option in the Filter dialog.
+4. Click the **OK** button.
+
 ## Performance Considerations
 
 1. **Large Member Lists**: For fields with 10,000+ members, enable search in filter dialog
@@ -111,17 +134,18 @@ Member filter options appear in the Field List UI. Click the filter icon next to
 
 ```typescript
 // Performance optimization for large datasets
-const fieldListSettings = {
-  maxNodeLimitInMemberEditor: 1000,  // Limit displayed members
-  allowSearching: true               // Enable search for finding members
+const dataSourceSettings: DataSourceSettingsModel = {
+  dataSource: pivotData as IDataSet[],
+  rows: [{ name: 'Country' }],
+  columns: [{ name: 'Product' }],
+  values: [{ name: 'Sales' }],
+  allowMemberFilter: true
 };
 
 <PivotViewComponent
-  fieldListSettings={fieldListSettings}
-  dataSourceSettings={{
-    ...dataSourceSettings,
-    allowMemberFilter: true
-  }}
+  maxNodeLimitInMemberEditor={1000}  // Limit displayed members; search is enabled by default in the member editor
+  showFieldList={true}
+  dataSourceSettings={dataSourceSettings}
 />
 ```
 
@@ -148,7 +172,7 @@ const fieldListSettings = {
 - Ensure `showFieldList={true}` or `showGroupingBar={true}`
 
 **Member filter not applying?**
-- Verify `drilledMembers` is correctly configured with matching member values
+- Verify `filterSettings.items` is correctly configured with matching member values
 - Check console for JavaScript errors
 - Ensure data source contains the specified members
 

@@ -56,27 +56,19 @@ Both functional and class components are supported. The `id` prop is required an
 
 ## CSS Imports
 
-The BlockEditor requires CSS styles from multiple Syncfusion packages. Import these in your main CSS file or at the component level:
+Install the theme package that matches your application. This example uses `Tailwind 3`:
 
-```css
-@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-dropdowns/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-react-blockeditor/styles/material.css";
+```bash
+npm install @syncfusion/ej2-tailwind3-theme
 ```
 
-### Available Themes
+Add the theme stylesheet to your `src/App.css`:
 
-Replace `material` with any of these supported theme names:
-- `tailwind3` - Tailwind CSS 3 design
-- `bootstrap5` - Bootstrap 5 styling
-- `fluent` - Microsoft Fluent design
-- `material-dark` - Material dark theme
-- `bootstrap5-dark` - Bootstrap 5 dark theme
+```css
+@import '../node_modules/@syncfusion/ej2-tailwind3-theme/styles/blockeditor/index.css';
+```
+
+> Replace `tailwind3` with your preferred theme name (`material3`, `bootstrap5`, `fabric`, `fluent2`, etc) install the corresponding package, and use the same theme name in the CSS import path.
 
 Example for Tailwind theme:
 

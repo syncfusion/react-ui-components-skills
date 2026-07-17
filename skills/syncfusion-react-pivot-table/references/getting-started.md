@@ -14,20 +14,21 @@ npm install @syncfusion/ej2-react-pivotview
 
 ## CSS Imports and Theming
 
-The PivotView component requires Syncfusion theme stylesheets. Add the following CSS imports to your `App.css` file. These stylesheets provide the visual styling for all Syncfusion components used within the PivotTable.
+Themes for Syncfusion React components can be applied using CSS or SASS files from the [npm theme packages](https://ej2.syncfusion.com/react/documentation/appearance/theme#theme-packages), CDN, CRG, or [Theme Studio](https://ej2.syncfusion.com/react/documentation/appearance/theme-studio). For more information, see the [themes documentation](https://ej2.syncfusion.com/react/documentation/appearance/theme).
+
+This guide uses the `Tailwind 3` theme as an example, sourced from the theme package. In this package, each component includes an `index.css` file that automatically loads all the required dependency styles. To install the [Tailwind 3](https://www.npmjs.com/package/@syncfusion/ej2-tailwind3-theme) theme package, use the following command:
+
+```bash
+npm install @syncfusion/ej2-tailwind3-theme --save
+```
+
+By default, Vite projects include a `index.css` file with default styles. These default styles may conflict with Syncfusion component styles. Clear all content from the `index.css` file to prevent style conflicts.
+
+The required styles for the Pivot Table component are imported in the **src/App.css** file:
 
 ```css
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-grids/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-lists/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-calendars/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-react-pivotview/styles/tailwind3.css';
+/* App.css */
+@import '../node_modules/@syncfusion/ej2-tailwind3-theme/styles/pivotview/index.css';
 ```
 
 > **Note:** The `node_modules` path assumes Syncfusion packages are installed in your project's node_modules directory. If you're using a different path or bundler configuration, adjust the path accordingly.
@@ -205,4 +206,4 @@ export default PivotTableWithModules;
 Ensure all required Syncfusion packages are installed. Run `npm list @syncfusion/ej2-react-pivotview` to verify.
 
 ### Styles not showing
-Import the CSS file before component usage: `import '../node_modules/@syncfusion/ej2-react-pivotview/styles/material.css';`
+Ensure the Tailwind 3 theme package is installed: `npm install @syncfusion/ej2-tailwind3-theme --save`, and that the theme CSS is imported in `App.css` (for Vite) or `globals.css` (for Next.js): `@import '../node_modules/@syncfusion/ej2-tailwind3-theme/styles/pivotview/index.css';`. Also confirm that any default `index.css` provided by the bundler has been cleared to prevent style conflicts.

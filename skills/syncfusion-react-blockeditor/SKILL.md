@@ -86,7 +86,18 @@ The BlockEditorComponent provides:
 - XSS protection and HTML sanitization
 - RTL support and internationalization
 
-
+### Collaborative Editing
+📄 **Read:** [references/collaborative-editing.md](references/collaborative-editing.md)
+- Real-time collaborative editing powered by Yjs (CRDT-based sync and conflict resolution)
+- Injecting the `Collaboration` and `VersionHistory` modules
+- `collaborationSettings` property (provider, adapter, enableAwareness, versionHistory)
+- Choosing a Yjs provider (y-websocket, y-webrtc, y-indexeddb, Hocuspocus, Liveblocks, PartyKit)
+- Setting up a Yjs document, `YjsAdapter`, and provider
+- User presence, remote cursors, and text selection overlays (enableAwareness)
+- Configuring the current user via `users` and `currentUserId`
+- Version history: creating, listing, renaming, restoring, comparing, exporting, and importing snapshots
+- Custom snapshot storage via the `IVersionStorage` interface
+- Version history events: `snapshotCreated`, `snapshotRestored`
 
 ### Accessibility
 📄 **Read:** [references/accessibility.md](references/accessibility.md)

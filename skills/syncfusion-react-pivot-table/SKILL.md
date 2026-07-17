@@ -99,7 +99,7 @@ Use this skill when you need to:
 - Aggregation functions, calculated fields (defining and editing), summary customization options
 
 📄 **Read:** [references/aggregation.md](references/aggregation.md)
-- 25+ aggregation types (Sum, Average, Count, etc.), advanced aggregations, base field configuration, runtime modification
+- 24+ aggregation types (Sum, Average, Count, etc.), advanced aggregations, base field configuration, runtime modification
 
 📄 **Read:** [references/calculated-field.md](references/calculated-field.md)
 - Interactive calculated field dialog, formula syntax and operators, code-based methods, format settings
@@ -120,9 +120,9 @@ Use this skill when you need to:
 - Member filtering, label filtering, value filtering, sorting operations, filter customization
 
 📄 **Read separately if needed:**
-- [references/member-filtering.md](references/member-filtering.md) - Select/exclude specific members, interactive filter dialogs
+- [references/member-filtering.md](references/member-filtering.md) - Select/exclude specific members, interactive filter dialogs, append current selection to existing filters
 - [references/label-filtering.md](references/label-filtering.md) - Filter by text patterns, date ranges, numeric ranges
-- [references/value-filtering.md](references/value-filtering.md) - Filter by aggregated values, Top/Bottom N, percentage filtering
+- [references/value-filtering.md](references/value-filtering.md) - Filter by aggregated values, Top/Bottom N members (client-side), clearing value filter
 - [references/value-sorting.md](references/value-sorting.md) - Sort by measure values, ranking analysis, multi-level sorting
 
 📄 **Read:** [references/show-hide-totals.md](references/show-hide-totals.md)
@@ -171,19 +171,19 @@ Use this skill when you need to:
 
 ## Quick Start
 
+Install the [Tailwind 3](https://www.npmjs.com/package/@syncfusion/ej2-tailwind3-theme) theme package. Each component in this theme package includes an `index.css` file that automatically loads all required dependency styles.
+
+```bash
+npm install @syncfusion/ej2-tailwind3-theme --save
+```
+
+By default, Vite projects include an `index.css` file with default styles. These default styles may conflict with Syncfusion component styles. Clear all content from the `index.css` file to prevent style conflicts.
+
+The required styles for the Pivot Table component are imported in the **src/App.css** file:
+
 ```css
 /* App.css */
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-grids/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-lists/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-calendars/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-react-pivotview/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-tailwind3-theme/styles/pivotview/index.css';
 ```
 
 ```typescript

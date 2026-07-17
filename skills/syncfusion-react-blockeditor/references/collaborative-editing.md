@@ -35,9 +35,11 @@ Before enabling collaboration, install the `yjs` library and a Yjs provider. See
 Inject the `Collaboration` module into the Block Editor before use.
 
 ```typescript
-import { BlockEditorComponent, Collaboration } from '@syncfusion/ej2-react-blockeditor';
+import { BlockEditorComponent, Collaboration, Inject } from '@syncfusion/ej2-react-blockeditor';
 
-BlockEditorComponent.Inject(Collaboration);
+<BlockEditorComponent>
+<Inject services={[Collaboration]} />
+</BlockEditorComponent>
 ```
 
 ## Yjs Providers
@@ -88,11 +90,12 @@ Create an adapter that provides the Yjs runtime and the shared fragment to the B
 
 ```typescript
 import * as Y from 'yjs';
+import { YjsAdapter } from '@syncfusion/ej2-react-blockeditor';
 
-const adapter = new YjsAdapter({
+const adapter: YjsAdapter = {
     yRuntime: Y,
     yXmlFragment: yFragment
-});
+};
 ```
 
 ### Step 3: Configure a provider
@@ -200,9 +203,7 @@ Inject the `VersionHistory` module and configure the `versionHistory` property u
 `collaborationSettings` property.
 
 ```typescript
-import { BlockEditorComponent, VersionHistory } from '@syncfusion/ej2-react-blockeditor';
-
-BlockEditorComponent.Inject(VersionHistory);
+import { BlockEditorComponent, VersionHistory, Inject } from '@syncfusion/ej2-react-blockeditor';
 
 const myStorage = new CustomVersionStorage(`blockeditor-${uniqueId}`);
 
@@ -215,7 +216,8 @@ const myStorage = new CustomVersionStorage(`blockeditor-${uniqueId}`);
             snapshotInterval: 3000
         }
     }}
-/>
+> <Inject services={[VersionHistory]} />
+</BlockEditorComponent>
 ```
 
 ### Access the version history instance

@@ -53,50 +53,53 @@ export default App;
 | Operator | Description | Use Case |
 |----------|-------------|----------|
 | `Equals` | Value equals exactly | Sales = $50,000 |
-| `NotEquals` | Value does not equal | Sales ≠ $25,000 |
+| `DoesNotEquals` | Value does not equal | Sales ≠ $25,000 |
 | `GreaterThan` | Value greater than | Sales > $100,000 |
 | `GreaterThanOrEqualTo` | Value >= threshold | Sales >= $50,000 |
 | `LessThan` | Value less than | Sales < $10,000 |
 | `LessThanOrEqualTo` | Value <= threshold | Sales <= $100,000 |
 | `Between` | Value within range | Sales between $25K-$100K |
 | `NotBetween` | Value outside range | Sales not between $0-$5K |
-| `Top10` | Top N values | Top 10 countries by sales |
-| `Bottom10` | Bottom N values | Bottom 5 products by average |
-| `Top10Percent` | Top N percent | Top 10% by revenue |
-| `Bottom10Percent` | Bottom N percent | Bottom 10% by quantity |
-| `Top10Sum` | Top N by cumulative | Top 10 by total sales sum |
-| `Bottom10Sum` | Bottom N by cumulative | Bottom 5 by total |
+| `Top` | Top N members by highest values (client-side only) | Top 10 countries by sales |
+| `Bottom` | Bottom N members by lowest values (client-side only) | Bottom 5 products by average |
 
 ## Basic Value Filtering
 
 ### Filter by Single Value Threshold
 
 ```typescript
-import { PivotViewComponent } from '@syncfusion/ej2-react-pivotview';
+import { PivotViewComponent, FieldList, IDataSet, Inject } from '@syncfusion/ej2-react-pivotview';
 import { DataSourceSettingsModel } from '@syncfusion/ej2-pivotview/src/model/datasourcesettings-model';
 
 function App() {
   const dataSourceSettings: DataSourceSettingsModel = {
     dataSource: pivotData as IDataSet[],
+    expandAll: false,
+    allowValueFilter: true,
     rows: [{ name: 'Country' }],
-    columns: [{ name: 'Product' }],
-    values: [{ name: 'Sales' }],
-    // Filter rows where Sales > 50000
+    columns: [{ name: 'Year' }],
+    values: [{ name: 'Sold', caption: 'Units Sold' }],
+    // Filter rows where total units sold per country > 2000
     filterSettings: [
       {
-        name: 'Sales',
+        name: 'Country',
+        measure: 'Sold',
         type: 'Value',
         condition: 'GreaterThan',
-        value1: '50000'
+        value1: '2000'
       }
     ]
   };
 
   return (
     <PivotViewComponent
+      id='PivotView'
+      height={350}
       dataSourceSettings={dataSourceSettings}
-      allowValueFilter={true}
-    />
+      showFieldList={true}
+    >
+      <Inject services={[FieldList]} />
+    </PivotViewComponent>
   );
 }
 
@@ -108,17 +111,20 @@ export default App;
 ```typescript
 const dataSourceSettings: DataSourceSettingsModel = {
   dataSource: pivotData as IDataSet[],
+  expandAll: false,
+  allowValueFilter: true,
   rows: [{ name: 'Country' }],
-  columns: [{ name: 'Product' }],
-  values: [{ name: 'Sales' }],
-  // Filter to show only countries with sales between 25K and 100K
+  columns: [{ name: 'Year' }],
+  values: [{ name: 'Sold', caption: 'Units Sold' }, { name: 'Amount', caption: 'Sold Amount' }],
+  // Filter to show only countries with units sold between 1500 and 5000
   filterSettings: [
     {
-      name: 'Sales',
+      name: 'Country',
+      measure: 'Sold',
       type: 'Value',
       condition: 'Between',
-      value1: '25000',
-      value2: '100000'
+      value1: '1500',
+      value2: '5000'
     }
   ]
 };
@@ -126,31 +132,41 @@ const dataSourceSettings: DataSourceSettingsModel = {
 
 ## Top/Bottom N Filtering
 
+The `Top` and `Bottom` operators allow you to display only the top N or bottom N members based on the aggregated value of a measure field. Use `value1` to specify the count N. **Note:** Top/Bottom filtering is performed client-side only.
+
 ### Top N Values
 
 ```typescript
 function TopCountriesByRevenue() {
   const dataSourceSettings: DataSourceSettingsModel = {
-    dataSource: salesData as IDataSet[],
+    dataSource: pivotData as IDataSet[],
+    expandAll: false,
+    allowValueFilter: true,
     rows: [{ name: 'Country' }],
-    columns: [{ name: 'Year' }],
-    values: [{ name: 'Revenue' }],
-    // Show top 10 countries by revenue
+    columns: [{ name: 'Year', caption: 'Production Year' }, { name: 'Quarter' }],
+    values: [{ name: 'Sold', caption: 'Units Sold' }, { name: 'Amount', caption: 'Sold Amount' }],
+    filters: [],
+    // Show top 5 countries by total units sold
     filterSettings: [
       {
-        name: 'Revenue',
+        name: 'Country',
+        measure: 'Sold',
         type: 'Value',
-        condition: 'Top10',
-        value1: '10'
+        condition: 'Top',
+        value1: '5'
       }
     ]
   };
 
   return (
     <PivotViewComponent
+      id='PivotView'
+      height={350}
       dataSourceSettings={dataSourceSettings}
-      height={400}
-    />
+      showFieldList={true}
+    >
+      <Inject services={[FieldList]} />
+    </PivotViewComponent>
   );
 }
 
@@ -161,52 +177,29 @@ export default TopCountriesByRevenue;
 
 ```typescript
 const dataSourceSettings: DataSourceSettingsModel = {
-  dataSource: data as IDataSet[],
-  rows: [{ name: 'Product' }],
-  columns: [{ name: 'Quarter' }],
-  values: [{ name: 'Units' }],
-  formatSettings: [
-    { name: 'Units', format: 'N0' }
-  ],
-  // Show bottom 5 products by units sold
+  dataSource: pivotData as IDataSet[],
+  expandAll: false,
+  allowValueFilter: true,
+  rows: [{ name: 'Country' }, { name: 'Products' }],
+  columns: [{ name: 'Year', caption: 'Production Year' }, { name: 'Quarter' }],
+  values: [{ name: 'Sold', caption: 'Units Sold' }, { name: 'Amount', caption: 'Sold Amount' }],
+  filters: [],
+  // Show bottom 5 countries by total units sold
   filterSettings: [
     {
-      name: 'Units',
+      name: 'Country',
+      measure: 'Sold',
       type: 'Value',
-      condition: 'Bottom10',
+      condition: 'Bottom',
       value1: '5'
     }
   ]
 };
 ```
 
-## Percentage-Based Filtering
+## Clearing the Existing Value Filter
 
-### Top/Bottom Percentage
-
-```typescript
-function TopPercentFiltering() {
-  const dataSourceSettings: DataSourceSettingsModel = {
-    dataSource: data as IDataSet[],
-    rows: [{ name: 'Country' }],
-    columns: [{ name: 'Product' }],
-    values: [{ name: 'Sales' }],
-    // Show only top 20% performers
-    filterSettings: [
-      {
-        name: 'Sales',
-        type: 'Value',
-        condition: 'Top10Percent',
-        value1: '20'  // Top 20%
-      }
-    ]
-  };
-
-  return (
-    <PivotViewComponent dataSourceSettings={dataSourceSettings} />
-  );
-}
-```
+You can clear the applied value filter by clicking the **Clear** option at the bottom of the filter dialog under the **Value** tab.
 
 ## Advanced Value Filtering
 
@@ -250,20 +243,22 @@ function MultiFieldValueFilter() {
 
 ### Column-Level Value Filtering
 
+To filter values on a specific axis, place the field on the desired axis (row or column). Value filtering is applied to the field on that axis automatically, and the `filterSettings.name` should reference a row or column field:
+
 ```typescript
 const dataSourceSettings: DataSourceSettingsModel = {
   dataSource: data as IDataSet[],
   rows: [{ name: 'Country' }],
   columns: [{ name: 'Year' }, { name: 'Quarter' }],
   values: [{ name: 'Sales' }],
-  // Filter specific column combinations
+  // Filter the Country field (row axis) by total sales
   filterSettings: [
     {
-      name: 'Sales',
+      name: 'Country',
+      measure: 'Sales',
       type: 'Value',
       condition: 'GreaterThan',
-      value1: '100000',
-      axis: 'Column'  // Filter on column totals
+      value1: 100000
     }
   ]
 };
@@ -289,6 +284,8 @@ function InteractiveValueFilter() {
           value1: filterValue.toString()
         }
       ];
+      // Required for the change to take effect
+      pivotObj.refresh();
     }
   };
 
@@ -300,8 +297,8 @@ function InteractiveValueFilter() {
           <option value="GreaterThan">Greater Than</option>
           <option value="LessThan">Less Than</option>
           <option value="Between">Between</option>
-          <option value="Top10">Top 10</option>
-          <option value="Bottom10">Bottom 10</option>
+          <option value="Top">Top N</option>
+          <option value="Bottom">Bottom N</option>
         </select>
       </div>
       <div style={{ marginBottom: '15px' }}>
@@ -384,7 +381,7 @@ function TopProductsReport() {
       {
         name: 'Revenue',
         type: 'Value',
-        condition: 'Top10',
+        condition: 'Top',
         value1: '10'
       }
     ]

@@ -122,6 +122,17 @@ filterSettings: [
 ]
 ```
 
+### Append Current Selection to Existing Filters
+
+By default, when a filter is applied and a new field member is selected, the Pivot Table replaces the previous selection. Enabling the **Add current selection to filter** option ensures that each new selection is added to the existing filter instead of replacing it. This allows you to select multiple items incrementally without losing earlier selections.
+
+To append current selections to existing filters:
+
+1. Open the Filter dialog.
+2. Search for the required field member and select it.
+3. Then, select the **Add current selection to filter** option in the Filter dialog.
+4. Click the **OK** button.
+
 ## Label Filtering
 
 ### Overview
@@ -285,6 +296,8 @@ Configure value filtering through the `filterSettings` property. The required se
 | LessThanOrEqualTo | Value is lesser than or equal |
 | Between | Between start and end values |
 | NotBetween | Not between start and end values |
+| Top | Top N members by highest values (client-side only) |
+| Bottom | Bottom N members by lowest values (client-side only) |
 
 ```typescript
 const dataSourceSettings: DataSourceSettingsModel = {
