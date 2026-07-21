@@ -334,7 +334,7 @@ const handleBeforeSend = (args) => {
 ```tsx
 import React, { useRef, useState } from 'react';
 import { FileManagerComponent, Inject, DetailsView, NavigationPane, Toolbar } from '@syncfusion/ej2-react-filemanager';
-import '@syncfusion/ej2-react-filemanager/styles/material.css';
+import '@syncfusion/ej2-tailwind3-theme/styles/file-manager/index.css';
 
 function AdvancedFileManagerExample() {
   const fileManagerRef = useRef(null);

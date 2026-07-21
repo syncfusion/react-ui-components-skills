@@ -18,8 +18,7 @@
 **Solutions:**
 1. Check CSS imports
 ```tsx
-import '@syncfusion/ej2-react-inputs/styles/material.css';
-import '@syncfusion/ej2-icons/styles/material.css';
+import "@syncfusion/ej2-tailwind3-theme/styles/speech-to-text/index.css";
 ```
 
 2. Verify component is imported

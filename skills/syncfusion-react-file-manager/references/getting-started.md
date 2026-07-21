@@ -38,6 +38,7 @@ npm install @syncfusion/ej2-react-filemanager @syncfusion/ej2-base @syncfusion/e
 npm create vite@latest my-file-manager -- --template react-ts
 cd my-file-manager
 npm install @syncfusion/ej2-react-filemanager
+npm install @syncfusion/ej2-tailwind3-theme
 npm run dev
 ```
 
@@ -46,33 +47,28 @@ npm run dev
 npx create-react-app my-file-manager
 cd my-file-manager
 npm install @syncfusion/ej2-react-filemanager
+npm install @syncfusion/ej2-tailwind3-theme
 npm start
 ```
 
 ## CSS Theme Setup
 
-Import the required CSS files for your chosen theme. Material theme is shown below:
+To install the [Tailwind3](https://www.npmjs.com/package/@syncfusion/ej2-tailwind3-theme) theme package, use the following command:
+
+```bash
+npm i @syncfusion/ej2-tailwind3-theme
+```
+
+In this package, the File Manager component includes an `index.css` file that automatically loads all the required dependency styles. Add the following import to the **src/App.css** file.
 
 ```css
 /* App.css */
-@import '../node_modules/@syncfusion/ej2-base/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-icons/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-inputs/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-navigations/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-layouts/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-grids/styles/material.css';
-@import '../node_modules/@syncfusion/ej2-react-filemanager/styles/material.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/file-manager/index.css";
 ```
 
-**Available Themes:**
-- Material (default): `material.css`
-- Bootstrap: `bootstrap.css`
-- Bootstrap 4: `bootstrap4.css`
-- Fabric: `fabric.css`
-- Tailwind: `tailwind.css`
+To reference `App.css` in the application, import it into the `src/App.tsx` file. Also, remove any unnecessary styles from `src/index.css` and `src/App.css`, as they may affect the File Manager component UI.
+
+> **Note:** If you want to use combined component styles, make use of the [Custom Resource Generator (CRG)](https://crg.syncfusion.com) in your application.
 
 ## Basic Implementation
 
@@ -476,9 +472,9 @@ The File Manager provides several events for custom behavior:
 ## Troubleshooting
 
 **Issue: Theme not applied**
-- Verify all CSS imports are correct
-- Check CSS file paths in `node_modules`
-- Ensure import order: base, icons, inputs, popups, buttons, navigations, layouts, grids, filemanager
+- Verify the `@syncfusion/ej2-tailwind3-theme` package is installed
+- Check that the `@import` path in `App.css` correctly points to `node_modules/@syncfusion/ej2-tailwind3-theme/styles/file-manager/index.css`
+- Remove any leftover individual component CSS imports (e.g. `ej2-react-filemanager/styles/material.css`) that may conflict with the theme package
 
 **Issue: Backend endpoints not working**
 - Verify `ajaxSettings` URLs match your backend API

@@ -30,21 +30,17 @@ yarn add @syncfusion/ej2-react-interactive-chat
 
 ### Import Required Stylesheets
 
+To install the tailwind3 theme package, use the following command:
+
+```bash
+npm install @syncfusion/ej2-tailwind3-theme --save
+```
+
 Add the following imports to your `src/App.css` or main CSS file:
 
 ```css
-/* Import base theme styles */
-@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
-
-/* Import component-specific styles */
-@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-dropdowns/styles/material.css";
-
 /* Import Chat-UI styles */
-@import "../node_modules/@syncfusion/ej2-react-interactive-chat/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/chat-ui/index.css";
 ```
 
 ### Available Themes

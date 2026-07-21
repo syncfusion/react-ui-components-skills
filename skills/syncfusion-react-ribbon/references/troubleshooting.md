@@ -37,7 +37,7 @@ import { RibbonComponent, RibbonTabsDirective, RibbonTabDirective } from "@syncf
 
 3. **Verify CSS imports:**
 ```css
-@import "../node_modules/@syncfusion/ej2-ribbon/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/ribbon/index.css";
 ```
 
 ### Tabs or groups not appearing
@@ -77,15 +77,7 @@ import { RibbonComponent, RibbonTabsDirective, RibbonTabDirective } from "@syncf
 
 1. **Import all required CSS files:**
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-lists/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-ribbon/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/ribbon/index.css";
 ```
 
 2. **Clear browser cache:**
@@ -98,8 +90,8 @@ npm install
 
 3. **Check theme file path:**
 ```
-✓ Correct: ../node_modules/@syncfusion/ej2-ribbon/styles/tailwind3.css
-✗ Wrong: ./node_modules/@syncfusion/ej2-ribbon/styles/tailwind3.css
+✓ Correct: ../node_modules/@syncfusion/ej2-tailwind3-theme/styles/ribbon/index.css
+✗ Wrong: ./node_modules/@syncfusion/ej2-tailwind3-theme/styles/ribbon/index.css
 ```
 
 ### Custom styles not working
@@ -111,7 +103,7 @@ npm install
 1. **Import custom CSS AFTER Syncfusion CSS:**
 ```css
 /* App.css */
-@import "../node_modules/@syncfusion/ej2-ribbon/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/ribbon/index.css";
 
 /* Custom styles - imported AFTER */
 .e-ribbon {

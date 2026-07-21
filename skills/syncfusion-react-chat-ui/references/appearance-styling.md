@@ -441,31 +441,31 @@ Create a `custom-chat.css` file:
 ### Material Theme (Default)
 
 ```css
-@import "../node_modules/@syncfusion/ej2-react-interactive-chat/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-material-theme/styles/chat-ui/index.css";
 ```
 
 ### Bootstrap 5 Theme
 
 ```css
-@import "../node_modules/@syncfusion/ej2-react-interactive-chat/styles/bootstrap5.css";
+@import "../node_modules/@syncfusion/ej2-bootstrap5-theme/styles/chat-ui/index.css";
 ```
 
 ### Fluent Theme
 
 ```css
-@import "../node_modules/@syncfusion/ej2-react-interactive-chat/styles/fluent.css";
+@import "../node_modules/@syncfusion/ej2-fluent-theme/styles/chat-ui/index.css";
 ```
 
 ### Tailwind Theme
 
 ```css
-@import "../node_modules/@syncfusion/ej2-react-interactive-chat/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-tailwind-theme/styles/chat-ui/index.css";
 ```
 
 ### High Contrast Theme
 
 ```css
-@import "../node_modules/@syncfusion/ej2-react-interactive-chat/styles/highcontrast.css";
+@import "../node_modules/@syncfusion/ej2-highcontrast-theme/styles/chat-ui/index.css";
 ```
 
 ## Complete Styling Example

@@ -92,7 +92,7 @@ The SpeechToText component enables users to convert spoken words into text using
 ```tsx
 import { SpeechToTextComponent, TextAreaComponent, TranscriptChangedEventArgs } from '@syncfusion/ej2-react-inputs';
 import { useState } from 'react';
-import '@syncfusion/ej2-react-inputs/styles/material.css';
+import "@syncfusion/ej2-tailwind3-theme/styles/speech-to-text/index.css";
 
 function VoiceNoteApp() {
   const [transcript, setTranscript] = useState('');

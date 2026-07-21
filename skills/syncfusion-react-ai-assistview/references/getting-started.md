@@ -79,38 +79,38 @@ export default App;
 
 ### Add Theme to Application
 
+To install the tailwind3 theme package, use the following command:
+
+```bash
+npm install @syncfusion/ej2-tailwind3-theme --save
+```
+
 Import the required CSS files in your `src/App.css` or `src/main.tsx`:
 
 ```css
-/* Material Theme (Recommended) */
-@import '@syncfusion/ej2-base/styles/material.css';
-@import '@syncfusion/ej2-react-interactive-chat/styles/material.css';
+/* Tailwind 3 Theme (Recommended) */
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/ai-assistview/index.css";
 ```
 
 ### Available Theme Options
 
-Replace `material` with any of these options:
+Replace `tailwind` with any of these options:
 
 ```css
 /* Bootstrap 5 Theme */
-@import '@syncfusion/ej2-base/styles/bootstrap5.css';
-@import '@syncfusion/ej2-react-interactive-chat/styles/bootstrap5.css';
+@import "../node_modules/@syncfusion/ej2-bootstrap5-theme/styles/ai-assistview/index.css";
 
-/* Tailwind CSS Theme */
-@import '@syncfusion/ej2-base/styles/tailwind.css';
-@import '@syncfusion/ej2-react-interactive-chat/styles/tailwind.css';
+/* Material 3 Theme */
+@import "../node_modules/@syncfusion/ej2-material3-theme/styles/ai-assistview/index.css";
 
 /* Fluent Theme */
-@import '@syncfusion/ej2-base/styles/fluent.css';
-@import '@syncfusion/ej2-react-interactive-chat/styles/fluent.css';
+@import "../node_modules/@syncfusion/ej2-fluent-theme/styles/ai-assistview/index.css";
 
 /* Bootstrap Theme */
-@import '@syncfusion/ej2-base/styles/bootstrap.css';
-@import '@syncfusion/ej2-react-interactive-chat/styles/bootstrap.css';
+@import "../node_modules/@syncfusion/ej2-bootstrap-theme/styles/ai-assistview/index.css";
 
 /* High Contrast Theme */
-@import '@syncfusion/ej2-base/styles/highcontrast.css';
-@import '@syncfusion/ej2-react-interactive-chat/styles/highcontrast.css';
+@import "../node_modules/@syncfusion/ej2-highcontrast-theme/styles/ai-assistview/index.css";
 ```
 
 ### In main.tsx or index.tsx
@@ -172,8 +172,7 @@ export default App;
 ### Add Styling to src/App.css
 
 ```css
-@import '@syncfusion/ej2-base/styles/material.css';
-@import '@syncfusion/ej2-react-interactive-chat/styles/material.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/ai-assistview/index.css";
 
 .app-container {
     width: 100%;

@@ -563,8 +563,7 @@ function App() {
 
 ```tsx
 // Import Syncfusion theme
-import '@syncfusion/ej2-base/styles/material.css';
-import '@syncfusion/ej2-react-interactive-chat/styles/material.css';
+import "@syncfusion/ej2-tailwind3-theme/styles/ai-assistview/index.css";
 
 <AIAssistViewComponent 
     id="aiAssistView"

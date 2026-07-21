@@ -47,7 +47,7 @@ For TypeScript projects, ensure your `tsconfig.json` includes:
 
 ```tsx
 import { SpeechToTextComponent } from '@syncfusion/ej2-react-inputs';
-import '@syncfusion/ej2-react-inputs/styles/material.css';
+import "@syncfusion/ej2-tailwind3-theme/styles/speech-to-text/index.css";
 
 function App() {
   return (
@@ -66,7 +66,8 @@ export default App;
 ```tsx
 import { SpeechToTextComponent } from '@syncfusion/ej2-react-inputs';
 import { Component } from 'react';
-import '@syncfusion/ej2-react-inputs/styles/material.css';
+import "@syncfusion/ej2-tailwind3-theme/styles/speech-to-text/index.css";
+
 
 export default class App extends Component {
   public render() {
@@ -82,43 +83,37 @@ export default class App extends Component {
 
 ## CSS Imports and Theme Selection
 
+### Adding CSS Reference
+
+To install the tailwind3 theme package, use the following command:
+
+```bash
+npm install @syncfusion/ej2-tailwind3-theme --save
+```
+
 ### Available Themes
 
 Syncfusion provides multiple built-in themes:
 
-- **Material** (default)
+- **Tailwind 3** (default)
 - **Bootstrap** 
 - **Fluent**
 - **Fabric**
-- **Tailwind**
+- **Material**
 - **Bootstrap 5**
 
 ### Importing CSS
 
 ```tsx
-// Material theme (default)
-import '@syncfusion/ej2-react-inputs/styles/material.css';
+// Tailwind 3 theme (default)
+import "@syncfusion/ej2-tailwind3-theme/styles/speech-to-text/index.css";
 
 // Bootstrap theme
-import '@syncfusion/ej2-react-inputs/styles/bootstrap.css';
+import "@syncfusion/ej2-bootstrap-theme/styles/speech-to-text/index.css";
 
 // Fluent theme
-import '@syncfusion/ej2-react-inputs/styles/fluent.css';
+import "@syncfusion/ej2-fluent-theme/styles/speech-to-text/index.css";
 
-// Include icon font CSS for button icons
-import '@syncfusion/ej2-icons/styles/material.css';
-```
-
-### Using Multiple Themes
-
-If you need icon support or additional styling:
-
-```tsx
-import '@syncfusion/ej2-base/styles/material.css';
-import '@syncfusion/ej2-buttons/styles/material.css';
-import '@syncfusion/ej2-popups/styles/material.css';
-import '@syncfusion/ej2-react-inputs/styles/material.css';
-import '@syncfusion/ej2-icons/styles/material.css';
 ```
 
 ## First Working Example
@@ -128,7 +123,7 @@ Here's a complete example with text display:
 ```tsx
 import { SpeechToTextComponent, TextAreaComponent, TranscriptChangedEventArgs } from '@syncfusion/ej2-react-inputs';
 import { useState } from 'react';
-import '@syncfusion/ej2-react-inputs/styles/material.css';
+import "@syncfusion/ej2-tailwind3-theme/styles/speech-to-text/index.css";
 
 function VoiceApp() {
   const [transcript, setTranscript] = useState('');

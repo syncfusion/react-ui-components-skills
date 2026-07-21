@@ -21,50 +21,32 @@ This single command installs all required dependencies automatically.
 
 ## CSS Theme Setup
 
+To install the tailwind3 theme package, use the following command:
+
+```bash
+npm install @syncfusion/ej2-tailwind3-theme --save
+```
+
 Import the required CSS theme files in your main `src/App.css` or `src/index.css`. Choose one of the available themes:
 
 ### Material Theme (Recommended for most apps)
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-dropdowns/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-react-interactive-chat/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-material-theme/styles/inline-ai-assist/index.css";
 ```
 
 ### Bootstrap Theme
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/bootstrap.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/bootstrap.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/bootstrap.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/bootstrap.css";
-@import "../node_modules/@syncfusion/ej2-dropdowns/styles/bootstrap.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/bootstrap.css";
-@import "../node_modules/@syncfusion/ej2-react-interactive-chat/styles/bootstrap.css";
+@import "../node_modules/@syncfusion/ej2-bootstrap-theme/styles/inline-ai-assist/index.css";
 ```
 
 ### Fluent Theme
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/fluent.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/fluent.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/fluent.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/fluent.css";
-@import "../node_modules/@syncfusion/ej2-dropdowns/styles/fluent.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/fluent.css";
-@import "../node_modules/@syncfusion/ej2-react-interactive-chat/styles/fluent.css";
+@import "../node_modules/@syncfusion/ej2-fluent-theme/styles/inline-ai-assist/index.css";
 ```
 
 ### Tailwind Theme
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind.css";
-@import "../node_modules/@syncfusion/ej2-react-interactive-chat/styles/tailwind.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/inline-ai-assist/index.css";
 ```
 
 > **Tip:** Only import one theme. Importing multiple themes can cause CSS conflicts. All components automatically inherit the active theme.
@@ -504,7 +486,7 @@ const ProfessionalAssistant: React.FC = () => {
 **Solution:** Verify CSS imports are in the correct file (App.css or index.css) and the import path matches your node_modules location:
 ```css
 /* Make sure path is correct */
-@import "../node_modules/@syncfusion/ej2-react-interactive-chat/styles/material.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/inline-ai-assist/index.css";
 ```
 
 ### Issue: Module Not Found Error
@@ -530,6 +512,6 @@ npm list react
 **Solution:** Check CSS specificity and ensure your custom CSS is loaded after Syncfusion's CSS:
 ```tsx
 // In index.tsx or App.tsx
-import '@syncfusion/ej2-react-interactive-chat/styles/material.css';  // First
+import "@syncfusion/ej2-tailwind3-theme/styles/inline-ai-assist/index.css";  // First
 import './App.css';  // Then your custom CSS
 ```

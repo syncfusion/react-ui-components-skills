@@ -175,15 +175,7 @@ The Syncfusion React Ribbon component is a professional, feature-rich toolbar de
 
 ```tsx
 import { RibbonComponent, RibbonTabsDirective, RibbonTabDirective, RibbonGroupsDirective, RibbonGroupDirective, RibbonCollectionsDirective, RibbonCollectionDirective, RibbonItemsDirective, RibbonItemDirective } from "@syncfusion/ej2-react-ribbon";
-import "@syncfusion/ej2-base/styles/tailwind3.css";
-import "@syncfusion/ej2-buttons/styles/tailwind3.css";
-import "@syncfusion/ej2-popups/styles/tailwind3.css";
-import "@syncfusion/ej2-splitbuttons/styles/tailwind3.css";
-import "@syncfusion/ej2-inputs/styles/tailwind3.css";
-import "@syncfusion/ej2-lists/styles/tailwind3.css";
-import "@syncfusion/ej2-dropdowns/styles/tailwind3.css";
-import "@syncfusion/ej2-navigations/styles/tailwind3.css";
-import "@syncfusion/ej2-ribbon/styles/tailwind3.css";
+@import "@syncfusion/ej2-tailwind3-theme/styles/ribbon/index.css";
 
 function App() {
   return (

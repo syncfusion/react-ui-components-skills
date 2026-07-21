@@ -278,19 +278,26 @@ The **File Manager** is a graphical user interface component for managing file s
 
 ## Quick Start Example
 
+Install the Tailwind3 theme package along with the File Manager:
+
+```bash
+npm install @syncfusion/ej2-react-filemanager
+npm install @syncfusion/ej2-tailwind3-theme
+```
+
+Add the theme import to **src/App.css**:
+
+```css
+/* src/App.css */
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/file-manager/index.css";
+```
+
+Import `App.css` and the component in **src/App.tsx**:
+
 ```tsx
 import React from 'react';
 import { FileManagerComponent, Inject, DetailsView, NavigationPane, Toolbar } from '@syncfusion/ej2-react-filemanager';
-import '@syncfusion/ej2-base/styles/material.css';
-import '@syncfusion/ej2-icons/styles/material.css';
-import '@syncfusion/ej2-inputs/styles/material.css';
-import '@syncfusion/ej2-popups/styles/material.css';
-import '@syncfusion/ej2-buttons/styles/material.css';
-import '@syncfusion/ej2-splitbuttons/styles/material.css';
-import '@syncfusion/ej2-navigations/styles/material.css';
-import '@syncfusion/ej2-layouts/styles/material.css';
-import '@syncfusion/ej2-grids/styles/material.css';
-import '@syncfusion/ej2-react-filemanager/styles/material.css';
+import './App.css';
 
 function App() {
   const hostUrl = "url";
@@ -447,10 +454,26 @@ File Manager provides comprehensive event hooks for customization:
 ## Common Patterns
 
 ### 1. Basic Setup Pattern
+
+First, install the Tailwind3 theme package:
+
+```bash
+npm install @syncfusion/ej2-tailwind3-theme
+```
+
+Add the theme import to **src/App.css**:
+
+```css
+/* src/App.css */
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/file-manager/index.css";
+```
+
+Then use the component:
+
 ```tsx
 import React from 'react';
 import { FileManagerComponent, Inject, DetailsView, NavigationPane, Toolbar } from '@syncfusion/ej2-react-filemanager';
-import '@syncfusion/ej2-react-filemanager/styles/material.css';
+import './App.css';
 
 export default function BasicFileManager() {
   return (
@@ -473,10 +496,11 @@ export default function BasicFileManager() {
 
 **Setup Steps:**
 1. Install `@syncfusion/ej2-react-filemanager` and all peer dependencies
-2. Import CSS theme (material, bootstrap, bootstrap4, fabric, or tailwind)
-3. Configure `ajaxSettings` endpoints
-4. Choose view (Details or LargeIcons)
-5. Inject required services (features to enable)
+2. Install the theme package: `npm install @syncfusion/ej2-tailwind3-theme`
+3. Add the theme import in `App.css`: `@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/file-manager/index.css";`
+4. Configure `ajaxSettings` endpoints
+5. Choose view (Details or LargeIcons)
+6. Inject required services (features to enable)
 
 ### 2. File Service Backend Pattern
 

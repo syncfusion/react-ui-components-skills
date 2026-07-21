@@ -326,8 +326,8 @@ export default RTLCustom;
 ```tsx
 import React, { useState } from 'react';
 import { FileManagerComponent, Inject, DetailsView, NavigationPane, Toolbar } from '@syncfusion/ej2-react-filemanager';
+import '@syncfusion/ej2-tailwind3-theme/styles/file-manager/index.css';
 import { L10n } from '@syncfusion/ej2-base';
-import '@syncfusion/ej2-react-filemanager/styles/material.css';
 
 // Register custom translations
 L10n.load({

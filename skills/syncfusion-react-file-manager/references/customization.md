@@ -14,19 +14,23 @@ Customize appearance, themes, toolbars, context menus, and component structure.
 
 ### Built-in Themes
 
-Syncfusion File Manager includes Material, Bootstrap, Bootstrap4, Fabric, and Tailwind themes:
+Syncfusion File Manager includes Material, Bootstrap, Bootstrap4, Fabric, and Tailwind themes. Use the corresponding theme package and import the bundled `index.css` which automatically loads all required dependency styles:
 
 ```tsx
 import React from 'react';
 import { FileManagerComponent, Inject, DetailsView, NavigationPane, Toolbar } from '@syncfusion/ej2-react-filemanager';
 
-// Import theme CSS
-import '@syncfusion/ej2-react-filemanager/styles/material.css';
-// Or other themes:
-// import '@syncfusion/ej2-react-filemanager/styles/bootstrap.css';
-// import '@syncfusion/ej2-react-filemanager/styles/bootstrap4.css';
-// import '@syncfusion/ej2-react-filemanager/styles/fabric.css';
-// import '@syncfusion/ej2-react-filemanager/styles/tailwind.css';
+// Theme packages - install the one you need:
+// npm install @syncfusion/ej2-tailwind3-theme
+// npm install @syncfusion/ej2-bootstrap5.3-theme
+// npm install @syncfusion/ej2-fluent2-theme
+// npm install @syncfusion/ej2-material3-theme
+
+// Import theme CSS in App.css:
+// @import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/file-manager/index.css";
+// @import "../node_modules/@syncfusion/ej2-bootstrap5.3-theme/styles/file-manager/index.css";
+// @import "../node_modules/@syncfusion/ej2-fluent2-theme/styles/file-manager/index.css";
+// @import "../node_modules/@syncfusion/ej2-material3-theme/styles/file-manager/index.css";
 
 function ThemedFileManager() {
   return (
@@ -46,12 +50,13 @@ function ThemedFileManager() {
 export default ThemedFileManager;
 ```
 
-**Available Themes:**
-- Material (Default, Modern design)
-- Bootstrap (Bootstrap styling)
-- Bootstrap4 (Bootstrap 4 styling)
-- Fabric (Fluent Design)
-- Tailwind (Tailwind CSS compatible)
+**Available Theme Packages:**
+- `@syncfusion/ej2-tailwind3-theme` (Tailwind3)
+- `@syncfusion/ej2-bootstrap5.3-theme` (Bootstrap 5.3)
+- `@syncfusion/ej2-fluent2-theme` (Fluent 2)
+- `@syncfusion/ej2-material3-theme` (Material 3)
+
+> **Note:** If you want to use combined component styles, make use of the [Custom Resource Generator (CRG)](https://crg.syncfusion.com) in your application.
 
 ### CSS Variables
 
@@ -293,7 +298,7 @@ const navigationPaneSettings = {
 ```tsx
 import React from 'react';
 import { FileManagerComponent, Inject, DetailsView, NavigationPane, Toolbar } from '@syncfusion/ej2-react-filemanager';
-import '@syncfusion/ej2-react-filemanager/styles/material.css';
+import '@syncfusion/ej2-tailwind3-theme/styles/file-manager/index.css';
 import './custom-theme.css';
 
 function FullyCustomizedFileManager() {
