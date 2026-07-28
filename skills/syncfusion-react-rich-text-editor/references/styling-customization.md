@@ -9,21 +9,21 @@
 
 ## Theme Selection
 
-Import the theme CSS files that match your app's design system. Replace `tailwind3` with any available theme:
+Install the theme package that matches your application. This example uses Tailwind 3:
 
-Available themes: `material3`, `material3-dark`, `bootstrap5`, `bootstrap5-dark`, `fluent2`, `fluent2-dark`, `tailwind3`, `tailwind3-dark`, `fabric`, `highcontrast`
+```bash
+npm install @syncfusion/ej2-tailwind3-theme
+```
+
+Add the theme stylesheet to your `src/App.css`:
 
 ```css
-/* src/App.css */
-@import '../node_modules/@syncfusion/ej2-base/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-inputs/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-lists/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-navigations/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-richtexteditor/styles/material3.css';
+@import '../node_modules/@syncfusion/ej2-tailwind3-theme/styles/rich-text-editor/index.css';
 ```
+
+If you prefer another built-in theme, replace `tailwind3` with the matching Syncfusion theme package and stylesheet.
+
+Available themes: `material3`, `material3-dark`, `bootstrap5`, `bootstrap5-dark`, `fluent2`, `fluent2-dark`, `tailwind3`, `tailwind3-dark`, `fabric`, `highcontrast`
 
 ## CSS Variable Customization
 

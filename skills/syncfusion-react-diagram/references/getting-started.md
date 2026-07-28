@@ -61,39 +61,23 @@ npm start
 
 ## CSS Theme Imports
 
-Import CSS in your root stylesheet (`src/App.css` or `src/index.css`). Choose **one** theme:
+The Diagram component needs Syncfusion® theme styles to display correctly. Syncfusion® theme packages include ready-to-use styles for supported control.
 
-### Material (standard)
+To add the styles, install the Tailwind 3 theme package using the following command:
 
-```css
-@import "../node_modules/@syncfusion/ej2-base/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/material.css";
-@import "../node_modules/@syncfusion/ej2-react-diagrams/styles/material.css";
+```bash
+npm install @syncfusion/ej2-tailwind3-theme
 ```
 
-### Material 3
+Import CSS in your root stylesheet (`src/App.css` or `src/index.css`):
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/material3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/material3.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material3.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/material3.css";
-@import "../node_modules/@syncfusion/ej2-react-diagrams/styles/material3.css";
+  @import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/diagram/index.css";
 ```
 
-### Bootstrap 5
+For the list of available themes, refer to the [Themes](https://ej2.syncfusion.com/react/documentation/appearance/theme) documentation.
 
-```css
-@import "../node_modules/@syncfusion/ej2-base/styles/bootstrap5.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/bootstrap5.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/bootstrap5.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/bootstrap5.css";
-@import "../node_modules/@syncfusion/ej2-react-diagrams/styles/bootstrap5.css";
-```
-
-> **Import order matters** — base styles must come before component styles.
+N> Syncfusion® provides multiple built-in themes. If the application uses a different theme, replace **@syncfusion/ej2-tailwind3-theme/styles/diagram/index.css** with the corresponding stylesheet from the desired theme package. For example, to use the Material 3 theme, import **@syncfusion/ej2-material3-theme/styles/diagram/index.css**.
 
 ---
 
@@ -271,11 +255,7 @@ npm install @syncfusion/ej2-react-diagrams --save
 ### CSS import — add to `src/app/globals.css`
 
 ```css
-@import "../../node_modules/@syncfusion/ej2-base/styles/material.css";
-@import "../../node_modules/@syncfusion/ej2-popups/styles/material.css";
-@import "../../node_modules/@syncfusion/ej2-splitbuttons/styles/material.css";
-@import "../../node_modules/@syncfusion/ej2-navigations/styles/material.css";
-@import "../../node_modules/@syncfusion/ej2-react-diagrams/styles/material.css";
+  @import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/diagram/index.css";
 ```
 
 ### Component — `src/app/page.tsx`
@@ -318,11 +298,7 @@ npm install @syncfusion/ej2-react-diagrams --save
 ### CSS import — `src/style.css`
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/material3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/material3.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/material3.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/material3.css";
-@import "../node_modules/@syncfusion/ej2-react-diagrams/styles/material3.css";
+  @import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/diagram/index.css";
 ```
 
 ### Component — `src/index.jsx`

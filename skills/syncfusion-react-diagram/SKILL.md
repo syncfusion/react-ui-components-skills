@@ -1,6 +1,6 @@
 ---
 name: syncfusion-react-diagram
-description: Create and customize visual diagrams in React using Syncfusion Diagrams. Trigger for requests involving React component setup, nodes and connectors, flowcharts, org charts, process diagrams, BPMN or UML models, layout algorithms, swimlanes, symbol palettes, and interactive diagram visualization features.
+description: Create and customize visual diagrams in React using Syncfusion Diagrams. Trigger for requests involving React component setup, nodes and connectors, flowcharts, org charts, process diagrams, BPMN or UML models, ER diagrams, layout algorithms, swimlanes, symbol palettes, and interactive diagram visualization features.
 metadata:
   author: "Syncfusion Inc"
   version: "34.1.29"
@@ -23,6 +23,7 @@ The Syncfusion React Diagram component enables building rich, interactive diagra
   - [Shapes and Styles](#shapes-and-styles)
   - [BPMN Diagrams](#bpmn-diagrams)
   - [UML Diagrams](#uml-diagrams)
+  - [ER Diagrams](#er-diagrams)
   - [Layouts](#layouts)
   - [Swimlanes](#swimlanes)
   - [Groups and Containers](#groups-and-containers)
@@ -242,6 +243,33 @@ All diagram elements are rendered using **SVG** for crisp, resolution-independen
 - UML relationship connector types
 - UML sequence diagram (`shape.type = 'UmlActivity'`)
 - Lifelines, messages, and fragments
+
+---
+
+### ER Diagrams
+
+📄 **Read:** [references/entity-relationship-diagrams.md](references/entity-relationship-diagrams.md)
+
+**When to read:**
+- Building Entity Relationship diagrams to visualize database structure
+- Creating ER entity nodes representing database tables with fields
+- Defining field properties (primary key, foreign key, data type, constraints)
+- Adding or removing entity fields at runtime
+- Connecting entities with ER relationship connectors and multiplicity
+- Styling ER entity headers, field rows, and alternating row colors
+- Tracking entity field changes via events
+
+**Covers:**
+- `ErDiagrams` module injection (`Diagram.Inject(ErDiagrams)`)
+- ER entity node: `shape.type = 'Er'` with `ErShapeModel`
+- Header configuration: `annotation`, `height`, `style`
+- Field configuration: `id`, `name`, `dataType`, `isPrimaryKey`, `isForeignKey`, `constraints`
+- `addErField` / `removeErField` runtime methods
+- `fieldDefaults`: `alternateRowColors`, `height`
+- Field-level and node-level style overrides
+- `erEntityChanged` event for tracking field modifications
+- ER relationship connectors with `ErConnectorShapeModel`
+- Crow's Foot multiplicity: `One`, `Many`, `ZeroOrOne`, `OneOrMany`, `ZeroOrMany`, `OneAndOnlyOne`
 
 ---
 
@@ -512,6 +540,7 @@ Inject only the modules your diagram uses: `<Inject services={[HierarchicalTree,
 | `Snapping` | Grid snapping |
 | `PrintAndExport` | Export & print |
 | `BpmnDiagrams` | BPMN shapes |
+| `ErDiagrams` | ER diagram shapes and relationships |
 | `LayoutAnimation` | Animated layouts |
 | `DiagramContextMenu` | Right-click context menu |
 | `ConnectorBridging` | Bridge overlapping connectors |

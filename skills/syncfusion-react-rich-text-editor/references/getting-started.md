@@ -8,17 +8,16 @@ npm install @syncfusion/ej2-react-richtexteditor
 
 ## CSS Imports
 
-Add these to your `src/App.css`. Use the theme that matches your app (tailwind3, material, bootstrap5, fluent2, etc.).
+Install the theme package that matches your application. This example uses `Tailwind 3`:
+
+```bash
+npm install @syncfusion/ej2-tailwind3-theme
+```
+
+Add the theme stylesheet to your `src/App.css`:
 
 ```css
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-lists/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-richtexteditor/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-tailwind3-theme/styles/rich-text-editor/index.css';
 ```
 
 ## Minimal Implementation

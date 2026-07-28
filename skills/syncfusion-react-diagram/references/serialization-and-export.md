@@ -7,7 +7,7 @@ description: Save and load diagrams as JSON, export to image/SVG, print diagrams
 
 ## Overview
 
-The Syncfusion React Diagram component supports full persistence through JSON serialization, image/SVG export, print output, Visio file import/export, and Mermaid syntax conversion. All export and print features require injecting the `PrintAndExport` module. Visio import/export requires injecting `ImportAndExportVisio`.
+The Syncfusion React Diagram component supports full persistence through JSON serialization, image/SVG export, print output, Visio file import/export, and Mermaid syntax conversion. All export and print features require injecting the `PrintAndExport` module. Visio import/export requires injecting `ImportAndExportVisio`. Use `isModified` to track unsaved changes.
 
 ## Save and Load (JSON Serialization)
 
@@ -50,6 +50,20 @@ Set `serializationSettings.preventDefaults` to `true` to exclude default-value p
   serializationSettings={{ preventDefaults: true }}
 />
 ```
+
+### Detect Unsaved Changes
+
+The `isModified` property returns `true` whenever the diagram has unsaved changes — node/connector edits, property updates, or undo/redo actions. Use it to show save indicators or warn before discarding changes.
+
+```tsx
+// Check for unsaved changes before navigating away
+if (diagramInstance.isModified) {
+  const confirmed = confirm('There are unsaved changes. Discard them?');
+  if (!confirmed) return;
+}
+```
+
+> `isModified` is **not** affected by transient interactions such as zooming, panning, or selecting elements.
 
 ### Load from File Upload
 
@@ -273,4 +287,5 @@ diagramInstance.exportToVisio(exportOptions);
 | HTML/native nodes missing from export | Browser security prevents this; use Syncfusion PDF library with Blink renderer |
 | Visio import produces incorrect layout | Ruler origin differences (Visio = bottom-left, Diagram = top-left); adjust offsets post-import |
 | Large JSON file slowing saves | Set `serializationSettings={{ preventDefaults: true }}` |
+| Zoom, pan, and selection do not set `isModified`; only structural edits, property changes, or undo/redo do |
 | Mermaid load fails | Confirm diagram type is Flowchart, MindMap, or UML Sequence; other layouts are unsupported |
