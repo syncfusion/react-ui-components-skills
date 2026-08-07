@@ -1,571 +1,521 @@
-# Styling and Appearance in React Grid
+# Styling and Appearance in React Data Grid
+
+The Syncfusion React Data Grid provides flexible styling and appearance customization options to align with your application's design requirements. You can choose from a wide range of built-in themes, customize visual elements using CSS, and create consistent experiences through theme-based styling.
 
 ## Table of Contents
-- [Overview](#overview)
-- [Themes](#themes)
-- [CSS Customization](#css-customization)
-- [Dark Mode](#dark-mode)
+
+- [Built-in Themes](#built-in-themes)
+- [Theme Packages](#theme-packages)
 - [Size Modes](#size-modes)
+- [Theme Customization](#theme-customization)
+- [Default CSS Override](#default-css-override)
+- [Common Patterns](#common-patterns)
+- [Quick Start](#quick-start)
 
-## Overview
+---
 
-The grid provides comprehensive theming and customization options to match your application's design.
+## Quick Start
 
-## Themes
+### Install a Theme Package
+
+```bash
+npm install @syncfusion/ej2-tailwidn3-theme
+```
+
+### Import Theme in Your App
+
+```css
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/grid/index.css";
+```
+
+```jsx
+import { GridComponent, ColumnsDirective, ColumnDirective, Inject, Page } from '@syncfusion/ej2-react-grids';
+
+export default function App() {
+  const data = [
+    { OrderID: 10248, CustomerName: 'VINET', TotalAmount: 32.38 },
+    { OrderID: 10249, CustomerName: 'TOMSP', TotalAmount: 11.61 }
+  ];
+
+  return (
+    <GridComponent dataSource={data} allowPaging={true}>
+      <ColumnsDirective>
+        <ColumnDirective field='OrderID' headerText='Order ID' width='100' />
+        <ColumnDirective field='CustomerName' headerText='Customer Name' width='150' />
+        <ColumnDirective field='TotalAmount' headerText='Total Amount' width='120' />
+      </ColumnsDirective>
+      <Inject services={[Page]} />
+    </GridComponent>
+  );
+}
+```
+
+### Enable Touch Mode (Larger UI Elements)
+
+```jsx
+// Add to body in index.html or apply CSS class dynamically
+<body className="e-bigger">
+  <div id="root"></div>
+</body>
+```
+
+---
+
+## Built-in Themes
+
+The DataGrid components include a comprehensive collection of themes to match popular design systems and provide both light and dark variants.
 
 ### Available Themes
 
-```tsx
-// Material 3 (Default)
-@import '../node_modules/@syncfusion/ej2-react-grids/styles/material3.css';
+| Theme | Style Sheet | Use Case |
+|-------|------------|----------|
+| **Tailwind 3.4** | `tailwind3.css` / `tailwind3.scss` | Modern utility-first design system |
+| **Tailwind 3.4 Dark** | `tailwind3-dark.css` | Dark mode variant of Tailwind 3.4 |
+| **Bootstrap 5.3** | `bootstrap5.3.css` / `bootstrap5.3.scss` | Latest Bootstrap framework integration |
+| **Bootstrap 5.3 Dark** | `bootstrap5.3-dark.css` | Dark mode for Bootstrap 5.3 |
+| **Fluent 2** | `fluent2.css` / `fluent2.scss` | Microsoft Fluent Design System 2 |
+| **Fluent 2 Dark** | `fluent2-dark.css` | Dark mode variant of Fluent 2 |
+| **Material 3** | `material3.css` / `material3.scss` | Latest Google Material Design 3 |
+| **Material 3 Dark** | `material3-dark.css` | Dark mode for Material Design 3 |
+| **Bootstrap 5** | `bootstrap5.css` / `bootstrap5.scss` | Standard Bootstrap 5 |
+| **Bootstrap 5 Dark** | `bootstrap5-dark.css` | Dark variant of Bootstrap 5 |
+| **Fluent** | `fluent.css` / `fluent.scss` | Microsoft Fluent Design |
+| **Fluent Dark** | `fluent-dark.css` | Dark variant of Fluent |
+| **Material** | `material.css` / `material.scss` | Google Material Design |
+| **Material Dark** | `material-dark.css` | Dark variant of Material Design |
+| **Tailwind** | `tailwind.css` / `tailwind.scss` | Standard Tailwind CSS |
+| **Tailwind Dark** | `tailwind-dark.css` | Dark variant of Tailwind |
+| **Office Fabric** | `fabric.css` / `fabric.scss` | Microsoft Office Fabric design |
+| **Office Fabric Dark** | `fabric-dark.css` | Dark variant of Office Fabric |
+| **High Contrast** | `highcontrast.css` | Accessible high contrast theme |
 
-// Bootstrap
-@import '../node_modules/@syncfusion/ej2-react-grids/styles/bootstrap.css';
+### Choosing a Theme
 
-// Bootstrap 5
-@import '../node_modules/@syncfusion/ej2-react-grids/styles/bootstrap5.css';
+- **Material 3** — Best for modern, clean designs with vibrant colors
+- **Fluent 2** — Ideal for enterprise applications following Microsoft design
+- **Bootstrap 5.3** — Great for Bootstrap ecosystem integration
+- **Tailwind 3.4** — Recommended for utility-first workflows
+- **High Contrast** — Required for accessibility compliance (WCAG AA/AAA)
 
-// Fabric
-@import '../node_modules/@syncfusion/ej2-react-grids/styles/fabric.css';
+---
 
-// Tailwind CSS
-@import '../node_modules/@syncfusion/ej2-react-grids/styles/tailwind.css';
+## Theme Packages
+
+Syncfusion® built-in themes are distributed as npm packages. Install the theme package that matches your design requirements.
+
+### Installation Examples
+
+**Material 3 Theme (Light + Dark variants)**
+
+```bash
+# Light theme
+npm install @syncfusion/ej2-material3-theme
+
+# Dark theme
+npm install @syncfusion/ej2-material3-dark-theme
 ```
 
-### Switch Themes Dynamically
+**Bootstrap 5.3 Theme**
 
-```tsx
-import React, { useRef } from 'react';
-
-function App() {
-  const gridRef = useRef(null);
-  const [theme, setTheme] = React.useState('material3');
-
-  const switchTheme = (themeName) => {
-    // Remove current theme
-    const link = document.querySelector('link[data-theme]');
-    if (link) link.remove();
-
-    // Add new theme
-    const newLink = document.createElement('link');
-    newLink.rel = 'stylesheet';
-    newLink.href = `/styles/${themeName}.css`;
-    newLink.setAttribute('data-theme', themeName);
-    document.head.appendChild(newLink);
-
-    setTheme(themeName);
-  };
-
-  return (
-    <div>
-      <select onChange={(e) => switchTheme(e.target.value)}>
-        <option value='material3'>Material 3</option>
-        <option value='bootstrap'>Bootstrap</option>
-        <option value='bootstrap5'>Bootstrap 5</option>
-        <option value='fabric'>Fabric</option>
-      </select>
-
-      <GridComponent ref={gridRef} dataSource={data}>
-        {/* columns */}
-      </GridComponent>
-    </div>
-  );
-}
-
-export default App;
+```bash
+npm install @syncfusion/ej2-bootstrap5.3-theme
+npm install @syncfusion/ej2-bootstrap5.3-dark-theme
 ```
 
-## CSS Customization
+**Tailwind 3 Theme**
 
-### Custom Row Styling
-
-```tsx
-const rowTemplate = (props) => {
-  const className = props.Freight > 50 ? 'high-value' : 'normal-value';
-  
-  return (
-    <tr className={className}>
-      <td>{props.OrderID}</td>
-      <td>{props.CustomerID}</td>
-      <td>${props.Freight.toFixed(2)}</td>
-    </tr>
-  );
-};
-
-<GridComponent
-  dataSource={data}
-  rowTemplate={rowTemplate}
->
-  {/* columns */}
-  <style>{`
-    .high-value {
-      background-color: #ffe6e6;
-      font-weight: bold;
-    }
-    .normal-value {
-      background-color: #ffffff;
-    }
-  `}</style>
-</GridComponent>
+```bash
+npm install @syncfusion/ej2-tailwind3-theme
+npm install @syncfusion/ej2-tailwind3-dark-theme
 ```
 
-### Alternating Row Colors
+### All Available Theme Packages
 
-```tsx
-const gridStyle = `
-  .e-grid .e-table tbody tr:nth-child(odd) {
-    background-color: #f9f9f9;
-  }
-  .e-grid .e-table tbody tr:nth-child(even) {
-    background-color: #ffffff;
-  }
-  .e-grid .e-table tbody tr:hover {
-    background-color: #e3f2fd;
-  }
-`;
+| Theme | Light Package | Dark Package |
+|-------|---|---|
+| Tailwind 3 | `@syncfusion/ej2-tailwind3-theme` | `@syncfusion/ej2-tailwind3-dark-theme` |
+| Bootstrap 5.3 | `@syncfusion/ej2-bootstrap5.3-theme` | `@syncfusion/ej2-bootstrap5.3-dark-theme` |
+| Fluent 2 | `@syncfusion/ej2-fluent2-theme` | `@syncfusion/ej2-fluent2-dark-theme` |
+| Material 3 | `@syncfusion/ej2-material3-theme` | `@syncfusion/ej2-material3-dark-theme` |
+| Bootstrap 5 | `@syncfusion/ej2-bootstrap5-theme` | `@syncfusion/ej2-bootstrap5-dark-theme` |
+| Bootstrap 4 | `@syncfusion/ej2-bootstrap4-theme` | — |
+| Bootstrap | `@syncfusion/ej2-bootstrap-theme` | `@syncfusion/ej2-bootstrap-dark-theme` |
+| Material | `@syncfusion/ej2-material-theme` | `@syncfusion/ej2-material-dark-theme` |
+| Tailwind | `@syncfusion/ej2-tailwind-theme` | `@syncfusion/ej2-tailwind-dark-theme` |
+| Fluent | `@syncfusion/ej2-fluent-theme` | `@syncfusion/ej2-fluent-dark-theme` |
+| Fabric | `@syncfusion/ej2-fabric-theme` | `@syncfusion/ej2-fabric-dark-theme` |
+| High Contrast | `@syncfusion/ej2-highcontrast-theme` | — |
 
-<GridComponent dataSource={data}>
-  {/* columns */}
-  <style>{gridStyle}</style>
-</GridComponent>
-```
-
-### Column Cell Styling
-
-```tsx
-const queryCellInfo = (args) => {
-  if (args.column.field === 'Freight') {
-    if (args.data.Freight > 50) {
-      args.cell.style.backgroundColor = '#ffcccc';
-      args.cell.style.color = '#cc0000';
-      args.cell.style.fontWeight = 'bold';
-    }
-  }
-};
-
-<GridComponent queryCellInfo={queryCellInfo}>
-  {/* columns */}
-</GridComponent>
-```
-
-## Dark Mode
-
-### Enable Dark Theme
-
-```tsx
-// Import dark theme CSS
-@import '../node_modules/@syncfusion/ej2-react-grids/styles/material3-dark.css';
-
-// Or Material Dark variant
-@import '../node_modules/@syncfusion/ej2-react-grids/styles/material-dark.css';
-```
-
-### Toggle Dark Mode
-
-```tsx
-const toggleDarkMode = () => {
-  const htmlElement = document.documentElement;
-  const isDark = htmlElement.getAttribute('data-theme') === 'dark';
-
-  if (isDark) {
-    htmlElement.removeAttribute('data-theme');
-  } else {
-    htmlElement.setAttribute('data-theme', 'dark');
-  }
-};
-
-<button onClick={toggleDarkMode}>Toggle Dark Mode</button>
-```
+---
 
 ## Size Modes
 
-### Compact Mode
+The DataGrid components support two size modes to optimize user experience across different devices and input methods.
 
-```tsx
-<GridComponent
-  dataSource={data}
-  enableRtl={false}
-  rowHeight={32}  // Smaller row height
->
-  <ColumnsDirective>
-    <ColumnDirective field='OrderID' width='80' />  // Smaller width
-    <ColumnDirective field='CustomerID' width='100' />
-  </ColumnsDirective>
-</GridComponent>
-```
+### Normal Mode (Default)
 
-### Spacious Mode
+Standard sizing optimized for mouse and keyboard interactions. This is the default mode for desktop applications.
 
-```tsx
-<GridComponent
-  dataSource={data}
-  style={{ fontSize: '16px' }}
-  rowHeight={48}  // Larger row height
->
-  <ColumnsDirective>
-    <ColumnDirective field='OrderID' width='120' />
-    <ColumnDirective field='CustomerID' width='150' />
-  </ColumnsDirective>
-</GridComponent>
-```
-
-### Custom Font and Colors
-
-```tsx
-const customStyle = `
-  .e-grid {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    font-size: 14px;
-    color: #333;
-  }
-  
-  .e-grid .e-th {
-    background-color: #2c3e50;
-    color: #ffffff;
-    font-weight: 600;
-  }
-
-  .e-grid .e-td {
-    border-bottom: 1px solid #ecf0f1;
-  }
-
-  .e-grid.e-alt-row {
-    background-color: #f8f9fa;
-  }
-
-  .e-grid .e-pagercontainer {
-    background-color: #f5f5f5;
-  }
-`;
-
+```jsx
+// No additional configuration needed - normal mode is default
 <GridComponent dataSource={data}>
-  {/* columns */}
-  <style>{customStyle}</style>
+  {/* Your grid configuration */}
 </GridComponent>
 ```
 
-## CSS Class Reference Guide
+### Touch Mode (Bigger)
 
-### Grid Container
-```css
-.e-grid             /* Main grid container */
-.e-gridheader       /* Header container */
-.e-gridcontent      /* Content/Body container */
-.e-footer           /* Footer container */
+Larger elements with increased padding, font sizes, and touch targets for improved touch interaction and accessibility. Use this for mobile applications or touch-enabled interfaces.
+
+```jsx
+// Option 1: Apply globally via CSS class on body
+// In index.html or App.tsx/jsx:
+<body className="e-bigger">
+  <div id="root"></div>
+</body>
+
+// Option 2: Apply dynamically with JavaScript
+document.body.classList.add('e-bigger');
+
+// Option 3: Apply to specific container
+<div className="e-bigger">
+  <GridComponent dataSource={data}>
+    {/* Grid will use larger size mode */}
+  </GridComponent>
+</div>
 ```
 
-### Header Styling
+### Size Mode Comparison
+
+| Aspect | Normal Mode | Touch Mode |
+|--------|-------------|-----------|
+| **Target Device** | Desktop, mouse, keyboard | Mobile, tablet, touch input |
+| **Element Size** | Standard | Larger (increased padding/height) |
+| **Font Size** | Standard | Increased for better readability |
+| **Touch Targets** | Moderate | Larger for easier interaction |
+| **Row Height** | ~30-40px | ~48-56px |
+| **Column Headers** | Standard height | Increased height |
+| **Padding** | Compact | Spacious |
+
+---
+
+## Theme Customization
+
+The DataGrid provides flexible theme customization options to help align the control appearance with your application's design requirements. You can customize built-in themes either by overriding CSS variables or by creating customized themes.
+
+### Default CSS Override (CSS Variables)
+
+The DataGrid themes use CSS variables with the unified `--sf` naming convention. This ensures visual consistency, simple customization, and global updates. Centralized variables allow quick adjustments to colors, backgrounds, and borders across the grid.
+
+#### Material 3 Theme Color Variables
+
+The Material 3 theme applies scalable CSS custom properties to maintain consistency. Here are commonly used color-related variables:
+
+| Variable | Purpose | Example Value |
+|----------|---------|----------------|
+| `--e-font-name` | Default font family for DataGrid | `Segoe UI, sans-serif` |
+| `--color-sf-content-bg-color-alt1` | Background of DataGrid header | `#f3f3f3` |
+| `--color-sf-primary` | Primary brand color | `#6200ee` |
+| `--color-sf-surface` | Surface/card background color | `#ffffff` |
+| `--color-sf-on-surface` | Text color on surfaces | `#1c1b1f` |
+| `--color-sf-error` | Error/alert color | `#b3261e` |
+| `--color-sf-warning` | Warning color | `#f57c00` |
+| `--color-sf-success` | Success color | `#388e3c` |
+
+#### Customize CSS Variables
+
+Create a custom stylesheet to override theme variables:
+
 ```css
-.e-headercell       /* Header cell */
-.e-headercell.e-sort      /* Header with sort */
-.e-headercell.e-groupcaption  /* Group caption header */
-.e-headertext       /* Header text content */
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/grid/index.css";
+/* custom-theme.css */
+
+/* Override Material 3 theme variables */
+:root {
+  /* Header customization */
+  --color-sf-content-bg-color-alt1: #e8eaf6;
+  
+  /* Primary brand color */
+  --color-sf-primary: #5e35b1;
+  
+  /* Row hover effect */
+  --color-sf-surface-hover: #f3e5f5;
+  
+  /* Border color */
+  --color-sf-outline: #ede7f6;
+  
+  /* Text color */
+  --color-sf-on-surface: #311b92;
+  
+  /* Selection color */
+  --color-sf-secondary-container: #e1bee7;
+}
 ```
 
-### Row and Cell Styling
-```css
-.e-row              /* Data row */
-.e-row:hover        /* Hovered row */
-.e-selectionbackground  /* Selected row background */
-.e-selectionfocus   /* Selected cell focus */
-.e-grid td          /* Table data cell */
-.e-gridcell         /* Grid cell */
-.e-gridcontent .e-selectionbackground /* Selected cell */
+```jsx
+import './custom-theme.css';
+
+export default function App() {
+  return (
+    <GridComponent dataSource={data}>
+      {/* Grid with customized colors */}
+    </GridComponent>
+  );
+}
 ```
 
-### Edit Mode Classes
+#### Common Customizations
+
+**Change Header Background Color**
+
 ```css
-.e-inlineEdit       /* Inline edit mode */
-.e-dialog           /* Dialog edit mode */
-.e-batchedit        /* Batch edit mode */
-.e-editedrow        /* Currently edited row */
-.e-inline-edit-content /* Edit content area */
+:root {
+  --color-sf-content-bg-color-alt1: #2c3e50;
+  --color-sf-on-content-text: #ffffff;
+}
 ```
 
-### Pagination and Toolbar
+**Customize Row Hover Effect**
+
 ```css
-.e-pagercontainer   /* Pager container */
-.e-numericitem      /* Page number item */
-.e-pagercontainer .e-pagerjump   /* Jump to page */
-.e-toolbar          /* Toolbar container */
-.e-toolbar .e-toolbar-item        /* Toolbar button */
-.e-toolbar .e-toolbar-item.e-active /* Active toolbar item */
+:root {
+  --color-sf-surface-hover: #eceff1;
+}
 ```
 
-### Filter and Sort
+**Modify Grid Lines Color**
+
 ```css
-.e-filterbar        /* Filter bar row */
-.e-filterinput      /* Filter input field */
-.e-sortnumber       /* Sort number indicator */
-.e-ascending        /* Ascending sort arrow */
-.e-descending       /* Descending sort arrow */
-.e-filterclear      /* Filter clear button */
+:root {
+  --color-sf-outline: #b0bec5;
+}
 ```
 
-### Selection and Grouping
+**Change Selected Row Appearance**
+
 ```css
-.e-selectioncheckbox /* Selection checkbox */
-.e-groupheader      /* Group header */
-.e-groupremovefocus /* Group remove focus */
-.e-groupcaption     /* Group caption */
-.e-groupcaptioncell /* Group caption cell */
+:root {
+  --color-sf-secondary-container: #c5e1a5;
+  --color-sf-on-secondary-container: #33691e;
+}
 ```
 
-### State Classes
+---
+
+## Common Patterns
+
+### Pattern 1: Switching Themes Dynamically
+
+Allow users to switch between light and dark themes at runtime:
+
 ```css
-.e-disabled         /* Disabled state */
-.e-readonly         /* Read-only state */
-.e-loading          /* Loading state */
-.e-altrow           /* Alternate row */
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/grid/index.css";
 ```
 
-## Advanced Styling Examples
+```jsx
+import { useState } from 'react';
+import { GridComponent, ColumnsDirective, ColumnDirective, Inject, Page } from '@syncfusion/ej2-react-grids';
 
-### Highlight Status Columns
+export default function App() {
+  const [isDarkMode, setIsDarkMode] = useState(false);
 
-```tsx
-const queryCellInfo = (args) => {
-  if (args.column.field === 'Status') {
-    switch (args.data.Status) {
-      case 'Active':
-        args.cell.style.backgroundColor = '#d4edda';
-        args.cell.style.color = '#155724';
-        args.cell.style.fontWeight = 'bold';
-        break;
-      case 'Pending':
-        args.cell.style.backgroundColor = '#fff3cd';
-        args.cell.style.color = '#856404';
-        break;
-      case 'Inactive':
-        args.cell.style.backgroundColor = '#f8d7da';
-        args.cell.style.color = '#721c24';
-        break;
+  const handleThemeChange = () => {
+    setIsDarkMode(!isDarkMode);
+    if (!isDarkMode) {
+      document.body.classList.add('e-dark');
+      // Remove light theme and add dark theme
+      import('../node_modules/@syncfusion/ej2-tailwind3-dark-theme/styles/grid/index.css');
+    } else {
+      document.body.classList.remove('e-dark');
+      import('../node_modules/@syncfusion/ej2-tailwind3-theme/styles/grid/index.css');
     }
-  }
-};
+  };
 
-<GridComponent queryCellInfo={queryCellInfo}>
-  {/* columns */}
-</GridComponent>
+  return (
+    <>
+      <button onClick={handleThemeChange}>
+        Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
+      </button>
+      <GridComponent dataSource={data} allowPaging={true}>
+        <ColumnsDirective>
+          <ColumnDirective field='OrderID' headerText='Order ID' width='100' />
+          <ColumnDirective field='CustomerName' headerText='Customer Name' width='150' />
+        </ColumnsDirective>
+        <Inject services={[Page]} />
+      </GridComponent>
+    </>
+  );
+}
 ```
 
-### Custom Header Styling
+### Pattern 2: Responsive Design with Multiple Themes
 
-```tsx
-const headerCellInfo = (args) => {
-  args.cell.style.backgroundColor = '#1976d2';
-  args.cell.style.color = '#ffffff';
-  args.cell.style.fontSize = '14px';
-  args.cell.style.fontWeight = '600';
-  args.cell.style.padding = '12px';
-  args.cell.style.textAlign = 'center';
-};
+Apply different themes based on screen size:
 
-<GridComponent queryCellInfo={headerCellInfo}>
-  {/* columns */}
-</GridComponent>
+```css
+@import "../node_modules/@syncfusion/ej2-bootstrap5.3-theme/styles/grid/index.css";
 ```
 
-### Row Selection Styling
+```jsx
+import { useEffect, useState } from 'react';
+import { GridComponent } from '@syncfusion/ej2-react-grids';
 
-```tsx
-const recordClick = (args) => {
-  args.rowElement.style.backgroundColor = '#bbdefb';
-};
+export default function App() {
+  const [theme, setTheme] = useState('bootstrap');
 
-const rowDataBound = (args) => {
-  if (args.data.IsSelected) {
-    args.row.classList.add('custom-selected');
-  }
-};
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        // Mobile: Use touch mode and simpler theme
+        document.body.classList.add('e-bigger');
+        setTheme('touch-optimized');
+      } else {
+        // Desktop: Use normal mode
+        document.body.classList.remove('e-bigger');
+        setTheme('desktop');
+      }
+    };
 
-const customStyle = `
-  .custom-selected {
-    background-color: #1976d2 !important;
-    color: white;
-  }
-  
-  .custom-selected td {
-    color: white;
-  }
-`;
+    window.addEventListener('resize', handleResize);
+    handleResize(); // Call once on mount
+    return () => window.removeEventListener('resize', handleResize);
+  }, []);
 
-<GridComponent
-  recordClick={recordClick}
-  rowDataBound={rowDataBound}
->
-  {/* columns */}
-  <style>{customStyle}</style>
-</GridComponent>
+  return <GridComponent dataSource={data}>{/* Grid content */}</GridComponent>;
+}
 ```
 
-### Zebra Striping with Custom Colors
+### Pattern 3: Custom Brand Colors
 
-```tsx
-const zebraStripeStyle = `
-  .e-grid .e-table tbody tr:nth-child(odd) {
-    background-color: #ffffff;
-  }
-  
-  .e-grid .e-table tbody tr:nth-child(even) {
-    background-color: #f5f5f5;
-  }
-  
-  .e-grid .e-table tbody tr:hover {
-    background-color: #e8f4f8 !important;
-    box-shadow: inset 0 0 5px rgba(0, 0, 0, 0.1);
-  }
-  
-  .e-grid .e-table thead tr {
-    background-color: #263238;
-    color: white;
-  }
-`;
+Override theme colors to match brand identity:
 
-<GridComponent dataSource={data}>
-  {/* columns */}
-  <style>{zebraStripeStyle}</style>
-</GridComponent>
+```css
+@import "../node_modules/@syncfusion/ej2-material3-theme/styles/grid/index.css";
+/* brand-theme.css */
+:root {
+  /* Company brand color (instead of Material purple) */
+  --color-sf-primary: #1976d2; /* Blue brand */
+  --color-sf-secondary: #dc004e; /* Pink accent */
+  
+  /* Header styling */
+  --color-sf-content-bg-color-alt1: #f5f5f5;
+  
+  /* Selection and hover states */
+  --color-sf-surface-hover: #e3f2fd;
+  --color-sf-secondary-container: #f3e5f5;
+  
+  /* Success/Error states */
+  --color-sf-success: #4caf50;
+  --color-sf-error: #f44336;
+}
 ```
 
-### Responsive Font Sizes
+```jsx
+import './brand-theme.css';
+```
 
-```tsx
-const responsiveStyle = `
-  /* Large screens */
-  @media (min-width: 1200px) {
-    .e-grid {
-      font-size: 14px;
+### Pattern 4: Accessibility with High Contrast Theme
+
+Implement high contrast theme for accessibility compliance:
+
+```jsx
+import { useState } from 'react';
+import '@syncfusion/ej2-material3-theme/styles/material3.css';
+
+export default function App() {
+  const [highContrast, setHighContrast] = useState(false);
+
+  useEffect(() => {
+    if (highContrast) {
+      document.body.classList.add('e-highcontrast');
+      import('@syncfusion/ej2-highcontrast-theme/styles/highcontrast.css');
+    } else {
+      document.body.classList.remove('e-highcontrast');
     }
-    .e-grid .e-th {
-      padding: 12px;
-    }
-  }
-  
-  /* Tablets */
-  @media (min-width: 768px) and (max-width: 1199px) {
-    .e-grid {
-      font-size: 13px;
-    }
-    .e-grid .e-th {
-      padding: 10px;
-    }
-  }
-  
-  /* Mobile */
-  @media (max-width: 767px) {
-    .e-grid {
-      font-size: 12px;
-    }
-    .e-grid .e-th {
-      padding: 8px;
-    }
-  }
-`;
+  }, [highContrast]);
 
-<GridComponent dataSource={data}>
-  {/* columns */}
-  <style>{responsiveStyle}</style>
-</GridComponent>
+  return (
+    <>
+      <label>
+        <input 
+          type="checkbox" 
+          checked={highContrast}
+          onChange={(e) => setHighContrast(e.target.checked)}
+        />
+        Enable High Contrast Mode (Accessibility)
+      </label>
+      <GridComponent dataSource={data}>
+        {/* Grid content */}
+      </GridComponent>
+    </>
+  );
+}
 ```
 
-### Border and Separator Customization
+---
 
-```tsx
-const borderStyle = `
-  .e-grid {
-    border: 1px solid #d0d0d0;
-  }
-  
-  .e-grid .e-gridheader {
-    border-bottom: 2px solid #1976d2;
-  }
-  
-  .e-grid .e-table th,
-  .e-grid .e-table td {
-    border-right: 1px solid #e0e0e0;
-  }
-  
-  .e-grid .e-table th:last-child,
-  .e-grid .e-table td:last-child {
-    border-right: none;
-  }
-  
-  .e-grid .e-table td {
-    border-bottom: 1px solid #f0f0f0;
-  }
-`;
+## When to Use Each Approach
 
-<GridComponent dataSource={data}>
-  {/* columns */}
-  <style>{borderStyle}</style>
-</GridComponent>
+| Scenario | Recommendation | Method |
+|----------|---|---|
+| **Static theme** | Use one theme throughout app | Import CSS in main app file |
+| **User preference** | Let users choose theme | Use CSS class switching + state |
+| **Brand matching** | Override default colors | CSS variable customization |
+| **Accessibility** | Support high contrast | Provide high contrast theme toggle |
+| **Mobile-first** | Optimize for touch | Apply `e-bigger` class on mobile |
+| **Team design system** | Consistent styling | Create custom theme package |
+
+---
+
+## Edge Cases & Troubleshooting
+
+### Issue: Custom CSS variables not overriding theme
+
+**Problem:** CSS variable changes ignored by theme
+
+**Solution:** Ensure custom styles load AFTER theme CSS and use `!important` if needed
+
+```jsx
+// Order matters!
+import '@syncfusion/ej2-material3-theme/styles/material3.css';
+import './custom-overrides.css'; // Load custom styles AFTER theme
+
+// In custom-overrides.css:
+:root {
+  --color-sf-primary: #1976d2 !important; /* Use !important if necessary */
+}
 ```
 
-## Material Design Integration
+### Issue: Touch mode not activating
 
-### Material Icons
+**Problem:** `e-bigger` class applied but UI not enlarging
 
-```tsx
-import { Icon } from '@syncfusion/ej2-base';
+**Solution:** 
+1. Verify class is applied to `<body>` or parent container
+2. Check theme includes touch mode styles
+3. Ensure theme CSS is loaded correctly
 
-const toolbarItems = [
-  { 
-    id: 'grid-add', 
-    text: 'Add', 
-    tooltipText: 'Add new row',
-    prefixIcon: 'e-icon-add'
-  },
-  { 
-    id: 'grid-edit', 
-    text: 'Edit', 
-    tooltipText: 'Edit selected row',
-    prefixIcon: 'e-icon-edit'
-  },
-  { 
-    id: 'grid-delete', 
-    text: 'Delete', 
-    tooltipText: 'Delete selected row',
-    prefixIcon: 'e-icon-delete'
+```jsx
+// ✅ Correct: Add to body in index.html or main layout
+<body className="e-bigger">
+  <div id="root"></div>
+</body>
+
+// Or dynamically:
+useEffect(() => {
+  if (isTouchDevice) {
+    document.body.classList.add('e-bigger');
   }
-];
-
-<GridComponent toolbar={toolbarItems}>
-  {/* columns */}
-</GridComponent>
+}, []);
 ```
 
-### Material Color Palette
+---
 
-```tsx
-const materialColors = `
-  :root {
-    --primary-color: #1976d2;
-    --primary-dark: #1565c0;
-    --primary-light: #42a5f5;
-    --accent-color: #ff4081;
-    --success-color: #4caf50;
-    --warning-color: #ff9800;
-    --danger-color: #f44336;
-    --info-color: #2196f3;
-  }
-  
-  .e-grid .e-th {
-    background-color: var(--primary-color);
-    color: white;
-  }
-  
-  .e-grid .e-row:hover {
-    background-color: #f5f5f5;
-  }
-  
-  .e-grid .e-selectionbackground {
-    background-color: var(--primary-light) !important;
-  }
-`;
+## Best Practices
 
-<GridComponent dataSource={data}>
-  {/* columns */}
-  <style>{materialColors}</style>
-</GridComponent>
-```
+1. **Choose theme once at startup** — Switching themes frequently impacts performance
+2. **Keep CSS variable overrides minimal** — Override only what you need to customize
+3. **Test accessibility** — Verify color contrast meets WCAG AA standards
+4. **Mobile consideration** — Use `e-bigger` class for better touch UX
+5. **Cache management** — Clear cache when switching themes during development
+6. **Use dark theme package** — Don't manually create dark themes; use official packages
