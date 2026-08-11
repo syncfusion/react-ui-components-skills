@@ -49,8 +49,7 @@ The `--save` flag adds the package to the `dependencies` section of `package.jso
 Add the required theme stylesheets to `src/App.css`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-buttons/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/button/index.css";
 ```
 
 Import `App.css` in `src/App.tsx`:

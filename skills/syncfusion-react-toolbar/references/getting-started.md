@@ -85,10 +85,7 @@ This automatically installs all peer dependencies including buttons and popups.
 Add the following CSS imports to your `src/App.css` file:
 
 ```css
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-react-navigations/styles/tailwind3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/toolbar/index.css";
 ```
 
 **Theme Options:**

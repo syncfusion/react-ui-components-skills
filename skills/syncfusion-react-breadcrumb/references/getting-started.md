@@ -80,8 +80,7 @@ This command installs all required dependencies for the Breadcrumb component.
 Add the Breadcrumb component stylesheets to your `App.css` or `App.tsx` file:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/breadcrumb/index.css";
 ```
 
 **Available Themes:**

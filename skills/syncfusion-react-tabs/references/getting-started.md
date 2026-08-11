@@ -74,10 +74,7 @@ npm start
 The Tab component requires CSS files for styling. Add these imports to your `src/App.css` file:
 
 ```css
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-react-navigations/styles/tailwind3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/tab/index.css";
 ```
 
 Then import the CSS in your `src/App.tsx` (or `src/App.jsx`):

@@ -82,9 +82,7 @@ import App from './App';
 Add these imports to your `src/App.css` file:
 
 ```css
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-react-inputs/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-react-dropdowns/styles/tailwind3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/list-box/index.css";
 ```
 
 Then import the CSS in your App component:

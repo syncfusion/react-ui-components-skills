@@ -58,9 +58,7 @@ The `--save` flag adds the package to your `package.json` dependencies.
 Add the following CSS imports to your `src/App.css` file:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-icons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-inputs/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/textbox/index.css";
 ```
 
 These imports provide:

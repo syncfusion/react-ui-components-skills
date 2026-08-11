@@ -42,8 +42,7 @@ Add theme CSS to your `src/App.css` (or global stylesheet):
 
 ```css
 /* Tailwind3 theme (recommended) */
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/otp-input/index.css";
 ```
 
 Other available themes: `material3`, `bootstrap5`, `fluent2`, `fabric`.

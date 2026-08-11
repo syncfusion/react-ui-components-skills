@@ -42,8 +42,7 @@ npm install @syncfusion/ej2-react-buttons --save
 Add the following CSS imports in `src/App.css`:
 
 ```css
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-react-buttons/styles/tailwind3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/chips/index.css";
 ```
 
 Then import `App.css` in `src/App.tsx`:

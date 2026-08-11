@@ -43,9 +43,7 @@ You can verify the installation by checking your `package.json`:
 Import the necessary CSS files in your main application file (typically `src/App.css` or `src/App.jsx`):
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/stepper/index.css";
 ```
 
 **Available Themes:**

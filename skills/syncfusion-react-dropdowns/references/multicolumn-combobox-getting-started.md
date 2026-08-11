@@ -34,11 +34,7 @@ npm create vite@latest my-app -- --template react
 Add the following CSS imports to `src/App.css`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-grids/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-multicolumn-combobox/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/multicolumn-combobox/index.css";
 ```
 
 Then import the CSS file in `src/App.tsx`:

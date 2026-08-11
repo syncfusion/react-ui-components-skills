@@ -37,8 +37,7 @@ npm install @syncfusion/ej2-react-inputs --save
 Add CSS imports in `src/App.css`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-inputs/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/maskedtextbox/index.css";
 ```
 
 Import `App.css` in `src/App.tsx`:

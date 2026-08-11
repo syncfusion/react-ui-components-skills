@@ -21,8 +21,7 @@ npm install @syncfusion/ej2-react-notifications --save
 Import the required stylesheets in `src/App.css`. The `ej2-base` styles provide foundational theme tokens; the notifications styles provide component-specific styling:
 
 ```css
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-react-notifications/styles/tailwind3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/message/index.css";
 ```
 
 Then import `App.css` in your entry file:

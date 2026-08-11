@@ -32,9 +32,7 @@ npm run dev
 Add the required CSS imports to your `src/App.css` file. Use the theme that matches your project (e.g., `tailwind3`, `material`, `bootstrap5`):
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-inputs/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/auto-complete/index.css";
 ```
 
 Then import `App.css` in `src/App.tsx`:

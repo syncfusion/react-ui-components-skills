@@ -73,21 +73,17 @@ Install the Scheduler component package from npm:
 npm install @syncfusion/ej2-react-schedule --save
 ```
 
-## Adding CSS Themes
+## Add Theme Styles
 
-Add the Scheduler component styles to `src/App.css`. The Scheduler requires styles from multiple dependent components:
+Install the **Tailwind 3** theme package using the following command:
+
+```bash
+npm install @syncfusion/ej2-tailwind3-theme --save
+```
+Then add the following CSS reference to the **src/App.css** file:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-calendars/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-lists/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-schedule/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/schedule/index.css";
 ```
 
 **Available Themes:**

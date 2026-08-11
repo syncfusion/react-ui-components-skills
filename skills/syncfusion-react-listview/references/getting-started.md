@@ -45,41 +45,26 @@ import { registerLicense } from '@syncfusion/ej2-base';
 registerLicense('YOUR_SYNCFUSION_LICENSE_KEY');
 ```
 
-## CSS Themes
+## CSS Imports
 
-### Available Built-in Themes
+Add component styles to your application. Choose the theme that matches your design:
 
-1. **Material** (Default)
-```tsx
-import '@syncfusion/ej2-react-lists/styles/material.css';
+```css
+/* In your App.css or App.tsx */
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/list-view/index.css";
 ```
 
-2. **Bootstrap**
-```tsx
-import '@syncfusion/ej2-react-lists/styles/bootstrap.css';
+**Available Themes:**
+- `tailwind3.css` - Modern Tailwind design
+- `bootstrap5.3.css` - Bootstrap 5.3 styling
+- `fluent2.css` - Microsoft Fluent 2 design
+- `material3.css` - Material Design 3
+
+Then import the CSS file in your React component:
+
+```jsx
+import './App.css';
 ```
-
-3. **Fabric (Office)**
-```tsx
-import '@syncfusion/ej2-react-lists/styles/fabric.css';
-```
-
-4. **Tailwind**
-```tsx
-import '@syncfusion/ej2-react-lists/styles/tailwind.css';
-```
-
-5. **High Contrast**
-```tsx
-import '@syncfusion/ej2-react-lists/styles/highcontrast.css';
-```
-
-### Bootstrap Dark Theme
-
-```tsx
-import '@syncfusion/ej2-react-lists/styles/bootstrap-dark.css';
-```
-
 ### Applying a Theme
 
 Choose ONE theme and import in your main component or App.tsx:

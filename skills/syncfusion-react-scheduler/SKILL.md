@@ -64,7 +64,7 @@ Text content contained within appointment fields (such as Subject or Description
 📄 **Read:** [references/getting-started.md](references/getting-started.md)
 - Installation and package dependencies
 - Basic Scheduler setup with required modules
-- CSS theme imports and configuration
+- Theme package installation and CSS import via npm theme packages
 - View injection (Day, Week, Month, Agenda, Timeline)
 - Initial render with sample appointments
 - Data source binding basics

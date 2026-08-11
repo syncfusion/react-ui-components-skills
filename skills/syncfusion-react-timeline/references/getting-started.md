@@ -38,8 +38,7 @@ This command automatically installs all required dependencies.
 Add CSS references to your application. Import the required CSS files in your `App.tsx` or `App.jsx`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-layouts/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/timeline/index.css";
 ```
 
 **Available Themes:**

@@ -67,17 +67,7 @@ This command automatically installs all required peer dependencies.
 Add the Menu component's CSS imports to your main `App.css` file. Include styles for all required Syncfusion dependencies:
 
 ```css
-/* Base styles */
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-
-/* Button styles (used by Menu) */
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
-
-/* Popup styles (for sub-menus) */
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
-
-/* Navigation and Menu styles */
-@import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/menu/index.css";
 ```
 
 **Available themes:**

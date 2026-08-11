@@ -48,20 +48,8 @@ import { DashboardLayoutComponent } from '@syncfusion/ej2-react-layouts';
 
 Add the required CSS imports to your main component or App.tsx file:
 
-```tsx
-// Import base theme (choose one)
-import '@syncfusion/ej2-base/styles/tailwind3.css';
-// OR
-// import '@syncfusion/ej2-base/styles/bootstrap5.css';
-// import '@syncfusion/ej2-base/styles/fluent2.css';
-// import '@syncfusion/ej2-base/styles/material3.css';
-
-// Import Dashboard Layout styles
-import '@syncfusion/ej2-react-layouts/styles/tailwind3.css';
-// OR
-// import '@syncfusion/ej2-react-layouts/styles/bootstrap5.css';
-// import '@syncfusion/ej2-react-layouts/styles/fluent2.css';
-// import '@syncfusion/ej2-react-layouts/styles/material3.css';
+```css
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/dashboard-layouts/index.css";
 ```
 
 **Note:** Choose only one theme. Using multiple themes simultaneously may cause styling conflicts.

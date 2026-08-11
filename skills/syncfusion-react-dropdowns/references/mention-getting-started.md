@@ -13,11 +13,7 @@ npm install @syncfusion/ej2-react-dropdowns --save
 Add these imports in your `src/App.css`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-buttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-popups/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-list/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/mention/index.css";
 ```
 
 Then import `App.css` in `src/App.tsx`:

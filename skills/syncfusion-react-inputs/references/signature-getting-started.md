@@ -19,8 +19,7 @@ The Signature component is part of the `@syncfusion/ej2-react-inputs` package.
 Add the following theme imports to `src/App.css`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/signature/index.css";
 ```
 
 Import `App.css` in `src/App.tsx`:

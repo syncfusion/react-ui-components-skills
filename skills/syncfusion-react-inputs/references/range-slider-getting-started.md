@@ -70,10 +70,7 @@ Add CSS imports to your main stylesheet or App component. Choose ONE theme:
 Add these lines to `src/App.css`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-inputs/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/slider/index.css";
 ```
 
 ### Option 2: Import in App.tsx

@@ -30,8 +30,7 @@ npm run dev
 Add Syncfusion theme CSS in `src/App.css`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-popups/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/tooltip/index.css";
 ```
 
 Then import `App.css` in `src/App.tsx`:

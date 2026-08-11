@@ -32,33 +32,21 @@ After installation, verify the package in `package.json`:
 }
 ```
 
-## CSS Import
+## CSS Imports
 
-The Splitter component requires CSS files for styling. Import these in your main component or App.css:
+Add Syncfusion theme CSS in `src/App.css`:
 
-### Tailwind 3 Theme
 ```css
-@import '../../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../../node_modules/@syncfusion/ej2-layouts/styles/tailwind3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/splitter/index.css";
 ```
 
-### Bootstrap 5 Theme
-```css
-@import '../../node_modules/@syncfusion/ej2-base/styles/bootstrap5.css';
-@import '../../node_modules/@syncfusion/ej2-layouts/styles/bootstrap5.css';
+Then import `App.css` in `src/App.tsx`:
+
+```tsx
+import './App.css';
 ```
 
-### Material Theme
-```css
-@import '../../node_modules/@syncfusion/ej2-base/styles/material.css';
-@import '../../node_modules/@syncfusion/ej2-layouts/styles/material.css';
-```
-
-### Fluent Theme
-```css
-@import '../../node_modules/@syncfusion/ej2-base/styles/fluent.css';
-@import '../../node_modules/@syncfusion/ej2-layouts/styles/fluent.css';
-```
+> Available themes: `material3`, `bootstrap5`, `fluent2`, `tailwind3`. Replace `tailwind3` with your preferred theme across both imports.
 
 **Best Practice:** Import CSS in your main App component (App.tsx/App.jsx) before rendering Splitter.
 

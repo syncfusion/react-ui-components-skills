@@ -40,8 +40,7 @@ npm install @syncfusion/ej2-react-buttons --save
 Add theme CSS imports in `src/App.css`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/speed-dial/index.css";
 ```
 
 Import `App.css` in `src/App.tsx`:

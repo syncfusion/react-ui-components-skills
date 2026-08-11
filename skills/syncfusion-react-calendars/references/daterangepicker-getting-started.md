@@ -348,12 +348,7 @@ npm install @syncfusion/ej2-base @syncfusion/ej2-buttons @syncfusion/ej2-lists @
 ### Add CSS Imports to src/App.css
 
 ```css
-@import '../node_modules/@syncfusion/ej2-base/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-lists/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-inputs/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-calendars/styles/material3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/daterangepicker/index.css";
 ```
 
 ### Update src/App.js

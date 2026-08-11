@@ -31,6 +31,24 @@ The SplitButton component requires the following:
 npm install @syncfusion/ej2-base @syncfusion/ej2-buttons
 ```
 
+---
+
+## CSS Setup
+
+Add theme CSS imports in `src/App.css`:
+
+```css
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/split-button/index.css";
+```
+
+Import `App.css` in `src/App.tsx`:
+
+```tsx
+import './App.css';
+```
+
+---
+
 ## Module Setup
 
 ### Using SplitButtonComponent (Recommended)

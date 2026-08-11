@@ -89,8 +89,7 @@ import '@syncfusion/ej2-calendars/styles/material3.css';
 
 ```css
 /* styles.css */
-@import '../node_modules/@syncfusion/ej2-base/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-calendars/styles/material3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/timepicker/index.css";
 ```
 
 ### Available Themes

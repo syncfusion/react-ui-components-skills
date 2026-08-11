@@ -59,8 +59,7 @@ npm start
 The TextArea component requires CSS files from the Syncfusion package. Add these imports to your **src/App.css** file:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-inputs/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/textarea/index.css";
 ```
 
 Then import `App.css` in your **src/App.tsx** (or App.jsx) file:

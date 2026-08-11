@@ -30,10 +30,7 @@ npm install @syncfusion/ej2-react-buttons @syncfusion/ej2-popups --save
 Add all required CSS files in `src/App.css` (or your global stylesheet):
 
 ```css
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-react-buttons/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-react-notifications/styles/tailwind3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/toast/index.css";
 ```
 
 Other available themes: `material.css`, `bootstrap5.css`, `fluent.css`, `fabric.css`

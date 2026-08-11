@@ -41,8 +41,7 @@ npm run dev
 Add theme imports to `src/App.css`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/floating-action-button/index.css";
 ```
 
 Import the CSS file in `src/App.tsx`:

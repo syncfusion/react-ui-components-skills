@@ -71,37 +71,22 @@ cd my-carousel-app
 npm start
 ```
 
-## CSS Imports and Theme Configuration
+## CSS Imports
 
-Add Carousel styles to `App.css` or your main stylesheet. Choose your preferred theme:
+Add Syncfusion styles to your main CSS file (`App.css` or `index.css`):
 
-### Tailwind 3 Theme
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/carousel/index.css";
 ```
 
-### Bootstrap 5.3 Theme
-```css
-@import "../node_modules/@syncfusion/ej2-base/styles/bootstrap5.3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/bootstrap5.3.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/bootstrap5.3.css";
-```
+**Available Theme Options:**
+- `tailwind3.css` - Tailwind CSS theme (modern, minimal)
+- `bootstrap5.css` - Bootstrap 5 theme (familiar Bootstrap look)
+- `material.css` - Material Design theme (Google Material Design)
+- `fluent2.css` - Microsoft Fluent 2 theme (Office 365 style)
+- `fabric.css` - Fabric (Office 365) theme
 
-### Material 3 Theme
-```css
-@import "../node_modules/@syncfusion/ej2-base/styles/material3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/material3.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/material3.css";
-```
-
-### Fluent 2 Theme
-```css
-@import "../node_modules/@syncfusion/ej2-base/styles/fluent2.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/fluent2.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/fluent2.css";
-```
+Choose one theme that matches your project. Replace `tailwind3` with your preferred theme.
 
 ## Basic Carousel Component Setup
 

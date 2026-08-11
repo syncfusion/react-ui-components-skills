@@ -24,27 +24,23 @@ npm install @syncfusion/ej2-react-popups @syncfusion/ej2-base
 
 ## CSS Imports
 
-Import theme CSS in your component. Choose one theme:
+Add component styles to your application. Choose the theme that matches your design:
 
-**Material Theme (Default):**
-```jsx
-import '@syncfusion/ej2-base/styles/material.css';
-import '@syncfusion/ej2-buttons/styles/material.css';
-import '@syncfusion/ej2-popups/styles/material.css';
+```css
+/* In your App.css or App.tsx */
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/dialog/index.css";
 ```
 
-**Bootstrap Theme:**
-```jsx
-import '@syncfusion/ej2-base/styles/bootstrap.css';
-import '@syncfusion/ej2-buttons/styles/bootstrap.css';
-import '@syncfusion/ej2-popups/styles/bootstrap.css';
-```
+**Available Themes:**
+- `tailwind3.css` - Modern Tailwind design
+- `bootstrap5.3.css` - Bootstrap 5.3 styling
+- `fluent2.css` - Microsoft Fluent 2 design
+- `material3.css` - Material Design 3
 
-**Tailwind Theme:**
+Then import the CSS file in your React component:
+
 ```jsx
-import '@syncfusion/ej2-base/styles/tailwind.css';
-import '@syncfusion/ej2-buttons/styles/tailwind.css';
-import '@syncfusion/ej2-popups/styles/tailwind.css';
+import './App.css';
 ```
 
 **Note:** Always import base styles first, then component-specific styles.

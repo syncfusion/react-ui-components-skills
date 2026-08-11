@@ -60,11 +60,7 @@ The `--save` flag ensures the package is added to `dependencies` in `package.jso
 Add the following imports in `src/App.css`. These cover the ColorPicker and all its dependencies (buttons, popups, split buttons):
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-inputs/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/color-picker/index.css";
 ```
 
 Then import `App.css` in `src/App.tsx`:

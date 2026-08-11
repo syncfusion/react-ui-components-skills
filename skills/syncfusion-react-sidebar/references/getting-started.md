@@ -34,22 +34,22 @@ npm install @syncfusion/ej2-theme-bootstrap5
 npm install @syncfusion/ej2-theme-material
 ```
 
-### 2. Import CSS Styles
+## CSS Imports
 
-Add theme CSS imports to your application entry point (`index.js` or `main.jsx`):
+Add Syncfusion theme CSS in `src/App.css`:
 
-```jsx
-// Default theme
-import '@syncfusion/ej2-navigations/styles/material.css';
-
-// Or choose another theme:
-// import '@syncfusion/ej2-navigations/styles/bootstrap5.css';
-// import '@syncfusion/ej2-navigations/styles/fluent.css';
-// import '@syncfusion/ej2-navigations/styles/tailwind.css';
-
-// Import base styles
-import '@syncfusion/ej2-base/styles/material.css';
+```css
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/sidebar/index.css";
 ```
+
+Then import `App.css` in `src/App.tsx`:
+
+```tsx
+import './App.css';
+```
+
+> Available themes: `material3`, `bootstrap5`, `fluent2`, `tailwind3`. Replace `tailwind3` with your preferred theme across both imports.
+
 
 ### 3. Import Components
 

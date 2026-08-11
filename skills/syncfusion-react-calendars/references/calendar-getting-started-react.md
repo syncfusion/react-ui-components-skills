@@ -16,6 +16,43 @@ Install the React Calendar package and base utilities:
 npm install @syncfusion/ej2-react-calendars @syncfusion/ej2-base
 ```
 
+## CSS Imports
+
+### Import Themes
+
+The TimePicker component requires CSS imports for styling. Choose one of the available themes:
+
+**In Component (app.component.css or app.component.tsx):**
+
+```tsx
+import '@syncfusion/ej2-base/styles/material3.css';
+import '@syncfusion/ej2-calendars/styles/material3.css';
+```
+
+**Or in Global Styles (styles.css or styles.scss):**
+
+```css
+/* styles.css */
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/calendar/index.css";
+```
+
+### Available Themes
+
+Syncfusion provides multiple pre-built themes:
+
+| Theme | File | Best For |
+|-------|------|----------|
+| Material 3 | material3.css | Modern, recommended default |
+| Bootstrap 5 | bootstrap5.css | Bootstrap-based projects |
+| Fluent | fluent.css | Microsoft Fluent Design |
+| Tailwind | tailwind.css | Tailwind CSS projects |
+| Fabric | fabric.css | Office Fabric theme |
+| Bootstrap 4 | bootstrap4.css | Bootstrap 4 projects |
+| Material | material.css | Google Material Design |
+| Highcontrast | highcontrast.css | High contrast for accessibility |
+
+**⚠️ Important:** Choose ONE theme per application to avoid style conflicts. Mixing themes can cause unexpected styling issues.
+
 Add the theme CSS (import once in `index.js` or global CSS):
 
 ```js

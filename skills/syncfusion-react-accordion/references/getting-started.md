@@ -32,10 +32,7 @@ Add component styles to your application. Choose the theme that matches your des
 
 ```css
 /* In your App.css or App.tsx */
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-react-navigations/styles/tailwind3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/accordion/index.css";
 ```
 
 **Available Themes:**

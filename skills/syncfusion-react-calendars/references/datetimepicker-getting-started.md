@@ -92,8 +92,7 @@ Import the DateTimePicker theme CSS in your application. Choose one theme to avo
 
 ```css
 /* MyComponent.css */
-@import '../node_modules/@syncfusion/ej2-base/styles/material3.css';
-@import '../node_modules/@syncfusion/ej2-calendars/styles/material3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/datetimepicker/index.css";
 ```
 
 Then import the CSS in your component:

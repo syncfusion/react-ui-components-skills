@@ -17,20 +17,26 @@ This installs:
 - `@syncfusion/ej2-inputs` - Core component
 - Dependencies: `@syncfusion/ej2-base`, `@syncfusion/ej2-buttons`, `@syncfusion/ej2-popups`
 
-### Step 2: Add CSS Themes
+### CSS Imports
 
-Add the Material3 theme (or your preferred theme) to your `src/index.js` or main application file:
+Add component styles to your application. Choose the theme that matches your design:
 
-```jsx
-// Import base theme first
-import '@syncfusion/ej2-base/styles/material3.css';
-import '@syncfusion/ej2-buttons/styles/material3.css';
-import '@syncfusion/ej2-inputs/styles/material3.css';
-import '@syncfusion/ej2-popups/styles/material3.css';
-import '@syncfusion/ej2-angular-splitbuttons/styles/material3.css';
+```css
+/* In your App.css or App.tsx */
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/numerictextbox/index.css";
 ```
 
-**Available themes:** `material3`, `material`, `bootstrap5`, `bootstrap4`, `fabric`, `highcontrast`
+**Available Themes:**
+- `tailwind3.css` - Modern Tailwind design
+- `bootstrap5.3.css` - Bootstrap 5.3 styling
+- `fluent2.css` - Microsoft Fluent 2 design
+- `material3.css` - Material Design 3
+
+Then import the CSS file in your React component:
+
+```jsx
+import './App.css';
+```
 
 ## Basic Implementation
 

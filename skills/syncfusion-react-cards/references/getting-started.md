@@ -16,7 +16,7 @@ Add the Card CSS styles to your React application. Choose the theme that matches
 
 ```css
 /* Using Tailwind CSS theme (recommended) */
-@import '@syncfusion/ej2-layouts/styles/tailwind3.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/card/index.css";
 
 /* Or use other available themes: */
 /* @import '@syncfusion/ej2-layouts/styles/bootstrap5.css'; */

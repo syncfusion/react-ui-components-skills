@@ -42,10 +42,7 @@ npm install @syncfusion/ej2-react-splitbuttons --save
 Add the following imports to `src/App.css`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/button-group/index.css";
 ```
 
 Then import the CSS file in `src/App.tsx` (or `src/App.jsx`):

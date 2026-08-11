@@ -166,7 +166,7 @@ Use self-referential when:
 ### Import Base CSS
 
 ```tsx
-import '@syncfusion/ej2-react-navigations/styles/tree-view.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/treeview/index.css";
 ```
 
 ### Choose a Theme
@@ -196,10 +196,7 @@ import '@syncfusion/ej2-react-navigations/styles/highcontrast.css';
 import * as React from 'react';
 import { TreeViewComponent } from '@syncfusion/ej2-react-navigations';
 
-// Base CSS
-import '@syncfusion/ej2-react-navigations/styles/tree-view.css';
-// Theme
-import '@syncfusion/ej2-react-navigations/styles/material.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/treeview/index.css";
 
 function App() {
   // Component code here
@@ -361,8 +358,7 @@ Or enable per-instance:
 
 ```tsx
 // ✅ Correct - Both imports needed
-import '@syncfusion/ej2-react-navigations/styles/tree-view.css';
-import '@syncfusion/ej2-react-navigations/styles/material.css';
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/treeview/index.css";
 
 // ❌ Wrong - Missing theme CSS
 import '@syncfusion/ej2-react-navigations/styles/tree-view.css';

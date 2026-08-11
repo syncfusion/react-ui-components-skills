@@ -61,9 +61,7 @@ npm run dev
 Edit `src/App.css` and add the following imports **before** your custom CSS:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-inputs/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/combo-box/index.css";
 ```
 
 **Available Themes:**

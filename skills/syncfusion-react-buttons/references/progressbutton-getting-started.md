@@ -45,10 +45,7 @@ matching your project:
 
 ```css
 /* Tailwind 3 (default in recent Syncfusion demos) */
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/progress-button/index.css";
 ```
 
 Then import the stylesheet in `src/App.tsx`:

@@ -17,10 +17,7 @@ npm install @syncfusion/ej2-react-dropdowns --save
 Import the following CSS files in `src/App.css`. MultiSelect depends on base, buttons, and inputs styles:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-dropdowns/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/multi-select/index.css";
 ```
 
 Then import `App.css` in your entry file:

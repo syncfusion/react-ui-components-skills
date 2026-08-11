@@ -45,9 +45,7 @@ npm install @syncfusion/ej2-react-inputs --save
 Add the required CSS imports to `src/App.css`:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-inputs/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/rating/index.css";
 ```
 
 Then import `App.css` in `src/App.tsx`:
