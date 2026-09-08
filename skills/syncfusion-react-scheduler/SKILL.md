@@ -4,7 +4,6 @@ description: "Implement Syncfusion React Scheduler component for calendar, event
 metadata:
   author: "Syncfusion Inc"
   version: "34.1.29"
-  category: "Calendars"
 ---
 
 # Syncfusion React Scheduler
@@ -76,10 +75,17 @@ Text content contained within appointment fields (such as Subject or Description
 - All-day events
 - Recurring events (daily, weekly, monthly, yearly patterns)
 - CRUD operations (create, update, delete via editor or API)
-- Event templates and rendering customization
 - Drag-and-drop event rescheduling
 - Resize events to adjust duration
 - Quick popups for rapid event creation
+
+### Event Customization
+📄 **Read:** [references/event-customization.md](references/event-customization.md)
+- Event field mapping and custom data fields
+- Event templates and CSS-based styling
+- Event rendered customizations and tooltip behavior
+- Blocking, readonly, overlap, and inline editing rules
+- Troubleshooting and edge-case event handling
 
 ### Views and Navigation
 📄 **Read:** [references/views-and-navigation.md](references/views-and-navigation.md)
@@ -91,6 +97,7 @@ Text content contained within appointment fields (such as Subject or Description
 - Setting default/current view
 - View-specific configurations
 - Custom view intervals and settings
+- Limiting concurrent events per cell (maxEventStack)
 - Navigation between dates
 
 ### Data Binding
@@ -104,6 +111,12 @@ Text content contained within appointment fields (such as Subject or Description
 - Lazy loading for performance
 - Data CRUD synchronization
 
+### Advanced Data Binding
+📄 **Read:** [references/advanced-data-binding.md](references/advanced-data-binding.md)
+- Handling failure actions and server exceptions
+- Integrating with Google Calendar API
+- External data source validation and normalization
+
 ### Resources and Grouping
 📄 **Read:** [references/resources-and-grouping.md](references/resources-and-grouping.md)
 - Resource fields configuration (idField, textField, colorField)
@@ -116,28 +129,36 @@ Text content contained within appointment fields (such as Subject or Description
 - Expandable/collapsible groups in timeline
 - Multiple resource selection in event editor
 
-### Customization
-📄 **Read:** [references/customization.md](references/customization.md)
-- Event editor template customization
-- Cell template customization
+### Editor Customization
+📄 **Read:** [references/editor-customization.md](references/editor-customization.md)
+- Event editor field customization and labels
+- Custom editor templates
+- Adding custom fields and resource fields
+- Editor validation rules
+
+### Template Customization
+📄 **Read:** [references/template-customization.md](references/template-customization.md)
+- Cell template customization (date headers, work cells, month cells)
+- Resource header templates
 - Event rendering templates
-- Quick info popup templates
-- Tooltip customization
-- Adding custom fields to editor
-- Custom validation rules
-- Context menu customization
+- Quick info popup customization
+- Custom quick info header, content, and footer templates
+- Tooltip customization for events
+- More events indicator popup customization
 
 ### Time Configuration
 📄 **Read:** [references/time-configuration.md](references/time-configuration.md)
 - Timescale intervals and slot configuration
 - Major/minor slot customization
 - Timezone support (single and multiple zones)
+
+### Working Days and Calendar Modes
+📄 **Read:** [references/working-days-and-calendar-modes.md](references/working-days-and-calendar-modes.md)
 - Working days configuration (weekdays filter)
 - Working hours (startHour, endHour)
 - Calendar modes (Gregorian, Islamic)
 - First day of week setting
 - Time format (12-hour vs 24-hour)
-- Date header format customization
 
 ### Recurrence Editor
 📄 **Read:** [references/recurrence.md](references/recurrence.md)
@@ -155,9 +176,13 @@ Text content contained within appointment fields (such as Subject or Description
 ### Header and Layout
 📄 **Read:** [references/header-and-layout.md](references/header-and-layout.md)
 - Header bar customization (toolbar)
+- Date header customization
 - Custom toolbar items and actions
 - Header rows configuration
 - Date range display customization
+
+### Dimensions and Responsive Layout
+📄 **Read:** [references/dimensions-and-responsive-layout.md](references/dimensions-and-responsive-layout.md)
 - Component dimensions (width, height)
 - Row auto-height feature
 - Responsive layout behavior
@@ -186,7 +211,12 @@ Text content contained within appointment fields (such as Subject or Description
 - Localization setup (i18n)
 - RTL (right-to-left) support
 - Date and time format localization
-- Custom locale strings and translations
+
+### Custom Localization
+📄 **Read:** [references/custom-localization.md](references/custom-localization.md)
+- Custom locale strings and translation keys
+- Recurrence editor localization
+- External locale JSON loading
 
 ### Advanced Features
 📄 **Read:** [references/advanced-features.md](references/advanced-features.md)
@@ -195,11 +225,18 @@ Text content contained within appointment fields (such as Subject or Description
 - Export to ICS (calendar format)
 - Print functionality with custom styles
 - Clipboard operations (cut, copy, paste events)
-- Virtual scrolling for performance
 - Read-only mode
 - Event validation rules
 - Custom context menu integration
 - Inline editing capabilities
+
+### Performance Optimization
+📄 **Read:** [references/performance-optimization.md](references/performance-optimization.md)
+- Virtual scrolling for large datasets
+- Lazy loading for resource-based appointment data
+- Performance tuning for event rendering and data loading
+- Resource handling and large schedule optimization
+- Browser and network performance considerations
 
 ## Quick Start
 

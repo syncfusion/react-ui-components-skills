@@ -37,7 +37,7 @@ Fires before: add, edit (cell/dialog/taskbar), delete, sort, filter, dependency 
 | `'sorting'` | Before sort applied |
 | `'beforeZoomIn'` | Before zoom in |
 | `'beforeZoomOut'` | Before zoom out |
-| `'validateDependency'` | Before dependency link drawn |
+| `'validateLinkedTask'` | Before dependency link drawn / validated |
 
 ```tsx
 const actionBegin = (args: any) => {
@@ -50,7 +50,7 @@ const actionBegin = (args: any) => {
   if (args.requestType === 'beforeDelete') {
     console.log('Deleting task:', args.data);
   }
-  if (args.requestType === 'validateDependency') {
+  if (args.requestType === 'validateLinkedTask') {
     if (!args.isValidLink) {
       args.cancel = true;  // prevent invalid dependency
     }

@@ -163,7 +163,9 @@ const ganttRef = React.useRef<GanttComponent>(null);
 
 ganttRef.current?.expandAll();            // expand all rows
 ganttRef.current?.collapseAll();          // collapse all rows
-ganttRef.current?.expandByID(1);          // expand row with TaskID = 1
-ganttRef.current?.collapseByID(5);        // collapse row with TaskID = 5
+ganttRef.current?.expandByID(3);          // expand row by task ID
+ganttRef.current?.collapseByID(3);        // collapse row by task ID
+ganttRef.current?.expandByIndex(0);       // expand row at zero-based index 0
+ganttRef.current?.collapseByIndex(2);     // collapse row at zero-based index 2
 ganttRef.current?.expandAtLevel(2);       // expand rows to depth level 2
 ```

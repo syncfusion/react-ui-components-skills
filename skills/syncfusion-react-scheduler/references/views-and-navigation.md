@@ -19,6 +19,7 @@
 - [Setting Active View](#setting-active-view)
 - [View Configuration](#view-configuration)
 - [Extending View Intervals](#extending-view-intervals)
+- [Limiting Concurrent Events (maxEventStack)](#limiting-concurrent-events-maxeventstack)
 - [Navigation](#navigation)
 
 ## Overview
@@ -595,6 +596,7 @@ Each view can be configured with its own set of properties. To apply view-specif
 | `showWeekNumber` | Boolean | Shows week number on respective weeks | Day, Week, Work Week, Month |
 | `allowVirtualScrolling` | Boolean | Enables or disables virtual scrolling | Agenda and Timeline views |
 | `headerRows` | HeaderRowsModel | Defines custom header rows on timeline views | All timeline views |
+| `maxEventStack` | Number | Limits the number of overlapping events rendered per cell. Set to `0` to render all events. Only applicable when the `timeScale` option is enabled | Day, Week, Work Week |
 
 **Example - View-Specific Configuration:**
 
@@ -658,6 +660,39 @@ root.render(<App />);
 ```
 
 View intervals can be extended on all Scheduler view modes except Agenda and Month-Agenda.
+
+## Limiting Concurrent Events (maxEventStack)
+
+The `maxEventStack` property limits the number of overlapping event labels rendered in a single time cell. It is applicable only with **Day**, **Week**, and **Work Week** views when the `timeScale` option is enabled. Set the value to `0` to render all events without any limit.
+
+**Example - Limiting Concurrent Events:**
+
+```tsx
+import { useRef } from 'react';
+import * as ReactDOM from 'react-dom';
+import { ScheduleComponent, ViewsDirective, ViewDirective, Day, Week, WorkWeek, Inject } from '@syncfusion/ej2-react-schedule';
+import { appData } from './datasource';
+
+const App = () => {
+  const scheduleObj = useRef(null);
+  const eventSettings = { dataSource: appData };
+
+  return (
+    <ScheduleComponent ref={scheduleObj} width='100%' height='650px'
+      currentView='Week' selectedDate={new Date(2026, 7, 31)} eventSettings={eventSettings} >
+      <ViewsDirective>
+        <ViewDirective option='Day' maxEventStack={2} />
+        <ViewDirective option='Week' maxEventStack={3} />
+        <ViewDirective option='WorkWeek' maxEventStack={1} />
+      </ViewsDirective>
+      <Inject services={[Day, Week, WorkWeek]} />
+    </ScheduleComponent>
+  );
+}
+
+const root = ReactDOM.createRoot(document.getElementById('schedule'));
+root.render(<App />);
+```
 
 ## Navigation
 

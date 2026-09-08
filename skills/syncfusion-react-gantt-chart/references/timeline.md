@@ -224,6 +224,70 @@ const timelineTemplate = (props: any) => {
 
 ---
 
+## Infinite Timeline Scrolling
+
+The `enableInfiniteTimelineScroll` property enables infinite horizontal scrolling by dynamically extending the visible timeline range as the user navigates. Set `enableInfiniteTimelineScroll` to `true` to enable this behavior.
+
+**Key behaviors**
+
+- When `enableInfiniteTimelineScroll` is enabled, the timeline automatically extends in the forward direction as the user scrolls using the horizontal scrollbar or clicks the forward scroll arrow.
+- In the backward direction, the timeline extends only when the user clicks the backward scroll arrow. Scrolling or dragging the scrollbar backward does not trigger timeline extension.
+- Infinite scrolling extends only the visible timeline range and does not modify the project dates.
+
+This feature enables exploration of long project schedules without manually updating the timeline range.
+
+Example:
+
+```tsx
+import { GanttComponent, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-react-gantt';
+import { TaskFieldsModel, SplitterSettingsModel, TimelineSettingsModel, LabelSettingsModel } from '@syncfusion/ej2-react-gantt';
+
+const taskFields: TaskFieldsModel = {
+  id: 'TaskID',
+  name: 'TaskName',
+  startDate: 'StartDate',
+  duration: 'Duration',
+  progress: 'Progress',
+  dependency: 'Predecessor',
+  parentID: 'ParentID'
+};
+
+const splitterSettings: SplitterSettingsModel = {
+  columnIndex: 3
+};
+
+const timelineSettings: TimelineSettingsModel = {
+  viewStartDate: new Date('12/29/2025'),
+  viewEndDate: new Date('04/27/2026')
+};
+
+const labelSettings: LabelSettingsModel = {
+  leftLabel: 'TaskID',
+  rightLabel: 'TaskName'
+};
+
+<GanttComponent
+  height='430px'
+  dataSource={infiniteTimelineScrollData}
+  enableInfiniteTimelineScroll={true}
+  taskFields={taskFields}
+  treeColumnIndex={1}
+  splitterSettings={splitterSettings}
+  gridLines='Both'
+  timelineSettings={timelineSettings}
+  labelSettings={labelSettings}
+>
+  <ColumnsDirective>
+    <ColumnDirective field='TaskID' width='80' />
+    <ColumnDirective field='TaskName' headerText='Job Name' width='250' clipMode='EllipsisWithTooltip' />
+    <ColumnDirective field='StartDate' />
+    <ColumnDirective field='Duration' />
+    <ColumnDirective field='Progress' />
+    <ColumnDirective field='Predecessor' />
+  </ColumnsDirective>
+</GanttComponent>
+```
+
 ## Timeline Navigation
 
 Shift the visible timeline range by one unit forward or backward:

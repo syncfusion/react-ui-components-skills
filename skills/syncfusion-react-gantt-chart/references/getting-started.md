@@ -4,7 +4,7 @@
 - [Dependencies](#dependencies)
 - [Project Setup](#project-setup)
 - [Install the Package](#install-the-package)
-- [Add CSS Imports](#add-css-imports)
+- [Add CSS Imports](#add-theme-styles)
 - [Basic Gantt Implementation](#basic-gantt-implementation)
 - [taskFields Mapping](#taskfields-mapping)
 - [Module Injection](#module-injection)
@@ -57,25 +57,18 @@ npm install @syncfusion/ej2-react-gantt --save
 
 ---
 
-## Add CSS Imports
+## Add Theme Styles
 
-Add the required theme styles to `src/App.css`:
+Install the **Tailwind 3** theme package using the following command:
+
+```bash
+npm install @syncfusion/ej2-tailwind3-theme --save
+```
+
+Then add the following CSS reference to the **src/App.css** file:
 
 ```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-calendars/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-gantt/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-grids/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-layouts/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-lists/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-notifications/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-richtexteditor/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-treegrid/styles/tailwind3.css";
+@import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/gantt/index.css";
 ```
 
 Then import the stylesheet in `src/App.tsx`:
@@ -84,7 +77,7 @@ Then import the stylesheet in `src/App.tsx`:
 import './App.css';
 ```
 
-> Replace `tailwind3` with your preferred theme if needed.
+> Replace `tailwind3` with your preferred theme if needed (e.g., `ej2-bootstrap5-theme` or `ej2-material-theme`).
 
 ---
 

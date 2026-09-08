@@ -13,21 +13,6 @@
   - [Deleting Events](#deleting-events)
   - [Drag and Drop](#drag-and-drop)
   - [Resize Events](#resize-events)
-- [Event Fields](#event-fields)
-  - [Built-in Fields](#built-in-fields)
-  - [Custom Fields](#custom-fields)
-  - [Field Settings](#field-settings)
-- [Event Customization](#event-customization)
-  - [Using Templates](#using-templates)
-  - [Using Event Rendered Event](#using-event-rendered-event)
-  - [Using CSS Class](#using-css-class)
-- [Advanced Features](#advanced-features)
-  - [Block Dates and Times](#block-dates-and-times)
-  - [Readonly Events](#readonly-events)
-  - [Event Overlapping](#event-overlapping)
-  - [Inline Editing](#inline-editing)
-  - [Event Tooltips](#event-tooltips)
-- [Troubleshooting and Edge Cases](#troubleshooting-and-edge-cases)
 
 ## Overview
 

@@ -128,7 +128,7 @@ Double-click a row or click the Edit toolbar button in `mode: 'Dialog'` to open 
 
 ```tsx
 // Update by TaskID
-ganttRef.current?.updateRecordById({
+ganttRef.current?.updateRecordByID({
   TaskID: 3,
   TaskName: 'Updated Task Name',
   Duration: 7,
@@ -149,7 +149,7 @@ editSettings={{ allowDeleting: true, showDeleteConfirmDialog: true }}
 ### Programmatic
 
 ```tsx
-ganttRef.current?.deleteRow();           // deletes currently selected row
+ganttRef.current?.deleteRecord();        // deletes currently selected row
 ```
 
 ---

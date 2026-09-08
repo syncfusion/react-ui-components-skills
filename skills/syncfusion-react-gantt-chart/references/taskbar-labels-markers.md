@@ -266,6 +266,136 @@ const taskFields = {
 }
 ```
 
+### Baseline Template
+Use `baselineTemplate` when the default baseline bar is not enough and you need custom baseline visuals. The template receives the task data, so you can render one or more planned schedules with your own markup and styling.
+
+```tsx
+import { GanttComponent, ColumnsDirective, ColumnDirective, Inject, Selection, DayMarkers, TaskFieldsModel, SplitterSettingsModel } from '@syncfusion/ej2-react-gantt';
+import { baselineTemplateData } from './datasource';
+
+function App() {
+  let ganttInstance: GanttComponent | null = null;
+
+  const taskFields: TaskFieldsModel = {
+    id: 'TaskID',
+    name: 'TaskName',
+    startDate: 'StartDate',
+    endDate: 'EndDate',
+    duration: 'Duration',
+    progress: 'Progress',
+    baselineStartDate: 'BaselineStartDate',
+    baselineEndDate: 'BaselineEndDate',
+    parentID: 'ParentID'
+  };
+
+  const splitterSettings: SplitterSettingsModel = {
+    columnIndex: 3
+  };
+
+  const baselineTemplate = (props: any): string => {
+    if (props.hasChildRecords || (props.data && props.data.hasChildRecords)) {
+      return '';
+    }
+
+    const gantt = ganttInstance as any;
+    const taskRecord = props.taskData;
+    const ganttProperties = taskRecord.ganttProperties;
+    const chartRowsModule = gantt.chartRowsModule;
+
+    const baselineTop = chartRowsModule.baselineTop;
+    const baselineHeight = chartRowsModule.baselineHeight;
+    const taskBarHeight = chartRowsModule.taskBarHeight;
+    const milestoneHeight = chartRowsModule.milestoneHeight;
+    const milestoneMarginTop = chartRowsModule.milestoneMarginTop;
+
+    const rowHeight = gantt.rowHeight;
+    const renderBaseline = gantt.renderBaseline;
+    const enableRtl = gantt.enableRtl;
+
+    const taskSpacing = 9;
+    const baselineSpacing = 4;
+
+    const getLeft = (date: any): number => gantt.dataOperation.getTaskLeft(new Date(date), false, ganttProperties.calendarContext);
+
+    const getWidth = (start: any, duration: number): number => {
+      if (!start || duration == null || duration === 0) return 0;
+      const end = new Date(start);
+      end.setDate(end.getDate() + duration);
+      return getLeft(end) - getLeft(start);
+    };
+
+    const render = (start: any, duration: number, index: number): string => {
+      if (!start) return '';
+
+      const leftPosition = getLeft(start);
+      const width = getWidth(start, duration);
+
+      if (duration === 0) {
+        const milestoneSize = renderBaseline ? taskBarHeight : (taskBarHeight - 10);
+        const baselineMilestoneHeight = renderBaseline ? 5 : 2;
+
+        const leftPositionMs = enableRtl
+          ? (leftPosition - (milestoneHeight / 2) + 3)
+          : (leftPosition - (milestoneHeight / 2) + 1);
+
+        const marginTop =
+          (-Math.floor(rowHeight - milestoneMarginTop) + baselineMilestoneHeight) +
+          2 +
+          (index * baselineSpacing);
+
+        return '<div style="position:absolute;width:' + milestoneSize + 'px;height:' + milestoneSize + 'px;transform:rotate(45deg);' +
+          (enableRtl ? 'right:' : 'left:') + leftPositionMs + 'px;margin-top:' + marginTop + 'px;"></div>';
+      }
+
+      return '<div style="position:absolute;' +
+        (enableRtl ? 'right:' : 'left:') + leftPosition + 'px;margin-top:' + (baselineTop + (index * taskSpacing)) +
+        'px;width:' + width + 'px;height:' + baselineHeight + 'px;"></div>';
+    };
+
+    return '<div>' +
+      render(taskRecord.taskData.BaselineStartDate, taskRecord.taskData.BaselineDuration, 0) +
+      render(taskRecord.taskData.BaselineStartDate1, taskRecord.taskData.BaselineDuration1, 1) +
+      render(taskRecord.taskData.BaselineStartDate2, taskRecord.taskData.BaselineDuration2, 2) +
+      '</div>';
+  };
+
+  return (
+    <GanttComponent
+      ref={(g: GanttComponent) => ganttInstance = g}
+      dataSource={baselineTemplateData}
+      taskFields={taskFields}
+      splitterSettings={splitterSettings}
+      allowSelection={true}
+      renderBaseline={true}
+      rowHeight={60}
+      taskbarHeight={20}
+      gridLines="Both"
+      highlightWeekends={true}
+      baselineColor="red"
+      baselineTemplate={baselineTemplate}
+      height="450px"
+    >
+      <ColumnsDirective>
+        <ColumnDirective field="TaskID" headerText="ID" textAlign="Left" />
+        <ColumnDirective field="TaskName" headerText="Name" width="270" />
+        <ColumnDirective field="BaselineStartDate" headerText="Baseline Start Date" width="180" />
+        <ColumnDirective field="BaselineDuration" headerText="Baseline Duration" width="180" />
+        <ColumnDirective field="BaselineStartDate1" headerText="Baseline1 Start Date" width="180" type="date" format="yMd" />
+        <ColumnDirective field="BaselineDuration1" headerText="Baseline1 Duration" width="180" />
+        <ColumnDirective field="BaselineStartDate2" headerText="Baseline2 Start Date" width="180" type="date" format="yMd" />
+        <ColumnDirective field="BaselineDuration2" headerText="Baseline2 Duration" width="180" />
+      </ColumnsDirective>
+      <Inject services={[Selection, DayMarkers]} />
+    </GanttComponent>
+  );
+}
+
+export default App;
+
+```
+
+This example uses a custom template to render multiple baseline bars per task. The attached code snippet can be used as the reference sample for this section.
+
 ---
 
 ## Data Markers (Task-Level Indicators)

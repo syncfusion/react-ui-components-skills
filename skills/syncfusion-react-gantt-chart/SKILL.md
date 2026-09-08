@@ -35,7 +35,7 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 📄 **Read:** [references/getting-started.md](references/getting-started.md)
 - Installation and package dependencies
 - Vite / CRA project setup
-- CSS theme imports (all 14 required packages)
+- Theme package installation and CSS import via npm theme packages
 - Basic `GanttComponent` with `taskFields` mapping
 - Module injection guide (all available services)
 - `gridLines` prop (`'Both'` / `'Horizontal'` / `'Vertical'` / `'None'`)
@@ -107,6 +107,7 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 - Dynamic timeline mode change at runtime (update `timelineViewMode` + `refresh()`)
 - Timeline cell tooltip visibility using `showTooltip`
 - Timeline template customization using `timelineTemplate` ({ date, value, tier })
+- Infinite timeline scrolling using `enableInfiniteTimelineScroll` (extends the visible range while navigating with horizontal scrollbar or scroll arrows)
 - Timeline navigation using `previousTimeSpan()` / `nextTimeSpan()`
 - Zooming with toolbar (`ZoomIn`, `ZoomOut`, `ZoomToFit`)
 - Customizing zoom steps with `zoomingLevels` (`ZoomTimelineSettings`)
@@ -172,7 +173,7 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 📄 **Read:** [references/managing-tasks.md](references/managing-tasks.md)
 - Adding new tasks (toolbar, context menu, programmatic `addRecord()`)
 - Editing tasks — dialog edit (`mode: 'Dialog'`), cell edit (`mode: 'Auto'`), taskbar drag
-- Deleting tasks (toolbar, `deleteRow()`, `showDeleteConfirmDialog`)
+- Deleting tasks (toolbar, `deleteRecord()`, `showDeleteConfirmDialog`)
 - Taskbar drag editing: move, resize right edge, progress handle, dependency drawing
 - Splitting and merging tasks (`taskFields.segments`, `splitTask()`, `mergeTask()`)
 - **Cell edit types** (`editType`): `stringedit`, `numericedit`, `datepickeredit`, `datetimepickeredit`, `dropdownedit`, `booleanedit`
@@ -218,6 +219,7 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 - Data markers / indicators
 - Event markers (deadlines, holidays on timeline)
 - Baseline rendering
+- Baseline template customization using `baselineTemplate`
 - Critical path highlighting
 
 ### Resources
@@ -230,14 +232,19 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 - Resource unit and work fields (`resourceFields.unit`, `resourceFields.group`)
 - Custom resource taskbar styling via `queryTaskbarInfo`
 
-### Toolbar and Context Menu
+### Toolbar
 📄 **Read:** [references/toolbar-context-menu.md](references/toolbar-context-menu.md)
-- Built-in toolbar items: `Add`, `Edit`, `Delete`, `Update`, `Cancel`, `Search`, `ExpandAll`, `CollapseAll`, `Indent`, `Outdent`, `ZoomIn`, `ZoomOut`, `ZoomToFit`, `CriticalPath`, `ExcelExport`, `CsvExport`, `PdfExport`, `ColumnChooser`, `Undo`, `Redo`, `SplitTask`, `MergeTask`
-- Required services per toolbar item (e.g. `Undo`/`Redo` → `UndoRedo`, `SplitTask` → `Edit`)
-- Custom toolbar buttons (`ItemModel`) and `toolbarClick` handler
-- Default context menu items including `SplitTask`, `MergeTask`, `Convert`, `DeleteDependency`
-- Custom context menu items, `contextMenuClick`, `contextMenuOpen` (`args.hideItems`)
-- Enabling/disabling toolbar items dynamically
+- Built-in toolbar items: `Add`, `Edit`, `Delete`, `Update`, `Cancel`, `Search`, `ExpandAll`, `CollapseAll`, `Indent`, `Outdent`, `PrevTimeSpan`, `NextTimeSpan`, `ZoomIn`, `ZoomOut`, `ZoomToFit`, `CriticalPath`, `ExcelExport`, `CsvExport`, `PdfExport`, `ColumnChooser`, `Undo`, `Redo`, `SplitTask`, `MergeTask`
+- Required services: `Undo`/`Redo` → `UndoRedo`; `SplitTask`/`MergeTask` → `Edit`; `CriticalPath` → `CriticalPath`; `ExcelExport`/`CsvExport` → `ExcelExport`; `PdfExport` → `PdfExport`; `ColumnChooser` → `ColumnMenu`
+- Custom toolbar buttons using `ItemModel`; handle clicks via `toolbarClick` event (`args.item.id`)
+- Enable/disable toolbar items programmatically via `enableItems()`
+
+### Context Menu
+📄 **Read:** [references/toolbar-context-menu.md](references/toolbar-context-menu.md)
+- Enable with `enableContextMenu={true}`; inject `ContextMenu` service
+- Default context menu items: `AutoFit`, `AutoFitAll`, `SortAscending`, `SortDescending`, `TaskInformation`, `Add`, `Indent`, `Outdent`, `DeleteTask`, `Save`, `Cancel`, `DeleteDependency`, `Convert`, `SplitTask`, `MergeTask`
+- Custom context menu items using `contextMenuItems` array with `target` (`.e-content` or `.e-gridheader`)
+- Handle clicks via `contextMenuClick` event; control visibility via `contextMenuOpen` (`args.hideItems`)
 
 ### Excel Export
 📄 **Read:** [references/excel-export.md](references/excel-export.md)
@@ -315,7 +322,7 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 - Edit control: `cancelEdit()`, `openAddDialog()`, `openEditDialog()`
 - Task management: `deleteRecord()`, `convertToMilestone()`, `changeTaskMode()`, `updateRecordByID()`, `updateRecordByIndex()`, `updateTaskId()`, `updateDataSource()`, `updateProjectDates()`
 - Toolbar control: `enableItems()`
-- Expand/Collapse: `expandByIndex()`, `collapseByIndex()`
+- Expand/Collapse: `expandByID()`, `expandByIndex()`, `collapseByID()`, `collapseByIndex()`
 - Undo/Redo stacks: `clearUndoCollection()`, `clearRedoCollection()`, `getUndoActions()`, `getRedoActions()`
 - Data retrieval: `getCurrentViewData()`, `getRecordByID()`, `getTaskByUniqueID()`, `getTaskInfo()`, `getTaskbarHeight()`, `getExpandedRecords()`, `getGanttColumns()`, `getGridColumns()`
 - Formatting helpers: `getDurationString()`, `getWorkString()`
@@ -345,11 +352,10 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 import * as React from 'react';
 import { GanttComponent, ColumnsDirective, ColumnDirective, Inject, Edit, Toolbar, Selection } from '@syncfusion/ej2-react-gantt';
 import { TaskFieldsModel, EditSettingsModel } from '@syncfusion/ej2-gantt';
+import './App.css';
 
 // In App.css:
-// @import "../node_modules/@syncfusion/ej2-gantt/styles/tailwind3.css";
-// (plus base, buttons, calendars, dropdowns, grids, inputs, layouts,
-//  lists, navigations, notifications, popups, richtexteditor, treegrid)
+// @import "../node_modules/@syncfusion/ej2-tailwind3-theme/styles/gantt/index.css";
 
 const data = [
   {
@@ -559,6 +565,8 @@ import { GanttComponent, Inject, Edit, Filter, Sort, Toolbar, Selection } from '
 | `gridLines` | string | Grid lines style: `'Both'` \| `'Horizontal'` \| `'Vertical'` \| `'None'` |
 | `renderBaseline` | boolean | Show baseline bars alongside actual taskbars |
 | `baselineColor` | string | CSS color for baseline bars |
+| `baselineTemplate` | function/string | Custom baseline rendering for planned schedules and advanced baseline layouts |
+| `enableInfiniteTimelineScroll` | boolean | Enable infinite horizontal timeline scrolling by extending the visible range as the user navigates |
 | `enableCriticalPath` | boolean | Highlight critical path tasks and connectors |
 | `enableRtl` | boolean | Enable right-to-left layout |
 | `locale` | string | Locale code (e.g. `'fr'`, `'de'`, `'ar'`) |

@@ -7,10 +7,12 @@ Methods not covered in any other reference file. Use as a supplement for program
 - [changeTaskMode](#changetaskmode)
 - [clearRedoCollection](#clearredocollection)
 - [clearUndoCollection](#clearundocollection)
+- [collapseByID](#collapsebyid)
 - [collapseByIndex](#collapsebyindex)
 - [convertToMilestone](#converttomilestone)
 - [deleteRecord](#deleterecord)
 - [enableItems](#enableitems)
+- [expandByID](#expandbyid)
 - [expandByIndex](#expandbyindex)
 - [getCurrentViewData](#getcurrentviewdata)
 - [getDurationString](#getdurationstring)
@@ -97,6 +99,14 @@ Clears the undo history stack. `ganttRef.current?.clearUndoCollection();`
 
 ---
 
+## collapseByID
+
+Collapses a parent row by task ID. `ganttRef.current?.collapseByID(3);`
+
+**Parameter:** `id` — `number | string`
+
+---
+
 ## collapseByIndex
 
 Collapses a parent row at the given zero-based index. `ganttRef.current?.collapseByIndex(2);`
@@ -136,6 +146,14 @@ ganttRef.current?.enableItems(['GanttToolbar_add', 'GanttToolbar_delete'], false
 ```
 
 **Parameters:** `items: string[]` — toolbar item IDs. `isEnable: boolean` — `true` to enable, `false` to disable.
+
+---
+
+## expandByID
+
+Expands a parent row by task ID. `ganttRef.current?.expandByID(3);`
+
+**Parameter:** `id` — `number | string`
 
 ---
 
