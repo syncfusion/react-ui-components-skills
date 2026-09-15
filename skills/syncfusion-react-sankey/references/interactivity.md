@@ -79,6 +79,47 @@ Source: Solar → Target: Generation
 Value: 450 units
 ```
 
+### Inline Tooltip Formatting
+
+Number format specifiers can be applied directly to value tokens in the `nodeFormat` and `linkFormat` properties. This formats node and link values without requiring custom tooltip templates.
+
+```tsx
+<SankeyComponent
+  tooltip={{
+    enable: true,
+    nodeFormat: '$name: $value:n2',
+    linkFormat: '$start.name: $start.out:n2 KW → $target.name: $target.in:n2 KW'
+  }}
+>
+  {/* nodes and links */}
+  <Inject services={[SankeyTooltip]} />
+</SankeyComponent>
+```
+
+In this example:
+
+- `$name` displays the node name.
+- `$value:n2` formats the node value with two decimal places.
+- `$start.name` and `$target.name` display the source and target node names.
+- `$start.out:n2` and `$target.in:n2` format the outgoing and incoming link values with two decimal places.
+
+The following example displays the node and link values using currency formatting:
+
+```tsx
+<SankeyComponent
+  tooltip={{
+    enable: true,
+    nodeFormat: '$name: $value:c2',
+    linkFormat: '$start.name → $target.name: $value:c2'
+  }}
+>
+  {/* nodes and links */}
+  <Inject services={[SankeyTooltip]} />
+</SankeyComponent>
+```
+
+**Note:** Add the format specifier to a numeric token after a colon, such as `$value:n2`. The formatted output follows the Sankey chart's current locale.
+
 ### Template-Based Tooltips
 
 Customize tooltip content using templates (advanced):

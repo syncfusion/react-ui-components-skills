@@ -522,6 +522,119 @@ function IndicatorChart() {
 }
 ```
 
+### Indicator Events
+
+The Stock Chart provides indicator events to track and manage indicators added or removed through the toolbar.
+
+- `beforeIndicatorChange`: Triggered before an indicator is added or removed. Set `args.cancel` to `true` to prevent the update.
+- `indicatorChanged`: Triggered after an indicator has been successfully added or removed.
+
+```typescript
+function IndicatorEventsChart() {
+  const stockData = [ /* OHLC data */ ];
+
+  const onBef*reIndicatorChange = (args: any): v*id => {
+    console.log('Indica*or change requested:', args);
+
+   *// Cancel the indicator update whe* required.
+    if (args.indicatorT*pe === 'Macd') {
+      args.cancel*= true;
+    }
+  };
+
+  const onIndi*atorChanged = (args: any): void =&*t; {
+    console.log('Indicator up*ated successfully:', args);
+  };
+
+* return (
+    <StockChartCompon*nt
+      id='stockchart'
+      tit*e='Stock Price with Indicator Even*s'
+      primaryXAxis={{ valueType* 'DateTime' }}
+      indicatorType*{[
+        'Sma',
+        'Ema',
+        'Tma',
+        'Momentum',
+        'Atr',
+        'AccumulationDistribution',
+        'BollingerBands',
+        'Macd',
+        'Rsi',
+        'Stochastic'
+      ]}
+   *  beforeIndicatorChange={onBeforeI*dicatorChange}
+      indicatorChan*ed={onIndicatorChanged}
+    >
+ *    <Inject
+        services={[
+          DateTime,
+          LineSeries,
+          AreaSeries,
+          SplineSeries,
+          CandleSeries,
+          HiloOpenCloseSeries,
+          HiloSeries,
+          RangeAreaSeries,
+          Trendlines,
+          EmaIndicator,
+          RsiIndicator,
+          BollingerBands,
+          TmaIndicator,
+          MomentumIndicator,
+          SmaIndicator,
+          AtrIndicator,
+          AccumulationDistributionIndicator,
+          MacdIndicator,
+          StochasticIndicator,
+          Tooltip,
+          RangeTooltip,
+          StockLegend
+        ]}
+      />
+      <StockChartSeriesCollectionDirective>
+        <StockChartSeriesDirective
+          dataSource={stockData}
+          type='Candle'
+          xName='date'
+          high='high'
+          low='low'
+          open='open'
+          close='close'
+          volume='volume'
+          name='Stock'
+        />
+      </StockChartSeriesCollectionDirective>
+    </StockChartComponent>
+  );
+}
+```
+
+#### Canceling an Indicator Update
+
+Use the `beforeIndicatorChange` event to validate the selected indicator before it is applied. Set `cancel` to `true` to prevent the toolbar action.
+
+```typescript
+const onBeforeIndicatorChange = (args: any): void => {
+  if (args.indicatorType === 'Macd') {
+    args.cancel = true;
+    console.log('MACD indicator update was canceled.');
+  }
+};
+```
+
+#### Tracking Successful Indicator Updates
+
+Use the `indicatorChanged` event to perform an action after an indicator has been successfully added or removed.
+
+```typescript
+const onIndicatorChanged = (args: any): void => {
+  console.log('Indicator update completed:', args);
+};
+```
+
+**Note:** These events apply to indicator changes performed using the Stock Chart toolbar. The `beforeIndicatorChange` event supports canceling the update, whereas the `indicatorChanged` event is raised only after the update is completed successfully.
+
 ### Using Multiple Indicators
 
 Combine multiple indicators for comprehensive analysis:

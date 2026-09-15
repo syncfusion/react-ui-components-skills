@@ -166,6 +166,40 @@ Customize tooltip content using format strings with placeholders.
   {/* Chart content */}
 </CircularChart3DComponent>
 ```
+### Inline Formatting
+
+DateTime and numeric format specifiers can be applied directly to supported tooltip tokens within the `format` property. This formats tooltip values without requiring additional tooltip events.
+
+```tsx
+<CircularChart3DComponent
+  tooltip={{
+    enable: true,
+    format: '<b>${point.x}</b><br/>Budget: ${point.y:c2}'
+  }}
+>
+  {/* Chart content */}
+</CircularChart3DComponent>
+```
+
+In this example:
+
+- `${point.x}` displays the category value.
+- `${point.y:c2}` formats the data value as currency with two decimal places.
+
+The following example formats the data value as a number with two decimal places:
+
+```tsx
+<CircularChart3DComponent
+  tooltip={{
+    enable: true,
+    format: '<b>${point.x}</b><br/>${series.name}: ${point.y:n2}'
+  }}
+>
+  {/* Chart content */}
+</CircularChart3DComponent>
+```
+
+**Note:** Add the format specifier inside the tooltip token after a colon, such as `${point.y:n2}`. The formatted output follows the chart's current locale.
 
 ### Advanced Format Patterns
 

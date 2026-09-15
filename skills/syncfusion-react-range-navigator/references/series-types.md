@@ -352,6 +352,348 @@ ReactDOM.render(<App />, document.getElementById("charts"));
 - Inventory levels that change at specific times
 - Digital signal representations
 
+## Spline Series
+
+Spline series renders data using a smooth, curved line between data points. It is useful for visualizing continuous trends while reducing the sharp transitions produced by a standard Line series.
+
+### Module Injection
+
+Inject the `SplineSeries` module to render a Spline series:
+
+```tsx
+import { SplineSeries } from '@syncfusion/ej2-react-charts';
+
+<Inject services={[SplineSeries]} />
+```
+
+### Basic Spline Series Implementation
+
+```tsx
+import {
+  RangeNavigatorComponent,
+  SplineSeries,
+  Inject,
+  RangenavigatorSeriesCollectionDirective,
+  RangenavigatorSeriesDirective
+} from '@syncfusion/ej2-react-charts';
+import * as ReactDOM from 'react-dom';
+import * as React from 'react';
+
+function App() {
+  const data = [
+    { x: 0, y: 10 },
+    { x: 10, y: 30 },
+    { x: 20, y: 25 },
+    { x: 30, y: 45 },
+    { x: 40, y: 35 },
+    { x: 50, y: 55 },
+    { x: 60, y: 50 }
+  ];
+
+  return (
+    <RangeNavigatorComponent id='rangeNavigator'>
+      <Inject services={[SplineSeries]} />
+      <RangenavigatorSeriesCollectionDirective>
+        <RangenavigatorSeriesDirective
+          dataSource={data}
+          xName='x'
+          yName='y'
+          type='Spline'
+        />
+      </RangenavigatorSeriesCollectionDirective>
+    </RangeNavigatorComponent>
+  );
+}
+
+export default App;
+ReactDOM.render(<App />, document.getElementById('charts'));
+```
+
+### Spline Series with DateTime Data
+
+```tsx
+import {
+  RangeNavigatorComponent,
+  SplineSeries,
+  DateTime,
+  Inject,
+  RangenavigatorSeriesCollectionDirective,
+  RangenavigatorSeriesDirective
+} from '@syncfusion/ej2-react-charts';
+import * as ReactDOM from 'react-dom';
+import * as React from 'react';
+
+function App() {
+  const temperatureData = [
+    { date: new Date(2023, 0, 1), temperature: 18 },
+    { date: new Date(2023, 1, 1), temperature: 21 },
+    { date: new Date(2023, 2, 1), temperature: 25 },
+    { date: new Date(2023, 3, 1), temperature: 29 },
+    { date: new Date(2023, 4, 1), temperature: 32 },
+    { date: new Date(2023, 5, 1), temperature: 30 }
+  ];
+
+  return (
+    <RangeNavigatorComponent
+      id='rangeNavigator'
+      valueType='DateTime'
+      labelFormat='MMM'
+    >
+      <Inject services={[SplineSeries, DateTime]} />
+      <RangenavigatorSeriesCollectionDirective>
+        <RangenavigatorSeriesDirective
+          dataSource={temperatureData}
+          xName='date'
+          yName='temperature'
+          type='Spline'
+        />
+      </RangenavigatorSeriesCollectionDirective>
+    </RangeNavigatorComponent>
+  );
+}
+
+export default App;
+ReactDOM.render(<App />, document.getElementById('charts'));
+```
+
+**When to Use Spline Series:**
+
+- Smooth trend visualization
+- Temperature or environmental measurements
+- Gradually changing financial data
+- Continuous data with natural transitions
+- When sharp line segments make trends difficult to interpret
+
+## SplineArea Series
+
+SplineArea series combines the smooth curves of a Spline series with a filled area beneath the curve. It emphasizes both the trend and magnitude of the data.
+
+### Module Injection
+
+Inject the `SplineAreaSeries` module to render a SplineArea series:
+
+```tsx
+import { SplineAreaSeries } from '@syncfusion/ej2-react-charts';
+
+<Inject services={[SplineAreaSeries]} />
+```
+
+### Basic SplineArea Series Implementation
+
+```tsx
+import {
+  RangeNavigatorComponent,
+  SplineAreaSeries,
+  Inject,
+  RangenavigatorSeriesCollectionDirective,
+  RangenavigatorSeriesDirective
+} from '@syncfusion/ej2-react-charts';
+import * as ReactDOM from 'react-dom';
+import * as React from 'react';
+
+function App() {
+  const data = [
+    { x: 0, y: 10 },
+    { x: 10, y: 30 },
+    { x: 20, y: 25 },
+    { x: 30, y: 45 },
+    { x: 40, y: 35 },
+    { x: 50, y: 55 },
+    { x: 60, y: 50 }
+  ];
+
+  return (
+    <RangeNavigatorComponent id='rangeNavigator'>
+      <Inject services={[SplineAreaSeries]} />
+      <RangenavigatorSeriesCollectionDirective>
+        <RangenavigatorSeriesDirective
+          dataSource={data}
+          xName='x'
+          yName='y'
+          type='SplineArea'
+          fill='#4472C4'
+          opacity={0.6}
+        />
+      </RangenavigatorSeriesCollectionDirective>
+    </RangeNavigatorComponent>
+  );
+}
+
+export default App;
+ReactDOM.render(<App />, document.getElementById('charts'));
+```
+
+### SplineArea Series with DateTime Data
+
+```tsx
+import {
+  RangeNavigatorComponent,
+  SplineAreaSeries,
+  DateTime,
+  Inject,
+  RangenavigatorSeriesCollectionDirective,
+  RangenavigatorSeriesDirective
+} from '@syncfusion/ej2-react-charts';
+import * as ReactDOM from 'react-dom';
+import * as React from 'react';
+
+function App() {
+  const revenueData = [
+    { date: new Date(2023, 0, 1), revenue: 15000 },
+    { date: new Date(2023, 1, 1), revenue: 18000 },
+    { date: new Date(2023, 2, 1), revenue: 22000 },
+    { date: new Date(2023, 3, 1), revenue: 25000 },
+    { date: new Date(2023, 4, 1), revenue: 28000 },
+    { date: new Date(2023, 5, 1), revenue: 32000 }
+  ];
+
+  return (
+    <RangeNavigatorComponent
+      id='rangeNavigator'
+      valueType='DateTime'
+      labelFormat='MMM'
+    >
+      <Inject services={[SplineAreaSeries, DateTime]} />
+      <RangenavigatorSeriesCollectionDirective>
+        <RangenavigatorSeriesDirective
+          dataSource={revenueData}
+          xName='date'
+          yName='revenue'
+          type='SplineArea'
+          fill='#4CAF50'
+          opacity={0.6}
+        />
+      </RangenavigatorSeriesCollectionDirective>
+    </RangeNavigatorComponent>
+  );
+}
+
+export default App;
+ReactDOM.render(<App />, document.getElementById('charts'));
+```
+
+**When to Use SplineArea Series:**
+
+- Smooth financial trends
+- Revenue or sales growth
+- Resource consumption over time
+- Continuous data where magnitude is important
+- When both smooth transitions and area emphasis are required
+
+## Column Series
+
+Column series renders each data value as a vertical column. It is useful for discrete, categorical, or interval-based data where individual values must remain visually distinct.
+
+### Module Injection
+
+Inject the `ColumnSeries` module to render a Column series:
+
+```tsx
+import { ColumnSeries } from '@syncfusion/ej2-react-charts';
+
+<Inject services={[ColumnSeries]} />
+```
+
+### Basic Column Series Implementation
+
+```tsx
+import {
+  RangeNavigatorComponent,
+  ColumnSeries,
+  Inject,
+  RangenavigatorSeriesCollectionDirective,
+  RangenavigatorSeriesDirective
+} from '@syncfusion/ej2-react-charts';
+import * as ReactDOM from 'react-dom';
+import * as React from 'react';
+
+function App() {
+  const data = [
+    { x: 0, y: 10 },
+    { x: 10, y: 30 },
+    { x: 20, y: 25 },
+    { x: 30, y: 45 },
+    { x: 40, y: 35 },
+    { x: 50, y: 55 },
+    { x: 60, y: 50 }
+  ];
+
+  return (
+    <RangeNavigatorComponent id='rangeNavigator'>
+      <Inject services={[ColumnSeries]} />
+      <RangenavigatorSeriesCollectionDirective>
+        <RangenavigatorSeriesDirective
+          dataSource={data}
+          xName='x'
+          yName='y'
+          type='Column'
+          fill='#4472C4'
+        />
+      </RangenavigatorSeriesCollectionDirective>
+    </RangeNavigatorComponent>
+  );
+}
+
+export default App;
+ReactDOM.render(<App />, document.getElementById('charts'));
+```
+
+### Column Series with DateTime Data
+
+```tsx
+import {
+  RangeNavigatorComponent,
+  ColumnSeries,
+  DateTime,
+  Inject,
+  RangenavigatorSeriesCollectionDirective,
+  RangenavigatorSeriesDirective
+} from '@syncfusion/ej2-react-charts';
+import * as ReactDOM from 'react-dom';
+import * as React from 'react';
+
+function App() {
+  const volumeData = [
+    { date: new Date(2023, 0, 1), volume: 1200 },
+    { date: new Date(2023, 1, 1), volume: 1800 },
+    { date: new Date(2023, 2, 1), volume: 1500 },
+    { date: new Date(2023, 3, 1), volume: 2200 },
+    { date: new Date(2023, 4, 1), volume: 1900 },
+    { date: new Date(2023, 5, 1), volume: 2500 }
+  ];
+
+  return (
+    <RangeNavigatorComponent
+      id='rangeNavigator'
+      valueType='DateTime'
+      labelFormat='MMM'
+    >
+      <Inject services={[ColumnSeries, DateTime]} />
+      <RangenavigatorSeriesCollectionDirective>
+        <RangenavigatorSeriesDirective
+          dataSource={volumeData}
+          xName='date'
+          yName='volume'
+          type='Column'
+          fill='#FF7043'
+        />
+      </RangenavigatorSeriesCollectionDirective>
+    </RangeNavigatorComponent>
+  );
+}
+
+export default App;
+ReactDOM.render(<App />, document.getElementById('charts'));
+```
+
+**When to Use Column Series:**
+
+- Trading or transaction volume
+- Monthly sales comparisons
+- Discrete interval-based measurements
+- Data where each observation must be distinct
+- Comparing values across fixed periods
+
 ## Multiple Series
 
 You can display multiple series in the same Range Navigator for comparing different datasets.
@@ -423,7 +765,7 @@ All series types support these properties:
 - **dataSource**: Array of data objects
 - **xName**: Field name for x-axis values in the data
 - **yName**: Field name for y-axis values in the data
-- **type**: Series rendering type ('Line' | 'Area' | 'StepLine')
+- **type**: Series rendering type (`'Line' | 'Area' | 'StepLine' | 'Spline' | 'SplineArea' | 'Column'`)
 - **fill**: Fill color for the series
 - **width**: Line width (for Line and StepLine)
 - **opacity**: Series opacity (0 to 1)
@@ -473,17 +815,42 @@ function App() {
   return (
     <div>
       <div>
-        <button onClick={() => setSeriesType('Line')}>Line</button>
-        <button onClick={() => setSeriesType('Area')}>Area</button>
-        <button onClick={() => setSeriesType('StepLine')}>StepLine</button>
+        <button onClick={() => setSeriesType('Line')}>
+          Line
+        </button>
+        <button onClick={() => setSeriesType('Area')}>
+          Area
+        </button>
+        <button onClick={() => setSeriesType('StepLine')}>
+          StepLine
+        </button>
+        <button onClick={() => setSeriesType('Spline')}>
+          Spline
+        </button>
+        <button onClick={() => setSeriesType('SplineArea')}>
+          SplineArea
+        </button>
+        <button onClick={() => setSeriesType('Column')}>
+          Column
+        </button>
       </div>
-      
+
       <RangeNavigatorComponent
-        id="rangeNavigator"
-        valueType="DateTime"
-        labelFormat="MMM"
+        id='rangeNavigator'
+        valueType='DateTime'
+        labelFormat='MMM'
       >
-        <Inject services={[LineSeries, AreaSeries, StepLineSeries, DateTime]} />
+        <Inject
+          services={[
+            LineSeries,
+            AreaSeries,
+            StepLineSeries,
+            SplineSeries,
+            SplineAreaSeries,
+            ColumnSeries,
+            DateTime
+          ]}
+        />
         <RangenavigatorSeriesCollectionDirective>
           <RangenavigatorSeriesDirective
             dataSource={data}
@@ -499,30 +866,36 @@ function App() {
 
 export default App;
 ReactDOM.render(<App />, document.getElementById("charts"));
-ReactDOM.render(<App />, document.getElementById("charts"));
 ```
 
 ## Series Type Selection Guide
 
 | Series Type | Visual Style | Best For | Module |
-|------------|--------------|----------|--------|
-| Line | Connected line | Simple trends, stock prices | LineSeries |
-| Area | Filled area | Emphasizing magnitude, volume | AreaSeries |
-| StepLine | Staircase pattern | Discrete changes, price tiers | StepLineSeries |
+|-------------|--------------|----------|--------|
+| Line | Connected straight lines | Simple trends and stock prices | `LineSeries` |
+| Area | Filled area with straight lines | Emphasizing magnitude and volume | `AreaSeries` |
+| StepLine | Staircase pattern | Discrete changes and price tiers | `StepLineSeries` |
+| Spline | Smooth curved line | Continuous trends and gradual changes | `SplineSeries` |
+| SplineArea | Smooth curve with filled area | Smooth trends with magnitude emphasis | `SplineAreaSeries` |
+| Column | Vertical columns | Discrete values and interval comparisons | `ColumnSeries` |
 
 ## Key Points
 
-1. **Module Injection**: Always inject the required series module (LineSeries, AreaSeries, or StepLineSeries)
-2. **Default Type**: Line is the default if no type is specified
-3. **DateTime Support**: All series types work with DateTime axes
-4. **Multiple Series**: You can combine different series types in one Range Navigator
-5. **Performance**: Line series is typically fastest; Area series adds fill rendering overhead
+1. **Module Injection**: Inject the module corresponding to the configured series type.
+2. **Supported Types**: The Range Navigator supports `Line`, `Area`, `StepLine`, `Spline`, `SplineArea`, and `Column` series.
+3. **Default Type**: Line is the default series type when `type` is not specified.
+4. **DateTime Support**: All supported series types can render DateTime data.
+5. **Multiple Series**: Different series types can be combined within the same Range Navigator.
+6. **Spline Visualization**: Use Spline when a smooth line is preferred over straight data-point connections.
+7. **SplineArea Visualization**: Use SplineArea to combine smooth trends with magnitude emphasis.
+8. **Column Visualization**: Use Column for discrete values such as sales, volume, or interval-based measurements.
+9. **Performance**: Line and StepLine generally require less fill rendering, while Area and SplineArea include additional filled-region rendering.
 
 ## API Links
 
 Full Range Navigator API: https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default
 
 Series-related complex API references:
-- [`series`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#series) (RangeNavigatorSeriesModel[]), `RangenavigatorSeriesDirective` properties: [`dataSource`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#dataSource), [`xName`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#xName), [`yName`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#yName), [`type`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#series), [`fill`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#series), [`opacity`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#series), [`width`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#series)
-- Series modules: [`LineSeries`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#lineSeriesModule), [`AreaSeries`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#areaSeriesModule), [`StepLineSeries`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#stepLineSeriesModule)
+- [`series`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/index-default#series) (RangeNavigatorSeriesModel[]), `RangenavigatorSeriesDirective` properties: [`dataSource`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/rangenavigatorseries#datasource), [`xName`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/rangenavigatorseries#xname), [`yName`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/rangenavigatorseries#yname), [`type`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/rangenavigatorseries#type), [`fill`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/rangenavigatorseries#fill), [`opacity`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/rangenavigatorseries#opacity), [`width`](https://ej2.syncfusion.com/react/documentation/api/range-navigator/rangenavigatorseries#width), [query](https://ej2.syncfusion.com/react/documentation/api/range-navigator/rangenavigatorseries#query), [dashArray](https://ej2.syncfusion.com/react/documentation/api/range-navigator/rangenavigatorseries#dasharray), [border](https://ej2.syncfusion.com/react/documentation/api/range-navigator/rangenavigatorseries#border), [animation](https://ej2.syncfusion.com/react/documentation/api/range-navigator/rangenavigatorseries#animation)
+- Series modules: `LineSeries`, `AreaSeries`, `StepLineSeries`, `SplineSeries`, `SplineAreaSeries`, `ColumnSeries`
 

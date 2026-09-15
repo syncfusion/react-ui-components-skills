@@ -14,6 +14,8 @@
 - [Hide Border on Hover](#hide-border-on-hover)
 - [Pattern Fills](#pattern-fills)
 - [Multi-Level Drill-Down](#multi-level-drill-down)
+- [Multiple Pie Series](#multiple-pie-series)
+  - [Mapping Related Points with mappingKey](#mapping-related-points-with-mappingkey)
 
 ## Overview
 
@@ -532,6 +534,204 @@ function DrillDownChart() {
 - Track navigation level with state
 - Provide visual cue for drill-up (back button or click outside)
 - Show breadcrumb for current level
+
+## Multiple Pie Series
+
+Render multiple pie or doughnut series in a single Accumulation Chart to compare related datasets as concentric rings. Each series can have its own data source, radius, inner radius, labels, and styling.
+
+```tsx
+import {
+  AccumulationChartComponent,
+  AccumulationSeriesCollectionDirective,
+  AccumulationSeriesDirective,
+  Inject,
+  PieSeries,
+  AccumulationDataLabel,
+  AccumulationLegend,
+  AccumulationTooltip
+} from '@syncfusion/ej2-react-charts';
+
+function MultiplePieSeriesChart() {
+  const currentYearData = [
+    { category: 'Mobile', value: 45 },
+    { category: 'Desktop', value: 35 },
+    { category: 'Tablet', value: 20 }
+  ];
+
+  const previousYearData = [
+    { category: 'Mobile', value: 38 },
+    { category: 'Desktop', value: 42 },
+    { category: 'Tablet', value: 20 }
+  ];
+
+  return (
+    <AccumulationChartComponent
+      id='multiple-pie-series'
+      title='Device Usage Comparison'
+      legendSettings={{ visible: true }}
+      tooltip={{
+        enable: true,
+        format: '${series.name}<br/>${point.x}: <b>${point.y}%</b>'
+      }}
+    >
+      <Inject
+        services={[
+          PieSeries,
+          AccumulationDataLabel,
+          AccumulationLegend,
+          AccumulationTooltip
+        ]}
+      />
+      <AccumulationSeriesCollectionDirective>
+        <AccumulationSeriesDirective
+          dataSource={currentYearData}
+          xName='category'
+          yName='value'
+          name='Current Year'
+          type='Pie'
+          radius='100%'
+          innerRadius='70%'
+          dataLabel={{
+            visible: true,
+            name: 'category',
+            position: 'Outside'
+          }}
+        />
+        <AccumulationSeriesDirective
+          dataSource={previousYearData}
+          xName='category'
+          yName='value'
+          name='Previous Year'
+          type='Pie'
+          radius='60%'
+          innerRadius='30%'
+          dataLabel={{
+            visible: true,
+            name: 'category',
+            position: 'Inside'
+          }}
+        />
+      </AccumulationSeriesCollectionDirective>
+    </AccumulationChartComponent>
+  );
+}
+
+export default MultiplePieSeriesChart;
+```
+
+Configure `radius` and `innerRadius` for each series so that the series render as separate concentric rings without overlapping.
+
+- The outer series uses a larger `radius`.
+- The inner series uses a smaller `radius`.
+- The `innerRadius` determines the thickness of each ring.
+- Each series can use a separate data source and visual configuration.
+- Tooltips identify the hovered point and its corresponding series.
+
+### Mapping Related Points with mappingKey
+
+Use the `mappingKey` property in `legendSettings` to associate corresponding points across multiple pie series. The property specifies the point field used to group related legend items across the series.
+
+```tsx
+function MappedMultiplePieSeriesChart() {
+  const currentYearData = [
+    { id: 'mobile', category: 'Mobile', value: 45 },
+    { id: 'desktop', category: 'Desktop', value: 35 },
+    { id: 'tablet', category: 'Tablet', value: 20 }
+  ];
+
+  const previousYearData = [
+    { id: 'mobile', category: 'Mobile', value: 38 },
+    { id: 'desktop', category: 'Desktop', value: 42 },
+    { id: 'tablet', category: 'Tablet', value: 20 }
+  ];
+
+  return (
+    <AccumulationChartComponent
+      id='multiple-pie-series'
+      title='Device Usage Comparison'
+      legendSettings={{
+        visible: true,
+        mappingKey: 'x'
+      }}
+      tooltip={{
+        enable: true,
+        format: '${series.name}<br/>${point.x}: <b>${point.y}%</b>'
+      }}
+    >
+      <Inject
+        services={[
+          PieSeries,
+          AccumulationDataLabel,
+          AccumulationLegend,
+          AccumulationTooltip
+        ]}
+      />
+      <AccumulationSeriesCollectionDirective>
+        <AccumulationSeriesDirective
+          dataSource={currentYearData}
+          xName='category'
+          yName='value'
+          name='Current Year'
+          type='Pie'
+          radius='100%'
+          innerRadius='70%'
+          dataLabel={{
+            visible: true,
+            name: 'category',
+            position: 'Outside'
+          }}
+        />
+        <AccumulationSeriesDirective
+          dataSource={previousYearData}
+          xName='category'
+          yName='value'
+          name='Previous Year'
+          type='Pie'
+          radius='60%'
+          innerRadius='30%'
+          dataLabel={{
+            visible: true,
+            name: 'category',
+            position: 'Inside'
+          }}
+        />
+      </AccumulationSeriesCollectionDirective>
+    </AccumulationChartComponent>
+  );
+}
+
+export default MappedMultiplePieSeriesChart;
+```
+
+In this example:
+
+- `mappingKey: 'x'` is configured within `legendSettings`.
+- The `x` value represents the category mapped through the `xName` property of each series.
+- Points with the same category value across multiple series are represented by a common legend item.
+- Interacting with a mapped legend item affects the corresponding points in all related pie series.
+- The point mapping does not depend on the order of items in each data source.
+
+For example, the following points are associated because both use `Mobile` as their category value:
+
+```tsx
+// Current year
+{ id: 'mobile', category: 'Mobile', value: 45 }
+
+// Previous year
+{ id: 'mobile', category: 'Mobile', value: 38 }
+```
+
+Both series configure `xName='category'`. Therefore, the chart maps the `category` field to the internal `x` value used by `mappingKey`.
+
+**Requirements for `mappingKey`:**
+
+- Configure `mappingKey` inside the `legendSettings` property.
+- Use `'x'` to associate points based on the field mapped through each series' `xName` property.
+- Related points across the series must have identical X values.
+- Each series should use a consistent category mapping.
+- The mapped values should uniquely identify categories within each series.
+
+**Note:** Multiple pie series require the `PieSeries` module. Inject `AccumulationLegend` to display and interact with the mapped legend items. Inject `AccumulationDataLabel` and `AccumulationTooltip` only when their corresponding features are enabled.
 
 ## Common Issues and Solutions
 

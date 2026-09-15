@@ -4,6 +4,7 @@
 - [Overview](#overview)
 - [Enabling Tooltip](#enabling-tooltip)
 - [Tooltip Format](#tooltip-format)
+  -[Inline Tooltip Formatting](#inline-tooltip-formatting)
 - [Tooltip Templates](#tooltip-templates)
 - [Fixed Tooltip Position](#fixed-tooltip-position)
 - [Tooltip Animation](#tooltip-animation)
@@ -115,6 +116,40 @@ function FormattedTooltip() {
   );
 }
 ```
+### Inline Tooltip Formatting
+
+Number format specifiers can be applied directly to supported tooltip tokens within the `format` property. This allows tooltip values to be formatted without using the `tooltipRender` event.
+
+```tsx
+<AccumulationChartComponent
+  tooltip={{
+    enable: true,
+    format: '<b>${point.x}</b><br/>Revenue: ${point.y:c2}'
+  }}
+>
+  {/* Chart content */}
+</AccumulationChartComponent*gt;
+```
+
+In this example:
+
+- `${po*nt.x}` displays the category value*
+- `${point.y:c2}` formats the num*ric value as currency with two dec*mal places.
+
+The following example*formats the numeric value with two decimal places:
+
+```tsx
+<AccumulationChartComponent
+  tooltip={{
+    enable: true,
+    format: '<b>${point.x}</b><br/>${series.name}: ${point.y:n2}'
+  }}
+>
+  {/* Chart content */}
+</AccumulationChartComponent>
+```
+
+**Note:** Add the format specifier inside the tooltip token after a colon, such as `${point.y:n2}`. The formatted output follows the chart's current locale.
 
 ## Tooltip Templates
 

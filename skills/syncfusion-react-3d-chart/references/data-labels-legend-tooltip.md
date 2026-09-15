@@ -323,6 +323,45 @@ function TooltipChart() {
 - `${series.name}`: Series name
 - `${point.tooltip}`: Custom tooltip text from data
 
+### Inline Tooltip Formatting
+
+DateTime and numeric format specifiers can be applied directly to supported tooltip tokens within the `format` property. This formats point values without requiring additional tooltip events.
+
+```tsx
+<Chart3DComponent
+  primaryXAxis={{
+    valueType: 'DateTime'
+  }}
+  tooltip={{
+    enable: true,
+    format: '<b>${point.x:MMM yyyy}</b><br/>${series.name}: ${point.y:n2}'
+  }}
+>
+  {/* Series */}
+</Chart3DComponent>
+```
+
+*n this example:
+
+- `${point.x:MMM *yyy}` formats the X-axis DateTime *alue as an abbreviated month and y*ar.
+- `${point.y:n2}` formats the *-axis value with two decimal place*.
+- `${series.name}` displays the *eries name without additional form*tting.
+
+For example, the following*configuration displays the Y-axis *alue using currency formatting:
+
+```tsx
+<Chart3DComponent
+  tooltip={{
+    enable: true,
+    format: '<b>${point.x}</b><br/>${series.name}: ${point.y:c2}'
+  }}
+>
+  {/* Series */}
+</Chart3DComponent>
+```
+
+**Note:** Add the format specifier inside the tooltip token after a colon, such as `${point.y:n2}`. The formatted output follows the chart's current locale.
+
 ### Tooltip Styling
 
 ```tsx

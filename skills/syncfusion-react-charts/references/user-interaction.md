@@ -247,6 +247,44 @@ import { Tooltip } from '@syncfusion/ej2-react-charts';
 </ChartComponent>
 ```
 
+### Inline Tooltip Formatting
+
+DateTime and number format specifiers can be applied directly to supported tooltip tokens within the `format` property. This allows values to be formatted without using the `tooltipRender` event.
+
+```jsx
+<ChartComponent
+  primaryXAxis={{
+    valueType: 'DateTime'
+  }}
+  tooltip={{
+    enable: true,
+    format: '<b>${point.x:MMM yyyy}</b><br/>${series.name}: ${point.y:n2}'
+  }}
+>
+  {/* chart */}
+</ChartComponent>
+```
+
+In*this example:
+
+- `${point.x:MMM yy*y}` formats the X-axis DateTime va*ue as an abbreviated month and yea*.
+- `${point.y:n2}` formats the Y-*xis value with two decimal places.*- `${series.name}` displays the se*ies name without additional format*ing.
+
+The following example displa*s the Y-axis value using currency *ormatting:
+
+```jsx
+<ChartComponent
+  tooltip={{
+    enable: true,
+    format: '<b>${point.x}</b><br/>${series.name}: ${point.y:c2}'
+  }}
+>
+  {/* chart */}
+</ChartComponent>
+```
+
+**Note:** Add the format specifier inside the tooltip token after a colon, such as `${point.y:n2}`. The formatted output follows the chart's current locale.
+
 ### Tooltip Customization
 
 ```jsx

@@ -8,6 +8,7 @@ This guide covers the initial setup and basic implementation of the Syncfusion R
 
 - [Installation and Dependencies](#installation-and-dependencies)
   - [Required Package](#required-package)
+  - [](#import-syncfusion-css-styles)
   - [Dependencies Tree](#dependencies-tree)
 - [Project Setup](#project-setup)
   - [Using Vite Recommended](#using-vite-recommended)
@@ -73,8 +74,20 @@ Install the Stock Chart package from npm:
 ```bash
 npm install @syncfusion/ej2-react-charts --save
 ```
+### Import Syncfusion CSS Styles 
+Syncfusion React components support CSS and Sass styles through dedicated npm theme packages. 
+```bash
+npm install @syncfusion/ej2-material3-theme
+```
+This example uses the Material 3 theme. 
 
-You may also need to import the required CSS for your chosen Syncfusion theme when using the component in a real application.
+Import the Stock Chart component styles in `src/index.css`: 
+
+```css 
+@import '@syncfusion/ej2-material3-theme/styles/stock-chart/index.css';
+```
+
+# Updated Create React App setup
 
 ### Dependencies Tree
 
@@ -109,6 +122,7 @@ npm create vite@latest my-stock-app
 cd my-stock-app
 npm install
 npm install @syncfusion/ej2-react-charts --save
+npm install @syncfusion/ej2-material3-theme
 npm run dev
 ```
 
@@ -119,6 +133,7 @@ npm create vite@latest my-stock-app -- --template react-ts
 cd my-stock-app
 npm install
 npm install @syncfusion/ej2-react-charts --save
+npm install @syncfusion/ej2-material3-theme
 npm run dev
 ```
 
@@ -129,15 +144,20 @@ npm create vite@latest my-stock-app -- --template react
 cd my-stock-app
 npm install
 npm install @syncfusion/ej2-react-charts --save
+npm install @syncfusion/ej2-material3-theme
 npm run dev
 ```
-
+Import the Material 3 Stock Chart styles in src/index.css:
+```css
+@import '@syncfusion/ej2-material3-theme/styles/stock-chart/index.css';
+```
 ### Using Create React App Alternative
 
 ```bash
 npx create-react-app my-stock-app
 cd my-stock-app
 npm install @syncfusion/ej2-react-charts --save
+npm install @syncfusion/ej2-material3-theme
 npm start
 ```
 

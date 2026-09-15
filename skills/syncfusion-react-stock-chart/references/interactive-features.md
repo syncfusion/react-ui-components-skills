@@ -410,6 +410,46 @@ tooltip={{
 }}
 ```
 
+### Inline Tooltip Formatting
+
+DateTime and number format specifiers can be applied directly to supported tooltip tokens within the `format` property. This allows stock values to be formatted without using the `tooltipRender` event.
+
+```typescript
+<StockChartComponent
+  primaryXAxis={{
+    valueType: 'DateTime'
+  }}
+  tooltip={{
+    enable: true,
+    format: '<b>${point.x:MMM yyyy}</b><br/>Open: ${point.open:c2}<br/>High: ${point.high:c2}<br/>Low: ${point.low:c2}<br/>Close: ${point.close:c2}'
+  }}
+>
+  {/* chart */}
+</StockChartComponent>
+``*
+
+In this example:
+
+- `${point.x:M*M yyyy}` formats the X-axis DateTi*e value as an abbreviated month an* year.
+- `${point.open:c2}` format* the opening price as currency wit* two decimal places.
+- `${point.hi*h:c2}` formats the highest price a* currency with two decimal places.*- `${point.low:c2}` formats the lo*est price as currency with two dec*mal places.
+- `${point.close:c2}` *ormats the closing price as curren*y with two decimal places.
+
+The fo*lowing example formats the closing*price with two decimal places and *he volume as a number without decimal places:
+
+```typescript
+<StockChartComponent
+  tooltip={{
+    enable: true,
+    format: '<b>${series.name}</b><br/>Date: ${point.x:dd MMM yyyy}<br/>Close: ${point.close:n2}<br/>Volume: ${point.volume:n0}'
+  }}
+>
+  {/* chart */}
+</StockChartComponent>
+```
+
+**Note:** Add the format specifier inside the tooltip token after a colon, such as `${point.close:n2}`. The formatted output follows the Stock Chart's current locale.
+
 ### Tooltip Position
 
 Control tooltip position relative to the mouse:
