@@ -28,7 +28,6 @@
   - [Force SVG Mode](#force-svg-mode)
   - [Force Canvas Mode](#force-canvas-mode)
 - [CSS Styling](#css-styling)
-  - [Global Theme CSS](#global-theme-css)
   - [Custom CSS Styling](#custom-css-styling)
   - [Cell-Level Styling](#cell-level-styling)
 - [Theme Integration](#theme-integration)
@@ -416,26 +415,9 @@ The component automatically chooses:
 
 ## CSS Styling
 
-### Global Theme CSS
-
-```jsx
-// Material theme (Material Design colors)
-import '@syncfusion/ej2-base/styles/material.css';
-
-// Bootstrap 5 theme
-import '@syncfusion/ej2-base/styles/bootstrap5.css';
-
-// Fluent theme (Microsoft Fluent Design)
-import '@syncfusion/ej2-base/styles/fabric.css';
-
-// Tailwind theme
-import '@syncfusion/ej2-base/styles/tailwind.css';
-```
-
 ### Custom CSS Styling
 
 ```jsx
-import '@syncfusion/ej2-base/styles/material.css';
 import './CustomHeatmap.css';
 
 export function App() {
@@ -497,7 +479,6 @@ export function App() {
 ### Light Theme
 
 ```jsx
-import '@syncfusion/ej2-base/styles/material.css';
 
 export function App() {
   return (
@@ -519,7 +500,6 @@ export function App() {
 ### Dark Theme
 
 ```jsx
-import '@syncfusion/ej2-base/styles/material-dark.css';
 
 export function App() {
   return (
@@ -543,7 +523,6 @@ export function App() {
 
 ```jsx
 import { HeatMapComponent, Inject, Legend, Tooltip } from '@syncfusion/ej2-react-heatmap';
-import '@syncfusion/ej2-base/styles/bootstrap5.css';
 import './HeatmapStyles.css';
 
 export function StyledHeatmap() {

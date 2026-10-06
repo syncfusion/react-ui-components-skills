@@ -176,7 +176,101 @@ const totalPrice = (field: string, data: any) =>
 
 ## Display Serial Numbers
 
-Use `rowDataBound` to write sequential row numbers into a dedicated column cell:
+The **Serial Number** column automatically generates sequential row numbers for the visible records displayed in the Gantt Chart. To enable this feature, set [enableSerialNumber](https://ej2.syncfusion.com/react/documentation/api/gantt#enableserialnumber) to **true** and add a dedicated column whose [field](https://ej2.syncfusion.com/react/documentation/api/gantt/column#field) is set to **SerialNumber**.
+
+Unlike a custom `rowDataBound` implementation, the built-in Serial Number column is maintained by the Gantt component itself and stays aligned with the current visible row order without requiring a data-source field.
+
+### Basic configuration
+
+```tsx
+import { GanttComponent, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-react-gantt';
+
+function App() {
+  return (
+    <GanttComponent
+      dataSource={data}
+      taskFields={taskFields}
+      enableSerialNumber={true}
+      treeColumnIndex={1}
+      height="450px"
+    >
+      <ColumnsDirective>
+        <ColumnDirective field="SerialNumber" headerText="S.No" width="90" textAlign="Right" />
+        <ColumnDirective field="TaskName" headerText="Task Name" width="250" />
+        <ColumnDirective field="StartDate" width="130" />
+        <ColumnDirective field="Duration" width="100" />
+        <ColumnDirective field="Progress" width="100" />
+      </ColumnsDirective>
+    </GanttComponent>
+  );
+}
+```
+
+The serial number column can be positioned anywhere in the column order. In most scenarios, placing it as the first column provides a clear index for the currently visible task rows.
+
+### How the Serial Number column behaves
+
+Serial numbers are recalculated whenever the visible row order changes. The numbering reflects the current rendered order, not the original data-source order.
+
+The feature updates during common Gantt operations, including:
+
+- Sorting
+- Filtering and searching
+- Expanding or collapsing parent rows
+- Indenting and outdenting tasks
+- Adding, editing, and deleting records
+- Row drag-and-drop
+- Refreshing data
+- Virtual scrolling and other viewport-based rendering scenarios
+
+Because the values are generated from the visible row sequence, the numbers may change after any operation that changes the row order or row visibility.
+
+### Supported scenarios
+
+- Works with flat data and hierarchical task data
+- Works alongside tree column, WBS, filtering, sorting, row drag-and-drop, and CRUD operations
+- Suitable for row identification in displayed lists, audit-style views, and task-index columns
+
+### Example with common column configuration
+
+```tsx
+<GanttComponent
+  dataSource={data}
+  taskFields={taskFields}
+  enableSerialNumber={true}
+  allowSorting={true}
+  allowFiltering={true}
+  allowRowDragAndDrop={true}
+  treeColumnIndex={2}
+  height="450px"
+>
+  <ColumnsDirective>
+    <ColumnDirective field="SerialNumber" headerText="S.No" width="80" textAlign="Right" />
+    <ColumnDirective field="TaskID" headerText="ID" width="90" textAlign="Right" />
+    <ColumnDirective field="TaskName" headerText="Task Name" width="250" />
+    <ColumnDirective field="StartDate" headerText="Start Date" width="140" />
+    <ColumnDirective field="Duration" headerText="Duration" width="120" />
+    <ColumnDirective field="Progress" headerText="Progress" width="120" />
+  </ColumnsDirective>
+</GanttComponent>
+```
+
+### Limitations and notes
+
+- The serial number is not stored in the original data source.
+- Custom sort or filter logic should target the underlying task fields, not the generated serial number.
+- If you need a persisted business identifier, use a dedicated field in the data source instead of the serial number column.
+- The serial number column is intended for display only and should not be treated as a primary key.
+
+### Recommended usage
+
+- Keep the serial number column narrow and right-aligned.
+- Place it near the beginning of the grid for readability.
+- Use it as a visual index when rows are frequently sorted or filtered.
+
+### Legacy approach using `rowDataBound`
+
+Use `rowDataBound` only when you need a custom numbering scheme that differs from the built-in Serial Number column:
 
 ```tsx
 function rowDataBound(args: any) {
@@ -207,7 +301,7 @@ function rowDataBound(args: any) {
 </GanttComponent>
 ```
 
-> Serial number columns do not support sorting or filtering because the value is injected via the DOM after data binding.
+> The built-in Serial Number column is preferred over DOM injection because it stays synchronized with the current visible row order and works consistently with Gantt operations.
 
 ---
 

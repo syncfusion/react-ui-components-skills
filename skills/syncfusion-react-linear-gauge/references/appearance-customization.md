@@ -16,13 +16,6 @@ See API Reference: [API Reference](api-reference.md)
   - [Border Styling](#border-styling)
   - [Advanced Background](#advanced-background)
   - [Shadow Effect](#shadow-effect)
-- [Themes and Color Schemes](#themes-and-color-schemes)
-  - [Material Theme](#material-theme)
-  - [Bootstrap Theme](#bootstrap-theme)
-  - [Bootstrap 5 Theme](#bootstrap-5-theme)
-  - [Fabric Theme](#fabric-theme)
-  - [Tailwind CSS Theme](#tailwind-css-theme)
-  - [High Contrast Theme](#high-contrast-theme)
 - [Responsive Design](#responsive-design)
   - [Mobile-First Layout](#mobile-first-layout)
   - [Container Queries](#container-queries-modern-css)
@@ -195,47 +188,6 @@ Customize the gauge background and border:
   </LinearGaugeComponent>
 </div>
 ```
-
-## Themes and Color Schemes
-
-Syncfusion provides built-in themes. Import the appropriate theme CSS:
-
-### Material Theme
-
-```tsx
-import '@syncfusion/ej2-lineargauge/styles/material.css';
-```
-
-### Bootstrap Theme
-
-```tsx
-import '@syncfusion/ej2-lineargauge/styles/bootstrap.css';
-```
-
-### Bootstrap 5 Theme
-
-```tsx
-import '@syncfusion/ej2-lineargauge/styles/bootstrap5.css';
-```
-
-### Fabric Theme
-
-```tsx
-import '@syncfusion/ej2-lineargauge/styles/fabric.css';
-```
-
-### Tailwind CSS Theme
-
-```tsx
-import '@syncfusion/ej2-lineargauge/styles/tailwind.css';
-```
-
-### High Contrast Theme
-
-```tsx
-import '@syncfusion/ej2-lineargauge/styles/highcontrast.css';
-```
-
 ## Responsive Design
 
 ### Mobile-First Layout

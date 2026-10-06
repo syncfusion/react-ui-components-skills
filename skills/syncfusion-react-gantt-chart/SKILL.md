@@ -1,6 +1,6 @@
 ---
 name: syncfusion-react-gantt-chart
-description: Implement, configure, and customize the Syncfusion React Gantt Chart component. Use this when building project scheduling applications with task timelines, dependencies, and resource management. Covers GanttComponent setup, task constraints, taskbar customization, filtering, sorting, Excel/PDF export, critical path analysis, milestones, predecessors, resource view, and baseline tracking.
+description: Implement, configure, and customize the Syncfusion React Gantt Chart component. Use this when building project scheduling applications with task timelines, dependencies, resource management, and calendar-driven scheduling. Covers GanttComponent setup, task constraints, taskbar customization, filtering, sorting, Excel/PDF export, critical path analysis, milestones, predecessors, resource view, baseline tracking, and task calendar configuration.
 metadata:
   author: "Syncfusion Inc"
   version: "34.1.29"
@@ -15,13 +15,14 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 - Implementing a Gantt chart or project timeline in a React app
 - Configuring task scheduling (auto, manual, custom modes)
 - Setting up task dependencies (FS, SS, FF, SF) and constraints (ASAP, MSO, FNET, etc.)
+- Configuring project calendars, task calendars, holidays, working time, and hours-per-day rules
 - Binding local or remote data to the Gantt (local array, DataManager, UrlAdaptor, Ajax)
 - Customizing taskbars, labels, milestones, and baselines
 - Configuring resources and resource views (including multi-taskbar)
 - Enabling editing (dialog, cell, taskbar drag) with validation rules
 - Setting up column resize, reorder, freeze, or column menu
 - Configuring WBS codes, tree column icons, or serial number columns
-- Setting up filtering, sorting, or selection
+- Setting up filtering, sorting, or selection, including hierarchy checkbox selection
 - Scrolling to specific dates or controlling scroll position programmatically
 - Exporting Gantt to Excel or PDF
 - Handling Gantt events and enabling advanced features (undo/redo, virtual scroll, critical path, etc.)
@@ -58,10 +59,24 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 ### Task Scheduling
 📄 **Read:** [references/task-scheduling.md](references/task-scheduling.md)
 - Auto, Manual, and Custom scheduling modes (`taskMode`)
+- Duration unit support: `Day`, `Hour`, `Minute`, `Week`, and `Month`
+- Mapping per-task duration units with `taskFields.durationUnit`
+- Duration values with embedded units (for example, `5 days`, `2 weeks`, `1 month`)
+- `daysPerWeek` and `daysPerMonth` conversion controls for week/month scheduling
+- How week/month durations interact with working time, weekends, holidays, and task calendars
 - Unscheduled tasks (duration-only, date-only, none)
 - Project start date and end date configuration
 - How scheduling mode affects parent task calculation
 - Switching between modes dynamically
+
+### Taskbar Draw
+📄 **Read:** [references/taskbar-draw.md](references/taskbar-draw.md)
+- `allowTaskbarDraw` API and required editing setup
+- Drawing a taskbar to create or schedule an unscheduled task
+- How the drawn range resolves `StartDate`, `EndDate`, and `Duration`
+- Behavior for fully unscheduled, partially scheduled, parent, child, milestone, and manual tasks
+- Interaction with taskbar editing, dialog editing, cell editing, validation, calendars, holidays, dependencies, resources, and task calendars
+- Practical examples, limitations, and best practices
 
 ### Task Dependency
 📄 **Read:** [references/task-dependency.md](references/task-dependency.md)
@@ -84,6 +99,7 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
   - `preserveLinkWithEditing={true}` — update offsets to maintain links (default mode)
 - **Validation Dialog** — disable all modes to show user-choice dialog (cancel edit, remove link, adjust offset)
 - **Parent Dependencies** — `allowParentDependency={true}` allows cross-parent dependencies; `false` restricts to siblings only
+- **Allowed Dependency Types** — `allowedDependencyTypes={['FS', 'SF']}` restricts which dependency types can be loaded, created, and edited
 - **Show/Hide Dependencies Dynamically** — toggle `.e-gantt-dependency-view-container` CSS visibility
 - **Disable Validation** — `enablePredecessorValidation={false}` disables auto-date validation based on predecessor links
 
@@ -123,7 +139,8 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 - Auto-generated columns (omit `ColumnsDirective`)
 - Column rendering with `valueAccessor` (custom display values, concatenation)
 - Expression columns (calculated values via `valueAccessor`)
-- Display serial numbers via `rowDataBound`
+- Serial Number column configuration (`enableSerialNumber` + `field: 'SerialNumber'`)
+- Serial number behavior during sort, filter, search, expand/collapse, add/edit/delete, drag-and-drop, refresh, and virtualization
 - Tree column configuration (`treeColumnIndex`)
   - Customize expand/collapse icons (CSS override)
   - Customize indentation via `queryCellInfo`
@@ -173,6 +190,10 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 📄 **Read:** [references/managing-tasks.md](references/managing-tasks.md)
 - Adding new tasks (toolbar, context menu, programmatic `addRecord()`)
 - Editing tasks — dialog edit (`mode: 'Dialog'`), cell edit (`mode: 'Auto'`), taskbar drag
+- Taskbar draw creation for unscheduled tasks (`allowTaskbarDraw`)
+- How drawn taskbars generate or update `StartDate`, `EndDate`, and `Duration`
+- Behavior for fully unscheduled, partially scheduled, parent, child, milestone, and manual tasks
+- Interactions with taskbar editing, dialog editing, cell editing, validation, calendars, holidays, dependencies, and resources
 - Deleting tasks (toolbar, `deleteRecord()`, `showDeleteConfirmDialog`)
 - Taskbar drag editing: move, resize right edge, progress handle, dependency drawing
 - Splitting and merging tasks (`taskFields.segments`, `splitTask()`, `mergeTask()`)
@@ -206,6 +227,7 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 📄 **Read:** [references/selection.md](references/selection.md)
 - Row selection modes (single, multiple)
 - Cell selection
+- Checkbox selection with hierarchy propagation modes (`Self`, `Hierarchy`, `FilteredHierarchy`)
 - Keyboard-based selection
 - Programmatic selection API (`selectRow`, `selectCell`)
 
@@ -267,6 +289,16 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 - Daily working time (`dayWorkingTime`)
 - Effort-based scheduling (`taskFields.work`, `workUnit`, task types: FixedWork / FixedDuration / FixedUnit)
 - Timezone support (`timezone` prop, IANA timezone strings)
+
+### Calendar Settings
+📄 **Read:** [references/calendar-settings.md](references/calendar-settings.md)
+- Project calendar configuration through `calendarSettings.projectCalendar`
+- Task calendar configuration through `calendarSettings.taskCalendar`
+- Assigning task-specific calendars with `taskFields.calendarId`
+- Calendar exceptions for special working days, holidays, and split shifts
+- `hoursPerDay` conversion and day-based duration recalculation
+- Task calendar precedence over project calendars for assigned tasks
+- Calendar interactions with dependencies, weekends, holidays, and working time
 
 ### Splitter
 📄 **Read:** [references/splitter.md](references/splitter.md)
@@ -331,6 +363,14 @@ The Syncfusion React Gantt Chart (`GanttComponent`) is a powerful project manage
 - Selection: `selectCells()`
 - Row reorder: `reorderRows()`
 - Scrolling: `scrollToTask()`, `updateChartScrollOffset()`
+
+### Calendar and Scheduling Methods
+📄 **Read:** [references/calendar-settings.md](references/calendar-settings.md)
+- `hoursPerDay` for converting working hours to day-based duration values
+- `calendarSettings.projectCalendar` for project-wide working rules
+- `calendarSettings.taskCalendar` for task-specific working rules
+- `taskFields.calendarId` for binding a task to a named calendar
+- Fallback behavior when a task calendar is not assigned
 
 ### Events
 📄 **Read:** [references/events.md](references/events.md)

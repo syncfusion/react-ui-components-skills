@@ -10,13 +10,16 @@
 - [Programmatic API](#programmatic-api)
 - [Connector Line Customization](#connector-line-customization)
 - [Validation and Conflict Handling](#validation-and-conflict-handling)
+- [Allowed Dependency Types](#allowed-dependency-types)
 - [Common Gotchas](#common-gotchas)
 
 ---
 
 ## Overview
 
-Task dependencies in Gantt Chart establish scheduling relationships between tasks. When a predecessor task's dates change, successor tasks automatically shift to maintain the defined relationship. Dependencies are mapped via `taskFields.dependency` and rendered as connector lines between taskbars.
+Task dependencies in the Gantt Chart establish scheduling relationships between tasks. When a predecessor task's dates change, successor tasks automatically shift to maintain the defined relationship. Dependencies are mapped via `taskFields.dependency` and rendered as connector lines between taskbars.
+
+The Gantt Chart supports both dependency parsing during data loading and dependency editing through the UI. By default, all supported dependency types are processed and can be created or updated. The `allowedDependencyTypes` property lets you restrict which relationship types are accepted during loading and editing.
 
 ---
 
@@ -33,6 +36,8 @@ Four relationship types are supported:
 
 Specify the type in the dependency string: `"2FS"`, `"3SS"`, `"4FF"`, `"5SF"`.
 
+These types are used consistently in data binding, dependency dialogs, taskbar editing, and programmatic predecessor APIs.
+
 ---
 
 ## Configuring Dependencies in Data Source
@@ -41,12 +46,12 @@ Add a `Predecessor` field to each task. The value is a string with one or more p
 
 ```tsx
 const data = [
-  { TaskID: 1, TaskName: 'Requirements',   StartDate: new Date('04/02/2024'), Duration: 5,  Progress: 100, ParentID: null },
-  { TaskID: 2, TaskName: 'Design',         StartDate: new Date('04/09/2024'), Duration: 7,  Progress: 60,  ParentID: null, Predecessor: '1FS' },
-  { TaskID: 3, TaskName: 'Development',    StartDate: new Date('04/18/2024'), Duration: 10, Progress: 30,  ParentID: null, Predecessor: '2FS' },
-  { TaskID: 4, TaskName: 'Testing',        StartDate: new Date('04/30/2024'), Duration: 5,  Progress: 0,   ParentID: null, Predecessor: '3FS' },
+  { TaskID: 1, TaskName: 'Requirements', StartDate: new Date('04/02/2024'), Duration: 5, Progress: 100, ParentID: null },
+  { TaskID: 2, TaskName: 'Design', StartDate: new Date('04/09/2024'), Duration: 7, Progress: 60, ParentID: null, Predecessor: '1FS' },
+  { TaskID: 3, TaskName: 'Development', StartDate: new Date('04/18/2024'), Duration: 10, Progress: 30, ParentID: null, Predecessor: '2FS' },
+  { TaskID: 4, TaskName: 'Testing', StartDate: new Date('04/30/2024'), Duration: 5, Progress: 0, ParentID: null, Predecessor: '3FS' },
   // Multiple predecessors:
-  { TaskID: 5, TaskName: 'Launch Review',  StartDate: new Date('05/07/2024'), Duration: 2,  Progress: 0,   ParentID: null, Predecessor: '3FS,4FS' },
+  { TaskID: 5, TaskName: 'Launch Review', StartDate: new Date('05/07/2024'), Duration: 2, Progress: 0, ParentID: null, Predecessor: '3FS,4FS' },
 ];
 ```
 
@@ -64,6 +69,8 @@ const taskFields: TaskFieldsModel = {
 };
 ```
 
+If `allowedDependencyTypes` is configured, the Gantt validates the dependency type portion of each predecessor string during initial load. Strings whose relationship type is not allowed are ignored or rejected according to the current data operation path, and the corresponding relationship is not maintained in the chart.
+
 ---
 
 ## Full Example
@@ -76,11 +83,11 @@ import {
 import { TaskFieldsModel, EditSettingsModel } from '@syncfusion/ej2-gantt';
 
 const data = [
-  { TaskID: 1, TaskName: 'Site Analysis',   StartDate: new Date('04/02/2024'), Duration: 4, Progress: 80,  ParentID: null },
-  { TaskID: 2, TaskName: 'Soil Test',       StartDate: new Date('04/08/2024'), Duration: 4, Progress: 50,  ParentID: null, Predecessor: '1FS' },
-  { TaskID: 3, TaskName: 'Test Approval',   StartDate: new Date('04/08/2024'), Duration: 0, Progress: 0,   ParentID: null, Predecessor: '2FS' },
-  { TaskID: 4, TaskName: 'Floor Plan',      StartDate: new Date('04/04/2024'), Duration: 3, Progress: 50,  ParentID: null, Predecessor: '1SS' },
-  { TaskID: 5, TaskName: 'Cost Estimation', StartDate: new Date('04/16/2024'), Duration: 3, Progress: 0,   ParentID: null, Predecessor: '3FS,4FS' },
+  { TaskID: 1, TaskName: 'Site Analysis', StartDate: new Date('04/02/2024'), Duration: 4, Progress: 80, ParentID: null },
+  { TaskID: 2, TaskName: 'Soil Test', StartDate: new Date('04/08/2024'), Duration: 4, Progress: 50, ParentID: null, Predecessor: '1FS' },
+  { TaskID: 3, TaskName: 'Test Approval', StartDate: new Date('04/08/2024'), Duration: 0, Progress: 0, ParentID: null, Predecessor: '2FS' },
+  { TaskID: 4, TaskName: 'Floor Plan', StartDate: new Date('04/04/2024'), Duration: 3, Progress: 50, ParentID: null, Predecessor: '1SS' },
+  { TaskID: 5, TaskName: 'Cost Estimation', StartDate: new Date('04/16/2024'), Duration: 3, Progress: 0, ParentID: null, Predecessor: '3FS,4FS' },
 ];
 
 const taskFields: TaskFieldsModel = {
@@ -107,12 +114,13 @@ function App() {
       taskFields={taskFields}
       editSettings={editSettings}
       allowParentDependency={true}
+      allowedDependencyTypes={['FS', 'SF']}
       toolbar={['Add', 'Edit', 'Update', 'Delete', 'Cancel']}
       height="450px"
     >
       <ColumnsDirective>
-        <ColumnDirective field="TaskID"      width="80" />
-        <ColumnDirective field="TaskName"    headerText="Task Name"  width="200" />
+        <ColumnDirective field="TaskID" width="80" />
+        <ColumnDirective field="TaskName" headerText="Task Name" width="200" />
         <ColumnDirective field="Predecessor" headerText="Dependency" width="150" />
         <ColumnDirective field="StartDate" />
         <ColumnDirective field="Duration" />
@@ -148,6 +156,8 @@ Add a lag (positive offset) or lead (negative offset) to a dependency using `+` 
 { TaskID: 5, Predecessor: '4SS+3h' }  // starts 3 hours after task 4 starts
 ```
 
+When `allowedDependencyTypes` excludes a type, offsets for that type are not interpreted as active relationships. For example, if only `['SF']` is allowed, an entry such as `2FS+3d` is treated as disallowed because the `FS` relationship type itself is not allowed.
+
 ### Auto-update Predecessor Offset
 
 When `autoUpdatePredecessorOffset={true}`, Gantt recalculates offset values on initial load to account for calendar rules (weekends, holidays):
@@ -155,6 +165,8 @@ When `autoUpdatePredecessorOffset={true}`, Gantt recalculates offset values on i
 ```tsx
 <GanttComponent autoUpdatePredecessorOffset={true} ... />
 ```
+
+This property works with `allowedDependencyTypes` during initial load. Allowed relationships can still be normalized for calendar rules, while disallowed relationship types remain excluded.
 
 ---
 
@@ -174,6 +186,8 @@ const editSettings: EditSettingsModel = {
 
 Users hover over a taskbar to see connection points (left/right sides), then drag from one point to another taskbar to create a dependency.
 
+If `allowedDependencyTypes` is configured, the Gantt only allows connector creation for the permitted relationship types. Attempting to create a disallowed type is prevented by the component.
+
 ---
 
 ## Programmatic API
@@ -192,6 +206,9 @@ ganttRef.current?.updatePredecessor(4, '3SS');
 
 <GanttComponent ref={ganttRef} ... />
 ```
+
+Programmatic dependency updates obey `allowedDependencyTypes`.
+If the supplied dependency string uses a type outside the configured collection, the update is blocked or ignored based on the current API path, and the Gantt does not persist the unsupported dependency.
 
 ---
 
@@ -218,6 +235,8 @@ function queryTaskbarInfo(args: any) {
 
 <GanttComponent queryTaskbarInfo={queryTaskbarInfo} ... />
 ```
+
+Connector styling is visual only and does not override `allowedDependencyTypes` restrictions.
 
 ---
 
@@ -246,8 +265,6 @@ By default, `allowParentDependency={true}` allows dependency lines between paren
 ```tsx
 <GanttComponent allowParentDependency={false} ... />
 ```
-
----
 
 ## Predecessor Offset Auto-Synchronization
 
@@ -381,11 +398,110 @@ const hideDependencies = () => {
 Set `enablePredecessorValidation={false}` to disable automatic date validation based on predecessor relationships:
 
 ```tsx
-<GanttComponent
-  enablePredecessorValidation={false}  // allows free date edits regardless of links
-  ...
-/>
+<GanttComponent enablePredecessorValidation={false} ... />
 ```
+
+This property controls validation behavior after dependency relationships have already been accepted. It does not bypass `allowedDependencyTypes` filtering.
+
+---
+
+## Allowed Dependency Types
+
+The `allowedDependencyTypes` property controls which dependency relationship types are accepted by the Gantt Chart during data loading, editing, and dependency maintenance.
+
+### API
+
+```tsx
+<GanttComponent allowedDependencyTypes={['FS', 'SF']} ... />
+```
+
+### Accepted Values
+
+The property accepts an array of dependency codes:
+
+- `FS` — Finish to Start
+- `SS` — Start to Start
+- `FF` — Finish to Finish
+- `SF` — Start to Finish
+
+### Default Behavior
+
+- If `allowedDependencyTypes` is not specified, all dependency types are allowed.
+- If `allowedDependencyTypes` is set to an empty array, it behaves the same as not specifying the property.
+- Only supported dependency types are considered; unsupported strings are ignored.
+
+### Behavior
+
+When the property is configured:
+
+- dependency parsing checks the type portion of each predecessor string
+- initial data binding keeps only allowed dependency relationships
+- dependency drawing via the UI is limited to the configured types
+- editing through the dependency dialog respects the configured types
+- taskbar drag editing respects the configured types
+- programmatic predecessor changes are validated against the same rules
+- validation logic preserves only relationships that are allowed
+
+### Supported Scenarios
+
+#### Allow only Finish-to-Start
+
+```tsx
+<GanttComponent allowedDependencyTypes={['FS']} ... />
+```
+
+Only `FS` links can be created or preserved. `SS`, `FF`, and `SF` links are blocked.
+
+#### Allow only Start-to-Finish
+
+```tsx
+<GanttComponent allowedDependencyTypes={['SF']} ... />
+```
+
+Only `SF` links are accepted. This is useful when a workflow requires a task to finish when its predecessor begins.
+
+#### Allow multiple types
+
+```tsx
+<GanttComponent allowedDependencyTypes={['FS', 'SS']} ... />
+```
+
+Only `FS` and `SS` relationships are allowed. `FF` and `SF` dependencies are not processed.
+
+#### Allow all types explicitly
+
+```tsx
+<GanttComponent allowedDependencyTypes={['FS', 'SS', 'FF', 'SF']} ... />
+```
+
+This is equivalent to the default behavior.
+
+### Existing Dependency Validation
+
+When a restricted configuration is applied, existing dependency strings are validated against the allowed list:
+
+- Allowed relationships remain active and render as dependency lines.
+- Disallowed relationships are not maintained in the chart.
+- If a task has multiple predecessors, allowed links are retained while disallowed links are ignored.
+- During editing, a user cannot change a task in a way that introduces a disallowed dependency type.
+- When validation or dependency maintenance recalculates offsets, only allowed relationships participate in the recalculation.
+
+### Dependency Editing Interactions
+
+`allowedDependencyTypes` works alongside editing features:
+
+- **Dependency dialog editing**: only permitted types should be selectable or committed.
+- **Taskbar editing**: connector-based creation follows the allowed list.
+- **Predecessor validation**: conflict resolution only applies to accepted links.
+- **Programmatic APIs**: `addPredecessor`, `removePredecessor`, and `updatePredecessor` should be used with strings that match the allowed types.
+- **Initial data parsing**: dependency strings in the data source are parsed, but only accepted if the type is allowed.
+
+### Best Practices
+
+- Define `allowedDependencyTypes` only when the workflow requires stricter dependency rules.
+- Keep the array small and explicit so developers know which relationship types are supported.
+- Use the same codes consistently in the data source, UI, and programmatic APIs.
+- Test mixed-predecessor tasks to confirm that allowed links are retained and disallowed links are ignored.
 
 ---
 
@@ -402,3 +518,15 @@ Set `enablePredecessorValidation={false}` to disable automatic date validation b
 | Parent task dependency not working | `allowParentDependency` false | Set `allowParentDependency={true}` |
 | Dependencies removed unexpectedly | `enablePredecessorValidation` true with conflicting edits | Set `enablePredecessorValidation={false}` if strict validation not needed |
 | Dependency lines not visible | Container visibility hidden | Check CSS; unhide `.e-gantt-dependency-view-container` |
+| Disallowed dependency missing | `allowedDependencyTypes` excludes the type | Add the dependency code to `allowedDependencyTypes` |
+
+---
+
+## Limitation
+
+> When `allowedDependencyTypes` is configured, unsupported dependency relationships are filtered during parsing and editing. If a task depends on a mix of allowed and disallowed types, only the allowed relationships remain active.
+
+## See also
+- [How to configure task constraints?](https://ej2.syncfusion.com/react/documentation/gantt/task-constraints)
+- [How to customize taskbars?](https://ej2.syncfusion.com/react/documentation/gantt/taskbar)
+- [How to enable critical path?](https://ej2.syncfusion.com/react/documentation/gantt/critical-path)

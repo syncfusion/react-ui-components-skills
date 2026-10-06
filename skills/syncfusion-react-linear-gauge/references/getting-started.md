@@ -9,7 +9,6 @@ See API Reference: [API Reference](api-reference.md)
   - [Setup with Vite (Recommended)](#setup-with-vite-recommended)
   - [Setup with Create React App](#setup-with-create-react-app)
 - [Basic Component Import](#basic-component-import)
-- [CSS Themes](#css-themes)
 - [Minimal Working Example](#minimal-working-example)
 - [First Gauge with Custom Axis Range](#first-gauge-with-custom-axis-range)
 - [Adding Ranges for Visual Zones](#adding-ranges-for-visual-zones)
@@ -68,27 +67,6 @@ import { LinearGaugeComponent, AxesDirective, AxisDirective,
          PointersDirective, PointerDirective, RangesDirective, RangeDirective } 
   from '@syncfusion/ej2-react-lineargauge';
 ```
-
-## CSS Themes
-
-Import the appropriate theme CSS file. Syncfusion provides several built-in themes:
-
-```tsx
-// Material theme (light)
-import '@syncfusion/ej2-lineargauge/styles/material.css';
-
-// Or Bootstrap theme
-import '@syncfusion/ej2-lineargauge/styles/bootstrap.css';
-
-// Or Fabric theme
-import '@syncfusion/ej2-lineargauge/styles/fabric.css';
-
-// Or Tailwind CSS theme
-import '@syncfusion/ej2-lineargauge/styles/tailwind.css';
-```
-
-Place the theme import at the top of your `App.tsx` or `main.tsx` file.
-
 ## Minimal Working Example
 
 Here's the simplest way to get a Linear Gauge running:

@@ -5,6 +5,9 @@
 - [Auto Scheduling (Default)](#auto-scheduling-default)
 - [Manual Scheduling](#manual-scheduling)
 - [Custom Scheduling (Mixed Mode)](#custom-scheduling-mixed-mode)
+- [Duration Units](#duration-units)
+- [Week and Month Duration Calculation](#week-and-month-duration-calculation)
+- [daysPerWeek and daysPerMonth](#daysperweek-and-dayspermonth)
 - [Unscheduled Tasks](#unscheduled-tasks)
 - [Project Start and End Dates](#project-start-and-end-dates)
 - [Choosing the Right Mode](#choosing-the-right-mode)
@@ -158,6 +161,192 @@ function App() {
 ```
 
 > **When to use Custom mode:** When a project has a mix — some tasks are fixed (milestones, contractual deliverables) and others should auto-schedule around dependencies.
+
+---
+
+## Duration Units
+
+Duration units define how the scheduler interprets a task’s duration field before it calculates start and end dates. In this component, the unit can come from the global setting, from the task record, or directly from the duration text.
+
+### Supported duration units
+
+| Unit | Typical use | Scheduling effect |
+|---|---|---|
+| `Day` | General planning | Moves the task in whole-day blocks |
+| `Hour` | Short or shift-based work | Uses daily working hours and time slots |
+| `Minute` | Very short tasks | Useful for precision work, meetings, and burst tasks |
+| `Week` | Sprint planning, iteration planning | Converts the duration using `daysPerWeek` before scheduling |
+| `Month` | Long phases, roadmap planning | Converts the duration using `daysPerMonth` before scheduling |
+
+### How duration is resolved
+
+The scheduler checks duration input in this order:
+
+1. A unit embedded in the duration text, such as `5 days`, `2 weeks`, or `1 month`
+2. `taskFields.durationUnit` on the task row
+3. The global `durationUnit` property on the component
+
+This order lets a project keep a single default while still supporting imported rows or mixed-unit planning.
+
+### What changes when Week or Month is used
+
+`Week` and `Month` are not treated as fixed calendar spans. They are translated into working-day equivalents and then passed through the normal calendar rules.
+
+- `Week` uses the `daysPerWeek` value as the conversion base
+- `Month` uses the `daysPerMonth` value as the conversion base
+- Weekend, holiday, and task-calendar rules are still applied after the conversion
+- Taskbar dragging can change the displayed dates even when the original duration value stays the same
+
+### Example — mixed duration sources
+
+```tsx
+const taskFields: TaskFieldsModel = {
+  id: 'TaskID',
+  name: 'TaskName',
+  startDate: 'StartDate',
+  duration: 'Duration',
+  durationUnit: 'DurationUnit',
+  progress: 'Progress',
+  parentID: 'ParentID',
+};
+
+const data = [
+  { TaskID: 1, TaskName: 'Planning', StartDate: new Date('04/02/2024'), Duration: '5 days' },
+  { TaskID: 2, TaskName: 'Execution', StartDate: new Date('04/09/2024'), Duration: 2, DurationUnit: 'Week' },
+  { TaskID: 3, TaskName: 'Closure', StartDate: new Date('04/30/2024'), Duration: 1, DurationUnit: 'Month' },
+];
+```
+
+### Example — global duration unit with overrides
+
+```tsx
+<GanttComponent
+  dataSource={data}
+  taskFields={taskFields}
+  durationUnit="Day"
+  height="450px"
+/>
+```
+
+---
+
+## Week and Month Duration Calculation
+
+When a task uses `Week` or `Month`, the scheduler converts the value to working days before it derives the end date. The conversion is calendar-aware, so the final result still respects weekends, holidays, and the configured work week.
+
+### Week duration behavior
+
+- `1 Week` equals `daysPerWeek` working days.
+- The conversion happens before dependency logic is evaluated.
+- If the project uses a 5-day schedule, a 2-week task behaves like 10 working days, not 14 calendar days.
+- This is useful for sprint planning because the estimate stays in work units rather than calendar units.
+
+### Month duration behavior
+
+- `1 Month` equals `daysPerMonth` working days.
+- The conversion is applied before the task is placed on the timeline.
+- A 1-month task behaves like a fixed planning month, not a calendar-month hop.
+- This keeps month-based estimates stable across different calendar lengths.
+
+### Scheduling flow
+
+For both `Week` and `Month`, the scheduler follows this flow:
+
+1. Read the task duration and unit
+2. Convert the value to working days using the configured base
+3. Apply work week, weekends, holidays, and working time rules
+4. Resolve predecessor links and parent rollups
+5. Recalculate the final visible start and end dates
+
+### Example — week and month tasks in one project
+
+```tsx
+const taskFields: TaskFieldsModel = {
+  id: 'TaskID',
+  name: 'TaskName',
+  startDate: 'StartDate',
+  duration: 'Duration',
+  durationUnit: 'DurationUnit',
+  progress: 'Progress',
+};
+
+const data = [
+  { TaskID: 1, TaskName: 'Sprint Cycle', StartDate: new Date('04/01/2024'), Duration: 2, DurationUnit: 'Week' },
+  { TaskID: 2, TaskName: 'Release Phase', StartDate: new Date('04/15/2024'), Duration: 1, DurationUnit: 'Month' },
+];
+
+<GanttComponent
+  dataSource={data}
+  taskFields={taskFields}
+  daysPerWeek={5}
+  daysPerMonth={20}
+  height="450px"
+/>
+```
+
+### Limits and edge cases
+
+- A `Week` value is not always 7 calendar days.
+- A `Month` value is not the same as a calendar month boundary.
+- A task may still end later than the converted duration suggests if it crosses non-working periods.
+- Editing or dragging a taskbar can change the resulting dates even if the original duration text stays the same.
+- If the schedule uses manual task dates, the conversion still matters once the user edits the task or a dependency recalculates it.
+
+---
+
+## daysPerWeek and daysPerMonth
+
+`daysPerWeek` and `daysPerMonth` are the conversion controls used by `Week` and `Month` duration units.
+
+### `daysPerWeek`
+
+`daysPerWeek` defines how many working days count as one week in the schedule.
+
+- Used when the task duration or task unit is `Week`
+- Affects successor movement when dependency links recalculate the schedule
+- Impacts parent task rollups when child tasks are week-based
+- Should match the project’s work-week rule
+
+### `daysPerMonth`
+
+`daysPerMonth` defines how many working days count as one month in the schedule.
+
+- Used when the task duration or task unit is `Month`
+- Affects end-date derivation and schedule extension for month-based tasks
+- Impacts parent rollups and dependency validation for long-range plans
+- Should match the organization’s planning policy rather than the calendar month length
+
+### How they affect scheduling
+
+These values are read during duration conversion, so they influence the whole scheduling pipeline:
+
+- Start date placement for new tasks
+- End date calculation after conversion
+- Duration recalculation during edit and drag operations
+- Dependency validation when a linked task shifts
+- Parent task date rollups in auto scheduling
+- Rescheduling after the working calendar changes
+
+### Example — project conversion settings
+
+```tsx
+<GanttComponent
+  dataSource={data}
+  taskFields={taskFields}
+  daysPerWeek={5}
+  daysPerMonth={20}
+  includeWeekend={false}
+  dayWorkingTime={[{ from: 8, to: 17 }]}
+  height="450px"
+/>
+```
+
+### Recommended values
+
+- `daysPerWeek = 5` for Monday-to-Friday planning
+- `daysPerWeek = 6` for six-day operating schedules
+- `daysPerMonth = 20` for many project-tracking scenarios
+- Keep the same values across all views and exports that represent the same schedule
 
 ---
 

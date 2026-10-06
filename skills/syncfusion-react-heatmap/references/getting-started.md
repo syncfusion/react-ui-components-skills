@@ -10,12 +10,10 @@
   - [Option A: Using Vite (Recommended - Faster Development)](#option-a-using-vite-recommended---faster-development)
   - [Option B: Using Create React App](#option-b-using-create-react-app)
 - [Adding to Your Project](#adding-to-your-project)
-  - [Step 1: Import Theme CSS](#step-1-import-theme-css)
-  - [Step 2: Import HeatMap Component](#step-2-import-heatmap-component)
+  - [Step 1: Import HeatMap Component](#step-1-import-heatmap-component)
 - [Basic Implementation](#basic-implementation)
   - [Minimal Example (Empty HeatMap)](#minimal-example-empty-heatmap)
   - [Complete Basic Example with Data](#complete-basic-example-with-data)
-  - [CSS Import Pattern](#css-import-pattern)
 - [Running the Application](#running-the-application)
   - [For Vite](#for-vite)
   - [For Create React App](#for-create-react-app)
@@ -86,51 +84,7 @@ npm install @syncfusion/ej2-react-heatmap --save
 
 ## Adding to Your Project
 
-### Step 1: Import Theme CSS
-
-Add the Syncfusion theme CSS to your application entry point.
-
-**For Vite (in `src/main.jsx` or `src/main.tsx`):**
-
-```jsx
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.jsx'
-import '@syncfusion/ej2-base/styles/material.css'
-
-ReactDOM.createRoot(document.getElementById('root')).render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-)
-```
-
-**For Create React App (in `src/index.js`):**
-
-```jsx
-import '@syncfusion/ej2-base/styles/material.css';
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import App from './App';
-
-const root = ReactDOM.createRoot(document.getElementById('root'));
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-```
-
-**Available Themes:**
-- `material.css` (Material Design)
-- `bootstrap5.css` (Bootstrap 5)
-- `fabric.css` (Fluent Design)
-- `tailwind.css` (Tailwind CSS)
-- `fluent2.css` (Fluent 2)
-
-Choose one theme based on your design preference.
-
-### Step 2: Import HeatMap Component
+### Step 1: Import HeatMap Component
 
 In your component file (e.g., `App.jsx`):
 
@@ -145,7 +99,6 @@ import { HeatMapComponent, Inject, Legend, Tooltip } from '@syncfusion/ej2-react
 ```jsx
 import * as React from 'react';
 import { HeatMapComponent } from '@syncfusion/ej2-react-heatmap';
-import '@syncfusion/ej2-base/styles/material.css';
 
 export function App() {
   return (
@@ -164,7 +117,6 @@ export default App;
 ```jsx
 import * as React from 'react';
 import { HeatMapComponent, Inject, Legend, Tooltip } from '@syncfusion/ej2-react-heatmap';
-import '@syncfusion/ej2-base/styles/material.css';
 
 export function App() {
   const data = [
@@ -203,16 +155,6 @@ export default App;
 - `<Inject services={[Legend, Tooltip]} />`: Enables legend and tooltips
 - `title`: Adds a descriptive title to the heatmap
 
-### CSS Import Pattern
-
-```jsx
-// At the top of your file, after other imports
-import '@syncfusion/ej2-base/styles/material.css';
-
-// Components don't need individual CSS imports
-// The base theme CSS handles all Syncfusion components
-```
-
 ## Running the Application
 
 ### For Vite:
@@ -232,9 +174,6 @@ npm start
 The application opens at `http://localhost:3000` by default.
 
 ## Troubleshooting
-
-**Issue:** Styles not appearing or component looks unstyled
-- **Solution:** Make sure you've imported the CSS file (`material.css` or your chosen theme) at the top of your entry point before rendering components.
 
 **Issue:** HeatMapComponent not found error
 - **Solution:** Verify the import is correct:

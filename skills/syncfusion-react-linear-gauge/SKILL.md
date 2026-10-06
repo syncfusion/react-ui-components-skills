@@ -113,7 +113,6 @@ import React from 'react';
 import { LinearGaugeComponent, AxesDirective, AxisDirective, 
          PointersDirective, PointerDirective, RangesDirective, RangeDirective } 
   from '@syncfusion/ej2-react-lineargauge';
-import '@syncfusion/ej2-lineargauge/styles/material.css';
 
 export function App() {
   return (

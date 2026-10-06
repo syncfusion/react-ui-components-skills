@@ -20,10 +20,9 @@
 - [Common Issues](#common-issues)
 - [Troubleshooting Guide](#troubleshooting-guide)
   - [Issue 1: HeatMap Not Rendering](#issue-1-heatmap-not-rendering)
-  - [Issue 2: Styles Not Applied](#issue-2-styles-not-applied)
-  - [Issue 3: Axes Labels Overlapping](#issue-3-axes-labels-overlapping)
-  - [Issue 4: Large Dataset Performance](#issue-4-large-dataset-performance)
-  - [Issue 5: Tooltips Not Showing](#issue-5-tooltips-not-showing)
+  - [Issue 2: Axes Labels Overlapping](#issue-3-axes-labels-overlapping)
+  - [Issue 3: Large Dataset Performance](#issue-4-large-dataset-performance)
+  - [Issue 4: Tooltips Not Showing](#issue-5-tooltips-not-showing)
 - [Migration from EJ1](#migration-from-ej1)
   - [EJ1 vs EJ2 Differences](#ej1-vs-ej2-differences)
   - [Basic Migration Example](#basic-migration-example)
@@ -138,7 +137,6 @@ export function AccessibleWithAlternative() {
 ### Color Contrast
 
 ```jsx
-import '@syncfusion/ej2-base/styles/material.css';
 
 export function HighContrastHeatmap() {
   return (
@@ -403,7 +401,6 @@ export function AccessibleDataPresentation() {
 | Issue | Cause | Solution |
 |-------|-------|----------|
 | Heatmap not displaying | Missing data or container | Provide dataSource and ensure container has dimensions |
-| Styles not applying | CSS not imported | Add `import '@syncfusion/ej2-base/styles/material.css'` |
 | Axes labels overlap | Too many labels in small space | Rotate labels with `labelRotation={45}` |
 | Poor performance | Large dataset with SVG mode | Use `renderingMode='Canvas'` for >1000 cells |
 | Tooltips not showing | Tooltip service not injected | Add `<Inject services={[Tooltip]} />` |
@@ -441,29 +438,6 @@ console.log('Container size:', {
     <Inject services={[Legend, Tooltip]} />
   </HeatMapComponent>
 </div>
-```
-
-### Issue 2: Styles Not Applied
-
-**Symptoms:** Default gray colors, not using custom palette
-
-**Diagnosis:**
-```jsx
-// Check if CSS is imported
-try {
-  const style = document.querySelector('link[href*="material.css"]');
-  console.log('Theme CSS loaded:', !!style);
-} catch(e) {
-  console.error('CSS import error');
-}
-```
-
-**Solution:**
-```jsx
-// In your entry file (main.jsx or index.js)
-import '@syncfusion/ej2-base/styles/material.css';  // Must be at top
-
-import { HeatMapComponent } from '@syncfusion/ej2-react-heatmap';
 ```
 
 ### Issue 3: Axes Labels Overlapping
@@ -611,7 +585,6 @@ const data = [
 
 // New EJ2 component
 import { HeatMapComponent, Inject, Legend, Tooltip } from '@syncfusion/ej2-react-heatmap';
-import '@syncfusion/ej2-base/styles/material.css';
 
 <HeatMapComponent
   id='heatmap'
