@@ -1,6 +1,6 @@
 ---
 name: syncfusion-react-inline-ai-assist
-description: Implement the Syncfusion React Inline AI Assist component. Use this skill to add inline AI suggestions, integrate AI services such as OpenAI, Gemini, Lite-LLM, or Ollama, configure command and response actions, customize toolbars, handle events, and support real-time prompt-response workflows in React.
+description: Implement the Syncfusion React Inline AI Assist component. Use this skill to add inline AI suggestions, integrate AI services such as OpenAI, Gemini, Lite-LLM, or Ollama, configure command and response actions, customize toolbars, enable built-in Speech-to-Text, handle events, and support real-time prompt-response workflows in React.
 metadata:
   author: "Syncfusion Inc"
   version: "34.1.29"
@@ -20,6 +20,7 @@ The Inline AI Assist component provides intelligent text processing capabilities
 - **Inline Toolbar**: Add custom toolbar items with icons, buttons, and separators for enhanced user interactions
 - **Inline & Popup Modes**: Display AI responses inline with existing content or in a floating popup window
 - **Flexible Template Customization**: Customize prompt input and response display using string, function, or JSX templates
+- **Built-in Speech-to-Text**: Enable the Web Speech API microphone button via `speechToTextSettings` with language, interim results, custom labels/icons, tooltips, and lifecycle events
 - **Internationalization (i18n) & RTL**: Support for multiple languages and right-to-left text direction
 - **Event Handling**: Lifecycle events including `created`, `promptRequest`, `open`, and `close` for precise control
 - **Public Methods**: Programmatic access with `addResponse()`, `executePrompt()`, `showPopup()`, and more
@@ -42,9 +43,19 @@ The Inline AI Assist component provides intelligent text processing capabilities
 - `responseTemplate` property: Customize response display
 - String templates, function templates, JSX.Element templates
 - Rich text editor integration
-- Voice input integration
-- Code syntax highlighting
+- Custom voice input integration (inside `editorTemplate`)- Code syntax highlighting
 - Markdown rendering
+
+### Speech-to-Text
+📄 **Read:** [references/speech-to-text.md](references/speech-to-text.md)
+- **Enable built-in Speech-to-Text via `speechToTextSettings.enable`**
+- **Configure the recognition language with the `lang` property (`en-US`, `es-ES`, `fr-FR`, etc.)**
+- **Customize the microphone button with `buttonSettings` (`content`, `stopContent`, `iconCss`, `stopIconCss`)**
+- **Stream partial transcripts in real time with `allowInterimResults: true`**
+- **Customize idle/recording tooltips with `tooltipSettings` (`content`, `stopContent`)**
+- **Hook into the recognition lifecycle with `onStart`, `onStop`, `transcriptChanged`, and `onError`**
+- **Use `SpeechToTextSettingsModel` and the Web Speech API for cross-browser voice input**
+- **Build an accessible status panel that surfaces recording state, live transcript, and errors**
 
 ### Internationalization (i18n) and RTL
 📄 **Read:** [references/internationalization.md](references/internationalization.md)
@@ -243,6 +254,34 @@ const handlePromptRequest = (args) => {
 />
 ```
 
+### Pattern 6: Voice-Driven Inline Assistant
+Enable the built-in Web Speech API microphone button to let users dictate prompts:
+
+```jsx
+const speechToTextSettings = {
+    enable: true,
+    lang: 'en-US',
+    allowInterimResults: true,
+    buttonSettings: {
+        content: 'Start Recording',
+        stopContent: 'Stop Recording',
+        iconCss: 'e-icons e-microphone',
+        stopIconCss: 'e-icons e-microphone-off'
+    },
+    tooltipSettings: {
+        content: 'Click to start recording',
+        stopContent: 'Click to stop recording'
+    }
+};
+
+<InlineAIAssistComponent speechToTextSettings={speechToTextSettings} />
+```
+
+- `onStart` fires when recognition begins, `onStop` when it ends
+- `transcriptChanged` streams interim + final transcripts to a status panel
+- `onError` surfaces browser/network/mic errors to the user
+- The recognized prompt is injected into the standard `promptRequest` event, so existing AI service handlers keep working unchanged
+
 ## Key Configuration Properties
 
 | Property | Type | Default | Purpose |
@@ -266,6 +305,7 @@ const handlePromptRequest = (args) => {
 | `commandSettings` | CommandSettingsModel | null | Command configuration |
 | `responseSettings` | ResponseSettingsModel | null | Response action configuration |
 | `inlineToolbarSettings` | InlineToolbarSettingsModel | null | Toolbar customization |
+| `speechToTextSettings` | SpeechToTextSettingsModel | null | Built-in Web Speech API microphone button (`enable`, `lang`, `allowInterimResults`, `buttonSettings`, `tooltipSettings`, `onStart`, `onStop`, `transcriptChanged`, `onError`) |
 
 
 **For complete examples and advanced scenarios, explore individual reference files above.**

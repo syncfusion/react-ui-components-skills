@@ -205,7 +205,16 @@ interface ToolbarItemModel {
 
 ### Align Property
 
-Control the alignment of toolbar items:
+Control the alignment of toolbar items with the `align` property. It supports three values: `Left`, `Center`, and `Right`. The default value is `Left`.
+
+**Available Alignment Values:**
+- `'Left'` - Align to left side of toolbar
+- `'Center'` - Align to center of toolbar
+- `'Right'` - Align to right side of toolbar
+
+#### Quick Overview
+
+A simple three-button toolbar that demonstrates each alignment value:
 
 ```tsx
 const toolbarSettings = {
@@ -222,10 +231,74 @@ const toolbarSettings = {
 />
 ```
 
-**Available Alignment Values:**
-- `'Left'` - Align to left side of toolbar
-- `'Center'` - Align to center of toolbar
-- `'Right'` - Align to right side of toolbar
+#### Right-Aligned Refresh Button (UG Example)
+
+The following complete example places a refresh icon in the right side of the header toolbar by setting `align: 'Right'`.
+
+**index.tsx**
+
+```tsx
+import { AIAssistViewComponent, PromptRequestEventArgs, ToolbarSettingsModel } from '@syncfusion/ej2-react-interactive-chat';
+import * as React from 'react';
+import * as ReactDOM from "react-dom";
+
+function App() {
+
+    const assistInstance = React.useRef<AIAssistViewComponent>(null);
+    
+    const toolbarSettings: ToolbarSettingsModel = {
+        items: [
+            { iconCss: 'e-icons e-refresh', align: 'Right' }
+        ]
+    };
+
+    const onPromptRequest = (args: PromptRequestEventArgs) => {
+        setTimeout(() => {
+            let defaultResponse = 'For real-time prompt processing, connect the AIAssistView component to your preferred AI service, such as OpenAI or Azure Cognitive Services. Ensure you obtain the necessary API credentials to authenticate and enable seamless integration.';
+            assistInstance.current.addPromptResponse(defaultResponse);
+          }, 1000);
+    };
+  
+    return (
+        // specifies the tag for render the AI AssistView component
+        <AIAssistViewComponent id="aiAssistView" ref={assistInstance} promptRequest={onPromptRequest} toolbarSettings={toolbarSettings}></AIAssistViewComponent>
+    );
+}
+
+ReactDOM.render(<App />, document.getElementById('container'));
+```
+
+**index.jsx**
+
+```jsx
+import { AIAssistViewComponent } from '@syncfusion/ej2-react-interactive-chat';
+import * as React from 'react';
+import * as ReactDOM from "react-dom";
+
+function App() {
+    const assistInstance = React.useRef(null);
+    
+    const toolbarSettings = {
+        items: [
+            { iconCss: 'e-icons e-refresh', align: 'Right' }
+        ]
+    };
+
+    const onPromptRequest = (args) => {
+        setTimeout(() => {
+            let defaultResponse = 'For real-time prompt processing, connect the AIAssistView component to your preferred AI service, such as OpenAI or Azure Cognitive Services. Ensure you obtain the necessary API credentials to authenticate and enable seamless integration.';
+            assistInstance.current.addPromptResponse(defaultResponse);
+          }, 1000);
+    };
+  
+    return (
+        // specifies the tag for render the AI AssistView component
+        <AIAssistViewComponent id="aiAssistView" ref={assistInstance} promptRequest={onPromptRequest} toolbarSettings={toolbarSettings}></AIAssistViewComponent>
+    );
+}
+
+ReactDOM.render(<App />, document.getElementById('container'));
+```
 
 ### cssClass Property
 

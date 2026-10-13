@@ -1,6 +1,6 @@
 ---
 name: syncfusion-react-ai-assistview
-description: Implement the Syncfusion React AI AssistView component. Use this skill to handle AI-powered conversational interfaces, AssistView setup, conversation flow, speech input or output, file attachments, UI customization, state management, chain of thoughts reasoning visualization, generative UI with dynamic tools, and AI service integration such as OpenAI or Azure AI in React applications.
+description: Implement the Syncfusion React AI AssistView component. Use this skill to handle AI-powered conversational interfaces, AssistView setup, conversation flow, speech input or output, file attachments, UI customization, state management, chain of thoughts reasoning visualization, generative UI with dynamic tools, AI telemetry and usage tracking, prompt-editor mentions, and AI service integration such as OpenAI or Azure AI in React applications.
 metadata:
   author: "Syncfusion Inc"
   version: "34.1.29"
@@ -21,6 +21,8 @@ The **Syncfusion React AI AssistView** component is a comprehensive interactive 
 - **Voice Integration**: Built-in Speech-to-Text (voice input) and Text-to-Speech (voice output)
 - **File Attachments**: Upload and include files with prompts
 - **Advanced Toolbars**: Configurable toolbars for header, footer, responses, and prompts
+- **Telemetry Tracking**: Track AI interaction metrics (duration, tool calls, tokens, model info) with a built-in report tooltip on every response
+- **Mentions**: Reference items from a configured data source via trigger characters (@, /) with filtering, highlighting, and customizable templates
 - **AI Service Integration**: Direct integration with OpenAI, Azure OpenAI, and other AI services
 - **Event-Driven Architecture**: Hooks for prompt submission, changes, and component lifecycle
 
@@ -33,6 +35,8 @@ The **Syncfusion React AI AssistView** component is a comprehensive interactive 
 - **Clear Functionality**: Clear current prompt or entire conversation
 - **Regenerate Responses**: Request alternative AI responses for existing prompts without resubmitting queries
 - **Responsive Design**: Works on desktop and mobile with responsive layouts
+- **Telemetry Reports**: Built-in telemetry button on each response toolbar with configurable metrics, customizable report via `beforeReport`, custom attribute support, and per-response token/model tracking
+- **Mentions in Prompt Editor**: Configurable trigger character(s), local or remote data source, field mapping, filter type, highlighting, popup sizing, display/item/no-records templates, and `mentionSelect` event for custom handling
 
 ## Documentation and Navigation Guide
 
@@ -102,7 +106,7 @@ The **Syncfusion React AI AssistView** component is a comprehensive interactive 
 - Set file size limits (maxFileSize)
 - Limit number of attachments (maximumCount)
 - **Access attached files via attachedFiles array (FileInfo interface)**
-- **Handle attachment lifecycle events (beforeAttachmentUpload, attachmentUploadSuccess, attachmentUploadFailure, attachmentRemoved)**
+- **Handle attachment lifecycle events (beforeAttachmentUpload, attachmentUploadSuccess, attachmentUploadFailure, attachmentRemoved, attachmentRemoving)**
 - **Validate files before upload**
 - **Initialize prompts with pre-attached files**
 - Handle server-side file processing
@@ -125,6 +129,7 @@ The **Syncfusion React AI AssistView** component is a comprehensive interactive 
 - Customize banner templates (welcome content)
 - Create prompt item templates (user message display)
 - Design response item templates (AI response display)
+- **Render a custom loading animation with `responseAnimationTemplate` while a response is being generated**
 - Build suggestion item templates
 - Create custom footer templates
 - Access template context data
@@ -180,18 +185,44 @@ The **Syncfusion React AI AssistView** component is a comprehensive interactive 
 - Manage component state
 - Common patterns and gotchas
 
+### Telemetry
+📄 **Read:** [references/telemetry.md](references/telemetry.md)
+- **Enable telemetry tracking via `telemetrySettings.enable`**
+- **Render a built-in telemetry button on every response toolbar with hover-tooltip report**
+- **Configure the `metrics` filter to restrict and order rows in the tooltip (`status`, `duration`, `toolCalls`, `streamingChunks`, `model`, `inputTokens`, `outputTokens`, `totalTokens`, `reasoningTokens`, `cachedInputTokens`)**
+- **Intercept the report with the `beforeReport` event to modify it, add `customAttributes`, or return `null` to suppress**
+- **Pass `TelemetryData` (model, input/output tokens, reasoning/cached tokens) to `addPromptResponse()` to merge AI usage details into the report**
+- **Surface domain-specific metrics via `TelemetryData.customAttributes` (always shown regardless of the `metrics` filter)**
+- **Understand the auto-measured vs. externally provided metrics and their display precedence**
+- **Work with `TelemetrySettingsModel`, `TelemetryData`, and `TelemetryReport` types**
+
+### Mentions
+📄 **Read:** [references/mentions.md](references/mentions.md)
+- **Enable mentions in the prompt editor via the `mentions` property (array of mention settings)**
+- **Configure the trigger character (`mentionChar`) such as `@` or `/` — multiple mention settings can be configured on the same component**
+- **Provide a `dataSource` as a local array (string/object/number/boolean) or a Syncfusion `DataManager` for local/remote data**
+- **Map object-based data sources with the `fields` property (default `{ text: 'text', value: 'id' }`)**
+- **Apply additional data operations with the `query` property (`Query` from `@syncfusion/ej2-data`)**
+- **Choose how typed text is matched with `filterType` (`Contains`, `StartsWith`, `EndsWith`)**
+- **Highlight matching text with `highlight` and control whether the trigger character is shown with `showMentionChar`**
+- **Customize the mention in the prompt with `displayTemplate` and the suggestion item with `itemTemplate`**
+- **Size the popup with `popupWidth` / `popupHeight`, and customize the empty state with `noRecordsTemplate`**
+- **Handle mention selection with the `mentionSelect` event to access the selected item data**
+
 ---
 
 ## Quick Start Example
 
 ```tsx
-import { AIAssistViewComponent, PromptRequestEventArgs } from '@syncfusion/ej2-react-interactive-chat';
+import { AIAssistViewComponent, PromptRequestEventArgs, TelemetrySettingsModel } from '@syncfusion/ej2-react-interactive-chat';
 import * as React from 'react';
 import * as ReactDOM from "react-dom";
 
 function App() {
     const assistInstance = React.useRef<AIAssistViewComponent>(null);
     
+    // Enable the built-in telemetry button on every response toolbar
+    const telemetrySettings: TelemetrySettingsModel = { enable: true };
     const onPromptRequest = (args: PromptRequestEventArgs) => {
         setTimeout(() => {
             let defaultResponse = 'For real-time AI processing, connect to your preferred service (OpenAI, Azure OpenAI, etc.).';
@@ -206,6 +237,7 @@ function App() {
             promptRequest={onPromptRequest}
             prompt={'Welcome! How can I help?'}
             promptSuggestions={['Ask about features', 'Get started guide']}
+            telemetrySettings={telemetrySettings}
         />
     );
 }
@@ -260,6 +292,28 @@ Visualize AI's step-by-step reasoning process:
 - Add context items to highlight referenced tools or files
 - Customize block and stage templates for branded styling
 
+### Pattern 7: Telemetry-Enabled AI Assistant
+Surface per-response AI metrics in a built-in tooltip:
+- Set `telemetrySettings={{ enable: true }}` to render the telemetry button on every response
+- Restrict captured metrics with `telemetrySettings.metrics` and fix their display order in the tooltip
+- Pass `TelemetryData` to `addPromptResponse()` to merge model, token, reasoning, and cache usage into the report
+- Use the `beforeReport` callback to add `customAttributes` (region, tenant, sessionId, feature) or return `null` to suppress the report
+- `status` and `duration` are always retained; `customAttributes` are always shown regardless of the `metrics` filter
+
+### Pattern 8: Mention-Driven Prompt Composer
+Let users reference agents or slash commands from inside the prompt:
+- Set `mentions` to an array of settings, each with its own `mentionChar` (e.g. `@` for agents, `/` for commands)
+- Provide local or remote data via `dataSource`, and map fields with `fields: { text, value }`
+- Use `filterType`, `highlight`, `showMentionChar`, `popupWidth`, and `popupHeight` to tune the suggestion popup
+- Customize appearance with `displayTemplate`, `itemTemplate`, and `noRecordsTemplate`
+- React to selections with the `mentionSelect` event to drive routing, analytics, or downstream AI context
+
+### Pattern 9: Custom Response Loading Animation
+Replace the default typing indicator with a branded animation:
+- Pass a function, string, or JSX element to `responseAnimationTemplate` to render while the response is being generated
+- The template is shown immediately after the user submits a prompt and is removed automatically when `addPromptResponse()` (or cancel) resolves
+- Combine with branded CSS to render a pulse grid, spinner, stage labels (e.g. "Searching the knowledge base…"), or skeleton placeholder
+
 ---
 
 ## Key Props & Configuration
@@ -286,6 +340,7 @@ Visualize AI's step-by-step reasoning process:
 - `bannerTemplate`: Welcome banner content
 - `promptItemTemplate`: User message display
 - `responseItemTemplate`: AI response display
+- **`responseAnimationTemplate`**: Custom loading indicator/animation shown in place of the response while it is being generated (removed automatically once the response is added or the request is canceled)
 - `promptSuggestionItemTemplate`: Suggestion styling
 - `footerTemplate`: Custom prompt input area
 
@@ -304,6 +359,12 @@ Visualize AI's step-by-step reasoning process:
 - `enableRtl`: Enable right-to-left rendering (default: false)
 - `enablePersistence`: Enable state persistence (default: false)
 
+### Telemetry Props
+- **`telemetrySettings`**: Telemetry configuration object (`TelemetrySettingsModel`) with `enable` flag, `metrics` filter, and `beforeReport` callback
+
+### Mentions Props
+- **`mentions`**: Array of mention settings — each entry configures `mentionChar`, `dataSource`, `fields`, `query`, `filterType`, `highlight`, `showMentionChar`, `popupWidth`, `popupHeight`, `displayTemplate`, `itemTemplate`, and `noRecordsTemplate`
+
 ### Generative UI Props
 - **`blocks`**: Array of response blocks (TextBlock, ToolBlock, ThinkingBlock) to render dynamic UI elements within responses
 - **`registerToolUI()`**: Public method to register custom tool templates for rendering interactive components (charts, cards, custom tools) within AI responses
@@ -316,8 +377,10 @@ Visualize AI's step-by-step reasoning process:
 - `beforeAttachmentUpload`: Before file upload event
 - `attachmentUploadSuccess`: File upload success event
 - `attachmentUploadFailure`: File upload failure event
-- `attachmentRemoved`: File removal event
+- `attachmentRemoved`: After file removal event
+- `attachmentRemoving`: Before file removal event (use to confirm, log, or cancel the removal via `args.cancel`)
 - `editableContextClicked`: Fires when user clicks an inline context item in thinking blocks
+- `mentionSelect`: Fires when a user selects an item from the mention suggestion popup (receives the selected item data in `args.itemData`)- `editableContextClicked`: Fires when user clicks an inline context item in thinking blocks
 
 ---
 
@@ -368,5 +431,31 @@ Render dynamic interactive components and custom tools within AI responses:
 4. Configure AI system prompt for structured JSON generation
 5. Send tool blocks within addPromptResponse() calls
 6. Create rich, interactive experiences with AI-generated UI elements
+
+### Telemetry-Enabled AI Assistant
+Track and display per-response AI interaction metrics:
+1. Set `telemetrySettings={{ enable: true }}` to render the telemetry button on every response toolbar
+2. Restrict captured metrics with `telemetrySettings.metrics` and fix their display order in the tooltip
+3. Pass `TelemetryData` to `addPromptResponse()` to merge model, token, reasoning, and cache usage into the report
+4. Use the `beforeReport` callback to add `customAttributes` (region, tenant, sessionId, feature) or return `null` to suppress the report
+5. Surface domain-specific metrics via `TelemetryData.customAttributes` (always shown regardless of the `metrics` filter)
+6. Reuse the `totalTokens` auto-computation, duration formatting (ms / s with 2 decimals), and regenerate-flow semantics
+
+### Mention-Driven Prompt Composer
+Reference agents, slash commands, or any data source from inside the prompt:
+1. Configure the `mentions` property as an array of mention settings, each with its own `mentionChar` (`@`, `/`, etc.)
+2. Provide a `dataSource` (local array or Syncfusion `DataManager`) and map fields with `fields: { text, value }`
+3. Tune matching with `filterType` (`Contains`, `StartsWith`, `EndsWith`) and turn on `highlight` for visual feedback
+4. Customize appearance with `displayTemplate`, `itemTemplate`, `noRecordsTemplate`, `popupWidth`, and `popupHeight`
+5. Use `showMentionChar` to control whether the trigger character is rendered with the inserted mention
+6. Apply additional data operations with the `query` property (from `@syncfusion/ej2-data`)
+7. Handle the `mentionSelect` event to react to the user's choice (route, analytics, downstream AI context, etc.)
+
+### Custom Response Loading Animation
+Replace the default typing indicator with a branded animation while a response is being generated:
+1. Define a `responseAnimationContent` function (or string/JSX) that returns the loading UI
+2. Pass it to `<AIAssistViewComponent responseAnimationTemplate={responseAnimationContent} />`
+3. The animation is shown immediately after the prompt is submitted (or `executePrompt` runs) and is automatically removed when `addPromptResponse()` resolves
+4. Style the animation via CSS — common patterns include pulse grids, spinners, stage labels, or skeleton placeholders
 
 ---

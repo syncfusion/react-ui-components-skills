@@ -285,6 +285,71 @@ The following example displa*s the Y-axis value using currency *ormatting:
 
 **Note:** Add the format specifier inside the tooltip token after a colon, such as `${point.y:n2}`. The formatted output follows the chart's current locale.
 
+#### Raw Datasource Record in `tooltipRender`
+
+The complete source record for the hovered point is available only through `tooltipRender` as `args.data.rawData`. It is not a tooltip format token. Do not generate `${point.data.<field>}` for this feature.
+
+##### Complete HiloOpenClose sample
+
+```tsx
+import * as React from 'react';
+import {
+  Category, ChartComponent, HiloOpenCloseSeries, Inject, ITooltipRenderEventArgs,
+  SeriesCollectionDirective, SeriesDirective, Tooltip
+} from '@syncfusion/ej2-react-charts';
+
+interface HiloOpenCloseData {
+  x: string;
+  open: number;
+  high: number;
+  low: number;
+  close: number;
+}
+
+const data: HiloOpenCloseData[] = [
+  { x: 'Jan', open: 120, high: 160, low: 100, close: 140 },
+  { x: 'Feb', open: 150, high: 190, low: 130, close: 170 },
+  { x: 'Mar', open: 130, high: 170, low: 110, close: 150 },
+  { x: 'Apr', open: 160, high: 180, low: 120, close: 140 },
+  { x: 'May', open: 150, high: 170, low: 110, close: 130 }
+];
+
+export default function RawDataTooltipChart(): JSX.Element {
+  const tooltipRender = (args: ITooltipRenderEventArgs): void => {
+    if (!args.data || !args.data.rawData) {
+      return;
+    }
+    const rawData: HiloOpenCloseData = args.data.rawData as HiloOpenCloseData;
+    args.headerText = `<b>${rawData.x}</b>`;
+    args.text = [
+      `Open: ${rawData.open}`,
+      `High: ${rawData.high}`,
+      `Low: ${rawData.low}`,
+      `Close: ${rawData.close}`
+    ];
+  };
+
+  return (
+    <ChartComponent
+      id='raw-data-tooltip-chart'
+      title='HiloOpenClose Tooltip Using the Raw Datasource Record'
+      primaryXAxis={{ valueType: 'Category', title: 'Month', majorGridLines: { width: 0 } }}
+      primaryYAxis={{ title: 'Price', minimum: 80, maximum: 200, interval: 20 }}
+      tooltip={{ enable: true }}
+      tooltipRender={tooltipRender}
+    >
+      <Inject services={[Category, HiloOpenCloseSeries, Tooltip]} />
+      <SeriesCollectionDirective>
+        <SeriesDirective dataSource={data} type='HiloOpenClose' xName='x' high='high' low='low'
+          open='open' close='close' name='Price' />
+      </SeriesCollectionDirective>
+    </ChartComponent>
+  );
+}
+```
+
+Use datasource property names directly, such as `args.data.rawData.x` and `args.data.rawData.high`. Guard `args.data` and `args.data.rawData` before field access. The returned record is a deep copy, so changing it does not mutate the Chart datasource.
+
 ### Tooltip Customization
 
 ```jsx

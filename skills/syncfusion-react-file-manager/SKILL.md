@@ -15,6 +15,9 @@ A comprehensive guide to implementing the Syncfusion React File Manager componen
 **🚀 Just Getting Started?**  
 → Read [Getting Started](references/getting-started.md) for installation and basic setup
 
+**🛠️ Need Docker / Cloud Backend?**  
+→ See [Docker Deployment](references/docker-deployment.md) for Azure Blob Storage and Amazon S3 via the unified provider image
+
 **🛠️ Need to Build File Operations?**  
 → Check [File Operations (CRUD)](references/file-operations.md) for create, read, update, delete patterns
 
@@ -72,6 +75,8 @@ Use this skill when you need to:
 - Integrate accessibility features (keyboard navigation, ARIA)
 - Support internationalization and RTL languages
 - Connect to local or remote file systems
+- Deploy a hosted file service via the unified Syncfusion Docker provider image
+- Use Azure Blob Storage or Amazon S3 as the backend via container env vars
 
 ## Component Overview
 
@@ -97,6 +102,15 @@ The **File Manager** is a graphical user interface component for managing file s
 - CSS imports and theme configuration
 - Initial configuration and setup
 - Connection to file service (AjaxSettings)
+
+#### Docker Deployment
+📄 **Read:** [references/docker-deployment.md](references/docker-deployment.md)
+- Unified Syncfusion File Manager provider Docker image
+- Azure Blob Storage provider configuration
+- Amazon S3 provider configuration
+- docker-compose setup and environment variables
+- Client-side `ajaxSettings` wiring for the hosted service
+- Troubleshooting common service and DNS errors
 
 #### File Operations (CRUD)
 📄 **Read:** [references/file-operations.md](references/file-operations.md)
@@ -866,9 +880,10 @@ Support multiple languages and RTL:
 ## Next Steps
 
 1. **Start:** Read [references/getting-started.md](references/getting-started.md) for installation and basic setup
-2. **Implement:** Choose the feature references that match your requirements
-3. **Customize:** Review [references/customization.md](references/customization.md) for styling and configuration
-4. **Optimize:** Check [references/advanced-features.md](references/advanced-features.md) for performance and edge cases
-5. **Accessibility:** Ensure compliance with [references/accessibility-localization.md](references/accessibility-localization.md)
+2. **Backend:** For Azure Blob Storage / Amazon S3, see [references/docker-deployment.md](references/docker-deployment.md)
+3. **Implement:** Choose the feature references that match your requirements
+4. **Customize:** Review [references/customization.md](references/customization.md) for styling and configuration
+5. **Optimize:** Check [references/advanced-features.md](references/advanced-features.md) for performance and edge cases
+6. **Accessibility:** Ensure compliance with [references/accessibility-localization.md](references/accessibility-localization.md)
 
 ---

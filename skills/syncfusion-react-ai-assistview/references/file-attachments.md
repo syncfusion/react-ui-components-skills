@@ -631,7 +631,7 @@ const handleAttachmentRemoved = (args: any) => {
     console.log('File successfully removed from attachments');
 };
 
-<AIAssistViewComponent 
+<AIAssistViewComponent
     id="aiAssistView"
     ref={assistInstance}
     enableAttachments={true}
@@ -639,6 +639,103 @@ const handleAttachmentRemoved = (args: any) => {
     attachmentRemoved={handleAttachmentRemoved}
 />
 ```
+
+### attachmentRemoving Event
+
+The [attachmentRemoving](../api/ai-assistview#attachmentremoving) event is triggered **before** an attached file is removed in the AI AssistView. Use this hook to confirm with the user, log the pending removal, or cancel the action by setting `args.cancel = true`. The handler receives a `RemovingEventArgs` object that exposes the file metadata being removed.
+
+**index.tsx**
+
+```tsx
+import { AIAssistViewComponent, PromptRequestEventArgs, RemovingEventArgs } from '@syncfusion/ej2-react-interactive-chat';
+import * as React from 'react';
+import * as ReactDOM from "react-dom";
+
+function App() {
+
+    const attachmentSettings = {
+        saveUrl: 'https://services.syncfusion.com/js/production/api/FileUploader/Save',
+        removeUrl: 'https://services.syncfusion.com/js/production/api/FileUploader/Remove'
+    };
+
+    const assistInstance = React.useRef<AIAssistViewComponent>(null);
+
+    const attachmentRemoving = (args: RemovingEventArgs) => {
+        // Your required action here
+    };
+
+    const onPromptRequest = (args: PromptRequestEventArgs) => {
+        setTimeout(() => {
+            let defaultResponse = 'For real-time prompt processing, connect the AIAssistView component to your preferred AI service, such as OpenAI or Azure Cognitive Services. Ensure you obtain the necessary API credentials to authenticate and enable seamless integration.';
+            assistInstance.current.addPromptResponse(defaultResponse);
+          }, 1000);
+    };
+
+    return (
+        // specifies the tag for render the AI AssistView component
+        <AIAssistViewComponent id="aiAssistView" ref={assistInstance} promptRequest={onPromptRequest} enableAttachments={true} attachmentSettings= {attachmentSettings} attachmentRemoving={attachmentRemoving}></AIAssistViewComponent>
+    );
+}
+
+ReactDOM.render(<App />, document.getElementById('container'));
+```
+
+**index.jsx**
+
+```jsx
+import { AIAssistViewComponent } from '@syncfusion/ej2-react-interactive-chat';
+import * as React from 'react';
+import * as ReactDOM from "react-dom";
+
+function App() {
+    const attachmentSettings = {
+        saveUrl: 'https://services.syncfusion.com/js/production/api/FileUploader/Save',
+        removeUrl: 'https://services.syncfusion.com/js/production/api/FileUploader/Remove'
+    };
+
+    const assistInstance = React.useRef(null);
+
+    const attachmentRemoving = (args) => {
+        // Your required action here
+    };
+
+    const onPromptRequest = (args) => {
+        setTimeout(() => {
+            let defaultResponse = 'For real-time prompt processing, connect the AIAssistView component to your preferred AI service, such as OpenAI or Azure Cognitive Services. Ensure you obtain the necessary API credentials to authenticate and enable seamless integration.';
+            assistInstance.current.addPromptResponse(defaultResponse);
+          }, 1000);
+    };
+
+    return (
+        // specifies the tag for render the AI AssistView component
+        <AIAssistViewComponent id="aiAssistView" ref={assistInstance} promptRequest={onPromptRequest} enableAttachments={true} attachmentSettings= {attachmentSettings} attachmentRemoving={attachmentRemoving}></AIAssistViewComponent>
+    );
+}
+
+ReactDOM.render(<App />, document.getElementById('container'));
+```
+
+#### attachmentRemoving Use Cases
+
+- Show a confirmation dialog before actually removing the file
+- Log the pending removal for audit/analytics
+- Block removal of files that are still required (e.g. files referenced by a pending prompt) by setting `args.cancel = true`
+- Update related UI state in advance of the file being removed
+- Pair with the `attachmentRemoved` event to track both the *intent* and the *result* of file removal
+- The `RemovingEventArgs` typically includes the file metadata (name, size, type, status) and the standard `cancel` flag used by Syncfusion FileUploader to prevent the action
+
+#### attachmentRemoving Event Args
+
+The `attachmentRemoving` event handler receives a `RemovingEventArgs` object with the following properties:
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `cancel` | `boolean` | Defines whether the current action can be prevented. |
+| `currentRequest` | `XMLHttpRequest` | Returns the XMLHttpRequest instance that is associated with the remove action. |
+| `customFormData` | `{ [key: string]: Object }[]` | Defines the additional data with key and value pair format that will be submitted to the remove action. |
+| `event` | `MouseEvent \| TouchEvent \| KeyboardEventArgs` | Returns the original event arguments. |
+| `filesData` | `FileInfo[]` | Returns the list of files’ details that will be removed. |
+| `postRawFile` | `boolean` | Defines whether the selected raw file is sent to the server remove action. Set `true` to send the raw file, or `false` to send only the file name. |
 
 ### Complete Event Handling Example
 
@@ -748,6 +845,13 @@ export default App;
 - Clean up related data
 - Track file removal
 - Update form validation state
+
+**attachmentRemoving:**
+- Confirm with the user before removing the file
+- Log the pending removal for audit or analytics
+- Block removal of files still in use (set `args.cancel = true`)
+- Pre-update related UI state before the file disappears
+- Pair with `attachmentRemoved` to track both intent and result of removal
 
 ## Initializing Prompts with Attached Files
 

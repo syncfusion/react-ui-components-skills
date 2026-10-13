@@ -457,7 +457,7 @@ interface AxisModel {
   minorTickLines?: { visible?: boolean; width?: number; size?: number };
   opposedPosition?: boolean;
   crossesAt?: number;
-  labelIntersectAction?: 'None' | 'Hide' | 'Rotate45' | 'Rotate90' | 'Wrap' | 'MultipleRows';
+  labelIntersectAction?: 'None' | 'Hide' | 'Rotate45' | 'Rotate90' | 'Rotate45WithTrim' | 'Rotate90WithTrim' | 'Wrap' | 'MultipleRows';
   edgelabelPlacement?: 'None' | 'Hide' | 'Shift';
 }
 ```
@@ -515,6 +515,39 @@ interface MarkerSettingsModel {
   height?: number;
   fill?: string;
   border?: BorderModel;
+}
+```
+### DataLabelSettingsModel
+```typescript
+interface DataLabelSettingsModel {
+    visible?: boolean;
+    name?: string;
+    fill?: string;
+    opacity?: number;
+    angle?: number;
+    enableRotation?: boolean;
+    position?: LabelPosition;
+    alignment?: Alignment;
+    format?: string;
+    template?: string | Function;
+    rx?: number;
+    ry?: number;
+    border?: BorderModel;
+    margin?: MarginModel;
+    font?: FontModel;
+    enableSmartLabels?: boolean;
+    labelIntersectAction?: DataLabelIntersectActiontype //('None' | 'Hide' | 'Rotate90' | 'RelocateVertically' | 'RelocateHorizontally');
+    smartLabelSettings?: SmartLabelSettingsModel;
+}
+```
+### SmartLabelSettingsModel
+```typescript
+interface SmartLabelSettingsModel {
+    background?: string;
+    pointerShape?: SmartLabelPointerShape;
+    border?: BorderModel;
+    connectorLineStyle?: ConnectorLineStyleModel;
+    offset?: number;
 }
 ```
 
@@ -778,3 +811,77 @@ When using Syncfusion React Charts, ensure you:
 ✅ Enable features via settings (tooltip, zoom, legend, etc.)  
 
 ````
+
+---
+
+## WebMCP API Reference
+
+### ChartComponent properties
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `enableWebMcp` | `boolean` | `false` | Enables automatic Chart WebMCP tool registration after rendering. |
+| `webMcpSettings` | `ChartWebMcpSettingsModel` | `null` | Configures the registration prefix, selected built-in tools or custom tools, and permitted model contexts. |
+
+### `ChartWebMcpSettingsModel`
+
+| Property | Type | Default | Description |
+|---|---|---|---|
+| `name` | `string` | `null` | Prefix for registered tool names. The stable `ChartComponent` ID is used when omitted or empty. |
+| `tools` | `string[] \| WebMcpTool[]` | `null` | Built-in allowlist or custom tool definitions. Omit to register all built-ins. An empty array clears earlier registrations. |
+| `exposedTo` | `string[]` | `null` | Model contexts or origins that may access the tools. |
+
+### ChartComponent method
+
+| Method | Parameters | Returns | Description |
+|---|---|---|---|
+| `getWebMcpTools` | `tools?: string[]` | `WebMcpTool[]` | Returns executable copies of all or selected built-in tool definitions. |
+
+### ChartComponent event
+
+| Event | Type | Description |
+|---|---|---|
+| `beforeWebMcpToolExecute` | `WebMcpToolExecuteEventArgs` | Runs before tool execution and can cancel the operation or control confirmation. |
+
+### React usage
+
+```tsx
+import * as React from 'react';
+import {
+  Category, ChartComponent, ColumnSeries, Crosshair, Inject, Legend, LineSeries,
+  SeriesCollectionDirective, SeriesDirective, Tooltip, WebMcpChart, Zoom
+} from '@syncfusion/ej2-react-charts';
+
+export default function WebMcpChartSample(): JSX.Element {
+  return (
+    <ChartComponent
+      id='webmcp-chart'
+      enableWebMcp={true}
+      webMcpSettings={{ name: 'webmcpChart' }}
+      beforeWebMcpToolExecute={(args: any): void => {
+        if (args.toolName.endsWith('_printChart')) {
+          args.showConfirmationDialog = true;
+        }
+      }}
+    >
+      <Inject services={[
+        Category, LineSeries, ColumnSeries, Tooltip, Legend, Crosshair, Zoom, WebMcpChart
+      ]} />
+      <SeriesCollectionDirective>
+        <SeriesDirective type='Line' xName='x' yName='y' />
+      </SeriesCollectionDirective>
+    </ChartComponent>
+  );
+}
+```
+
+### React WebMCP rules
+
+- Inject `WebMcpChart`.
+- Preserve the source-sample modules: `Category`, `LineSeries`, `ColumnSeries`, `Tooltip`, `Legend`, `Crosshair`, `Zoom`, and `WebMcpChart`.
+- Do not add unrelated modules that are not represented in the source content.
+- Give `ChartComponent` a stable ID and set `enableWebMcp={true}`.
+- Registration is automatic. Do not call `registerWebMcpTools()` or generate a registration button.
+- Omit `tools` to register all built-in tools.
+- Use `getWebMcpTools()` only for retrieval, diagnostics, testing, or direct execution.
+

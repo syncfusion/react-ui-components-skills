@@ -254,6 +254,264 @@ primaryXAxis={{
 }}
 ```
 
+
+
+##### Axis label intersection configuration
+
+`labelIntersectAction` belongs directly inside `primaryXAxis`, `primaryYAxis`, or an additional axis object. It controls collisions between axis labels and is different from point data-label collision handling.
+
+```tsx
+<ChartComponent
+  primaryXAxis={{
+    valueType: 'Category',
+    labelIntersectAction: 'Rotate45WithTrim',
+    maximumLabelWidth: 90
+  }}
+>
+  <Inject services={[Category, ColumnSeries]} />
+</ChartComponent>
+```
+
+Use the actions as follows:
+
+- `None`: Leaves labels unchanged even when they overlap.
+- `Hide`: Hides labels that collide with previously rendered labels.
+- `Trim`: Trims intersecting labels and displays an ellipsis.
+- `Wrap`: Wraps intersecting labels into multiple lines.
+- `MultipleRows`: Moves colliding horizontal-axis labels into additional rows.
+- `Rotate45`: Rotates intersecting labels by 45 degrees.
+- `Rotate90`: Rotates intersecting labels by 90 degrees.
+- `Rotate45WithTrim`: Rotates labels by 45 degrees and trims text that exceeds the available width.
+- `Rotate90WithTrim`: Rotates labels by 90 degrees and trims text that exceeds the available width.
+
+Use `maximumLabelWidth` with trim or wrap actions when label bounds must remain predictable. Use `labelRotation` only when a fixed angle must be applied regardless of whether labels intersect.
+
+Do not nest the action under a `label` object:
+
+```tsx
+// Incorrect
+primaryXAxis={{
+  label: {
+    labelIntersectAction: 'Rotate45WithTrim'
+  }
+}}
+```
+
+Axis intersection does not require a dedicated React module. Inject the module required by the axis value type, such as `Category`, `DateTime`, `DateTimeCategory`, or `Logarithmic`, plus every rendered series module.
+
+
+#### Rotation with Trimming
+
+`labelIntersectAction` additionally supports the following actions for long intersecting axis labels:
+
+- `Rotate45WithTrim`: Rotates intersecting labels by 45 degrees and trims text that exceeds the available label bounds.
+- `Rotate90WithTrim`: Rotates intersecting labels by 90 degrees and trims text that exceeds the available label bounds.
+
+Use these actions when rotation is required but long labels must remain constrained to the available axis-label area. Unlike `Rotate45` and `Rotate90`, the trim variants apply trimming after rotation.
+
+##### Complete `Rotate45WithTrim` sample
+
+```tsx
+import * as React from 'react';
+import {
+  Category, ChartComponent, ColumnSeries, Inject, SeriesCollectionDirective, SeriesDirective, Tooltip
+} from '@syncfusion/ej2-react-charts';
+
+const data: Object[] = [
+  { department: 'Consumer Electronics and Accessories', revenue: 72 },
+  { department: 'Home Furniture and Interior Products', revenue: 58 },
+  { department: 'Sports Equipment and Outdoor Recreation', revenue: 64 },
+  { department: 'Personal Care and Beauty Products', revenue: 49 },
+  { department: 'Books, Education and Office Supplies', revenue: 55 },
+  { department: 'Automotive Parts and Maintenance', revenue: 46 }
+];
+
+export default function Rotate45WithTrimChart(): JSX.Element {
+  return (
+    <ChartComponent
+      id='rotate45-with-trim-chart'
+      title='Department Revenue with 45-Degree Rotation and Trimming'
+      primaryXAxis={{
+        valueType: 'Category',
+        title: 'Department',
+        labelIntersectAction: 'Rotate45WithTrim',
+        maximumLabelWidth: 90,
+        majorGridLines: { width: 0 }
+      }}
+      primaryYAxis={{ title: 'Revenue (Millions)', minimum: 0, maximum: 80, interval: 20, labelFormat: '${value}M' }}
+      tooltip={{ enable: true, format: '${point.x}: ${point.y}M' }}
+      legendSettings={{ visible: false }}
+    >
+      <Inject services={[Category, ColumnSeries, Tooltip]} />
+      <SeriesCollectionDirective>
+        <SeriesDirective dataSource={data} type='Column' xName='department' yName='revenue' name='Revenue' />
+      </SeriesCollectionDirective>
+    </ChartComponent>
+  );
+}
+```
+
+##### Complete `Rotate90WithTrim` sample
+
+```tsx
+import * as React from 'react';
+import {
+  Category, ChartComponent, ColumnSeries, Inject, SeriesCollectionDirective, SeriesDirective, Tooltip
+} from '@syncfusion/ej2-react-charts';
+
+const data: Object[] = [
+  { product: 'Professional Wireless Noise-Cancelling Headphones', units: 42 },
+  { product: 'Ultra-Wide High-Resolution Desktop Monitor', units: 36 },
+  { product: 'Ergonomic Adjustable Standing Workstation Desk', units: 31 },
+  { product: 'Smart Home Security and Monitoring System', units: 39 },
+  { product: 'Portable High-Capacity Power Station', units: 28 },
+  { product: 'Automatic Robotic Floor Cleaning System', units: 34 }
+];
+
+export default function Rotate90WithTrimChart(): JSX.Element {
+  return (
+    <ChartComponent
+      id='rotate90-with-trim-chart'
+      title='Product Sales with 90-Degree Rotation and Trimming'
+      primaryXAxis={{
+        valueType: 'Category',
+        title: 'Product',
+        labelIntersectAction: 'Rotate90WithTrim',
+        maximumLabelWidth: 100,
+        majorGridLines: { width: 0 }
+      }}
+      primaryYAxis={{ title: 'Units Sold', minimum: 0, maximum: 50, interval: 10 }}
+      tooltip={{ enable: true, format: '${point.x}: ${point.y} units' }}
+      legendSettings={{ visible: false }}
+    >
+      <Inject services={[Category, ColumnSeries, Tooltip]} />
+      <SeriesCollectionDirective>
+        <SeriesDirective dataSource={data} type='Column' xName='product' yName='units' name='Units Sold' />
+      </SeriesCollectionDirective>
+    </ChartComponent>
+  );
+}
+```
+
+#### Extended Axis Scrollbar Settings
+
+##### React module requirements and configuration placement
+
+Inject `ScrollBar` for Chart scrollbars and `Zoom` when scrolling participates in zooming or panning. Also inject the rendered series module and the module required by the axis value type.
+
+```tsx
+import {
+  Category, ChartComponent, Inject, LineSeries, ScrollBar, Zoom
+} from '@syncfusion/ej2-react-charts';
+```
+
+Two related configurations are available:
+
+- `zoomSettings.enableScrollbar` enables the standard scrollbar that follows the Chart zoom state.
+- `axis.scrollbarSettings` controls axis-specific appearance, placement, lazy-load range, and zoom behavior.
+
+```tsx
+<ChartComponent
+  id='scrollbar-chart'
+  primaryXAxis={{
+    valueType: 'Category',
+    zoomFactor: 0.5,
+    zoomPosition: 0,
+    scrollbarSettings: {
+      enable: true,
+      height: 16,
+      enableZoom: true,
+      position: 'PlaceNextToAxisLine',
+      scrollbarRadius: 4,
+      trackRadius: 4,
+      scrollbarColor: '#6B7280',
+      trackColor: '#E5E7EB',
+      gripColor: '#FFFFFF'
+    }
+  }}
+  zoomSettings={{
+    enableScrollbar: true,
+    enableSelectionZooming: true,
+    enableMouseWheelZooming: true,
+    enablePan: true,
+    mode: 'X'
+  }}
+>
+  <Inject services={[Category, LineSeries, ScrollBar, Zoom]} />
+</ChartComponent>
+```
+
+Use the settings as follows:
+
+- `enable`: Enables an axis scrollbar for lazy-loading workflows.
+- `pointsLength`: Defines the complete logical point count for numeric or logarithmic lazy loading.
+- `range`: Defines the complete minimum and maximum DateTime range.
+- `height`: Sets scrollbar thickness. Use `12` or greater when the grip-circle visual and grab cursor are required.
+- `enableZoom`: Enables thumb resizing, arrows, and scrollbar wheel zoom. Set it to `false` for pan-only behavior.
+- `position`: Use `Top` or `Bottom` for horizontal axes, `Left` or `Right` for vertical axes, or `PlaceNextToAxisLine` for axis-relative placement.
+- `scrollbarColor`, `trackColor`, and `gripColor`: Configure thumb, track, and grip colors.
+- `scrollbarRadius` and `trackRadius`: Configure thumb and track corner radii.
+
+For DateTime lazy loading, use `range` and inject `DateTime`:
+
+```tsx
+primaryXAxis={{
+  valueType: 'DateTime',
+  minimum: new Date(2025, 0, 1),
+  maximum: new Date(2025, 2, 31),
+  scrollbarSettings: {
+    enable: true,
+    range: {
+      minimum: new Date(2024, 0, 1),
+      maximum: new Date(2026, 11, 31)
+    },
+    enableZoom: true,
+    height: 16
+  }
+}}
+```
+
+For numeric or logarithmic lazy loading, use `pointsLength`:
+
+```tsx
+primaryXAxis={{
+  minimum: 0,
+  maximum: 100,
+  scrollbarSettings: {
+    enable: true,
+    pointsLength: 1000,
+    enableZoom: false,
+    height: 16
+  }
+}}
+```
+
+Use `scrollStart` for interaction start, `scrollChanged` for continuous range changes, and `scrollEnd` to request or apply lazy-loaded data after the final range is known.
+
+
+The axis scrollbar supports `enableZoom`, `scrollbarRadius`, `trackRadius`, `scrollbarColor`, `trackColor`, `gripColor`, and `position`. `enableZoom` defaults to `true`. When enabled, resize handles and wheel zoom are available. When disabled, the scrollbar is pan-only. A scrollbar height of 12 or greater enables the grip-circle visual and grab cursor.
+
+```tsx
+<ChartComponent
+  primaryXAxis={{
+    valueType: 'Category',
+    scrollbarSettings: {
+      enable: true,
+      height: 16,
+      enableZoom: true,
+      position: 'PlaceNextToAxisLine',
+      scrollbarRadius: 4,
+      trackRadius: 4,
+      scrollbarColor: '#6B7280',
+      trackColor: '#E5E7EB',
+      gripColor: '#FFFFFF'
+    }
+  }}
+>
+  <Inject services={[ScrollBar]} />
+</ChartComponent>
+```
+
 ### Grid Lines Configuration
 
 Control major and minor grid lines:

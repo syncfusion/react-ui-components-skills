@@ -5,6 +5,7 @@
 - [Banner Template](#banner-template)
 - [Prompt Item Template](#prompt-item-template)
 - [Response Item Template](#response-item-template)
+- [Response Animation Template](#response-animation-template)
 - [Suggestion Item Template](#suggestion-item-template)
 - [Footer Template](#footer-template)
 - [Template Context Data](#template-context-data)
@@ -13,13 +14,16 @@
 
 ## Template Architecture
 
-The AI AssistView provides five template customization points:
+The AI AssistView provides the following template customization points:
 
 1. **bannerTemplate**: Welcome/intro content at top
 2. **promptItemTemplate**: User message display
 3. **responseItemTemplate**: AI response display
 4. **promptSuggestionItemTemplate**: Suggestion item styling
 5. **footerTemplate**: Custom prompt input area
+4. **responseAnimationTemplate**: Custom loading indicator shown while a response is being generated
+5. **promptSuggestionItemTemplate**: Suggestion item styling
+6. **footerTemplate**: Custom prompt input area
 
 ## Banner Template
 
@@ -152,7 +156,7 @@ const responseItemTemplate = (props: any) => {
     );
 };
 
-<AIAssistViewComponent 
+<AIAssistViewComponent
     id="aiAssistView"
     responseItemTemplate={responseItemTemplate}
 />
@@ -174,6 +178,133 @@ const responseItemTemplate = (props: any) => {
     );
 };
 ```
+
+## Response Animation Template
+
+The [responseAnimationTemplate](../api/ai-assistview#responseanimationtemplate) property allows a custom loading indicator or animation to be shown while the AI AssistView is generating a response. The animation template is shown in place of the response and removed once the response is added.
+
+### Basic Response Animation
+
+The animation template accepts a function (or string/JSX.Element) that returns the loading UI. Below is a complete working example that renders a 3×3 pulsing grid with a `Generating` label while the AI service is producing the response.
+
+```tsx
+import { AIAssistViewComponent, PromptRequestEventArgs } from '@syncfusion/ej2-react-interactive-chat';
+import * as React from 'react';
+import * as ReactDOM from "react-dom";
+
+function App() {
+
+    const assistInstance = React.useRef<AIAssistViewComponent>(null);
+
+    const responseAnimationContent = () => {
+        return (
+            <div className="assistview-loading-status">
+                <div className="assistview-grid-icon">
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                    <span></span><span></span><span></span>
+                </div>
+                <span className="assistview-loading-label">Generating</span>
+            </div>
+        );
+    };
+
+    const onPromptRequest = (args: PromptRequestEventArgs) => {
+        setTimeout(() => {
+            let defaultResponse = 'For real-time prompt processing, connect the AIAssistView component to your preferred AI service, such as OpenAI or Azure Cognitive Services. Ensure you obtain the necessary API credentials to authenticate and enable seamless integration.';
+            assistInstance.current.addPromptResponse(defaultResponse);
+        }, 2000);
+    };
+
+    return (
+        <AIAssistViewComponent id="aiAssistView" ref={assistInstance} responseAnimationTemplate={responseAnimationContent} promptRequest={onPromptRequest}></AIAssistViewComponent>
+    );
+}
+
+ReactDOM.render(<App />, document.getElementById('container'));
+```
+
+### Companion CSS
+
+Use the following CSS to render the 3×3 pulse grid and the `Generating` label. Adjust colors and timings to match your brand.
+
+```css
+/* Represents the styles for loader */
+#loader {
+    color: #008cff;
+    height: 40px;
+    left: 45%;
+    position: absolute;
+    top: 45%;
+    width: 30%;
+}
+
+#container {
+  margin: 20px auto;
+}
+
+.assistview-loading-status {
+    display: flex;
+    gap: 10px;
+    color: #666;
+    font-family: "Segoe UI", system-ui, sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    line-height: 1.4;
+}
+
+.assistview-grid-icon {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    width: 18px;
+    height: 18px;
+    flex-shrink: 0;
+}
+
+.assistview-grid-icon span {
+    width: 4px;
+    height: 4px;
+    background: #8a8a8a;
+    border-radius: 1px;
+    opacity: 0.25;
+    animation: assistview-pulse 1.8s ease-in-out infinite;
+}
+
+.assistview-grid-icon span:nth-child(1) { animation-delay: 0s; }
+.assistview-grid-icon span:nth-child(2) { animation-delay: 0.1s; }
+.assistview-grid-icon span:nth-child(3) { animation-delay: 0.2s; }
+.assistview-grid-icon span:nth-child(4) { animation-delay: 0.3s; }
+.assistview-grid-icon span:nth-child(5) { animation-delay: 0.4s; }
+.assistview-grid-icon span:nth-child(6) { animation-delay: 0.5s; }
+.assistview-grid-icon span:nth-child(7) { animation-delay: 0.6s; }
+.assistview-grid-icon span:nth-child(8) { animation-delay: 0.7s; }
+.assistview-grid-icon span:nth-child(9) { animation-delay: 0.8s; }
+
+@keyframes assistview-pulse {
+    0%,
+    100% {
+        opacity: 0.25;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+```
+
+### When the Animation Is Shown
+
+- The `responseAnimationTemplate` is rendered in place of the response **immediately after the user submits a prompt** (or `executePrompt` is called).
+- It is **automatically removed** once `addPromptResponse()` is called and the response is added to the conversation.
+- If the response is canceled (e.g. via `stopRespondingClick`, `cancelPrompt`, or `failPrompt`), the animation template is also removed.
+- The template accepts a function (returning JSX/HTML), a string template, or a JSX element — same as the other `*Template` props.
+
+### Use Cases
+
+- **Spinner** — replace the default typing dots with a branded spinner.
+- **Stage labels** — show progress text such as "Searching the knowledge base…", "Analyzing your request…".
+- **Skeleton placeholder** — render a shimmer/skeleton block sized like the final response.
+- **Logo animation** — animate the AI assistant's avatar or logo while the response is being generated.
 
 ## Suggestion Item Template
 

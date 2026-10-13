@@ -147,6 +147,244 @@ import { LineSeries, Category, DataLabel, } from '@syncfusion/ej2-react-charts';
 
 ---
 
+
+
+##### Data-label intersection configuration
+
+Data-label intersection handling belongs inside `marker.dataLabel`. It is separate from axis `labelIntersectAction`, which belongs directly on an axis object.
+
+```tsx
+<SeriesDirective
+  dataSource={data}
+  type='Column'
+  xName='month'
+  yName='sales'
+  marker={{
+    dataLabel: {
+      visible: true,
+      position: 'Top',
+      labelIntersectAction: 'Hide'
+    }
+  }}
+/>
+```
+Use only actions supported by the target data-label implementation:
+
+- `None`: Leaves intersecting data labels unchanged.
+- `Hide`: Hides labels that overlap another data label.
+- `Rotate45` and `Rotate90`: Rotate intersecting data labels where supported.
+- `Trim` and `Wrap`: Constrain intersecting text where supported.
+- `RelocateVertically`: Relocates collided labels vertically for supported stacking-series families.
+- `RelocateHorizontally`: Lays out collided labels horizontally and wraps them into additional rows for supported stacking-series families.
+
+Do not use axis-only values such as `MultipleRows`, `Rotate45WithTrim`, or `Rotate90WithTrim` for data labels.
+
+
+
+#### Relocating Overlapping Data Labels
+
+`marker.dataLabel.labelIntersectAction` supports `RelocateVertically` and `RelocateHorizontally` for overlapping labels in `StackingColumn`, `StackingColumn100`, `StackingBar`, and `StackingBar100` series. Relocation occurs only for actual overlaps. Non-overlapping labels retain their normal position.
+
+`smartLabelSettings` controls the relocated-label `background`, `pointerShape`, `border`, `connectorLineStyle`, and `offset`. `offset` applies to vertical relocation; horizontal relocation uses an effective offset of 0.
+
+##### Complete `RelocateVertically` sample
+
+```tsx
+import * as React from 'react';
+import {
+  Category, ChartComponent, DataLabel, Inject, Legend, SeriesCollectionDirective, SeriesDirective,
+  StackingColumnSeries, Tooltip
+} from '@syncfusion/ej2-react-charts';
+
+const productData: Object[] = [
+  { quarter: 'Q1', value: 48 }, { quarter: 'Q2', value: 44 },
+  { quarter: 'Q3', value: 52 }, { quarter: 'Q4', value: 46 }
+];
+const serviceData: Object[] = [
+  { quarter: 'Q1', value: 3.8 }, { quarter: 'Q2', value: 2.9 },
+  { quarter: 'Q3', value: 3.4 }, { quarter: 'Q4', value: 2.7 }
+];
+const supportData: Object[] = [
+  { quarter: 'Q1', value: 2.6 }, { quarter: 'Q2', value: 3.2 },
+  { quarter: 'Q3', value: 2.4 }, { quarter: 'Q4', value: 3.1 }
+];
+const trainingData: Object[] = [
+  { quarter: 'Q1', value: 1.9 }, { quarter: 'Q2', value: 2.3 },
+  { quarter: 'Q3', value: 2.1 }, { quarter: 'Q4', value: 1.8 }
+];
+const marker: Object = {
+  dataLabel: {
+    visible: true,
+    position: 'Top',
+    format: '${value}',
+    labelIntersectAction: 'RelocateVertically',
+    font: { size: '12px', fontWeight: '600' },
+    margin: { left: 6, right: 6, top: 4, bottom: 4 },
+    smartLabelSettings: {
+      background: '#0F172A',
+      pointerShape: 'Arrow',
+      border: { color: '#334155', width: 1 },
+      connectorLineStyle: { color: '#64748B', width: 1, dashArray: '3,2' },
+      offset: 0.5
+    }
+  }
+};
+
+export default function VerticalRelocationChart(): JSX.Element {
+  return (
+    <ChartComponent
+      id='vertical-relocation-chart'
+      title='Vertically Relocated Labels for Small Stacked Segments'
+      primaryXAxis={{ valueType: 'Category', title: 'Quarter', majorGridLines: { width: 0 } }}
+      primaryYAxis={{ title: 'Revenue', minimum: 0, maximum: 70, interval: 10, labelFormat: '${value}M' }}
+      legendSettings={{ visible: true, position: 'Top' }}
+      tooltip={{ enable: true, shared: true, format: '${series.name}: ${point.y}M' }}
+    >
+      <Inject services={[Category, StackingColumnSeries, DataLabel, Legend, Tooltip]} />
+      <SeriesCollectionDirective>
+        <SeriesDirective dataSource={productData} type='StackingColumn' xName='quarter' yName='value'
+          name='Product' stackingGroup='Revenue' marker={marker} />
+        <SeriesDirective dataSource={serviceData} type='StackingColumn' xName='quarter' yName='value'
+          name='Services' stackingGroup='Revenue' marker={marker} />
+        <SeriesDirective dataSource={supportData} type='StackingColumn' xName='quarter' yName='value'
+          name='Support' stackingGroup='Revenue' marker={marker} />
+        <SeriesDirective dataSource={trainingData} type='StackingColumn' xName='quarter' yName='value'
+          name='Training' stackingGroup='Revenue' marker={marker} />
+      </SeriesCollectionDirective>
+    </ChartComponent>
+  );
+}
+```
+
+##### Complete `RelocateHorizontally` sample
+
+Use the same stacked data and change the marker configuration as follows. This demonstrates row wrapping and a connector without an arrow.
+
+```tsx
+const horizontalMarker: Object = {
+  dataLabel: {
+    visible: true,
+    position: 'Top',
+    format: '${value}',
+    labelIntersectAction: 'RelocateHorizontally',
+    font: { size: '12px', fontWeight: '600' },
+    margin: { left: 8, right: 8, top: 4, bottom: 4 },
+    smartLabelSettings: {
+      background: '#F5F3FF',
+      pointerShape: 'None',
+      border: { color: '#7C3AED', width: 1 },
+      connectorLineStyle: { color: '#7C3AED', width: 2, dashArray: '4,2' },
+      offset: 0.8
+    }
+  }
+};
+```
+
+For a complete generated sample, reuse the `VerticalRelocationChart` structure, bind `horizontalMarker` to every stacked series, and set the title to `Horizontally Relocated Labels with Row Wrapping`. The configured `offset: 0.8` is intentionally ignored because horizontal relocation uses an effective offset of 0.
+
+#### Stack Labels and Zero-Value Stack Handling
+
+##### Stack-label configuration and module requirements
+
+Stack labels are Chart-level aggregate labels. Configure them through the `stackLabels` prop on `ChartComponent`. Do not place `stackLabels` inside `marker.dataLabel`, and do not treat point data labels as stack totals.
+
+```tsx
+<ChartComponent
+  id='stack-label-chart'
+  stackLabels={{
+    visible: true,
+    format: '${value}',
+    position: 'Top',
+    alignment: 'Center',
+    fill: '#FFFFFF',
+    border: { color: '#64748B', width: 1 },
+    font: { color: '#0F172A', size: '12px', fontWeight: '600' },
+    margin: { left: 5, right: 5, top: 3, bottom: 3 }
+  }}
+>
+  <Inject services={[Category, StackingColumnSeries, DataLabel, Legend, Tooltip]} />
+</ChartComponent>
+```
+
+Use these rules:
+
+- `visible` must be `true`; using a stacking-series type alone does not display aggregate totals.
+- `format` formats the aggregate stack value, not an individual segment value.
+- `position` controls the supported stack-label position.
+- `alignment` controls horizontal alignment within the stack-label region.
+- `fill`, `border`, `font`, and `margin` configure stack-label appearance.
+- `marker.dataLabel` renders individual segment values. `stackLabels` renders one aggregate label for the completed stack.
+- Positive and negative stacks use their resolved aggregate location.
+- A zero-total category is anchored to the value-axis baseline, including a total produced when positive and negative values cancel each other.
+- Null and undefined segment values must not produce an invalid total.
+- Use `textRender` when stack-label text must be customized or cancelled through an event.
+
+Inject the stacking module used by the series, such as `StackingColumnSeries`, `StackingColumn100Series`, `StackingBarSeries`, `StackingBar100Series`, `StackingAreaSeries`, or `StackingLineSeries`. Inject `DataLabel` when individual segment data labels are enabled.
+
+When WebMCP can change a series into any stacking type, retain every supported stacking-series module and `WebMcpChart`. Do not inject only the stacking module used by the initial sample.
+
+
+`stackLabels` is a Chart-level configuration that displays the aggregate total for each visible stack. It is different from `marker.dataLabel`, which displays individual segment values. Set `stackLabels.visible` to `true`; stacking series do not display totals automatically.
+
+A stack that resolves to zero now renders a stack label at the value-axis baseline. This includes all-zero values, `null` or `undefined` values normalized to zero, and positive and negative values that cancel to zero.
+
+##### Complete React sample
+
+```tsx
+import * as React from 'react';
+import {
+  Category, ChartComponent, DataLabel, Inject, Legend, SeriesCollectionDirective, SeriesDirective,
+  StackingColumnSeries, Tooltip
+} from '@syncfusion/ej2-react-charts';
+
+const hardware: Object[] = [
+  { quarter: 'Q1', value: 30 }, { quarter: 'Q2', value: 0 },
+  { quarter: 'Q3', value: null }, { quarter: 'Q4', value: 18 }, { quarter: 'Q5', value: 10 }
+];
+const software: Object[] = [
+  { quarter: 'Q1', value: 22 }, { quarter: 'Q2', value: 0 },
+  { quarter: 'Q3', value: undefined }, { quarter: 'Q4', value: 15 }, { quarter: 'Q5', value: -10 }
+];
+const services: Object[] = [
+  { quarter: 'Q1', value: 18 }, { quarter: 'Q2', value: 0 },
+  { quarter: 'Q3', value: 0 }, { quarter: 'Q4', value: 12 }, { quarter: 'Q5', value: 0 }
+];
+const marker: Object = { dataLabel: { visible: true, position: 'Middle', font: { color: '#FFFFFF' } } };
+
+export default function StackLabelChart(): JSX.Element {
+  return (
+    <ChartComponent
+      id='stack-label-chart'
+      title='Stack Totals and Zero-Value Baseline Labels'
+      primaryXAxis={{ valueType: 'Category', title: 'Quarter', majorGridLines: { width: 0 } }}
+      primaryYAxis={{ title: 'Revenue', minimum: -20, maximum: 80, interval: 20, labelFormat: '${value}K' }}
+      stackLabels={{
+        visible: true,
+        format: '${value}',
+        font: { color: '#111827', size: '12px', fontWeight: '600' },
+        fill: '#FFFFFF',
+        border: { color: '#6B7280', width: 1 },
+        margin: { left: 5, right: 5, top: 3, bottom: 3 }
+      }}
+      legendSettings={{ visible: true, position: 'Top' }}
+      tooltip={{ enable: true, shared: true }}
+    >
+      <Inject services={[Category, StackingColumnSeries, DataLabel, Legend, Tooltip]} />
+      <SeriesCollectionDirective>
+        <SeriesDirective dataSource={hardware} type='StackingColumn' xName='quarter' yName='value'
+          name='Hardware' stackingGroup='Sales' marker={marker} />
+        <SeriesDirective dataSource={software} type='StackingColumn' xName='quarter' yName='value'
+          name='Software' stackingGroup='Sales' marker={marker} />
+        <SeriesDirective dataSource={services} type='StackingColumn' xName='quarter' yName='value'
+          name='Services' stackingGroup='Sales' marker={marker} />
+      </SeriesCollectionDirective>
+    </ChartComponent>
+  );
+}
+```
+
+`Q2` and `Q3` render zero labels because their values resolve to zero. `Q5` also resolves to zero because `10 + (-10) + 0 = 0`. The zero labels are anchored to the value-axis baseline.
+
 ## Dynamic Data Updates
 
 ### addPoint — Add a Single Data Point

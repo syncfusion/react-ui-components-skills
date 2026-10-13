@@ -19,6 +19,7 @@ Use this skill when you need to:
 - Customize chart appearance (colors, labels, legends, annotations)
 - Configure data labels (must be placed inside `marker.dataLabel`, not directly on the series)
 - Implement user interactions (selection, zooming, tooltips)
+- Enable WebMCP so browser model contexts and AI agents can inspect and operate the rendered Chart
 - Add financial indicators and technical analysis
 - Handle accessibility and internationalization
 - Troubleshoot chart rendering or data issues
@@ -34,6 +35,7 @@ Syncfusion React Chart is a powerful data visualization component that supports 
 - Advanced interactions (zoom, pan, crosshair, tooltip)
 - Responsive design and accessibility support
 - Print and export functionality
+- WebMCP integration with automatic tool registration, selected tool allowlists, execution control, and AI-agent access
 
 ---
 
@@ -98,6 +100,20 @@ Syncfusion React Chart is a powerful data visualization component that supports 
 - Tooltip and crosshair configuration
 - Synchronized charts
 - Event handling patterns
+
+#### WebMCP and AI Agent Integration
+  
+📄 **Read:** [references/webmcp.md](references/webmcp.md)
+- Generate complete React Chart WebMCP samples
+- Import and inject `WebMcpChart`
+- Set `enableWebMcp={true}` and use a stable `ChartComponent` ID
+- Configure `webMcpSettings.name`, `tools`, and `exposedTo`
+- Register all built-in tools automatically or restrict registration with a verified tool-name allowlist
+- Use `getWebMcpTools()` only for diagnostics, testing, or direct execution
+- Use `beforeWebMcpToolExecute` to validate, cancel, or control confirmation
+- Preserve the module injection list defined by the WebMCP reference sample
+- Do not generate a manual registration button or call `registerWebMcpTools()`
+- Validate generated tool names against the verified built-in tool list
 
 ### Advanced Features
 📄 **Read:** [references/advanced-features.md](references/advanced-features.md)
@@ -283,6 +299,7 @@ Choose the reference that matches your current need:
 - **Styling appearance?** → [Appearance and Styling](references/appearance-and-styling.md)
 - **Adding interactions?** → [User Interactions](references/user-interaction.md)
 - **Advanced features?** → [Advanced Features](references/advanced-features.md)
+- **Adding WebMCP or AI-agent access?** → [WebMCP](references/webmcp.md)
 
 ## External Resources
 
