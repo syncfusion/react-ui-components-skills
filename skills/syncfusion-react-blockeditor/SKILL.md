@@ -73,9 +73,11 @@ The BlockEditorComponent provides:
 ### Styling and Appearance
 📄 **Read:** [references/styling-and-appearance.md](references/styling-and-appearance.md)
 - CSS theming and imports
+- Theme customization with `--sf` CSS variables and Block Editor CSS classes/IDs
 - Block styling with custom CSS classes
 - Typography and formatting options
 - Dark mode and responsive design
+- Using Syncfusion Theme Studio for fully customized themes
 
 ### Advanced Features
 📄 **Read:** [references/advanced-features.md](references/advanced-features.md)
@@ -88,15 +90,18 @@ The BlockEditorComponent provides:
 
 ### Collaborative Editing
 📄 **Read:** [references/collaborative-editing.md](references/collaborative-editing.md)
+- Quick Start guide: 6-step setup for real-time collaboration using `y-websocket` and WebSocket server
+- Setting up a Vite React Block Editor, installing Yjs dependencies, and creating a WebSocket server on port 1234
+- Creating a `collaboration.ts` configuration file with shared Yjs document, adapter, and provider
 - Real-time collaborative editing powered by Yjs (CRDT-based sync and conflict resolution)
 - Injecting the `Collaboration` and `VersionHistory` modules
 - `collaborationSettings` property (provider, adapter, enableAwareness, versionHistory)
 - Choosing a Yjs provider (y-websocket, y-webrtc, y-indexeddb, Hocuspocus, Liveblocks, PartyKit)
-- Setting up a Yjs document, `YjsAdapter`, and provider
 - User presence, remote cursors, and text selection overlays (enableAwareness)
 - Configuring the current user via `users` and `currentUserId`
+- Room-based collaboration with URL hash-based room management
 - Version history: creating, listing, renaming, restoring, comparing, exporting, and importing snapshots
-- Custom snapshot storage via the `IVersionStorage` interface
+- Implementing custom snapshot storage via the `IVersionStorage` interface with `IndexedDBVersionStorage`
 - Version history events: `snapshotCreated`, `snapshotRestored`
 
 ### Accessibility

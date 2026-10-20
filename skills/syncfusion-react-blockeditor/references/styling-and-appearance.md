@@ -3,11 +3,15 @@
 ## Table of Contents
 - [CSS Theming](#css-theming)
 - [Available Themes](#available-themes)
+- [Theme Customization](#theme-customization)
+- [Block Editor CSS Classes and IDs](#block-editor-css-classes-and-ids)
+- [Block Editor CSS Variables](#block-editor-css-variables)
 - [Block Styling](#block-styling)
 - [Typography Options](#typography-options)
 - [Indentation and Nesting](#indentation-and-nesting)
 - [Placeholder Customization](#placeholder-customization)
 - [Dark Mode Support](#dark-mode-support)
+- [Using Theme Studio](#using-theme-studio)
 - [Custom Styling Examples](#custom-styling-examples)
 
 ## CSS Theming
@@ -86,6 +90,489 @@ function ThemeSwitcher() {
             </select>
         </div>
     );
+}
+```
+
+## Theme Customization
+
+The Block Editor provides flexible theme customization options to help match the editor appearance with your application design. You can customize built-in themes by overriding CSS variables, targeting specific CSS classes/IDs, or create a fully customized theme using Syncfusion Theme Studio.
+
+### Default CSS Override
+
+The Block Editor uses CSS variables with the unified `--sf` naming convention. These variables control colors, typography, backgrounds, borders, icons, and other visual elements across the editor.
+
+### Block Editor CSS Classes and IDs
+
+| Selector                      | Purpose                            |
+| ----------------------------- | ---------------------------------- |
+| `.e-blockeditor`              | Main Block Editor element          |
+| `.e-active`                   | Active Block Editor element        |
+| `.e-selected`                 | Selected Block Editor element      |
+| `.e-list-item`                | Dropdown or list item              |
+| `.e-dropdownbase`             | Dropdown container                 |
+| `.e-table-element`            | Block Editor table element         |
+| `#blockeditor_contextmenu`    | Block Editor context menu          |
+| `#blockeditor_code-ddl_popup` | Code block language dropdown popup |
+
+### Block Editor CSS Variables
+
+| Variable                               | Purpose                  |
+| -------------------------------------- | ------------------------ |
+| `--color-sf-content-bg-color`          | Content background       |
+| `--color-sf-content-bg-color-hover`    | Hover background         |
+| `--color-sf-content-bg-color-selected` | Selected background      |
+| `--color-sf-content-bg-color-pressed`  | Pressed background       |
+| `--color-sf-content-text-color`        | Content text color       |
+| `--color-sf-content-text-color-alt1`   | Alternate text color     |
+| `--color-sf-placeholder-text-color`    | Placeholder text color   |
+| `--color-sf-border-light`              | Light border color       |
+| `--color-sf-border`                    | Border color             |
+| `--color-sf-border-hover`              | Hover border color       |
+| `--color-sf-border-selected`           | Selected border color    |
+| `--color-sf-primary`                   | Primary color            |
+| `--color-sf-primary-bg-color`          | Primary background color |
+| `--color-sf-primary-border-color`      | Primary border color     |
+| `--color-sf-primary-text-color`        | Primary text color       |
+| `--color-sf-icon-color`                | Icon color               |
+
+### Theme Customization Example
+
+The following example demonstrates how to customize the Block Editor appearance using CSS variable overrides with multiple built-in themes.
+
+```tsx
+import * as React from 'react';
+import * as ReactDOM from 'react-dom';
+import { useState } from 'react';
+import { BlockEditorComponent, ContentType } from '@syncfusion/ej2-react-blockeditor';
+
+const blockData = [
+  {
+    blockType: 'Heading',
+    properties: { level: 1 },
+    content: [{ contentType: ContentType.Text, content: 'Block Editor - All Block Types' }]
+  },
+  {
+    blockType: 'Paragraph',
+    content: [
+      { contentType: ContentType.Text, content: 'This sample shows every block type used once, including a ' },
+      { contentType: ContentType.Text, content: 'bold', properties: { styles: { bold: true } } },
+      { contentType: ContentType.Text, content: ' word, a ' },
+      {
+        contentType: ContentType.Link,
+        content: 'link',
+        properties: { url: 'https://ej2.syncfusion.com/documentation/block-editor/getting-started' }
+      },
+      { contentType: ContentType.Text, content: ', a mention ' },
+      { contentType: ContentType.Mention, properties: { userId: 'user1' } },
+      { contentType: ContentType.Text, content: ', and a label ' },
+      { contentType: ContentType.Label, properties: { labelId: 'progress' } },
+      { contentType: ContentType.Text, content: '.' }
+    ]
+  },
+  {
+    blockType: 'BulletList',
+    content: [{ contentType: ContentType.Text, content: 'Bullet list item' }]
+  },
+  {
+    blockType: 'NumberedList',
+    content: [{ contentType: ContentType.Text, content: 'Numbered list item' }]
+  },
+  {
+    blockType: 'Checklist',
+    properties: { isChecked: true },
+    content: [{ contentType: ContentType.Text, content: 'Checklist item' }]
+  },
+  {
+    blockType: 'Quote',
+    properties: {
+      children: [
+        {
+          blockType: 'Paragraph',
+          content: [{ contentType: ContentType.Text, content: 'Quote block example.' }]
+        }
+      ]
+    }
+  },
+  {
+    blockType: 'Code',
+    content: [{ contentType: ContentType.Text, content: 'function greet(name) {\n  return `Hello, ${name}!`;\n}' }]
+  },
+  {
+    blockType: 'CollapsibleParagraph',
+    content: [{ contentType: ContentType.Text, content: 'Toggle block example', properties: { styles: { bold: true } } }],
+    properties: {
+      isExpanded: false,
+      children: [
+        {
+          blockType: 'Paragraph',
+          content: [{ contentType: ContentType.Text, content: 'Collapsed content goes here.' }]
+        }
+      ]
+    }
+  },
+  {
+    blockType: 'Table',
+    properties: {
+      columns: [{ headerText: 'Name' }, { headerText: 'Role' }, { headerText: 'Status' }],
+      rows: [
+        {
+          cells: [
+            { blocks: [{ blockType: 'Paragraph', content: [{ contentType: ContentType.Text, content: 'Arun Kumar' }] }] },
+            { blocks: [{ blockType: 'Paragraph', content: [{ contentType: ContentType.Text, content: 'Developer' }] }] },
+            { blocks: [{ blockType: 'Paragraph', content: [{ contentType: ContentType.Text, content: 'Active' }] }] }
+          ]
+        },
+        {
+          cells: [
+            { blocks: [{ blockType: 'Paragraph', content: [{ contentType: ContentType.Text, content: 'Divya Sharma' }] }] },
+            { blocks: [{ blockType: 'Paragraph', content: [{ contentType: ContentType.Text, content: 'Designer' }] }] },
+            { blocks: [{ blockType: 'Paragraph', content: [{ contentType: ContentType.Text, content: 'Active' }] }] }
+          ]
+        }
+      ]
+    }
+  },
+  { blockType: 'Divider' }
+];
+
+const users = [{ id: 'user1', user: 'Andrews', avatarUrl: 'https://ej2.syncfusion.com/demos/src/block-editor/images/andrew.png' }];
+
+function App() {
+  const [theme, setTheme] = useState('slateLightTheme');
+
+  return (
+    <div className={theme}>
+      <div className="container">
+        <h2>Block Editor - Theme Customization</h2>
+
+        <div className="theme-switcher">
+          <button onClick={() => setTheme('slateLightTheme')}>Slate Light</button>
+          <button onClick={() => setTheme('sageGreenTheme')}>Sage Green</button>
+          <button onClick={() => setTheme('darkProTheme')}>Dark Pro</button>
+        </div>
+
+        <BlockEditorComponent
+          id="block-editor"
+          width="100%"
+          height="600px"
+          blocks={blockData}
+          users={users}
+        />
+      </div>
+    </div>
+  );
+}
+export default App;
+
+ReactDOM.render(<App />, document.getElementById('container'));
+```
+
+```css
+/* Theme Customization Styles */
+
+body {
+  margin: 0;
+  font-family: "Segoe UI", sans-serif;
+  background: #f4f5f7;
+  color: #1f2937;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+#container {
+  padding: 40px 20px;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+#loader {
+  color: #008cff;
+  font-size: 14px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.container {
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 24px;
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.5);
+  backdrop-filter: blur(10px);
+  transition: all 0.3s ease;
+}
+
+h2 {
+  margin: 0 0 16px;
+  font-size: 2rem;
+  color: inherit;
+  font-weight: 600;
+}
+
+/* =====================================
+   THEME SWITCHER
+   ===================================== */
+
+/* Theme button container */
+.theme-switcher {
+  margin-bottom: 15px;
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+}
+
+/* Theme buttons */
+.theme-switcher button {
+  padding: 10px 16px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  cursor: pointer;
+  background: #fff;
+  color: #303030;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+/* Theme button hover state */
+.theme-switcher button:hover {
+  background-color: #f0f0f0;
+  border-color: #999;
+}
+
+/* Active theme button */
+.theme-switcher button.active {
+  background: inherit;
+  border-color: inherit;
+}
+
+/* =====================================
+   SLATE LIGHT THEME
+   ===================================== */
+
+/* Block Editor appearance */
+.slateLightTheme .e-blockeditor {
+  /* Background Colors */
+  --color-sf-content-bg-color: #f8f7f4;
+  --color-sf-content-bg-color-hover: #efede7;
+  --color-sf-content-bg-color-selected: #e7e5df;
+  --color-sf-content-bg-color-pressed: #dcd9d2;
+
+  /* Text Colors */
+  --color-sf-content-text-color: #2f3437;
+  --color-sf-content-text-color-alt1: #1f2328;
+  --color-sf-placeholder-text-color: #787774;
+
+  /* Border Colors */
+  --color-sf-border-light: #e7e5df;
+  --color-sf-border: #d0cdc7;
+  --color-sf-border-hover: #8b8b8b;
+  --color-sf-border-selected: #5f5f5f;
+
+  /* Primary Accent */
+  --color-sf-primary: #2563eb;
+  --color-sf-primary-bg-color: #2563eb;
+  --color-sf-primary-border-color: #2563eb;
+  --color-sf-primary-text-color: #ffffff;
+
+  /* Icons */
+  --color-sf-icon-color: #6b7280;
+
+  background: #f8f7f4 !important;
+  border: 1px solid #d0cdc7;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+}
+
+/* Context menu and popup styling */
+body.slateLightTheme #blockeditor_contextmenu,
+body.slateLightTheme .e-content .e-dropdownbase,
+body.slateLightTheme #blockeditor_code-ddl_popup {
+  background: #ffffff;
+  border: 1px solid #d0cdc7;
+  color: #2f3437;
+}
+
+/* Dropdown items */
+body.slateLightTheme #blockeditor_code-ddl_popup .e-list-item {
+  background: #ffffff !important;
+  color: #2f3437 !important;
+}
+
+/* Dropdown hover state */
+body.slateLightTheme #blockeditor_code-ddl_popup .e-list-item:hover {
+  background: #efede7 !important;
+  color: #1f2328 !important;
+}
+
+/* Selected dropdown item */
+body.slateLightTheme #blockeditor_code-ddl_popup .e-selected,
+body.slateLightTheme #blockeditor_code-ddl_popup .e-active {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* Table headers */
+.slateLightTheme .e-blockeditor .e-table-element thead th {
+  background: #2563eb !important;
+  color: #ffffff !important;
+}
+
+/* =====================================
+   SAGE GREEN THEME
+   ===================================== */
+
+/* Block Editor appearance */
+.sageGreenTheme .e-blockeditor {
+  /* Background Colors */
+  --color-sf-content-bg-color: #f6f8f4;
+  --color-sf-content-bg-color-hover: #edf2e8;
+  --color-sf-content-bg-color-selected: #dfe8d5;
+  --color-sf-content-bg-color-pressed: #d2dfc4;
+
+  /* Text Colors */
+  --color-sf-content-text-color: #2f3e2f;
+  --color-sf-content-text-color-alt1: #243224;
+  --color-sf-placeholder-text-color: #6b7a61;
+
+  /* Border Colors */
+  --color-sf-border-light: #dfe8d5;
+  --color-sf-border: #c8d5b9;
+  --color-sf-border-hover: #7a9b5f;
+  --color-sf-border-selected: #6b8e23;
+
+  /* Primary Accent */
+  --color-sf-primary: #6b8e23;
+  --color-sf-primary-bg-color: #6b8e23;
+  --color-sf-primary-border-color: #6b8e23;
+  --color-sf-primary-text-color: #ffffff;
+
+  /* Icons */
+  --color-sf-icon-color: #5f7d3b;
+
+  background: #f6f8f4 !important;
+  border: 1px solid #c8d5b9;
+  border-radius: 20px;
+  box-shadow: 0 8px 24px rgba(107, 142, 35, 0.12);
+}
+
+/* Context menu and popup styling */
+body.sageGreenTheme #blockeditor_contextmenu,
+body.sageGreenTheme .e-content .e-dropdownbase,
+body.sageGreenTheme #blockeditor_code-ddl_popup {
+  background: #fbfcfa;
+  border: 1px solid #c8d5b9;
+  color: #2f3e2f;
+}
+
+/* Dropdown items */
+body.sageGreenTheme #blockeditor_code-ddl_popup .e-list-item {
+  background: #fbfcfa !important;
+  color: #2f3e2f !important;
+}
+
+/* Dropdown hover state */
+body.sageGreenTheme #blockeditor_code-ddl_popup .e-list-item:hover {
+  background: #edf2e8 !important;
+  color: #4d6530 !important;
+}
+
+/* Selected dropdown item */
+body.sageGreenTheme #blockeditor_code-ddl_popup .e-selected,
+body.sageGreenTheme #blockeditor_code-ddl_popup .e-active {
+  background: #6b8e23 !important;
+  color: #ffffff !important;
+}
+
+/* Table headers */
+.sageGreenTheme .e-blockeditor .e-table-element thead th {
+  background: #6b8e23 !important;
+  color: #ffffff !important;
+}
+
+/* =====================================
+   DARK PRO THEME
+   ===================================== */
+
+/* Block Editor appearance */
+.darkProTheme .e-blockeditor {
+  /* Background Colors */
+  --color-sf-content-bg-color: #0d1117;
+  --color-sf-content-bg-color-hover: #161b22;
+  --color-sf-content-bg-color-selected: #21262d;
+  --color-sf-content-bg-color-pressed: #30363d;
+
+  /* Text Colors */
+  --color-sf-content-text-color: #e6edf3;
+  --color-sf-content-text-color-alt1: #ffffff;
+  --color-sf-placeholder-text-color: #7d8590;
+
+  /* Border Colors */
+  --color-sf-border-light: #21262d;
+  --color-sf-border: #30363d;
+  --color-sf-border-hover: #58a6ff;
+  --color-sf-border-selected: #58a6ff;
+
+  /* Primary Accent */
+  --color-sf-primary: #1f6feb;
+  --color-sf-primary-bg-color: #1f6feb;
+  --color-sf-primary-border-color: #1f6feb;
+  --color-sf-primary-text-color: #ffffff;
+
+  /* Icons */
+  --color-sf-icon-color: #8b949e;
+
+  background: #0d1117 !important;
+  border: 1px solid #30363d;
+  border-radius: 20px;
+  box-shadow: 0 12px 32px rgba(0, 0, 0, 0.55);
+}
+
+/* Context menu and popup styling */
+body.darkProTheme #blockeditor_contextmenu,
+body.darkProTheme .e-content .e-dropdownbase,
+body.darkProTheme #blockeditor_code-ddl_popup {
+  background: #161b22;
+  border: 1px solid #30363d;
+  color: #e6edf3;
+  border-radius: 12px;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* Dropdown items */
+body.darkProTheme #blockeditor_code-ddl_popup .e-list-item {
+  background: #161b22 !important;
+  color: #e6edf3 !important;
+}
+
+/* Dropdown hover state */
+body.darkProTheme #blockeditor_code-ddl_popup .e-list-item:hover {
+  background: #21262d !important;
+  color: #ffffff !important;
+}
+
+/* Selected dropdown item */
+body.darkProTheme #blockeditor_code-ddl_popup .e-selected,
+body.darkProTheme #blockeditor_code-ddl_popup .e-active {
+  background: #1f6feb !important;
+  color: #ffffff !important;
+}
+
+/* Table headers */
+.darkProTheme .e-blockeditor .e-table-element thead th {
+  background: #1f6feb !important;
+  color: #ffffff !important;
+}
+
+/* Active editor elements */
+.darkProTheme .e-blockeditor .e-active,
+.darkProTheme .e-blockeditor .e-selected {
+  color: #58a6ff !important;
+}
+
+/* Links */
+.darkProTheme .e-blockeditor a {
+  color: #58a6ff !important;
 }
 ```
 
@@ -467,6 +954,18 @@ function AppWithDarkMode() {
     color: #e0e0e0;
 }
 ```
+
+## Using Theme Studio
+
+Syncfusion Theme Studio provides an advanced way to create a fully customized theme for the Block Editor and other EJ2 components.
+
+1. Visit the [Syncfusion<sup style="font-size:70%">&reg;</sup> Theme Studio](https://ej2.syncfusion.com/themestudio/).
+2. Select a base theme such as Material 3, Fluent 2, Bootstrap 5.3, or Tailwind 3.
+3. Customize colors, typography, borders, and component styles.
+4. Download the generated CSS file.
+5. Include the generated theme in your application.
+
+This approach ensures consistent styling across all Syncfusion components in your application.
 
 ## Custom Styling Examples
 

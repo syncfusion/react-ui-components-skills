@@ -1,113 +1,95 @@
 # Getting Started with Block Editor
 
 ## Table of Contents
-- [Installation](#installation)
+- [Create a React Application](#create-a-react-application)
+- [Adding Syncfusion Block Editor Packages](#adding-syncfusion-block-editor-packages)
+- [Adding a CSS Reference](#adding-a-css-reference)
+- [Add the Block Editor Component](#add-the-block-editor-component)
 - [Basic Implementation](#basic-implementation)
-- [CSS Imports](#css-imports)
 - [Creating Your First Document](#creating-your-first-document)
 - [Setting Initial Content](#setting-initial-content)
+- [Component Sizing](#component-sizing)
 - [Running the Application](#running-the-application)
 
-## Installation
+## Create a React Application
 
-To install the Syncfusion BlockEditor component, use npm:
+Run the following commands to set up a React application:
+
+```bash
+npm create vite@latest my-app -- --template react-ts
+```
+
+This command prompts you to configure the React application. Select ESLint and for install with npm, choose No.
+
+As Syncfusion packages are not installed yet, currently, the `No` option will be selected. Then, navigate to the project directory and install the dependencies using the following commands:
+
+```
+cd my-app
+npm install
+```
+
+> **Note:** To set up a React application with Nextjs or Remix, refer to this [documentation](https://ej2.syncfusion.com/react/documentation/getting-started/quick-start) for more details.
+
+## Adding Syncfusion Block Editor Packages
+
+All available Essential JS 2 packages are published in the [`npmjs.com`](https://www.npmjs.com/~syncfusionorg) public registry.
+
+To install the Block Editor component package, use the following command:
 
 ```bash
 npm install @syncfusion/ej2-react-blockeditor --save
 ```
 
-This installs the core BlockEditor package for React applications.
+## Adding a CSS Reference
 
-## Basic Implementation
+Syncfusion provides multiple themes for the Block Editor component. For a complete list of available themes, refer to the [themes packages](https://ej2.syncfusion.com/react/documentation/appearance/theme#theme-packages).
 
-### Functional Component Example
-
-```tsx
-import { BlockEditorComponent } from '@syncfusion/ej2-react-blockeditor';
-import * as React from 'react';
-
-function App() {
-    return (
-        // Create a basic block editor component
-        <BlockEditorComponent id="block-editor"></BlockEditorComponent>
-    );
-}
-
-export default App;
-```
-
-### Class Component Example
-
-```tsx
-import { BlockEditorComponent } from '@syncfusion/ej2-react-blockeditor';
-import * as React from 'react';
-
-export default class App extends React.Component<{}, {}> {
-    public render() {
-        return (
-            // Create a basic block editor component
-            <BlockEditorComponent id="block-editor"></BlockEditorComponent>
-        );
-    }
-}
-```
-
-Both functional and class components are supported. The `id` prop is required and serves as the unique identifier for the component instance.
-
-## CSS Imports
-
-Install the theme package that matches your application. This example uses `Tailwind 3`:
+To install the [tailwind3](https://www.npmjs.com/package/@syncfusion/ej2-tailwind3-theme) theme package, use the following command:
 
 ```bash
-npm install @syncfusion/ej2-tailwind3-theme
+npm install @syncfusion/ej2-tailwind3-theme --save
 ```
 
-Add the theme stylesheet to your `src/App.css`:
+Import the required CSS theme files for the Block Editor and its dependencies in your `src/App.css` file.
+
+```css
+@import '../node_modules/@syncfusion/ej2-tailwind3-theme/styles/blockeditor/index.css';
+```
+> To apply the application-specific styles correctly, import **App.css** into **src/App.tsx** and remove all the default styles from **src/index.css**.
+
+## Add the Block Editor Component
+
+Add the BlockEditorComponent to your application. Replace the contents of `src/App.tsx` with the following code:
+
+```typescript
+// Import the BlockEditor.
+import { BlockEditorComponent } from '@syncfusion/ej2-react-blockeditor';
+import * as React from 'react';
+import './App.css';
+// To render BlockEditor.
+function App() {
+  return (
+    <BlockEditorComponent id="block-editor"></BlockEditorComponent>
+  );
+}
+export default App;
+```
 
 ```css
 @import '../node_modules/@syncfusion/ej2-tailwind3-theme/styles/blockeditor/index.css';
 ```
 
-> Replace `tailwind3` with your preferred theme name (`material3`, `bootstrap5`, `fabric`, `fluent2`, etc) install the corresponding package, and use the same theme name in the CSS import path.
+> **Note:** This guide assumes React 18+. The Vite template mounts the app into a `<div id="root">` element in `index.html` via `src/main.tsx` using `createRoot`. Ensure your `main.tsx` renders the `App` component into that node.
 
-Example for Tailwind theme:
+## Basic Implementation
 
-```css
-@import "../node_modules/@syncfusion/ej2-base/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-splitbuttons/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind3.css";
-@import "../node_modules/@syncfusion/ej2-react-blockeditor/styles/tailwind3.css";
-```
+The basic setup above provides a functional Block Editor component. Both functional and class components are supported. The `id` prop is required and serves as the unique identifier for the component instance.
+
+This creates an empty block editor where users can start typing or use the "/" command to insert blocks.
 
 ## Creating Your First Document
 
 Create a simple React component with the BlockEditor:
-
-```tsx
-import { BlockEditorComponent } from '@syncfusion/ej2-react-blockeditor';
-import * as React from 'react';
-import * as ReactDOM from 'react-dom';
-import '@syncfusion/ej2-react-blockeditor/styles/material.css';
-
-function App() {
-    return (
-        <div style={{ padding: '20px' }}>
-            <h1>My First Block Editor</h1>
-            <BlockEditorComponent id="block-editor"></BlockEditorComponent>
-        </div>
-    );
-}
-
-export default App;
-
-ReactDOM.render(<App />, document.getElementById('container'));
-```
-
-This creates an empty block editor where users can start typing or use the "/" command to insert blocks.
 
 ## Setting Initial Content
 
@@ -245,35 +227,13 @@ export default App;
 | `width` | `string \| number` | `'100%'` | Width of the editor container |
 | `height` | `string \| number` | `'auto'` | Height of the editor container |
 
----
+## Run the application
 
-## Running the Application
+Now, run the `npm run dev` command in your terminal to start the development server.
 
-After setting up your component and CSS imports:
-
-### For Vite
-
-```bash
+```
 npm run dev
 ```
-
-The development server typically starts at `http://localhost:5173`
-
-### For Create React App
-
-```bash
-npm start
-```
-
-The development server typically starts at `http://localhost:3000`
-
-### For Next.js
-
-```bash
-npm run dev
-```
-
-The development server typically starts at `http://localhost:3000`
 
 Your BlockEditor should now be ready to use! Users can:
 - Type directly in the editor
