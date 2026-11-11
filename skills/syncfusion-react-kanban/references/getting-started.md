@@ -20,19 +20,20 @@ This installs the core Kanban component and its dependencies.
 
 ## CSS Imports
 
-Import the required CSS files in your `src/App.css` or main component file. Choose the theme that matches your design:
+Install the **Tailwind 3** theme package using the following command:
 
-### Tailwind Theme (Default)
+```bash
+npm install @syncfusion/ej2-tailwind3-theme --save
+```
+Then add the following CSS reference to the **src/App.css** file:
+
 ```css
-@import '../node_modules/@syncfusion/ej2-base/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-buttons/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-dropdowns/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-inputs/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-layouts/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-navigations/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-popups/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-notifications/styles/tailwind3.css';
-@import '../node_modules/@syncfusion/ej2-kanban/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-tailwind3-theme/styles/kanban/index.css';
+```
+Then import the stylesheet in `src/App.tsx`:
+
+```tsx
+import './App.css';
 ```
 
 ### Other Available Themes
@@ -50,6 +51,7 @@ Import the required Kanban components and create your first board:
 import * as React from 'react';
 import * as ReactDOM from 'react-dom';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
+import './App.css';
 
 function App() {
   return (
@@ -84,6 +86,7 @@ import * as ReactDOM from 'react-dom';
 import { extend } from '@syncfusion/ej2-base';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
 import { kanbanData } from './datasource';
+import './App.css';
 
 function App(): JSX.Element {
   const data = extend([], kanbanData, null, true);
@@ -126,6 +129,7 @@ import * as ReactDOM from 'react-dom';
 import { extend } from '@syncfusion/ej2-base';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
 import { kanbanData } from './datasource';
+import './App.css';
 
 function App(): JSX.Element {
   // Data structure: { Id: string, Status: string, Summary: string }
@@ -169,6 +173,7 @@ import * as ReactDOM from 'react-dom';
 import { extend } from '@syncfusion/ej2-base';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from "@syncfusion/ej2-react-kanban";
 import { kanbanData } from './datasource';
+import './App.css';
 
 function App(): JSX.Element {
   // Data structure: { Id: string, Status: string, Summary: string, Assignee: string }

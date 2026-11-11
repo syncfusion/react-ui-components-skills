@@ -152,7 +152,11 @@ Here's a minimal Kanban board with 3 columns and 5 cards:
 ```tsx
 import React from 'react';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-react-kanban';
-import '@syncfusion/ej2-react-kanban/styles/material.css';
+import './App.css';
+
+// In App.css, ensure you have imported the theme CSS
+// @import '../node_modules/@syncfusion/ej2-tailwind3-theme/styles/kanban/index.css';
+
 
 
 export default function KanbanQuickStart(): JSX.Element {

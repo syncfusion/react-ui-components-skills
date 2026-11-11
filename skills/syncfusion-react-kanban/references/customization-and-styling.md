@@ -12,39 +12,39 @@
 
 ## Built-in Themes
 
-### Material Theme (Default)
+### Material Theme
 ```css
-@import '../node_modules/@syncfusion/ej2-kanban/styles/material.css';
+@import '../node_modules/@syncfusion/ej2-material-theme/styles/kanban/index.css';
 ```
 Modern, clean design inspired by Material Design.
 
 ### Bootstrap Theme
 ```css
-@import '../node_modules/@syncfusion/ej2-kanban/styles/bootstrap.css';
+@import '../node_modules/@syncfusion/ej2-bootstrap-theme/styles/kanban/index.css';
 ```
 Bootstrap-compatible styling.
 
 ### Bootstrap 4 Theme
 ```css
-@import '../node_modules/@syncfusion/ej2-kanban/styles/bootstrap4.css';
+@import '../node_modules/@syncfusion/ej2-bootstrap4-theme/styles/kanban/index.css';
 ```
 Bootstrap 4 styling for modern layouts.
 
 ### Fluent Theme
 ```css
-@import '../node_modules/@syncfusion/ej2-kanban/styles/fluent.css';
+@import '../node_modules/@syncfusion/ej2-fluent-theme/styles/kanban/index.css';
 ```
 Microsoft Fluent Design System styling.
 
 ### Tailwind Theme
 ```css
-@import '../node_modules/@syncfusion/ej2-kanban/styles/tailwind3.css';
+@import '../node_modules/@syncfusion/ej2-tailwind3-theme/styles/kanban/index.css';
 ```
 Tailwind CSS compatible styling.
 
 ### High Contrast Theme
 ```css
-@import '../node_modules/@syncfusion/ej2-kanban/styles/highcontrast.css';
+@import '../node_modules/@syncfusion/ej2-highcontrast-theme/styles/kanban/index.css';
 ```
 High contrast for accessibility and low-vision users.
 
