@@ -769,7 +769,7 @@ background progress bar fill, and content/style hooks at every stage of the oper
 | Enable the background progress fill | [`references/how-to-enable-progress-in-button.md`](references/progressbutton-how-to-enable-progress-in-button.md) |
 | Hide the spinner (show only progress bar) | [`references/how-to-hide-spinner.md`](references/progressbutton-how-to-hide-spinner.md) |
 | Vertical, top, or reverse progress fill | [`references/how-to-customize-progress-using-cssclass.md`](references/progressbutton-how-to-customize-progress-using-cssclass.md) |
-| Change button text / CSS class while progress runs | [`references/how-to-change-text-content-and-styles-of-the-progressbutton-during-progress.md`](references/progressbutton-how-to-change-text-content-and-styles-of-the-progressbutton-during-progress.md) |
+| Change button text / CSS class while progress runs | [`references/how-to-change-text-content-and-styles-of-the-progressbutton-during-progress.md`](references/progressbutton-text-style-during-progress.md) |
 | Trace / handle lifecycle events | [`references/how-to-trace-events-of-progress-button.md`](references/progressbutton-how-to-trace-events-of-progress-button.md) |
 | Full API reference (all props, events, methods, types) | [`references/api.md`](references/progressbutton-api.md) |
 
@@ -893,7 +893,7 @@ let progressBtn: ProgressButtonComponent;
 | [`references/how-to-enable-progress-in-button.md`](references/progressbutton-how-to-enable-progress-in-button.md) | `enableProgress` how-to |
 | [`references/how-to-hide-spinner.md`](references/progressbutton-how-to-hide-spinner.md) | `e-hide-spinner` how-to |
 | [`references/how-to-customize-progress-using-cssclass.md`](references/progressbutton-how-to-customize-progress-using-cssclass.md) | Vertical / top / reverse fill |
-| [`references/how-to-change-text-content-and-styles-of-the-progressbutton-during-progress.md`](references/progressbutton-how-to-change-text-content-and-styles-of-the-progressbutton-during-progress.md) | Dynamic text/style during progress |
+| [`references/how-to-change-text-content-and-styles-of-the-progressbutton-during-progress.md`](references/progressbutton-text-style-during-progress.md) | Dynamic text/style during progress |
 | [`references/how-to-trace-events-of-progress-button.md`](references/progressbutton-how-to-trace-events-of-progress-button.md) | Event tracing example |
 | [`references/api.md`](references/progressbutton-api.md) | Full API: props, events, methods, types |
 
